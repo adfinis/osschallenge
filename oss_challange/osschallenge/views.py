@@ -1,13 +1,29 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 from django.views import generic
 
 from .models import Task, Project
 
 
-def IndexView(generic.ListView):
+class IndexView(generic.ListView):
 	template_name = 'osschallenge/index.html'
 	context_object_name = 'project_list'
 
 	def get_queryset(self):
-		return Project.objects.filter
+		return Project.objects
+
+
+class ProjectView(generic.DetailView):
+	model = Project
+	template_name = 'osschallenge/project.html'
+
+
+class TaskIndexView(generic.ListView):
+	template_name = 'osschallenge/taskindex.html'
+	context_object_name = 'task_list'
+
+	def get_queryset(self):
+		return Task.objects.filter(Task.project = Project.id)
+
+
+class TaskView(generic.DetailView):
+	model = Task
+	template_name = 'osschallenge/task.html'
