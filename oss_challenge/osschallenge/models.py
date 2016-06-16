@@ -3,44 +3,44 @@ from django.db import models
 
 
 class Role(models.Model):
-	role = models.CharField(max_length=50)
+    role = models.CharField(max_length=50)
 
 
 class Groups(models.Model):
-	group = models.CharField(max_length=50)
+    group = models.CharField(max_length=50)
 
 
 class User(models.Model):
-	surname = models.CharField(max_length=50)
-	lastname = models.CharField(max_length=50)
-	role = models.ForeignKey(Role)
-	tasks_done = models.IntegerField(default=0)
-	points = models.IntegerField(default=0)
-	mail = models.CharField(max_length=50)
-	nickname = models.CharField(max_length=25)
+    surname = models.CharField(max_length=50)
+    lastname = models.CharField(max_length=50)
+    role = models.ForeignKey(Role)
+    tasks_done = models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
+    mail = models.CharField(max_length=50)
+    nickname = models.CharField(max_length=25)
 
 
 class Project(models.Model):
-	title = models.CharField(max_length=50)
-	lead_text = models.CharField(max_length=300)
-	description = models.TextField
-	licence = models.CharField(max_length=50)
-	website = models.CharField(max_length=50)
-	github = models.CharField(max_length=50)
-	owner = models.ForeignKey(User, related_name = "project_owner")
-	mentors = models.ManyToManyField(User, related_name = "project_mentors")
+    title = models.CharField(max_length=50)
+    lead_text = models.CharField(max_length=300)
+    description = models.TextField
+    licence = models.CharField(max_length=50)
+    website = models.CharField(max_length=50)
+    github = models.CharField(max_length=50)
+    owner = models.ForeignKey(User, related_name = "project_owner")
+    mentors = models.ManyToManyField(User, related_name = "project_mentors")
 
 
 class Task(models.Model):
-	title = models.CharField(max_length=50)
-	lead_text = models.CharField(max_length=300)
-	description = models.TextField
-	mentor = models.ForeignKey(User, related_name = "task_mentor")
-	project = models.ForeignKey(Project)
-	contributers = models.ManyToManyField(
-            User, 
-            related_name = "task_contributers"
-        )
+    title = models.CharField(max_length=50)
+    lead_text = models.CharField(max_length=300)
+    description = models.TextField
+    mentor = models.ForeignKey(User, related_name = "task_mentor")
+    project = models.ForeignKey(Project)
+    contributers = models.ManyToManyField(
+        User, 
+        related_name = "task_contributers"
+    )
 
 
 class Picture(models.Model):

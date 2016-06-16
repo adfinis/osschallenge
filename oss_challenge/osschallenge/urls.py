@@ -6,7 +6,7 @@ urlpatterns = [
         views.ProjectIndexView.as_view(), 
         name='projectindex'),
 
-    url(r'^projects/(?P<project_id>[0-9]+)/$',
+    url(r'^projects/(?P<pk>[0-9]+)/$',
         views.ProjectView.as_view(), 
         name='project'),
 
@@ -14,7 +14,7 @@ urlpatterns = [
         views.TaskIndexView.as_view(), 
         name='taskindex'),
 
-    url(r'^tasks/(?P<task_id>[0-9]+)', 
+    url(r'^tasks/(?P<pk>[0-9]+)', 
         views.TaskView.as_view(), 
         name='task'),
 ]
