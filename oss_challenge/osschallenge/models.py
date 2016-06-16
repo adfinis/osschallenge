@@ -27,25 +27,28 @@ class Project(models.Model):
 	licence = models.CharField(max_length=50)
 	website = models.CharField(max_length=50)
 	github = models.CharField(max_length=50)
-	owner = models.ForeignKey(User)
-	mentors = models.ManyToManyField(User)
+	owner = models.ForeignKey(User, related_name = "project_owner")
+	mentors = models.ManyToManyField(User, related_name = "project_mentors")
 
 
 class Task(models.Model):
 	title = models.CharField(max_length=50)
 	lead_text = models.CharField(max_length=300)
 	description = models.TextField
-	mentor = models.ForeignKey(User)
+	mentor = models.ForeignKey(User, related_name = "task_mentor")
 	project = models.ForeignKey(Project)
-	contributers = models.ManyToManyField(User)
+	contributers = models.ManyToManyField(
+            User, 
+            related_name = "task_contributers"
+        )
 
 
 class Picture(models.Model):
-	project = models.ForeignKey(Project)
-	picture = models.CharField(max_length=50)
+    project = models.ForeignKey(Project)
+    picture = models.CharField(max_length=50)
 
 
 class Comment(models.Model):
-	task = models.ForeignKey(Task)
-	comment = models.CharField(max_length=150)
-	author = models.ForeignKey(User)
+    task = models.ForeignKey(Task)
+    comment = models.CharField(max_length=150)
+    author = models.ForeignKey(User)

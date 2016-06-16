@@ -3,12 +3,12 @@ from django.views import generic
 from .models import Task, Project
 
 
-class IndexView(generic.ListView):
-	template_name = 'osschallenge/index.html'
+class ProjectIndexView(generic.ListView):
+	template_name = 'osschallenge/projectindex.html'
 	context_object_name = 'project_list'
 
 	def get_queryset(self):
-		return Project.objects
+		return Project.objects.all()
 
 
 class ProjectView(generic.DetailView):
@@ -21,7 +21,7 @@ class TaskIndexView(generic.ListView):
 	context_object_name = 'task_list'
 
 	def get_queryset(self):
-		return Task.objects.filter(project = Project.id)
+		return Task.objects.all()
 
 
 class TaskView(generic.DetailView):
