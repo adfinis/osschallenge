@@ -7,12 +7,12 @@ class Role(models.Model):
 
 
 class Groups(models.Model):
-	group = models.CharField(max_lenth=50)
+	group = models.CharField(max_length=50)
 
 
 class User(models.Model):
-	surname = models.Charfield(max_length=50)
-	lastname = models.Charfield(max_length=50)
+	surname = models.CharField(max_length=50)
+	lastname = models.CharField(max_length=50)
 	role = models.ForeignKey(Role)
 	tasks_done = models.IntegerField(default=0)
 	points = models.IntegerField(default=0)

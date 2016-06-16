@@ -21,7 +21,7 @@ class TaskIndexView(generic.ListView):
 	context_object_name = 'task_list'
 
 	def get_queryset(self):
-		return Task.objects.filter(Task.project = Project.id)
+		return Task.objects.filter(project = Project.id)
 
 
 class TaskView(generic.DetailView):
