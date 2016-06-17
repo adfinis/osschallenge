@@ -1,7 +1,15 @@
-<h1>{{ task.title }}</h1>
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'osschallenge/stylesheet.css'%}"/>
+
+<h1>{{ task.title }} -- <a href="/projects/{{ task.project.id }}">{{ task.project.title }}</a></h1>
 
 {% if error_message %} <p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <p>{{ task.lead_text }}</p>
 <p>{{ task.description }}</p>
-
+<h3>Kontakt:</h3>
+<p>{{ task.mentor.nickname }}
+    <br>{{ task.mentor.surname }} {{ task.mentor.lastname }}
+    <br>{{ task.mentor.mail }}
+</p>

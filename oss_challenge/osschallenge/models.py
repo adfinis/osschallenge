@@ -23,7 +23,7 @@ class User(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=50)
     lead_text = models.CharField(max_length=300)
-    description = models.TextField
+    description = models.CharField(max_length=1000)
     licence = models.CharField(max_length=50)
     website = models.CharField(max_length=50)
     github = models.CharField(max_length=50)
@@ -34,9 +34,9 @@ class Project(models.Model):
 class Task(models.Model):
     title = models.CharField(max_length=50)
     lead_text = models.CharField(max_length=300)
-    description = models.TextField
+    description = models.CharField(max_length=1000)
     mentor = models.ForeignKey(User, related_name = "task_mentor")
-    project = models.ForeignKey(Project)
+    project = models.ForeignKey(Project, related_name = "task_project")
     contributers = models.ManyToManyField(
         User, 
         related_name = "task_contributers"

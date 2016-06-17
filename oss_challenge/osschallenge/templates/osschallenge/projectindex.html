@@ -1,7 +1,14 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'osschallenge/stylesheet.css' %}"/>
+
 {% if project_list %}
 	<ul>
 	{% for project in project_list %}
-		<li><a href="/projects/{{ project.id }}">{{ project.title }}</a></li>
+		<li class="index">
+            <a href="/projects/{{ project.id }}">{{ project.title }}</a>
+            <p>{{ project.lead_text }}</p>
+        </li>
 	{% endfor %}
 	</ul>
 {% else %}
