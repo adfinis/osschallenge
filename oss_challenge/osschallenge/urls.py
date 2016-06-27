@@ -14,7 +14,11 @@ urlpatterns = [
         views.TaskIndexView.as_view(), 
         name='taskindex'),
 
-    url(r'^tasks/(?P<pk>[0-9]+)', 
+    url(r'^tasks/(?P<pk>[0-9]+)/$', 
         views.TaskView.as_view(), 
         name='task'),
+
+    url(r'^tasks/(?P<pk>[0-9]+)/edit/$',
+        views.EditTaskView.as_view(),
+        name='edittask'),
 ]
