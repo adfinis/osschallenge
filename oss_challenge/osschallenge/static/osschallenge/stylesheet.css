@@ -13,13 +13,39 @@ ul {
     margin: 10px;
     padding: 5px;
 }
+
+h1 a {
+    text-decoration: none;
+    color: black;
+}
+
 li.index a {
     text-decoration: none;
     font-weight: bold;
     color: black;
 }
 
-h1 a {
-    text-decoration: none;
-    color: black;
+.edit {
+    display: block;
+    margin: 10px;
+}
+
+.edit_title {
+    
+}
+
+.edit_lead_text {
+    resize: none;
+}
+
+.edit_description {
+    resize: none;
+}
+
+.edit_mentor {
+
+}
+
+.save_edit {
+
 }

@@ -2,8 +2,47 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'osschallenge/stylesheet.css'%}"/>
 
-<form action="" method="post">
+<h1>{{ task.title }} - Edit</h1>
+<form action="" method="post" id="taskform" />
     {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit" />
+    
+    <input 
+        type="text" 
+        class="edit edit_title" 
+        name="title"
+        value="{{ task.title }}"
+    />
+    
+    <textarea 
+        class="edit edit_lead_text" 
+        name="lead_text"
+        rows="3"
+        cols="100"
+        maxlength="300"
+    >{{ task.lead_text }}</textarea>
+    
+    <textarea 
+        class="edit edit_description" 
+        name="description"
+        rows="7"
+        cols="100"
+    >{{ task.description }}</textarea>
+    
+    <select 
+        name="mentor"
+        form="taskform"
+        class="edit edit_mentor"
+    >
+    {% for mentor in mentor_list %}
+        <option
+        {% if project.mentor.nickname == temp.nickname %}selected="selected"{% endif %}
+        >{{ mentors.nickname }}</option>
+    {% endfor %}
+    </select>
+    
+    <input
+        class="edit save_edit"
+        type="submit" 
+        value="Save" 
+    />
 </form>
