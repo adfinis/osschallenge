@@ -1,6 +1,5 @@
 from django.views import generic
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, render
 
 from .models import Task, Project
 from .forms import TaskForm
@@ -32,18 +31,15 @@ class TaskView(generic.DetailView):
     template_name = 'osschallenge/task.html'
 
 
-class EditTaskView(generic.DetailView):
-    model = Task
-    template_name = 'osschallenge/edittask.html'
+def EditTaskView(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
 
-    def get_task(request):
-        if request.method == 'POST':
-            form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save()
+            return redirect('task.html', pk=task.pk)
 
-            if form.is_valid():
-                return HttpResponseRedirect('')
+    else:
+        form = TaskForm()
 
-        else:
-            form = TaskForm()
-
-        return render(request, 'edittask.html', {'form': form})
+    return render(request, 'osschallenge/edittask.html', {'form': form})

@@ -19,6 +19,6 @@ urlpatterns = [
         name='task'),
 
     url(r'^tasks/(?P<pk>[0-9]+)/edit/$',
-        views.EditTaskView.as_view(),
+        views.EditTaskView,
         name='edittask'),
 ]
