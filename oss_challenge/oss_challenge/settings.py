@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'osschallenge.apps.OsschallengeConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE_CLASSES = [

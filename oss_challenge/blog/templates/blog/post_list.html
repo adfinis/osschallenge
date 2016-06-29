@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>post_list</title>
+    </head>
+    <body>
+        <h1>post_list works!</h1>
+        {% for post in posts %}
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{{ post.lead_text }}</p>
+        {% endfor %}
+        <a href="{% url 'post_new' %}">New</a>
+    </body>
+</html>
