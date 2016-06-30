@@ -10,6 +10,10 @@ urlpatterns = [
         views.ProjectView.as_view(), 
         name='project'),
 
+    url(r'^projects/(?P<pk>[0-9]+)/edit/$',
+        views.EditProjectView,
+        name='editproject'),
+
     url(r'^tasks/$', 
         views.TaskIndexView.as_view(), 
         name='taskindex'),

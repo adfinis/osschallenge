@@ -4,10 +4,16 @@ from django.db import models
 
 class Role(models.Model):
     role = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.role
 
 
 class Groups(models.Model):
     group = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.group
 
 
 class User(models.Model):
@@ -19,6 +25,9 @@ class User(models.Model):
     mail = models.CharField(max_length=50)
     nickname = models.CharField(max_length=25)
 
+    def __str__(self):
+        return self.nickname
+
 
 class Project(models.Model):
     title = models.CharField(max_length=50)
@@ -29,6 +38,9 @@ class Project(models.Model):
     github = models.CharField(max_length=50)
     owner = models.ForeignKey(User, related_name = "project_owner")
     mentors = models.ManyToManyField(User, related_name = "project_mentors")
+
+    def __str__(self):
+        return self.title
 
 
 class Task(models.Model):
@@ -42,13 +54,22 @@ class Task(models.Model):
         related_name = "task_contributers"
     )
 
+    def __str__(self):
+        return self.title
+
 
 class Picture(models.Model):
     project = models.ForeignKey(Project)
     picture = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.picture
 
 
 class Comment(models.Model):
     task = models.ForeignKey(Task)
     comment = models.CharField(max_length=150)
     author = models.ForeignKey(User)
+
+    def __str__(self):
+        return self.comment
