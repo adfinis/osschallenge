@@ -5,6 +5,12 @@ from .models import Task, Project
 from .forms import TaskForm, ProjectForm
 
 
+def IndexView(request):
+    template_name = 'osschallenge/index.html'
+    
+    return render(request, template_name)
+
+
 class ProjectIndexView(generic.ListView):
     template_name = 'osschallenge/projectindex.html'
     context_object_name = 'project_list'

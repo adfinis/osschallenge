@@ -1,16 +1,18 @@
-{% load staticfiles %}
+{% extends 'osschallenge/index.html' %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'osschallenge/stylesheet.css' %}"/>
+{% block title %}Projects{% endblock title %}
 
-{% if project_list %}
-	<ul>
-	{% for project in project_list %}
-		<li class="index">
-            <a href="/projects/{{ project.id }}">{{ project.title }}</a>
-            <p>{{ project.lead_text }}</p>
-        </li>
-	{% endfor %}
-	</ul>
-{% else %}
-	<p>No projects available.</p>
-{% endif %}
+{% block content %}
+    {% if project_list %}
+        <ul class="index">
+        {% for project in project_list %}
+            <li>
+                <a href="/projects/{{ project.id }}">{{ project.title }}</a>
+                <p>{{ project.lead_text }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No projects available.</p>
+    {% endif %}
+{% endblock content %}

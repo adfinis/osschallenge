@@ -2,6 +2,10 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    url(r'^$',
+        views.IndexView,
+        name='index'),
+
     url(r'^projects/$', 
         views.ProjectIndexView.as_view(), 
         name='projectindex'),

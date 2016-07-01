@@ -1,19 +1,90 @@
 body {
     margin: 0;
+    background-color: white;
+}
+
+/* Base Template */
+
+div.main {
+    width: 1200px;
+    margin: auto;
+}
+
+div.header {
+    width: 100%;
+    height: 15%;
+    background-color: white;
+}
+
+div.header a {
+    color: black;
+    text-decoration: none;
+}
+
+div.header a img {
+    height: 100%;
+    float: left;
+}
+
+div.navbar {
+    height: 6%;
+    width: 100%;
+}
+
+div.navbar ul {
+    list-style: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+div.navbar ul li {
+    display: inline-block;
+    height: 100%;
+    width: 196px;
+    text-align: center;
+    border: 2px solid black;
+    background-color: #BABABA;
+    float: left;
+    color: black;
+}
+
+div.navbar ul li:hover {
+    background-color: #DEDEDE;
+}
+
+div.content {
+    background-color: #E8E8E8;
+    width: 100%;
+    height: 100%;
+    margin: 3px 0 0 0;
+}
+
+div.footer {
+    width: 100%;
+    height: 15%;
+    background-color: #BABABA;
 }
 
 /* Index Lists */
 
-ul {
-    padding: 0
+ul.index {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-.index {
+ul.index li {
     display: block;
-    border: solid black 3px;
-    list-style: none;
-    margin: 10px;
+    border: 2px solid black;
+    margin-bottom: 10px;
     padding: 5px;
+}
+
+ul.index li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
 }
 
 h1 a {
@@ -21,13 +92,13 @@ h1 a {
     color: black;
 }
 
-li.index a {
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
+/* Task View */
+
+h1.tasktitle {
+    margin-top: 0;
 }
 
-/* Edit Task */
+/* Edit Task/Project */
 
 .edit {
     margin: 10px;

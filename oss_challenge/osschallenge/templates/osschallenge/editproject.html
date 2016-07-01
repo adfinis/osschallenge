@@ -1,14 +1,16 @@
-{% load staticfiles %}
+{% extends 'osschallenge/index.html' %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'osschallenge/stylesheet.css' %}"/>
+{% block title %}{{ project.title }}{% endblock title %}
 
-<h1>{{ project.title }} - Edit</h1>
-<form action="" method="post"/>
-    {% csrf_token %}
-    {% for field in form %}
-        <div class="edit">
-            {{ field }}
-        </div>
-    {% endfor %}
-    <input type="submit" value="Save"/>
-</form>
+{% block content %}
+    <h1>{{ project.title }} - Edit</h1>
+    <form action="" method="post"/>
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="edit">
+                {{ field }}
+            </div>
+        {% endfor %}
+        <input type="submit" value="Save"/>
+    </form>
+{% endblock content %}

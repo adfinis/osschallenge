@@ -1,0 +1,39 @@
+{% load staticfiles %}
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'osschallenge/stylesheet.css'%}"/>
+        <title>
+            {% block title %}
+            {% endblock title %}
+        </title>
+    </head>
+    <body>
+        <div class="main">
+            <div class="header">
+                <a href="/">
+                    <img 
+                        src="{% static 'osschallenge/logo.jpg' %}"/>
+                    <h1>OSS-Challenge</h1>
+                </a>
+            </div>
+            <div class="navbar">
+                <ul>
+                    <a href="/"><li>Home</li></a>
+                    <a href="/projects/"><li>Projects</li></a>
+                    <a href="/tasks/"><li>Tasks</li></a>
+                    <a href="/"><li>Profile</li></a>
+                    <a href="/"><li>Ranking</li></a>
+                    <a href="/"><li>About</li></a>
+                </ul>
+            </div>
+            <div class="content">
+                <br>
+                {% block content %}
+                {% endblock content %}
+            </div>
+            <div class="footer">
+            </div>
+        </div>
+    </body>
+</html>
