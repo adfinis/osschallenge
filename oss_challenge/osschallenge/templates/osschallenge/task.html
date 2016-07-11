@@ -3,22 +3,24 @@
 {% block title %}{{ task.title }}{% endblock title%}
 
 {% block content %}
-    <h1 class="tasktitle">{{ task.title }} --
-        <a 
-            href="/projects/{{ task.project.id }}"
-        >{{ task.project.title }}</a>
-    </h1>
+    <div class="detail">
+        <h1 class="tasktitle">{{ task.title }} --
+            <a 
+                href="/projects/{{ task.project.id }}"
+            >{{ task.project.title }}</a>
+        </h1>
 
-    {% if error_message %} <p><strong>{{ error_message }}</strong></p>{% endif %}
+        {% if error_message %} <p><strong>{{ error_message }}</strong></p>{% endif %}
 
-    <p>{{ task.lead_text }}</p>
-    <p>{{ task.description }}</p>
-    <h3>Kontakt:</h3>
-    <p>{{ task.mentor.nickname }}
-        <br>{{ task.mentor.surname }} {{ task.mentor.lastname }}
-        <br>{{ task.mentor.mail }}
-    </p>
-    <a href="edit/">
-        <button>Edit</button>
-    </a>
+        <p>{{ task.lead_text }}</p>
+        <p>{{ task.description }}</p>
+        <h3>Kontakt:</h3>
+        <p>{{ task.mentor.nickname }}
+            <br>{{ task.mentor.surname }} {{ task.mentor.lastname }}
+            <br>{{ task.mentor.mail }}
+        </p>
+        <a href="edit/">
+            <button>Edit</button>
+        </a>
+    </div>
 {% endblock content %}

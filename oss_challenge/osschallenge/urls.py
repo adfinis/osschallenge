@@ -29,4 +29,8 @@ urlpatterns = [
     url(r'^tasks/(?P<pk>[0-9]+)/edit/$',
         views.EditTaskView,
         name='edittask'),
+
+    url(r'^user/(?P<pk>[0-9]+)/$',
+        views.ProfileView.as_view(),
+        name='profile'),
 ]

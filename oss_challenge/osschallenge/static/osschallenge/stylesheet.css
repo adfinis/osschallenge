@@ -46,7 +46,7 @@ div.navbar ul li {
     border: 2px solid #115599;
     background-color: white;
     float: left;
-    color: black;
+    color: #115599;
 }
 
 div.navbar ul li:hover {
@@ -93,18 +93,30 @@ h1 a {
     color: black;
 }
 
-/* Task View */
+/* DetailView */
 
 h1.tasktitle {
     margin-top: 0;
 }
 
+div.detail {
+    border: 2px solid #115599;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
 /* Edit Task/Project */
 
-.edit {
-    margin: 10px;
+.edit  {
+    margin: 10px 0;
+}
+
+div.edit input {
+
+    width: 950px;
 }
 
 div.edit textarea {
     resize: none;
+    width: 950px;
 }

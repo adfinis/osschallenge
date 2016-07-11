@@ -1,7 +1,7 @@
 from django.views import generic
 from django.shortcuts import redirect, render, get_object_or_404
 
-from .models import Task, Project
+from .models import Task, Project, User
 from .forms import TaskForm, ProjectForm
 
 
@@ -22,6 +22,28 @@ class ProjectIndexView(generic.ListView):
 class ProjectView(generic.DetailView):
     model = Project
     template_name = 'osschallenge/project.html'
+
+
+def EditProjectView(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+
+        if form.is_valid():
+            project = form.save()
+            return redirect('project', pk=project.pk)
+
+    else:
+        form = ProjectForm(instance=project)
+
+    return render(
+        request,
+        'osschallenge/editproject.html',
+        {
+            'form': form,
+            'project': project,
+        }
+    )
 
 
 class TaskIndexView(generic.ListView):
@@ -59,23 +81,6 @@ def EditTaskView(request, pk):
     )
 
 
-def EditProjectView(request, pk):
-    project = get_object_or_404(Project, pk=pk)
-    if request.method == 'POST':
-        form = ProjectForm(request.POST, instance=project)
-
-        if form.is_valid():
-            project = form.save()
-            return redirect('project', pk=project.pk)
-
-    else:
-        form = ProjectForm(instance=project)
-
-    return render(
-        request,
-        'osschallenge/editproject.html',
-        {
-            'form': form,
-            'project': project,
-        }
-    )
+class ProfileView(generic.DetailView):
+    model = User
+    template_name = 'osschallenge/profile.html'

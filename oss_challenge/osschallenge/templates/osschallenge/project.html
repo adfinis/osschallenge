@@ -3,14 +3,22 @@
 {% block title %}{{ project.title }}{% endblock title %}
 
 {% block content %}
-    <h1>{{ project.title }}</h1>
+    <div class="detail">
+        <h1>{{ project.title }}</h1>
 
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-    <p>{{ project.lead_text }}</p>
-    <p>{{ project.description }}</p>
-    <p>{{ project.licence }}</p>
-    <a href="edit/">
-        <button>Edit</button>
-    </a>
+        <p><strong>Zusammenfassung:</strong><br>{{ project.lead_text }}</p>
+        <p><strong>Beschreibung:</strong><br>{{ project.description }}</p>
+        <p><strong>Lizenz:</strong> {{ project.licence }}</p>
+        <p><a href="{{ project.github }}" target="_blank">
+            <strong>Git-Hub</strong>
+        </a></p>
+        <p><a href="{{ project.website }}" target="_blank">
+            <strong>Website</strong>
+        </a></p>
+        <a href="edit/">
+            <button>Edit</button>
+        </a>
+    </div>
 {% endblock content %}

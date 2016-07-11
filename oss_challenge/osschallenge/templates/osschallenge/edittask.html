@@ -3,14 +3,16 @@
 {% block title %}{{ task.title }} - Edit{% endblock title %}
 
 {% block content %}
-    <h1>{{ task.title }} - Edit</h1>
-    <form action="" method="post"/>
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="edit">
-                {{ field }}
-            </div>
-        {% endfor %}
-        <input type="submit" value="Save"/>
-    </form>
+    <div class="detail">
+        <h1>{{ task.title }} - Edit</h1>
+        <form action="" method="post"/>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="edit">
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <input type="submit" value="Save"/>
+        </form>
+    </div>
 {% endblock content %}
