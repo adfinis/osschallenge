@@ -33,4 +33,8 @@ urlpatterns = [
     url(r'^user/(?P<pk>[0-9]+)/$',
         views.ProfileView.as_view(),
         name='profile'),
+
+    url(r'^ranking/$',
+        views.RankingView.as_view(),
+        name='ranking'),
 ]

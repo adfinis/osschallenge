@@ -11,11 +11,22 @@
     <body>
         <div class="main">
             <div class="header">
-                <a href="/">
-                    <img 
-                        src="{% static 'osschallenge/logo.jpg' %}"/>
-                    <h1>OSS-Challenge</h1>
-                </a>
+                <div class="headermain">
+                    <a href="/">
+                        <img 
+                            src="{% static 'osschallenge/logo.jpg' %}"/>
+                        <h1>OSS-Challenge</h1>
+                    </a>
+                </div>
+                <div class="loginform">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="text" placeholder="Nickname"/>
+                        <input type="password" placeholder="Password"/>
+                        <input type="submit" value="Log in"/>
+                    </form>
+                    <a href="">Jetzt registrieren</a>
+                </div>
             </div>
             <div class="navbar">
                 <ul>
@@ -23,7 +34,7 @@
                     <a href="/projects/"><li>Projects</li></a>
                     <a href="/tasks/"><li>Tasks</li></a>
                     <a href="/user/1/"><li>Profile</li></a>
-                    <a href="/"><li>Ranking</li></a>
+                    <a href="/ranking/"><li>Ranking</li></a>
                     <a href="/"><li>About</li></a>
                 </ul>
             </div>

@@ -84,3 +84,11 @@ def EditTaskView(request, pk):
 class ProfileView(generic.DetailView):
     model = User
     template_name = 'osschallenge/profile.html'
+
+
+class RankingView(generic.ListView):
+    template_name = 'osschallenge/ranking.html'
+    context_object_name = 'ranking_list'
+
+    def get_queryset(self):
+        return User.objects.order_by('-points')

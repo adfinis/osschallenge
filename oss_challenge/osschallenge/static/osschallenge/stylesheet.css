@@ -16,14 +16,33 @@ div.header {
     background-color: white;
 }
 
-div.header a {
+div.headermain {
+    display: inline;
+    width: 600px;
+}
+
+div.headermain a {
     color: #115599;
     text-decoration: none;
 }
 
-div.header a img {
+div.headermain a img {
     height: 100%;
     float: left;
+}
+
+div.headermain h1 {
+    width: 600px;
+    margin: 0;
+    display: inline;
+}
+
+div.loginform {
+    float: right;
+}
+
+div.loginform input {
+    display: block;
 }
 
 div.navbar {

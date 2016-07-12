@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, Textarea
-from .models import Task, Project
+from .models import Task, Project, User
 
 
 class MentorForm(forms.Form):
@@ -49,3 +49,14 @@ class ProjectForm(ModelForm):
                 'rows': 8,
             }),
         }
+
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'nickname',
+            'surname',
+            'lastname',
+            'mail',
+        ]

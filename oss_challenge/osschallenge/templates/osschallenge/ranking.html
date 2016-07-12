@@ -1,0 +1,14 @@
+{% extends 'osschallenge/index.html' %}
+
+{% block title %}Ranking{% endblock title %}
+
+{% block content %}
+<ul class="index">
+    {% for user in ranking_list %}
+        <li>
+            <h1>{{ user.nickname }}</h1>
+            <p><strong>Points reached:</strong>{{ user.points }}</p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
