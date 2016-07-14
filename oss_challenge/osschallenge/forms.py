@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm, Textarea
-from .models import Task, Project, User
+from .models import Task, Project
+from django.contrib.auth.models import User
 
 
 class MentorForm(forms.Form):
@@ -55,8 +56,7 @@ class UserForm(ModelForm):
     class Meta:
         model = User
         fields = [
-            'nickname',
-            'surname',
-            'lastname',
-            'mail',
+            'username',
+            'email',
+            'password',
         ]

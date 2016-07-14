@@ -19,13 +19,16 @@
                     </a>
                 </div>
                 <div class="loginform">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <input type="text" placeholder="Nickname"/>
-                        <input type="password" placeholder="Password"/>
-                        <input type="submit" value="Log in"/>
-                    </form>
-                    <a href="">Jetzt registrieren</a>
+                    {% if user.is_anonymous %}
+                    <a href="{% url 'django.contrib.auth.views.login' %}">
+                        <button>login</button>
+                    </a>
+                    {% else %}
+                    {{ user }}
+                    <a href="{% url 'django.contrib.auth.views.logout' %}">
+                        <button>logout</button>
+                    </a>
+                    {% endif %}
                 </div>
             </div>
             <div class="navbar">

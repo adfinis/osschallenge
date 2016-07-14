@@ -37,4 +37,14 @@ urlpatterns = [
     url(r'^ranking/$',
         views.RankingView.as_view(),
         name='ranking'),
+
+    url(r'^register/$',
+        views.RegisterView,
+        name='register'),
+
+    url(r'^login/$',
+        'django.contrib.auth.views.login'),
+    
+    url(r'^logout/$',
+        'django.contrib.auth.views.logout'),
 ]
