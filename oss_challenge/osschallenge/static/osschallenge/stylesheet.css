@@ -121,21 +121,31 @@ h1.tasktitle {
 div.detail {
     border: 2px solid #115599;
     margin-bottom: 10px;
-    padding: 5px;
+    padding: 12px;
 }
 
 /* Edit Task/Project */
 
-.edit  {
+form.edit div  {
     margin: 10px 0;
 }
 
-div.edit input {
+form.edit div label {
+    float: left;
 
-    width: 950px;
 }
 
-div.edit textarea {
+form.edit div input {
+    margin: 5px 0;
+    width: 1173px;
+}
+
+form.edit div select {
+    margin: 5px 0;
+}
+
+form.edit div textarea {
     resize: none;
-    width: 950px;
+    margin: 5px 0;
+    width: 1173px;
 }
