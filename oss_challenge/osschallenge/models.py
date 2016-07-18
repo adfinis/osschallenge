@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Role(models.Model):
@@ -16,23 +17,20 @@ class Groups(models.Model):
         return self.group
 
 
-class User(models.Model):
-    surname = models.CharField(max_length=50)
-    lastname = models.CharField(max_length=50)
-    role = models.ForeignKey(Role)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, default='Contributer')
     tasks_done = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
-    mail = models.CharField(max_length=50)
-    nickname = models.CharField(max_length=25)
 
     def __str__(self):
-        return self.nickname
+        return self.user.username
 
 
 class Project(models.Model):
     title = models.CharField(max_length=50)
     lead_text = models.CharField(max_length=300)
-    description = models.CharField(max_length=1000)
+    description = models.CharField(max_length=5000)
     licence = models.CharField(max_length=50)
     website = models.CharField(max_length=50)
     github = models.CharField(max_length=50)
@@ -46,7 +44,7 @@ class Project(models.Model):
 class Task(models.Model):
     title = models.CharField(max_length=50)
     lead_text = models.CharField(max_length=300)
-    description = models.CharField(max_length=1000)
+    description = models.CharField(max_length=5000)
     mentor = models.ForeignKey(User, related_name = "task_mentor")
     project = models.ForeignKey(Project, related_name = "task_project")
     contributers = models.ManyToManyField(
@@ -72,4 +70,4 @@ class Comment(models.Model):
     author = models.ForeignKey(User)
 
     def __str__(self):
-        return self.comment
+        return self.task

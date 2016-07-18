@@ -6,7 +6,7 @@
 <div class="detail">
     <form method="POST" action="">
         {% csrf_token %}
-        {{ form }}
+        {{ form.as_p }}
         <input type="submit" value="Register">
     </form>
 </div>

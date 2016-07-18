@@ -30,8 +30,8 @@ urlpatterns = [
         views.EditTaskView,
         name='edittask'),
 
-    url(r'^user/(?P<pk>[0-9]+)/$',
-        views.ProfileView.as_view(),
+    url(r'^profile/$',
+        views.ProfileView,
         name='profile'),
 
     url(r'^ranking/$',
@@ -39,8 +39,7 @@ urlpatterns = [
         name='ranking'),
 
     url(r'^register/$',
-        views.RegisterView,
-        name='register'),
+        views.RegisterView.as_view()),
 
     url(r'^login/$',
         'django.contrib.auth.views.login'),

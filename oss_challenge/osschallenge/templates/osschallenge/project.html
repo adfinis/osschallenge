@@ -8,9 +8,9 @@
 
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-        <p><strong>Zusammenfassung:</strong><br>{{ project.lead_text }}</p>
-        <p><strong>Beschreibung:</strong><br>{{ project.description }}</p>
-        <p><strong>Lizenz:</strong> {{ project.licence }}</p>
+        <p>{{ project.lead_text }}</p>
+        <p><strong>Description:</strong><br>{{ project.description }}</p>
+        <p><strong>Licence:</strong> {{ project.licence }}</p>
         <p><a href="http://{{ project.github }}">
             <strong>Git-Hub</strong>
         </a></p>

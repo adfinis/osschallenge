@@ -127,4 +127,4 @@ STATIC_URL = '/static/'
 
 # Login redirects to
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/profile/'

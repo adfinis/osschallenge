@@ -6,8 +6,8 @@
 <ul class="index">
     {% for user in ranking_list %}
         <li>
-            <h1>{{ user.nickname }}</h1>
-            <p><strong>Points reached:</strong>{{ user.points }}</p>
+            <h1>{{ user.username }}</h1>
+            <p><strong>Points reached:</strong>{{ user.profile.points }}</p>
         </li>
     {% endfor %}
 </ul>

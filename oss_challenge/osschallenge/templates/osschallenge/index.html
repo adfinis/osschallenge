@@ -21,7 +21,10 @@
                 <div class="loginform">
                     {% if user.is_anonymous %}
                     <a href="{% url 'django.contrib.auth.views.login' %}">
-                        <button>login</button>
+                        <button>Login</button>
+                    </a>
+                    <a href="/register/">
+                        <button>Sign up</button>
                     </a>
                     {% else %}
                     {{ user }}
@@ -36,7 +39,7 @@
                     <a href="/"><li>Home</li></a>
                     <a href="/projects/"><li>Projects</li></a>
                     <a href="/tasks/"><li>Tasks</li></a>
-                    <a href="/user/1/"><li>Profile</li></a>
+                    <a href="/profile/"><li>Profile</li></a>
                     <a href="/ranking/"><li>Ranking</li></a>
                     <a href="/"><li>About</li></a>
                 </ul>

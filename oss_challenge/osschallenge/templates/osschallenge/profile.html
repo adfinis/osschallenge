@@ -4,11 +4,11 @@
 
 {% block content %}
     <div class="detail">
-        <h1>{{ user.nickname }}</h1>
-        <p><strong>Full name:</strong> {{ user.surname }} {{ user.lastname }}</p>
-        <p><strong>E-Mail:</strong> {{ user.mail }}</p>
+        <h1>{{ user.username }}</h1>
+        <p><strong>Full name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+        <p><strong>E-Mail:</strong> {{ user.email }}</p>
         <br>
-        <p><strong>Points reached:</strong> {{ user.points }}</p>
-        <p><strong>Tasks done:</strong> {{ user.tasks_done }}</p>
+        <p><strong>Points reached:</strong> {{ user.profile.points }}</p>
+        <p><strong>Tasks done:</strong> {{ user.profile.tasks_done }}</p>
     </div>
 {% endblock content %}

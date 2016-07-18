@@ -13,11 +13,11 @@
         {% if error_message %} <p><strong>{{ error_message }}</strong></p>{% endif %}
 
         <p>{{ task.lead_text }}</p>
-        <p>{{ task.description }}</p>
-        <h3>Kontakt:</h3>
-        <p>{{ task.mentor.nickname }}
-            <br>{{ task.mentor.surname }} {{ task.mentor.lastname }}
-            <br>{{ task.mentor.mail }}
+        <p><strong>Description:</strong><br>{{ task.description }}</p>
+        <h3>Contact:</h3>
+        <p>{{ task.mentor.username }}
+            <br>{{ task.mentor.first_name }} {{ task.mentor.last_name }}
+            <br>{{ task.mentor.email }}
         </p>
         <a href="edit/">
             <button>Edit</button>

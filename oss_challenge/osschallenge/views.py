@@ -1,6 +1,6 @@
 from django.views import generic
 from django.shortcuts import redirect, render, get_object_or_404
-
+from django.views.generic.edit import CreateView
 from .models import Task, Project, User
 from .forms import TaskForm, ProjectForm
 
@@ -81,14 +81,30 @@ def EditTaskView(request, pk):
     )
 
 
-class ProfileView(generic.DetailView):
-    model = User
-    template_name = 'osschallenge/profile.html'
+def ProfileView(request):
 
+    if request.user.is_authenticated():
+        return render(request, 'osschallenge/profile.html')
+    else:
+        return redirect('/login/')
+    
 
 class RankingView(generic.ListView):
     template_name = 'osschallenge/ranking.html'
     context_object_name = 'ranking_list'
 
     def get_queryset(self):
-        return User.objects.order_by('-points')
+        return User.objects.order_by('-profile__points')
+
+
+class RegisterView(CreateView):
+    model = User
+    template_name = 'registration/register.html'
+    fields = [
+        'username',
+        'email',
+        'first_name',
+        'last_name',
+        'password'
+    ]
+    success_url = '/login/'
