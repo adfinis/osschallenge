@@ -55,6 +55,7 @@ class ProjectForm(ModelForm):
 class UserForm(ModelForm):
     class Meta:
         model = User
+        password = forms.CharField(widget=forms.PasswordInput())
         fields = [
             'username',
             'email',
