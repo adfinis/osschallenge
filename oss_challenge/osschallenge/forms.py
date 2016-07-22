@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import ModelForm, Textarea
 from .models import Task, Project
-from django.contrib.auth.models import User
 
 
 class MentorForm(forms.Form):
@@ -50,14 +49,3 @@ class ProjectForm(ModelForm):
                 'rows': 8,
             }),
         }
-
-
-class UserForm(ModelForm):
-    class Meta:
-        model = User
-        password = forms.CharField(widget=forms.PasswordInput())
-        fields = [
-            'username',
-            'email',
-            'password',
-        ]

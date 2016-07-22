@@ -1,4 +1,5 @@
 from django.views import generic
+from django import forms
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.edit import CreateView
 from .models import Task, Project, User
@@ -81,6 +82,23 @@ def EditTaskView(request, pk):
     )
 
 
+class NewTaskView(CreateView):
+    model = Task
+    template_name = 'osschallenge/newtask.html'
+    fields = [
+        'title',
+        'lead_text',
+        'description',
+        'mentor',
+    ]
+
+    def form_valid(self, form):
+        form.instance.project = Project.objects.get(pk = self.kwargs['pk'])
+        return super(NewTaskView, self).form_valid(form)
+    
+    success_url = '/tasks/'
+
+
 def ProfileView(request):
 
     if request.user.is_authenticated():
@@ -107,4 +125,10 @@ class RegisterView(CreateView):
         'last_name',
         'password'
     ]
+    
+    def get_form(self, form_class):
+        form = super(RegisterView, self).get_form(form_class)
+        form.fields['password'].widget = forms.PasswordInput()
+        return form
+
     success_url = '/login/'

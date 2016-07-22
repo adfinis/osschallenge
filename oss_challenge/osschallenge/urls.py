@@ -17,6 +17,10 @@ urlpatterns = [
     url(r'^projects/(?P<pk>[0-9]+)/edit/$',
         views.EditProjectView,
         name='editproject'),
+    
+    url(r'^projects/(?P<pk>[0-9]+)/new_task/$',
+        views.NewTaskView.as_view(),
+        name='newtask'),
 
     url(r'^tasks/$', 
         views.TaskIndexView.as_view(), 

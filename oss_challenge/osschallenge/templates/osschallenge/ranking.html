@@ -8,7 +8,13 @@
         {% for user in ranking_list %}
             <li>
                 <h1>{{ user.username }}</h1>
-                <p><strong>Points reached:</strong>{{ user.profile.points }}</p>
+                <p><strong>Points reached:</strong>
+                {% if user.profile.points %}
+                    {{ user.profile.points }}
+                {% else %}
+                    0
+                {% endif %}    
+                </p>
             </li>
         {% endfor %}
     </ul>

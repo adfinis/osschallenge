@@ -1,0 +1,13 @@
+{% extends 'osschallenge/index.html' %}
+
+{% block title %}New Task{% endblock title %}
+
+{% block content %}
+<div class="detail">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Add Task"/>
+    </form>
+</div>
+{% endblock content %}
