@@ -19,7 +19,7 @@ class Groups(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.ForeignKey(Role, default='Contributer')
+    role = models.ForeignKey(Role, default=1)
     tasks_done = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
 

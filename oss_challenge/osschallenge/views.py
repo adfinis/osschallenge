@@ -1,8 +1,9 @@
 from django.views import generic
 from django import forms
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.edit import CreateView
-from .models import Task, Project, User
+from .models import Task, Project, User, Profile
 from .forms import TaskForm, ProjectForm
 
 
@@ -130,5 +131,15 @@ class RegisterView(CreateView):
         form = super(RegisterView, self).get_form(form_class)
         form.fields['password'].widget = forms.PasswordInput()
         return form
+
+    def form_valid(self, form):
+        self.object = form.save()
+
+        # creating profile for user
+        profile = Profile()
+        profile.user = self.object
+        profile.save()
+
+        return HttpResponseRedirect(self.get_success_url())
 
     success_url = '/login/'
