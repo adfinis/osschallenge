@@ -26,8 +26,8 @@ class Profile(models.Model):
     role = models.ForeignKey(Role, default=1)
     tasks_done = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
-    links = models.CharField(max_length=50, default="No links")
-    contact = models.CharField(max_length=50, default="No contact details")
+    links = models.CharField(max_length=50)
+    contact = models.CharField(max_length=50)
 
     def __str__(self):
         return self.user.username

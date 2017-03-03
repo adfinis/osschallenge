@@ -12,32 +12,6 @@ div.main {
     margin: auto;
 }
 
-/*div.header {
-    width: 100%;
-    height: 15%;
-}
-
-div.headermain {
-    display: inline;
-    width: 600px;
-}
-
-div.headermain a {
-    color: #115599;
-    text-decoration: none;
-}
-
-div.headermain a img {
-    height: 100%;
-    float: left;
-}
-
-div.headermain h1 {
-    width: 600px;
-    margin: 0;
-    display: inline;
-}
-*/
 div.loginform {
     float: right;
 }
@@ -50,31 +24,6 @@ div.loginform input {
     display: block;
 }
 
-/*div.navbar {
-    height: 6%;
-    width: 100%;
-}
-
-div.navbar ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-div.navbar ul li {
-    display: inline-block;
-    height: 100%;
-    width: 196px;
-    text-align: center;
-    border: 2px solid #115599;
-    float: left;
-    color: #115599;
-}
-
-div.navbar ul li:hover {
-    background-color: #DEDEDE;
-}
-*/
 div.content {
     width: 100%;
     margin: 3px 0 0 0;
