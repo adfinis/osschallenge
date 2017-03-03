@@ -30,25 +30,6 @@ div.content {
     padding: 10px 12px 80px 12px;
 }
 
-div.footer {
-    background-color: #115599;
-    width: 1200px;
-    height: 80px;
-    position: absolute;
-    bottom: 0;
-    position: relative;
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    border-bottom: 1px solid rgb(225, 225, 225);
-    z-index: 1000;
-}
-
 /* Index Lists */
 
 ul.index {

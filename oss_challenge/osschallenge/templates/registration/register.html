@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="page-content">
-    <form action="." method="POST" class="form-group-login">
+    <form method="POST" class="form-group-login">
         {% csrf_token %}
         {% include "osschallenge/fields.html" %}
         <input type="submit" class="btn btn-primary" value="Register">
