@@ -7,8 +7,12 @@
         <h1>{{ user.username }}</h1>
         <p><strong>Full name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
         <p><strong>E-Mail:</strong> {{ user.email }}</p>
+        <p><strong>Role:</strong> {{user.profile.role_id.role }}</p>
         <br>
         <p><strong>Points reached:</strong> {{ user.profile.points }}</p>
         <p><strong>Tasks done:</strong> {{ user.profile.tasks_done }}</p>
+        <p><strong>Links:</strong> {{user.profile.links }}</p>
+        <p><strong>Contact:</strong> {{user.profile.contact }}</p>
+        <a href="/password_change">Reset Password</a>
     </div>
 {% endblock content %}

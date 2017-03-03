@@ -3,20 +3,22 @@
 {% block title %}Ranking{% endblock title %}
 
 {% block content %}
-<div class="listcontent">
-    <ul class="index">
-        {% for user in ranking_list %}
+<div class="content page-content--scroll">
+    <div class="listcontent">
+        <ul class="index">
+            {% for user in ranking_list %}
             <li>
                 <h1>{{ user.username }}</h1>
                 <p><strong>Points reached:</strong>
                 {% if user.profile.points %}
-                    {{ user.profile.points }}
+                {{ user.profile.points }}
                 {% else %}
-                    0
-                {% endif %}    
+                0
+                {% endif %}
                 </p>
             </li>
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 {% endblock content %}

@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='profile',
             name='role',
-            field=models.ForeignKey(default='Contributer', on_delete=django.db.models.deletion.CASCADE, to='osschallenge.Role'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='osschallenge.Role'),
         ),
     ]

@@ -3,10 +3,11 @@
 {% block title %}{{ task.title }}{% endblock title%}
 
 {% block content %}
+<div class="content page-content--scroll">
     <div class="detail">
         <h1 class="tasktitle">{{ task.title }} --
             <a 
-                href="/projects/{{ task.project.id }}"
+            href="/projects/{{ task.project.id }}"
             >{{ task.project.title }}</a>
         </h1>
 
@@ -16,11 +17,12 @@
         <p><strong>Description:</strong><br>{{ task.description }}</p>
         <h3>Contact:</h3>
         <p>{{ task.mentor.username }}
-            <br>{{ task.mentor.first_name }} {{ task.mentor.last_name }}
-            <br>{{ task.mentor.email }}
+        <br>{{ task.mentor.first_name }} {{ task.mentor.last_name }}
+        <br>{{ task.mentor.email }}
         </p>
         <a href="edit/">
             <button>Edit</button>
         </a>
     </div>
+</div>
 {% endblock content %}

@@ -3,52 +3,99 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="{% static 'osschallenge/stylesheet.css'%}"/>
-        <title>
-            {% block title %}
-            {% endblock title %}
-        </title>
+        <link rel="stylesheet" type="text/css" href="{% static 'osschallenge/adcssy.css'%}"/>
+        <link rel="stylesheet" href="{% static 'osschallenge/font-awesome.min.css'%}"/>
+        <title>OSS-Challenge {% block title %}{% endblock title %}</title>
     </head>
-    <body>
-        <div class="main">
-            <div class="header">
-                <div class="headermain">
+    <body class="page">
+        <div class="page-viewport">
+            <nav class="nav-side">
+                <header class="nav-side-header">
+                    <button class="nav-toggle nav-side-toggle" onclick="this.parentNode.parentNode.classList.toggle('nav-side--expand')">
+                        <span class="nav-toggle-icon"></span>
+                    </button>
                     <a href="/">
-                        <img src="{% static 'osschallenge/logo.jpg' %}"/>
-                        <h1>OSS-Challenge</h1>
+                        <div class="nav-side-header-logo"><img src="{% static "osschallenge/adsy.png" %}"/></div>
+                        <div class="nav-side-header-title">OSS-Challenge</div>
                     </a>
-                </div>
-                <div class="loginform">
-                    {% if user.is_anonymous %}
-                    <a href="{% url 'django.contrib.auth.views.login' %}">
-                        <button>Login</button>
-                    </a>
-                    <a href="/register/">
-                        <button>Sign up</button>
-                    </a>
-                    {% else %}
-                    {{ user }}
-                    <a href="{% url 'django.contrib.auth.views.logout' %}">
-                        <button>logout</button>
-                    </a>
-                    {% endif %}
-                </div>
+                </header>
+                <section class="nav-side-body">
+                    <ul class="nav-side-list">
+                    {% if user.is_authenticated %}
+                        <li class="nav-side-list-item">
+                            <a href="/projects">
+                                Projects
+                            </a>
+                        </li>
+                        <li class="nav-side-list-item">
+                            <a href="/tasks">
+                                Tasks
+                            </a>
+                        </li>
+                        <li class="nav-side-list-item">
+                            <a href="/ranking">
+                                Ranking
+                            </a>
+                        </li>
+                        <li class="nav-side-list-item">
+                            <a href="/">
+                                About
+                            </a>
+                        </li>
+                        <br />
+                        <li class="nav-side-list-item">
+                            <a href="/profile">
+                                Profile
+                            </a>
+                        </li>
+                        <li class="nav-side-list-item">
+                            <a href="/logout">
+                                Logout
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-side-list-item">
+                            <a href="/projects">
+                                Projects
+                            </a>
+                        </li>
+                        <li class="nav-side-list-item">
+                            <a href="/tasks">
+                                Tasks
+                            </a>
+                        </li>
+                        <li class="nav-side-list-item">
+                            <a href="/ranking">
+                                Ranking
+                            </a>
+                        </li>
+                        <li class="nav-side-list-item">
+                            <a href="/">
+                                About
+                            </a>
+                        </li>
+                        <br />
+                        <li class="nav-side-list-item">
+                            <a href="/login">
+                                Login
+                            </a>
+                        </li>
+                        <li class="nav-side-list-item">
+                            <a href="/register">
+                                Register
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </section>
+            </nav>
+            {% block content %}
+            {% endblock content %}
             </div>
-            <div class="navbar">
-                <ul>
-                    <a href="/"><li>Home</li></a>
-                    <a href="/projects/"><li>Projects</li></a>
-                    <a href="/tasks/"><li>Tasks</li></a>
-                    <a href="/profile/"><li>Profile</li></a>
-                    <a href="/ranking/"><li>Ranking</li></a>
-                    <a href="/"><li>About</li></a>
-                </ul>
-            </div>
-            <div class="content">
-                {% block content %}
-                {% endblock content %}
-            </div>
-            <div class="footer">
-            </div>
+            <div class="page-main-overlay" onclick="this.previousElementSibling.previousElementSibling.classList.toggle('nav-side--expand')"></div>
+        </div>
+        <!--<div class="footer">
+        </div> -->
         </div>
     </body>
 </html>
