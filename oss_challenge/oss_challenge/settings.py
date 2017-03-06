@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -78,29 +79,28 @@ WSGI_APPLICATION = 'oss_challenge.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 
+        'NAME':
         'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 
+        'NAME':
         'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 
+        'NAME':
         'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 
+        'NAME':
         'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
@@ -112,6 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Zurich'
+
+SITE_URL = 'http://localhost:8000'
 
 USE_I18N = True
 
@@ -128,3 +130,13 @@ STATIC_URL = '/static/'
 # Login redirects to
 
 LOGIN_REDIRECT_URL = '/profile/'
+
+# Mailserver login settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'OSS-Challenge <osschallenge@osschallenge.com>'

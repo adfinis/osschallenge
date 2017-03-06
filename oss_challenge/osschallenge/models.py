@@ -1,20 +1,24 @@
-
 from django.db import models
 from django.contrib.auth.models import User
 
 
 class Role(models.Model):
     role = models.CharField(max_length=50)
-    
+
     def __str__(self):
         return self.role
 
 
 class Groups(models.Model):
     group = models.CharField(max_length=50)
-    
+
     def __str__(self):
         return self.group
+
+
+class Account(models.Model):
+    key = models.CharField(max_length=10, unique=True)
+    anti_spam = models.BooleanField(default=False)
 
 
 class Profile(models.Model):
@@ -22,9 +26,16 @@ class Profile(models.Model):
     role = models.ForeignKey(Role, default=1)
     tasks_done = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
+    links = models.CharField(max_length=50)
+    contact = models.CharField(max_length=50)
 
     def __str__(self):
         return self.user.username
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    account = models.ForeignKey(Account)
 
 
 class Project(models.Model):
@@ -34,8 +45,8 @@ class Project(models.Model):
     licence = models.CharField(max_length=50)
     website = models.CharField(max_length=50)
     github = models.CharField(max_length=50)
-    owner = models.ForeignKey(User, related_name = "project_owner")
-    mentors = models.ManyToManyField(User, related_name = "project_mentors")
+    owner = models.ForeignKey(User, related_name="project_owner")
+    mentors = models.ManyToManyField(User, related_name="project_mentors")
 
     def __str__(self):
         return self.title
@@ -45,11 +56,11 @@ class Task(models.Model):
     title = models.CharField(max_length=50)
     lead_text = models.CharField(max_length=300)
     description = models.CharField(max_length=5000)
-    mentor = models.ForeignKey(User, related_name = "task_mentor")
-    project = models.ForeignKey(Project, related_name = "task_project")
+    mentor = models.ForeignKey(User, related_name="task_mentor")
+    project = models.ForeignKey(Project, related_name="task_project")
     contributers = models.ManyToManyField(
-        User, 
-        related_name = "task_contributers"
+        User,
+        related_name="task_contributers"
     )
 
     def __str__(self):
