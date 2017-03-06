@@ -9,6 +9,7 @@ from .forms import TaskForm, ProjectForm
 from django.views.generic import FormView
 from .forms import RegistrationForm
 from django.core.mail import send_mail
+from django.conf import settings
 
 
 def IndexView(request):
@@ -158,11 +159,11 @@ class RegistrationView(FormView):
             Hello,
 
             please click this link to activate your OSS-Challenge account:
-            http://127.0.0.1:8000/registration_done/{}
+            {}/registration_done/{}
 
             Sincerely,
             The OSS-Challenge Team
-            """.format(account.key),
+            """.format(settings.SITE_URL, account.key),
             'osschallenge@osschallenge.ml',
             [user.email],
             fail_silently=False,

@@ -119,7 +119,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Zurich'
 
-SITE_URL = 'http://localhost'
+SITE_URL = 'http://localhost:8000'
 
 USE_I18N = True
 
