@@ -1,7 +1,5 @@
 {% extends 'osschallenge/index.html' %}
 
-{% block title %}{{ project.title }}{% endblock title %}
-
 {% block content %}
 <div class="content page-content--scroll">
     <div class="detail">
@@ -18,12 +16,14 @@
         <p><a href="http://{{ project.website }}">
             <strong>Website</strong>
         </a></p>
+        {% if user.profile.role.role == "Mentor" %}
         <a href="edit/">
-            <button>Edit</button>
+            <button class=" btn btn-primary">Edit</button>
         </a>
         <a href="new_task/">
-            <button>New Task</button>
+            <button class="btn btn-primary">New Task</button>
         </a>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}
