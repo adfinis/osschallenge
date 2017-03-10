@@ -188,18 +188,16 @@ class RegistrationView(FormView):
         user.save()
 
         if user is not None:
-            self.generate_account(user)
+            self.generate_profile(user)
 
         return super(RegistrationView, self).form_valid(form)
 
-    def generate_account(self, user):
-        account = Account(key=generate_key())
-        account.save()
-        user_profile = UserProfile(
-            user=user,
-            account=account
-        )
-        user_profile.save()
+    def generate_key():
+        return base64.b32encode(os.urandom(7))[:10].lower()
+
+    def generate_profile(self, user):
+        profile = Profile(key=generate_key(), user=user)
+        profile.save()
         send_mail(
             'OSS-Challenge account confirmation',
             """
@@ -210,8 +208,8 @@ class RegistrationView(FormView):
 
             Sincerely,
             The OSS-Challenge Team
-            """.format(settings.SITE_URL, account.key),
-            'osschallenge@osschallenge.ml',
+            """.format(settings.SITE_URL, profile.key),
+            'osschallenge@osschallenge.com',
             [user.email],
             fail_silently=False,
         )
@@ -221,15 +219,14 @@ class RegistrationDoneView(generic.TemplateView):
     template_name = 'osschallenge/registration_done.html'
 
     def get_context_data(request, key):
-            matches = Account.objects.filter(key=key)
+            matches = Profile.objects.filter(key=key)
             if matches.exists():
-                account = matches.first()
-                user_profile = UserProfile.objects.get(account=account)
-                if user_profile.user.is_active:
+                profile = matches.first()
+                if profile.user.is_active:
                     request.template_name = 'osschallenge/user_is_already_active.html'
                 else:
-                    user_profile.user.is_active = True
-                    user_profile.user.save()
+                    profile.user.is_active = True
+                    profile.user.save()
             else:
                 request.template_name = 'osschallenge/registration_failed.html'
 
