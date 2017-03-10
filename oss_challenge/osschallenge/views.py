@@ -18,6 +18,25 @@ def IndexView(request):
     return render(request, template_name)
 
 
+class NewProjectView(CreateView):
+    model = Project
+    template_name = 'osschallenge/newproject.html'
+    fields = [
+        'title',
+        'lead_text',
+        'description',
+        'licence',
+        'github',
+        'website',
+        'owner'
+    ]
+
+    def form_valid(self, form):
+        return super(NewProjectView, self).form_valid(form)
+
+    success_url = '/projects/'
+
+
 class ProjectIndexView(generic.ListView):
     template_name = 'osschallenge/projectindex.html'
     context_object_name = 'project_list'

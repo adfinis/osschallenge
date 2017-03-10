@@ -1,0 +1,18 @@
+{% extends 'osschallenge/index.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="detail">
+    <h1>New Project</h1>
+    <form action="" method="POST" class="edit">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group-login">
+                {{ field.label_tag }} {{ field | add_class:'form-control' }}
+            </div>
+        {% endfor %}
+        <button class="btn btn-primary">Add Project</button>
+    </form>
+</div>
+{% endblock content %}

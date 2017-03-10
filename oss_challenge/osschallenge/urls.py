@@ -8,6 +8,10 @@ urlpatterns = [
         views.IndexView,
         name='index'),
 
+    url(r'^projects/new_project/$',
+        views.NewProjectView.as_view(),
+        name='newproject'),
+
     url(r'^projects/$',
         views.ProjectIndexView.as_view(),
         name='projectindex'),
