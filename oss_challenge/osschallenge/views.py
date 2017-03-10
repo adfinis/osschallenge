@@ -3,9 +3,9 @@ import os
 from django.views import generic
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.edit import CreateView
-from .models import Task, Project, Account, UserProfile
+from .models import Task, Project, Profile
 from django.contrib.auth.models import User
-from .forms import TaskForm, ProjectForm
+from .forms import TaskForm, ProjectForm, ProfileForm, UserForm
 from django.views.generic import FormView
 from .forms import RegistrationForm
 from django.core.mail import send_mail
@@ -130,6 +130,34 @@ def ProfileView(request):
         return render(request, 'osschallenge/profile.html')
     else:
         return redirect('/login/')
+
+
+def EditProfileView(request):
+    profile = get_object_or_404(Profile, user_id=request.user.id)
+    user = get_object_or_404(User, pk=request.user.id)
+    if request.method == 'POST':
+        form_profile = ProfileForm(request.POST, instance=profile)
+        form_user = UserForm(request.POST, instance=user)
+
+        if form_profile.is_valid() and form_user.is_valid():
+            profile = form_profile.save()
+            user = form_user.save()
+            return redirect('profile')
+
+    else:
+        form_profile = ProfileForm(instance=profile)
+        form_user = UserForm(instance=user)
+
+    return render(
+        request,
+        'osschallenge/editprofile.html',
+        {
+            'form_profile': form_profile,
+            'form_user': form_user,
+            'profile': profile,
+            'user': user,
+        }
+    )
 
 
 class RankingView(generic.ListView):

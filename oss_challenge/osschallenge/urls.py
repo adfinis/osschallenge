@@ -44,6 +44,10 @@ urlpatterns = [
         views.ProfileView,
         name='profile'),
 
+    url(r'^profile/edit/$',
+        views.EditProfileView,
+        name='editprofile'),
+
     url(r'^ranking/$',
         views.RankingView.as_view(),
         name='ranking'),
