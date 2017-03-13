@@ -6,7 +6,7 @@
 <div class="content page-content--scroll">
     <div class="detail">
         <h1>{{ project.title }} - Edit</h1>
-        <form action="" method="POST" class="edit">
+        <form action="" method="post" class="edit">
             {% csrf_token %}
             {% for field in form %}
             <div class="form-group-login">
