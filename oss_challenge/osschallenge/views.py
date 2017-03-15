@@ -1,7 +1,7 @@
 import base64
 import os
 from django.views import generic
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404, get_list_or_404
 from django.views.generic.edit import CreateView
 from .models import Task, Project, Profile
 from django.contrib.auth.models import User
@@ -10,6 +10,9 @@ from django.views.generic import FormView
 from .forms import RegistrationForm
 from django.core.mail import send_mail
 from django.conf import settings
+
+CONTRIBUTOR_ID = 1
+MENTOR_ID = 2
 
 
 def IndexView(request):
@@ -37,17 +40,22 @@ class NewProjectView(CreateView):
     success_url = '/projects/'
 
 
-class ProjectIndexView(generic.ListView):
+def ProjectIndexView(request):
+    project_list = get_list_or_404(Project)
     template_name = 'osschallenge/projectindex.html'
-    context_object_name = 'project_list'
+    return render(request, template_name, {
+        'project_list': project_list,
+        'mentor_id': MENTOR_ID
+    })
 
-    def get_queryset(self):
-        return Project.objects.all()
 
-
-class ProjectView(generic.DetailView):
-    model = Project
+def ProjectView(request, pk):
+    project = get_object_or_404(Project, pk=pk)
     template_name = 'osschallenge/project.html'
+    return render(request, template_name, {
+        'project': project,
+        'mentor_id': MENTOR_ID
+    })
 
 
 def EditProjectView(request, pk):
@@ -80,9 +88,13 @@ class TaskIndexView(generic.ListView):
         return Task.objects.all()
 
 
-class TaskView(generic.DetailView):
-    model = Task
+def TaskView(request, pk):
+    task = get_object_or_404(Task, pk=pk)
     template_name = 'osschallenge/task.html'
+    return render(request, template_name, {
+        "task": task,
+        'mentor_id': MENTOR_ID
+    })
 
 
 def EditTaskView(request, pk):
@@ -125,9 +137,12 @@ class NewTaskView(CreateView):
 
 
 def ProfileView(request):
+    template_name = 'osschallenge/profile.html'
 
     if request.user.is_authenticated():
-        return render(request, 'osschallenge/profile.html')
+        return render(request, template_name, {
+            'contributor_id': CONTRIBUTOR_ID
+        })
     else:
         return redirect('/login/')
 

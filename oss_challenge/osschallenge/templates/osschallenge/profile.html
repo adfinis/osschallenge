@@ -11,7 +11,7 @@
         <p><strong>E-Mail:</strong> {{ user.email }}</p>
         <p><strong>Role:</strong> {{ user.profile.role.role }}</p>
         <br>
-        {% if user.profile.role.role == "Contributer" %}
+        {% if user.profile.role.id == contributor_id %}
         <p><strong>Points reached:</strong> {{ user.profile.points }}</p>
         <p><strong>Tasks done:</strong> {{ user.profile.tasks_done }}</p>
         {% endif %}

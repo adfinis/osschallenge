@@ -20,7 +20,7 @@
         <br>{{ task.mentor.first_name }} {{ task.mentor.last_name }}
         <br>{{ task.mentor.email }}
         </p>
-        {% if user.profile.role.role == "Mentor" %}
+        {% if user.profile.role.id == mentor_id %}
         <a href="edit/">
             <button class="btn btn-primary">Edit</button>
         </a>

@@ -13,11 +13,11 @@ urlpatterns = [
         name='newproject'),
 
     url(r'^projects/$',
-        views.ProjectIndexView.as_view(),
+        views.ProjectIndexView,
         name='projectindex'),
 
     url(r'^projects/(?P<pk>[0-9]+)/$',
-        views.ProjectView.as_view(),
+        views.ProjectView,
         name='project'),
 
     url(r'^projects/(?P<pk>[0-9]+)/edit/$',
@@ -33,7 +33,7 @@ urlpatterns = [
         name='taskindex'),
 
     url(r'^tasks/(?P<pk>[0-9]+)/$',
-        views.TaskView.as_view(),
+        views.TaskView,
         name='task'),
 
     url(r'^tasks/(?P<pk>[0-9]+)/edit/$',
