@@ -1,7 +1,9 @@
 # How to install
 
-1. Clone the repository with git clone
-2. Create a docker-compose.yml file and start docker
-3. Load the migrations with **python manage.py migrate**
-4. Load the fixtures with **python manage.py loaddata**
-5. Create superuser for django admin with **python manage.py createsuperuser**
+1. 'git clone git@git.adfinis-sygroup.ch:ch-open/oss-challenge.src.git'
+2. 'docker start'
+3. set up pyenv/virtualenv
+3. 'pip install -r requirements.txt'
+4. 'python manage.py migrate'
+5. 'python manage.py loaddata osschallenge/fixture/role.json'
+6. 'python manage.py createsuperuser'
