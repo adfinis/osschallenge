@@ -1,15 +1,18 @@
 import base64
 import os
 from django.views import generic
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404, get_list_or_404
 from django.views.generic.edit import CreateView
-from .models import Task, Project, Account, UserProfile
+from .models import Task, Project, Profile
 from django.contrib.auth.models import User
-from .forms import TaskForm, ProjectForm
+from .forms import TaskForm, ProjectForm, ProfileForm, UserForm
 from django.views.generic import FormView
 from .forms import RegistrationForm
 from django.core.mail import send_mail
 from django.conf import settings
+
+CONTRIBUTOR_ID = 1
+MENTOR_ID = 2
 
 
 def IndexView(request):
@@ -18,17 +21,41 @@ def IndexView(request):
     return render(request, template_name)
 
 
-class ProjectIndexView(generic.ListView):
-    template_name = 'osschallenge/projectindex.html'
-    context_object_name = 'project_list'
-
-    def get_queryset(self):
-        return Project.objects.all()
-
-
-class ProjectView(generic.DetailView):
+class NewProjectView(CreateView):
     model = Project
+    template_name = 'osschallenge/newproject.html'
+    fields = [
+        'title',
+        'lead_text',
+        'description',
+        'licence',
+        'github',
+        'website',
+        'owner'
+    ]
+
+    def form_valid(self, form):
+        return super(NewProjectView, self).form_valid(form)
+
+    success_url = '/projects/'
+
+
+def ProjectIndexView(request):
+    project_list = get_list_or_404(Project)
+    template_name = 'osschallenge/projectindex.html'
+    return render(request, template_name, {
+        'project_list': project_list,
+        'mentor_id': MENTOR_ID
+    })
+
+
+def ProjectView(request, pk):
+    project = get_object_or_404(Project, pk=pk)
     template_name = 'osschallenge/project.html'
+    return render(request, template_name, {
+        'project': project,
+        'mentor_id': MENTOR_ID
+    })
 
 
 def EditProjectView(request, pk):
@@ -61,9 +88,13 @@ class TaskIndexView(generic.ListView):
         return Task.objects.all()
 
 
-class TaskView(generic.DetailView):
-    model = Task
+def TaskView(request, pk):
+    task = get_object_or_404(Task, pk=pk)
     template_name = 'osschallenge/task.html'
+    return render(request, template_name, {
+        "task": task,
+        'mentor_id': MENTOR_ID
+    })
 
 
 def EditTaskView(request, pk):
@@ -106,11 +137,42 @@ class NewTaskView(CreateView):
 
 
 def ProfileView(request):
+    template_name = 'osschallenge/profile.html'
 
     if request.user.is_authenticated():
-        return render(request, 'osschallenge/profile.html')
+        return render(request, template_name, {
+            'contributor_id': CONTRIBUTOR_ID
+        })
     else:
         return redirect('/login/')
+
+
+def EditProfileView(request):
+    profile = get_object_or_404(Profile, user_id=request.user.id)
+    user = get_object_or_404(User, pk=request.user.id)
+    if request.method == 'POST':
+        form_profile = ProfileForm(request.POST, instance=profile)
+        form_user = UserForm(request.POST, instance=user)
+
+        if form_profile.is_valid() and form_user.is_valid():
+            profile = form_profile.save()
+            user = form_user.save()
+            return redirect('profile')
+
+    else:
+        form_profile = ProfileForm(instance=profile)
+        form_user = UserForm(instance=user)
+
+    return render(
+        request,
+        'osschallenge/editprofile.html',
+        {
+            'form_profile': form_profile,
+            'form_user': form_user,
+            'profile': profile,
+            'user': user,
+        }
+    )
 
 
 class RankingView(generic.ListView):
@@ -141,18 +203,16 @@ class RegistrationView(FormView):
         user.save()
 
         if user is not None:
-            self.generate_account(user)
+            self.generate_profile(user)
 
         return super(RegistrationView, self).form_valid(form)
 
-    def generate_account(self, user):
-        account = Account(key=generate_key())
-        account.save()
-        user_profile = UserProfile(
-            user=user,
-            account=account
-        )
-        user_profile.save()
+    def generate_key():
+        return base64.b32encode(os.urandom(7))[:10].lower()
+
+    def generate_profile(self, user):
+        profile = Profile(key=generate_key(), user=user)
+        profile.save()
         send_mail(
             'OSS-Challenge account confirmation',
             """
@@ -163,8 +223,8 @@ class RegistrationView(FormView):
 
             Sincerely,
             The OSS-Challenge Team
-            """.format(settings.SITE_URL, account.key),
-            'osschallenge@osschallenge.ml',
+            """.format(settings.SITE_URL, profile.key),
+            'osschallenge@osschallenge.com',
             [user.email],
             fail_silently=False,
         )
@@ -174,15 +234,14 @@ class RegistrationDoneView(generic.TemplateView):
     template_name = 'osschallenge/registration_done.html'
 
     def get_context_data(request, key):
-            matches = Account.objects.filter(key=key)
+            matches = Profile.objects.filter(key=key)
             if matches.exists():
-                account = matches.first()
-                user_profile = UserProfile.objects.get(account=account)
-                if user_profile.user.is_active:
+                profile = matches.first()
+                if profile.user.is_active:
                     request.template_name = 'osschallenge/user_is_already_active.html'
                 else:
-                    user_profile.user.is_active = True
-                    user_profile.user.save()
+                    profile.user.is_active = True
+                    profile.user.save()
             else:
                 request.template_name = 'osschallenge/registration_failed.html'
 

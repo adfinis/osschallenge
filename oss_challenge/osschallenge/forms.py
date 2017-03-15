@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, Textarea
-from .models import Task, Project
+from .models import Task, Project, Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -82,3 +82,22 @@ class ProjectForm(ModelForm):
                 'rows': 8,
             }),
         }
+
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = [
+            'links',
+            'contact'
+        ]
+
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'first_name',
+            'last_name',
+            'email'
+        ]

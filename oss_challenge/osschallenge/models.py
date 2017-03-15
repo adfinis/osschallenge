@@ -16,11 +16,6 @@ class Groups(models.Model):
         return self.group
 
 
-class Account(models.Model):
-    key = models.CharField(max_length=10, unique=True)
-    anti_spam = models.BooleanField(default=False)
-
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.ForeignKey(Role, default=1)
@@ -28,14 +23,10 @@ class Profile(models.Model):
     points = models.IntegerField(default=0)
     links = models.CharField(max_length=50)
     contact = models.CharField(max_length=50)
+    key = models.CharField(max_length=10, unique=True)
 
     def __str__(self):
         return self.user.username
-
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User)
-    account = models.ForeignKey(Account)
 
 
 class Project(models.Model):

@@ -3,12 +3,17 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="content page-content--scroll">
+<div class="content">
     <div class="detail">
-        <h1>{{ project.title }} - Edit</h1>
-        <form action="" method="post" class="edit">
+        <h1>{{ profile.user }}</h1>
+        <form action="" method="POST" class="edit">
             {% csrf_token %}
-            {% for field in form %}
+            {% for field in form_user %}
+            <div class="form-group-login">
+                {{ field.label_tag }} {{ field | add_class:'form-control' }}
+            </div>
+            {% endfor %}
+            {% for field in form_profile %}
             <div class="form-group-login">
                 {{ field.label_tag }} {{ field | add_class:'form-control' }}
             </div>

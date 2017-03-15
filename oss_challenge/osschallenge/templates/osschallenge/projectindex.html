@@ -1,7 +1,5 @@
 {% extends 'osschallenge/index.html' %}
 
-{% block title %}Projects{% endblock title %}
-
 {% block content %}
     {% if project_list %}
         <ul class="index">
@@ -11,6 +9,11 @@
                 <p>{{ project.lead_text }}</p>
             </li>
         {% endfor %}
+        {% if user.profile.role.id == mentor_id %}
+            <a href="new_project/">
+                <button class="btn btn-primary">New Project</button>
+            </a>
+        {% endif %}
         </ul>
     {% else %}
         <p>No projects available.</p>

@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="detail">
-    <h1>New Task</h1>
+    <h1>New Project</h1>
     <form action="" method="POST" class="edit">
         {% csrf_token %}
         {% for field in form %}
@@ -12,7 +12,7 @@
                 {{ field.label_tag }} {{ field | add_class:'form-control' }}
             </div>
         {% endfor %}
-        <button class="btn btn-primary">Add Task</button>
+        <button class="btn btn-primary">Add Project</button>
     </form>
 </div>
 {% endblock content %}
