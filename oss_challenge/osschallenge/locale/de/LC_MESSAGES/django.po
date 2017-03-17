@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OSS CHALLENGE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-17 14:21+0100\n"
+"POT-Creation-Date: 2017-03-17 17:07+0100\n"
 "PO-Revision-Date: 2017-03-16 15:42+0100\n"
 "Last-Translator: Jonas Lehmann <jonas.lehmann@adfinis-sygroup.ch>\n"
 "Language-Team: German <jonas.lehmann@adfinis-sygroup.ch>\n"
@@ -71,9 +71,13 @@ msgstr "Besitzer"
 msgid "Mentors"
 msgstr "Mentoren"
 
-#: osschallenge/models.py:55
+#: osschallenge/models.py:53
 msgid "Contributors"
-msgstr ""
+msgstr "Mitarbeiter"
+
+#: osschallenge/templates/osschallenge/profile.html:13
+msgid "Contributor"
+msgstr "Mitarbeiter"
 
 #: osschallenge/templates/osschallenge/editprofile.html:22
 #: osschallenge/templates/osschallenge/editproject.html:17
@@ -89,31 +93,31 @@ msgstr "Speichern"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: osschallenge/templates/osschallenge/index.html:54
-#: osschallenge/templates/osschallenge/index.html:74
+#: osschallenge/templates/osschallenge/index.html:41
+#: osschallenge/templates/osschallenge/index.html:61
 msgid "Projects"
 msgstr "Projekte"
 
-#: osschallenge/templates/osschallenge/index.html:57
-#: osschallenge/templates/osschallenge/index.html:77
+#: osschallenge/templates/osschallenge/index.html:44
+#: osschallenge/templates/osschallenge/index.html:64
 msgid "Tasks"
 msgstr "Aufgaben"
 
-#: osschallenge/templates/osschallenge/index.html:60
-#: osschallenge/templates/osschallenge/index.html:80
+#: osschallenge/templates/osschallenge/index.html:47
+#: osschallenge/templates/osschallenge/index.html:67
 msgid "Ranking"
 msgstr "Rangliste"
 
-#: osschallenge/templates/osschallenge/index.html:63
-#: osschallenge/templates/osschallenge/index.html:83
+#: osschallenge/templates/osschallenge/index.html:50
+#: osschallenge/templates/osschallenge/index.html:70
 msgid "About"
 msgstr "Über"
 
-#: osschallenge/templates/osschallenge/index.html:67
+#: osschallenge/templates/osschallenge/index.html:54
 msgid "Profile"
 msgstr "Profil"
 
-#: osschallenge/templates/osschallenge/index.html:90
+#: osschallenge/templates/osschallenge/index.html:77
 #: osschallenge/templates/registration/register.html:11
 msgid "Register"
 msgstr "Registrieren"

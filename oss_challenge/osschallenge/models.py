@@ -50,10 +50,7 @@ class Task(models.Model):
     description = models.CharField(max_length=5000, verbose_name=_('Description'),)
     mentor = models.ForeignKey(User, related_name="task_mentor")
     project = models.ForeignKey(Project, related_name="task_project")
-    contributers = models.ManyToManyField(
-        User,
-        related_name="task_contributers", verbose_name=_('Contributors'),
-    )
+    contributors = models.ManyToManyField(User, related_name="task_contributors", verbose_name=_('Contributors'),)
 
     def __str__(self):
         return self.title

@@ -10,7 +10,7 @@
         <p><strong>{% trans "First name:" %}</strong> {{ user.first_name }}</p>
         <p><strong>{% trans "Last name:" %}</strong> {{ user.last_name }}</p>
         <p><strong>E-Mail:</strong> {{ user.email }}</p>
-        <p><strong>{% trans "Role:" %}</strong> {{ user.profile.role.role }}</p>
+        <p><strong>{% trans "Role:" %}</strong> {% trans user.profile.role.role %}</p>
         <br>
         {% if user.profile.role.id == contributor_id %}
         <p><strong>{% trans "Points reached:" %}</strong> {{ user.profile.points }}</p>
