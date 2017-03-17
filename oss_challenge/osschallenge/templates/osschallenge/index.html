@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 
 <html>
     <head>
@@ -19,47 +20,61 @@
                         <div class="nav-side-header-title">OSS-Challenge</div>
                     </a>
                 </header>
+                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}" />
+                    <select name="language">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                        {{ language.name_local }} ({{ language.code }})
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Go" />
+                </form>
                 <section class="nav-side-body">
                     <ul class="nav-side-list">
                     {% if user.is_authenticated %}
                         <li class="nav-side-list-item">
-                            <a href="/projects">Projects</a>
+                            <a href="/projects">{% trans "Projects" %}</a>
                         </li>
                         <li class="nav-side-list-item">
-                            <a href="/tasks">Tasks</a>
+                            <a href="/tasks">{% trans "Tasks" %}</a>
                         </li>
                         <li class="nav-side-list-item">
-                            <a href="/ranking">Ranking</a>
+                            <a href="/ranking">{% trans "Ranking" %}</a>
                         </li>
                         <li class="nav-side-list-item">
-                            <a href="/">About</a>
+                            <a href="/">{% trans "About" %}</a>
                         </li>
                         <br />
                         <li class="nav-side-list-item">
-                            <a href="/profile">Profile</a>
+                            <a href="/profile">{% trans "Profile" %}</a>
                         </li>
                         <li class="nav-side-list-item">
                             <a href="/logout">Logout</a>
                         </li>
                         {% else %}
                         <li class="nav-side-list-item">
-                            <a href="/projects">Projects</a>
+                            <a href="/projects">{% trans "Projects" %}</a>
                         </li>
                         <li class="nav-side-list-item">
-                            <a href="/tasks">Tasks</a>
+                            <a href="/tasks">{% trans "Tasks" %}</a>
                         </li>
                         <li class="nav-side-list-item">
-                            <a href="/ranking">Ranking</a>
+                            <a href="/ranking">{% trans "Ranking" %}</a>
                         </li>
                         <li class="nav-side-list-item">
-                            <a href="/">About</a>
+                            <a href="/">{% trans "About" %}</a>
                         </li>
                         <br />
                         <li class="nav-side-list-item">
                             <a href="/login">Login</a>
                         </li>
                         <li class="nav-side-list-item">
-                            <a href="/register">Register</a>
+                            <a href="/register">{% trans "Register" %}</a>
                         </li>
                         {% endif %}
                     </ul>

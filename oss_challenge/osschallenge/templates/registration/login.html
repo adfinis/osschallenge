@@ -1,4 +1,5 @@
 {% extends 'osschallenge/index.html' %}
+{% load i18n %}
 
 {% block content %}
 
@@ -6,17 +7,17 @@
     <form method="POST">
         {% csrf_token %}
         <div class="form-group-login">
-            <label for="exampleInputUsername1">Username</label>
-            <input type="text" id="id_username" name="username" class="form-control" placeholder="Username" autofocus>
+            <label for="exampleInputUsername1">{% trans "Username" %}</label>
+            <input type="text" id="id_username" name="username" class="form-control" placeholder={% trans "Username" %} autofocus>
         </div>
         <div class="form-group-login">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" id="id_password" name="password" class="form-control" placeholder="Password">
+            <label for="exampleInputPassword1">{% trans "Password" %}</label>
+            <input type="password" id="id_password" name="password" class="form-control" placeholder={% trans "Password" %}>
         </div>
         {% if form.non_field_errors %}
         <ul class='form-errors'>
             {% for error in form.non_field_errors %}
-            <div class="alert alert-danger" role="alert">{{ error }}</div>
+            <div class="alert alert-danger" role="alert">{% trans error %}</div>
             {% endfor %}
         </ul>
         {% endif %}
@@ -24,7 +25,7 @@
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
         <div class="form-group">
-            <a href="/password_reset/">Forgot password?</a>
+            <a href="/password_reset/">{% trans "Forgot password?" %}</a>
         </div>
     </form>
 </div>

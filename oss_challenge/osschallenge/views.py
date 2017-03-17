@@ -10,6 +10,7 @@ from django.views.generic import FormView
 from .forms import RegistrationForm
 from django.core.mail import send_mail
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
@@ -214,8 +215,8 @@ class RegistrationView(FormView):
         profile = Profile(key=generate_key(), user=user)
         profile.save()
         send_mail(
-            'OSS-Challenge account confirmation',
-            """
+            _('OSS-Challenge account confirmation'),
+            _("""
             Hello,
 
             please click this link to activate your OSS-Challenge account:
@@ -223,7 +224,7 @@ class RegistrationView(FormView):
 
             Sincerely,
             The OSS-Challenge Team
-            """.format(settings.SITE_URL, profile.key),
+            """).format(settings.SITE_URL, profile.key),
             'osschallenge@osschallenge.com',
             [user.email],
             fail_silently=False,

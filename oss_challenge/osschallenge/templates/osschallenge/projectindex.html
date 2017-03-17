@@ -1,4 +1,5 @@
 {% extends 'osschallenge/index.html' %}
+{% load i18n %}
 
 {% block content %}
     {% if project_list %}
@@ -6,16 +7,16 @@
         {% for project in project_list %}
             <li>
                 <a href="/projects/{{ project.id }}">{{ project.title }}</a>
-                <p>{{ project.lead_text }}</p>
+                <p>{% trans project.lead_text noop %}</p>
             </li>
         {% endfor %}
         {% if user.profile.role.id == mentor_id %}
             <a href="new_project/">
-                <button class="btn btn-primary">New Project</button>
+                <button class="btn btn-primary">{% trans "New Project" %}</button>
             </a>
         {% endif %}
         </ul>
     {% else %}
-        <p>No projects available.</p>
+    <p>{% trans "No projects available." %}</p>
     {% endif %}
 {% endblock content %}

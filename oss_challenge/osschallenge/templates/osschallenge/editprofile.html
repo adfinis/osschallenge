@@ -1,4 +1,5 @@
 {% extends 'osschallenge/index.html' %}
+{% load i18n %}
 
 {% load widget_tweaks %}
 
@@ -10,15 +11,15 @@
             {% csrf_token %}
             {% for field in form_user %}
             <div class="form-group-login">
-                {{ field.label_tag }} {{ field | add_class:'form-control' }}
+                {% trans field.label_tag %} {{ field | add_class:'form-control' }}
             </div>
             {% endfor %}
             {% for field in form_profile %}
             <div class="form-group-login">
-                {{ field.label_tag }} {{ field | add_class:'form-control' }}
+                {% trans field.label_tag %} {{ field | add_class:'form-control' }}
             </div>
             {% endfor %}
-            <button class="btn btn-primary">Save</button>
+            <button class="btn btn-primary">{% trans "Save" %}</button>
         </form>
     </div>
 </div>
