@@ -1,7 +1,7 @@
 [
     {
         "fields": {
-            "role": "Contributer"
+            "role": "Contributor"
         },
         "model": "osschallenge.role",
         "pk": 1

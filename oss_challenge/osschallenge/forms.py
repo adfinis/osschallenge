@@ -3,6 +3,7 @@ from django.forms import ModelForm, Textarea
 from .models import Task, Project, Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
+from django.utils.translation import gettext_lazy as _
 
 
 class LoginForm(AuthenticationForm):
@@ -10,12 +11,13 @@ class LoginForm(AuthenticationForm):
 
 
 class RegistrationForm(forms.Form):
-    username = forms.CharField(label='Username', max_length=30)
-    first_name = forms.CharField(label='First name', max_length=30)
-    last_name = forms.CharField(label='Last name', max_length=30)
+    username = forms.CharField(label=_('Username'), max_length=30)
+    first_name = forms.CharField(label=_('First name'), max_length=30)
+    last_name = forms.CharField(label=_('Last name'), max_length=30)
     email = forms.EmailField(label='Email')
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput())
-    password2 = forms.CharField(label='Password (Again)',
+    password1 = forms.CharField(label=_('Password'),
+                                widget=forms.PasswordInput())
+    password2 = forms.CharField(label=_('Password (Again)'),
                                 widget=forms.PasswordInput())
 
     def clean_password2(self):

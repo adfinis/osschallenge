@@ -1,9 +1,10 @@
 {% extends 'osschallenge/index.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="page-content">
     <div class="login-form login-form--password-reset">
-        <h1>Logged Out</h1>
+        <h1>{% trans "Logged Out" %}</h1>
     </div>
 </div>
 {% endblock content %}

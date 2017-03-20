@@ -1,0 +1,318 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OSS CHALLENGE\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-17 17:07+0100\n"
+"PO-Revision-Date: 2017-03-16 15:42+0100\n"
+"Last-Translator: Jonas Lehmann <jonas.lehmann@adfinis-sygroup.ch>\n"
+"Language-Team: German <jonas.lehmann@adfinis-sygroup.ch>\n"
+"Language: German\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: osschallenge/forms.py:14 osschallenge/templates/registration/login.html:10
+#: osschallenge/templates/registration/login.html:11
+msgid "Username"
+msgstr "Benutzername"
+
+#: osschallenge/forms.py:15
+msgid "First name"
+msgstr "Vorname"
+
+#: osschallenge/forms.py:16
+msgid "Last name"
+msgstr "Nachname"
+
+#: osschallenge/forms.py:18 osschallenge/templates/registration/login.html:14
+#: osschallenge/templates/registration/login.html:15
+msgid "Password"
+msgstr "Passwort"
+
+#: osschallenge/forms.py:20
+msgid "Password (Again)"
+msgstr "Passwort (Erneut)"
+
+#: osschallenge/models.py:34 osschallenge/models.py:48
+msgid "Title"
+msgstr "Titel"
+
+#: osschallenge/models.py:35 osschallenge/models.py:49
+msgid "Lead text"
+msgstr "Vorspann"
+
+#: osschallenge/models.py:36 osschallenge/models.py:50
+#: osschallenge/templates/osschallenge/project.html:12
+#: osschallenge/templates/osschallenge/task.html:16
+msgid "Description"
+msgstr "Beschreibung"
+
+#: osschallenge/models.py:37
+#: osschallenge/templates/osschallenge/project.html:13
+msgid "Licence"
+msgstr "Lizenz"
+
+#: osschallenge/models.py:38
+#: osschallenge/templates/osschallenge/project.html:18
+msgid "Website"
+msgstr "Webseite"
+
+#: osschallenge/models.py:40
+msgid "Owner"
+msgstr "Besitzer"
+
+#: osschallenge/models.py:41
+msgid "Mentors"
+msgstr "Mentoren"
+
+#: osschallenge/models.py:53
+msgid "Contributors"
+msgstr "Mitarbeiter"
+
+#: osschallenge/templates/osschallenge/profile.html:13
+msgid "Contributor"
+msgstr "Mitarbeiter"
+
+#: osschallenge/templates/osschallenge/editprofile.html:22
+#: osschallenge/templates/osschallenge/editproject.html:17
+#: osschallenge/templates/osschallenge/edittask.html:16
+msgid "Save"
+msgstr "Speichern"
+
+#: osschallenge/templates/osschallenge/editproject.html:9
+#: osschallenge/templates/osschallenge/edittask.html:8
+#: osschallenge/templates/osschallenge/profile.html:24
+#: osschallenge/templates/osschallenge/project.html:23
+#: osschallenge/templates/osschallenge/task.html:24
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: osschallenge/templates/osschallenge/index.html:41
+#: osschallenge/templates/osschallenge/index.html:61
+msgid "Projects"
+msgstr "Projekte"
+
+#: osschallenge/templates/osschallenge/index.html:44
+#: osschallenge/templates/osschallenge/index.html:64
+msgid "Tasks"
+msgstr "Aufgaben"
+
+#: osschallenge/templates/osschallenge/index.html:47
+#: osschallenge/templates/osschallenge/index.html:67
+msgid "Ranking"
+msgstr "Rangliste"
+
+#: osschallenge/templates/osschallenge/index.html:50
+#: osschallenge/templates/osschallenge/index.html:70
+msgid "About"
+msgstr "Über"
+
+#: osschallenge/templates/osschallenge/index.html:54
+msgid "Profile"
+msgstr "Profil"
+
+#: osschallenge/templates/osschallenge/index.html:77
+#: osschallenge/templates/registration/register.html:11
+msgid "Register"
+msgstr "Registrieren"
+
+#: osschallenge/templates/osschallenge/newproject.html:8
+#: osschallenge/templates/osschallenge/projectindex.html:15
+msgid "New Project"
+msgstr "Neues Projekt"
+
+#: osschallenge/templates/osschallenge/newproject.html:16
+msgid "Add Project"
+msgstr "Projekt hinzufügen"
+
+#: osschallenge/templates/osschallenge/newtask.html:8
+#: osschallenge/templates/osschallenge/project.html:26
+msgid "New Task"
+msgstr "Neue Aufgabe"
+
+#: osschallenge/templates/osschallenge/newtask.html:16
+msgid "Add Task"
+msgstr "Aufgabe hinzufügen"
+
+#: osschallenge/templates/osschallenge/profile.html:10
+msgid "First name:"
+msgstr "Vorname:"
+
+#: osschallenge/templates/osschallenge/profile.html:11
+msgid "Last name:"
+msgstr "Nachname:"
+
+#: osschallenge/templates/osschallenge/profile.html:13
+msgid "Role:"
+msgstr "Rolle:"
+
+#: osschallenge/templates/osschallenge/profile.html:16
+#: osschallenge/templates/osschallenge/ranking.html:13
+msgid "Points reached:"
+msgstr "Erreichte Punkte:"
+
+#: osschallenge/templates/osschallenge/profile.html:17
+msgid "Tasks done:"
+msgstr "Erledigte Aufgaben:"
+
+#: osschallenge/templates/osschallenge/profile.html:20
+#: osschallenge/templates/osschallenge/task.html:17
+msgid "Contact:"
+msgstr "Kontakt:"
+
+#: osschallenge/templates/osschallenge/profile.html:21
+msgid "Reset Password"
+msgstr "Passwort zurücksetzen"
+
+#: osschallenge/templates/osschallenge/projectindex.html:20
+msgid "No projects available."
+msgstr "Keine Projekte vorhanden."
+
+#: osschallenge/templates/osschallenge/registration_done.html:6
+msgid "The registration was successful. You may go ahead and login now."
+msgstr "Die Registration war erfolgreich. Du kannst dich nun einloggen."
+
+#: osschallenge/templates/osschallenge/registration_failed.html:6
+msgid "The registration has failed. Please try again."
+msgstr "Die Registration ist fehlgeschlagen. Bitte versuche es erneut."
+
+#: osschallenge/templates/osschallenge/registration_send_mail.html:6
+msgid ""
+"We've emailed you a link for activating your account. You should receive it "
+"shortly."
+msgstr ""
+"Wir haben dir einen Link für die Aktivierung deines Accounts geschickt.Du "
+"solltest ihn in Kürze erhalten."
+
+#: osschallenge/templates/osschallenge/taskindex.html:15
+msgid "No tasks available."
+msgstr "Keine Aufgaben vorhanden."
+
+#: osschallenge/templates/osschallenge/user_is_already_active.html:6
+msgid "This user is already active."
+msgstr "Dieser Benutzer ist bereits aktiv."
+
+#: osschallenge/templates/registration/logged_out.html:7
+msgid "Logged Out"
+msgstr "Ausgeloggt"
+
+#: osschallenge/templates/registration/login.html:28
+msgid "Forgot password?"
+msgstr "Passwort vergessen?"
+
+#: osschallenge/templates/registration/password_change_done.html:6
+msgid "Your password has been changed. <a href=\"/profile\">Back</a>"
+msgstr "Dein Password wurde geändert. <a href=\"/profile\">Zurück</a>"
+
+#: osschallenge/templates/registration/password_change_form.html:11
+msgid "Change"
+msgstr ""
+
+#: osschallenge/templates/registration/password_reset_complete.html:6
+msgid ""
+"Your password has been set. You may go ahead and <a href=\"/login\">login</"
+"a> now."
+msgstr ""
+"Dein Password wurde gesetzt. Du kannst dich nun unter <a href=\"/login"
+"\">login</a> einloggen."
+
+#: osschallenge/templates/registration/password_reset_confirm.html:12
+msgid "New password:"
+msgstr "Neues Passwort:"
+
+#: osschallenge/templates/registration/password_reset_confirm.html:19
+msgid "New password confirmation:"
+msgstr "Neues Passwort bestätigen:"
+
+#: osschallenge/templates/registration/password_reset_confirm.html:25
+msgid "Change password"
+msgstr "Password ändern"
+
+#: osschallenge/templates/registration/password_reset_confirm.html:29
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+"Der Link für die Rücksetzung des Passworts war ungültig. Wahrscheinlich "
+"wurde er bereits benützt.Bitte führe die Passwortrücksetzung erneut durch."
+
+#: osschallenge/templates/registration/password_reset_done.html:6
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly. If you "
+"don't receive an email, please make sure you've entered the address you "
+"registered with, and check your spam folder."
+msgstr ""
+"Wir haben dir die Anleitung für die Rücksetzung deines Passworts geschickt."
+"Falls ein Account mit der angegebenen E-Mail Adresse existiert, solltest du "
+"das Mail in Kürze erhalten.Wenn du kein E-Mail erhälst, vergewissere dich "
+"bitte, dass du die richtige E-Mail Adresse eingegeben hast und prüfe deinen "
+"Spam Ordner."
+
+#: osschallenge/templates/registration/password_reset_email.html:4
+#, python-format
+msgid ""
+"To initiate the password reset process for your %(user.email)s OSS-Challenge "
+"Account, click the link below:"
+msgstr ""
+"Für den Passwort-Rücksetzungs-Prozess für deinen %(user.email)s OSS-"
+"ChallengeAccount zu starten, klicke auf den untenstehenden Link:"
+
+#: osschallenge/templates/registration/password_reset_email.html:8
+msgid ""
+"If clicking the link above doesn't work, please copy and paste the URL in a "
+"new browser window instead.\n"
+"\n"
+"Sincerely,\n"
+"The OSS-Challenge Team"
+msgstr ""
+"Falls der untenstehende Link nicht funktioniert, kopiere und füge die URL in "
+"ein neues Browserfenster ein.\n"
+"\n"
+"Freundliche Grüsse,\n"
+"Das Oss-Challenge Team"
+
+#: osschallenge/templates/registration/password_reset_form.html:15
+msgid "Send new password"
+msgstr "Neues Password senden"
+
+#: osschallenge/templates/registration/password_reset_form.html:18
+msgid "Back to login"
+msgstr "Zurück zum Login"
+
+#: osschallenge/templates/registration/password_reset_subject.txt:3
+msgid "OSS-Challenge password reset"
+msgstr "OSS-Challenge Passwortrücksetzung"
+
+#: osschallenge/views.py:218
+msgid "OSS-Challenge account confirmation"
+msgstr "OSS-Challenge Account Bestätigung"
+
+#: osschallenge/views.py:219
+msgid ""
+"\n"
+"            Hello,\n"
+"\n"
+"            please click this link to activate your OSS-Challenge account:\n"
+"            {}/registration_done/{}\n"
+"\n"
+"            Sincerely,\n"
+"            The OSS-Challenge Team\n"
+"            "
+msgstr ""
+"\n"
+"            Hallo,\n"
+"\n"
+"            Um deinen OSS-Challenge Account zu aktivieren klicke bitte auf "
+"diesen link:\n"
+"            {}/registration_done/{}\n"
+"\n"
+"            Freundliche Grüsse,\n"
+"            Das OSS-Challenge Team\n"
+"            "

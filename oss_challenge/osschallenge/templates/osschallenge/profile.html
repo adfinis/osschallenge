@@ -1,4 +1,5 @@
 {% extends 'osschallenge/index.html' %}
+{% load i18n %}
 
 {% block title %}Profile{% endblock title %}
 
@@ -6,21 +7,21 @@
 <div class="content">
     <div class="detail">
         <h1>{{ user.username }}</h1>
-        <p><strong>First name:</strong> {{ user.first_name }}</p>
-        <p><strong>Last name:</strong> {{ user.last_name }}</p>
+        <p><strong>{% trans "First name:" %}</strong> {{ user.first_name }}</p>
+        <p><strong>{% trans "Last name:" %}</strong> {{ user.last_name }}</p>
         <p><strong>E-Mail:</strong> {{ user.email }}</p>
-        <p><strong>Role:</strong> {{ user.profile.role.role }}</p>
+        <p><strong>{% trans "Role:" %}</strong> {% trans user.profile.role.role %}</p>
         <br>
         {% if user.profile.role.id == contributor_id %}
-        <p><strong>Points reached:</strong> {{ user.profile.points }}</p>
-        <p><strong>Tasks done:</strong> {{ user.profile.tasks_done }}</p>
+        <p><strong>{% trans "Points reached:" %}</strong> {{ user.profile.points }}</p>
+        <p><strong>{% trans "Tasks done:" %}</strong> {{ user.profile.tasks_done }}</p>
         {% endif %}
         <p><strong>Links:</strong><a href="http://{{user.profile.links }}">{{user.profile.links }}</a></p>
-        <p><strong>Contact:</strong> {{user.profile.contact }}</p>
-        <a href="/password_change">Reset Password</a>
+        <p><strong>{% trans "Contact:" %}</strong> {{user.profile.contact }}</p>
+        <a href="/password_change">{% trans "Reset Password" %}</a>
         </br>
         <a href="edit/">
-            <button class="btn btn-primary">Edit</button>
+            <button class="btn btn-primary">{% trans "Edit" %}</button>
         </a>
     </div>
 </div>

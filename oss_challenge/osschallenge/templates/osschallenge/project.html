@@ -1,28 +1,29 @@
 {% extends 'osschallenge/index.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="content page-content--scroll">
     <div class="detail">
         <h1>{{ project.title }}</h1>
 
-        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        {% if error_message %}<p><strong>{% trans  error_message %}</strong></p>{% endif %}
 
-        <p>{{ project.lead_text }}</p>
-        <p><strong>Description:</strong><br>{{ project.description }}</p>
-        <p><strong>Licence:</strong> {{ project.licence }}</p>
+        <p>{% trans project.lead_text noop %}</p>
+        <p><strong>{% trans "Description" %}</strong><br>{% trans project.description noop %}</p>
+        <p><strong>{% trans "Licence" %}</strong> {{ project.licence }}</p>
         <p><a href="http://{{ project.github }}">
             <strong>Git-Hub</strong>
         </a></p>
         <p><a href="http://{{ project.website }}">
-            <strong>Website</strong>
+            <strong>{% trans "Website" %}</strong>
         </a></p>
         
         {% if user.profile.role.id == mentor_id %}
         <a href="edit/">
-            <button class=" btn btn-primary">Edit</button>
+            <button class=" btn btn-primary">{% trans "Edit" %}</button>
         </a>
         <a href="new_task/">
-            <button class="btn btn-primary">New Task</button>
+            <button class="btn btn-primary">{% trans "New Task" %}</button>
         </a>
         {% endif %}
     </div>

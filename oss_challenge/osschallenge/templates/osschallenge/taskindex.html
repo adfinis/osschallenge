@@ -1,4 +1,5 @@
 {% extends 'osschallenge/index.html' %}
+{% load i18n %}
 
 {% block content %}
     {% if task_list %}
@@ -6,11 +7,11 @@
         {% for task in task_list %}
             <li>
                 <a href="/tasks/{{ task.id }}">{{ task.title }} -- {{ task.project.title }}</a>
-                <p>{{ task.lead_text }}</p>
+                <p>{% trans task.lead_text noop %}</p>
             </li>
         {% endfor %}
         </ul>
     {% else %}
-        <p>No tasks available.</p>
+    <p>{% trans "No tasks available." %}</p>
     {% endif %}
 {% endblock content %}

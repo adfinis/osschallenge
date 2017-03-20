@@ -1,6 +1,5 @@
 {% extends 'osschallenge/index.html' %}
-
-{% block title %}{{ task.title }}{% endblock title%}
+{% load i18n %}
 
 {% block content %}
 <div class="content page-content--scroll">
@@ -11,18 +10,18 @@
             >{{ task.project.title }}</a>
         </h1>
 
-        {% if error_message %} <p><strong>{{ error_message }}</strong></p>{% endif %}
+        {% if error_message %} <p><strong>{% trans error_message %}</strong></p>{% endif %}
 
-        <p>{{ task.lead_text }}</p>
-        <p><strong>Description:</strong><br>{{ task.description }}</p>
-        <h3>Contact:</h3>
+        <p>{% trans task.lead_text %}</p>
+        <p><strong>{% trans "Description" %}</strong><br>{% trans task.description %}</p>
+        <h3>{% trans "Contact:" %}</h3>
         <p>{{ task.mentor.username }}
         <br>{{ task.mentor.first_name }} {{ task.mentor.last_name }}
         <br>{{ task.mentor.email }}
         </p>
         {% if user.profile.role.id == mentor_id %}
         <a href="edit/">
-            <button class="btn btn-primary">Edit</button>
+            <button class="btn btn-primary">{% trans "Edit" %}</button>
         </a>
         {% endif %}
     </div>
