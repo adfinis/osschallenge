@@ -45,7 +45,15 @@ class MentorForm(forms.Form):
 class TaskForm(ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'lead_text', 'description', 'mentor']
+        fields = [
+            'title_de',
+            'title_en_us',
+            'lead_text_de',
+            'lead_text_en_us',
+            'description_de',
+            'description_en_us',
+            'mentor'
+        ]
         widgets = {
 
             'lead_text': Textarea(attrs={
@@ -65,9 +73,12 @@ class ProjectForm(ModelForm):
     class Meta:
         model = Project
         fields = [
-            'title',
-            'lead_text',
-            'description',
+            'title_de',
+            'title_en_us',
+            'lead_text_de',
+            'lead_text_en_us',
+            'description_de',
+            'description_en_us',
             'licence',
             'github',
             'website',

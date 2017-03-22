@@ -26,9 +26,12 @@ class NewProjectView(CreateView):
     model = Project
     template_name = 'osschallenge/newproject.html'
     fields = [
-        'title',
-        'lead_text',
-        'description',
+        'title_de',
+        'title_en_us',
+        'lead_text_de',
+        'lead_text_en_us',
+        'description_de',
+        'description_en_us',
         'licence',
         'github',
         'website',
@@ -124,9 +127,12 @@ class NewTaskView(CreateView):
     model = Task
     template_name = 'osschallenge/newtask.html'
     fields = [
-        'title',
-        'lead_text',
-        'description',
+        'title_de',
+        'title_en_us',
+        'lead_text_de',
+        'lead_text_en_us',
+        'description_de',
+        'description_en_us',
         'mentor',
     ]
 
