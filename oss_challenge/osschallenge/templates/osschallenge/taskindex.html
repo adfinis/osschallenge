@@ -6,7 +6,14 @@
         <ul class="index">
         {% for task in task_list %}
             <li>
-                <a href="/tasks/{{ task.id }}">{{ task.title }} -- {{ task.project.title }}</a>
+                <a href="/tasks/{{ task.id }}"
+                    >{{ task.title }} -- {{ task.project.title }}
+                    {% if task.task_done == True %}
+                    <strong> / {% trans "done" %} by {{ task.assignee }}</strong>
+                    {% elif task.assignee_id != NULL %}
+                    <strong> / {% trans "claimed" %} by {{ task.assignee }}</strong>
+                    {% endif %}
+                </a>
                 <p>{% trans task.lead_text noop %}</p>
             </li>
         {% endfor %}

@@ -20,7 +20,6 @@ class Groups(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.ForeignKey(Role, default=1)
-    tasks_done = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
     links = models.CharField(max_length=50)
     contact = models.CharField(max_length=50)
@@ -54,8 +53,9 @@ class Task(models.Model):
                                    verbose_name=_('Description'),)
     mentor = models.ForeignKey(User, related_name="mentor_tasks")
     project = models.ForeignKey(Project, related_name="tasks")
-    assignee = models.ForeignKey(User, related_name="assignee_tasks",
+    assignee = models.ForeignKey(User, null=True, related_name="assignee_tasks",
                                  verbose_name=_('Assignee'),)
+    task_done = models.BooleanField(null=False, default=False)
 
     def __str__(self):
         return self.title

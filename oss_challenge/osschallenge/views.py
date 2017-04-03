@@ -94,9 +94,24 @@ class TaskIndexView(generic.ListView):
 
 def TaskView(request, pk):
     task = get_object_or_404(Task, pk=pk)
+    user = get_object_or_404(User, pk=request.user.id)
     template_name = 'osschallenge/task.html'
+    if 'Claim' in request.POST:
+        task.assignee_id = user.id
+        task.save()
+
+    elif 'Unclaim' in request.POST:
+        task.assignee_id = None
+        task.save()
+
+    elif 'Task_done' in request.POST:
+        task.task_done = True
+        task.assignee_id = user.id
+        task.save()
+
     return render(request, template_name, {
-        "task": task,
+        'task': task,
+        'user': user,
         'mentor_id': MENTOR_ID
     })
 
