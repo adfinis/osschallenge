@@ -144,11 +144,24 @@ class NewTaskView(CreateView):
 
 
 def ProfileView(request):
+    finished_tasks_list = get_list_or_404(Task)
+    user = get_object_or_404(User, pk=request.user.id)
+    profile = get_object_or_404(Profile, user_id=request.user.id)
+    user_profile_points = 0
     template_name = 'osschallenge/profile.html'
+
+    for task in finished_tasks_list:
+        if task.task_done and user.id == task.assignee_id:
+            user_profile_points += 5
+            profile.points = user_profile_points
+            profile.save()
+
 
     if request.user.is_authenticated():
         return render(request, template_name, {
-            'contributor_id': CONTRIBUTOR_ID
+            'contributor_id': CONTRIBUTOR_ID,
+            'finished_tasks_list': finished_tasks_list,
+            'user_profile_points': user_profile_points
         })
     else:
         return redirect('/login/')

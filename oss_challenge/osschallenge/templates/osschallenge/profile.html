@@ -13,11 +13,19 @@
         <p><strong>{% trans "Role:" %}</strong> {% trans user.profile.role.role %}</p>
         <br>
         {% if user.profile.role.id == contributor_id %}
-        <p><strong>{% trans "Points reached:" %}</strong> {{ user.profile.points }}</p>
-        <p><strong>{% trans "Tasks done:" %}</strong> {{ user.profile.tasks_done }}</p>
+            <p><strong>{% trans "Points reached:" %} </strong>{{ user_profile_points }}</p>
         {% endif %}
         <p><strong>Links:</strong><a href="http://{{user.profile.links }}">{{user.profile.links }}</a></p>
         <p><strong>{% trans "Contact:" %}</strong> {{user.profile.contact }}</p>
+        <p><strong>{% trans "Tasks done:" %}</strong>
+        {% for task in finished_tasks_list %}
+            {% if task.task_done and user.id == task.assignee_id %}
+                <li>
+                    <a href="/tasks/{{ task.id }}">{{ task.title }} -- {{ task.project.title }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        </p>
         <a href="/password_change">{% trans "Reset Password" %}</a>
         </br>
         <a href="edit/">

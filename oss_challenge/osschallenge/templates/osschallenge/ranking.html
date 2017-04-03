@@ -8,16 +8,14 @@
     <div class="listcontent">
         <ul class="index">
             {% for user in ranking_list %}
-            <li>
-                <h1>{{ user.username }}</h1>
-                <p><strong>{% trans "Points reached:" %}</strong>
-                {% if user.profile.points %}
-                {{ user.profile.points }}
-                {% else %}
-                0
+                {% if user.is_staff == False %}
+                <li>
+                    <h1>{{ user.username }}</h1>
+                    <p><strong>{% trans "Points reached:" %}</strong>
+                    {{ user.profile.points }}
+                    </p>
+                </li>
                 {% endif %}
-                </p>
-            </li>
             {% endfor %}
         </ul>
     </div>
