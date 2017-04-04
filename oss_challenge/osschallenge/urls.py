@@ -48,8 +48,16 @@ urlpatterns = [
         views.EditProfileView,
         name='editprofile'),
 
+    url(r'^task_administration_index/$',
+        views.TaskAdministrationIndexView,
+        name='taskadministrationindex'),
+
+    url(r'^task_administration/(?P<pk>[0-9]+)/$',
+        views.TaskAdministrationView,
+        name='taskadministration'),
+
     url(r'^ranking/$',
-        views.RankingView.as_view(),
+        views.RankingView,
         name='ranking'),
 
     url(r'^register/$',

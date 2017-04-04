@@ -19,7 +19,9 @@ MENTOR_ID = 2
 def IndexView(request):
     template_name = 'osschallenge/index.html'
 
-    return render(request, template_name)
+    return render(request, template_name, {
+        'mentor_id': MENTOR_ID
+    })
 
 
 class NewProjectView(CreateView):
@@ -84,12 +86,13 @@ def EditProjectView(request, pk):
     )
 
 
-class TaskIndexView(generic.ListView):
+def TaskIndexView(request):
+    task_list = get_list_or_404(Task)
     template_name = 'osschallenge/taskindex.html'
-    context_object_name = 'task_list'
-
-    def get_queryset(self):
-        return Task.objects.all()
+    return render(request, template_name, {
+        'task_list': task_list,
+        'mentor_id': MENTOR_ID
+    })
 
 
 def TaskView(request, pk):
@@ -160,21 +163,13 @@ class NewTaskView(CreateView):
 
 def ProfileView(request):
     finished_tasks_list = get_list_or_404(Task)
-    user = get_object_or_404(User, pk=request.user.id)
-    profile = get_object_or_404(Profile, user_id=request.user.id)
     user_profile_points = 0
     template_name = 'osschallenge/profile.html'
-
-    for task in finished_tasks_list:
-        if task.task_done and user.id == task.assignee_id:
-            user_profile_points += 5
-            profile.points = user_profile_points
-            profile.save()
-
 
     if request.user.is_authenticated():
         return render(request, template_name, {
             'contributor_id': CONTRIBUTOR_ID,
+            'mentor_id': MENTOR_ID,
             'finished_tasks_list': finished_tasks_list,
             'user_profile_points': user_profile_points
         })
@@ -210,12 +205,57 @@ def EditProfileView(request):
     )
 
 
-class RankingView(generic.ListView):
-    template_name = 'osschallenge/ranking.html'
-    context_object_name = 'ranking_list'
+def TaskAdministrationIndexView(request):
+    finished_task_list = get_list_or_404(Task)
+    template_name = 'osschallenge/task_administration_index.html'
 
-    def get_queryset(self):
-        return User.objects.order_by('-profile__points')
+    if request.user.is_authenticated():
+        return render(request, template_name, {
+            'finished_task_list': finished_task_list,
+            'contributor_id': CONTRIBUTOR_ID,
+            'mentor_id': MENTOR_ID
+        })
+
+
+def TaskAdministrationView(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    profile = get_object_or_404(Profile, user_id=task.assignee_id)
+    user = get_object_or_404(User, pk=request.user.id)
+    finished_task_list = get_list_or_404(Task)
+    user_profile_points = 0
+    template_name = 'osschallenge/task_administration.html'
+
+    if 'Checked' in request.POST:
+        task.task_checked = True
+        profile.points += 5
+        task.save()
+        profile.save()
+
+    if 'Reopen' in request.POST:
+        task.task_checked = False
+        profile.points -= 5
+        task.save()
+        profile.save()
+
+    if request.user.is_authenticated():
+        return render(request, template_name, {
+            'finished_task_list': finished_task_list,
+            'mentor_id': MENTOR_ID,
+            'contributor_id': CONTRIBUTOR_ID,
+            'task': task,
+            'user': user,
+            'profile': profile,
+            'user_profile_points': user_profile_points
+        })
+
+
+def RankingView(request):
+    ranking_list = User.objects.order_by('-profile__points')
+    template_name = 'osschallenge/ranking.html'
+    return render(request, template_name, {
+        'ranking_list': ranking_list,
+        'mentor_id': MENTOR_ID,
+    })
 
 
 def generate_key():

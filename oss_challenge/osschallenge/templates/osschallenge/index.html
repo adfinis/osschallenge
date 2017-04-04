@@ -50,13 +50,18 @@
                             <a href="/">{% trans "About" %}</a>
                         </li>
                         <br />
+                        {% if user.profile.role.id == mentor_id %}
+                        <li class="nav-side-list-item">
+                            <a href="/task_administration_index">{% trans "Task administration" %}</a>
+                        </li>
+                        {% endif %}
                         <li class="nav-side-list-item">
                             <a href="/profile">{% trans "Profile" %}</a>
                         </li>
                         <li class="nav-side-list-item">
                             <a href="/logout">Logout</a>
                         </li>
-                        {% else %}
+                    {% else %}
                         <li class="nav-side-list-item">
                             <a href="/projects">{% trans "Projects" %}</a>
                         </li>
@@ -76,7 +81,7 @@
                         <li class="nav-side-list-item">
                             <a href="/register">{% trans "Register" %}</a>
                         </li>
-                        {% endif %}
+                    {% endif %}
                     </ul>
                 </section>
             </nav>
