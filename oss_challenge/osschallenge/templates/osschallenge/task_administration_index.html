@@ -1,0 +1,21 @@
+{% extends 'osschallenge/index.html' %}
+{% load i18n %}
+
+{% block content %}
+    {% if finished_task_list %}
+        <ul class="index">
+        {% for task in finished_task_list %}
+            {% if task.mentor_id == user.id and task.task_done %}
+            <li>
+                <a href="/task_administration/{{ task.id }}"
+                   >{{ task.title }} -- {{ task.project.title }} / {% trans "done" %} by {{ task.assignee }}
+                   {% if task.task_checked %}
+                       / {% trans "checked" %}
+                   {% endif %}
+                </a>
+            </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock content %}

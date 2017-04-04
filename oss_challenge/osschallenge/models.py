@@ -56,6 +56,7 @@ class Task(models.Model):
     assignee = models.ForeignKey(User, null=True, related_name="assignee_tasks",
                                  verbose_name=_('Assignee'),)
     task_done = models.BooleanField(null=False, default=False)
+    task_checked = models.BooleanField(null=False, default=False)
 
     def __str__(self):
         return self.title
