@@ -29,7 +29,7 @@ urlpatterns = [
         name='newtask'),
 
     url(r'^tasks/$',
-        views.TaskIndexView.as_view(),
+        views.TaskIndexView,
         name='taskindex'),
 
     url(r'^tasks/(?P<pk>[0-9]+)/$',
