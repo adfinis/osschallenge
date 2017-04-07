@@ -20,7 +20,6 @@ class Groups(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.ForeignKey(Role, default=1)
-    tasks_done = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
     links = models.CharField(max_length=50)
     contact = models.CharField(max_length=50)
@@ -33,12 +32,15 @@ class Profile(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=50, verbose_name=_('Title'),)
     lead_text = models.CharField(max_length=300, verbose_name=_('Lead text'),)
-    description = models.CharField(max_length=5000, verbose_name=_('Description'),)
+    description = models.CharField(max_length=5000,
+                                   verbose_name=_('Description'),)
     licence = models.CharField(max_length=50, verbose_name=_('Licence'),)
     website = models.CharField(max_length=50, verbose_name=_('Website'),)
     github = models.CharField(max_length=50)
-    owner = models.ForeignKey(User, related_name="project_owner", verbose_name=_('Owner'),)
-    mentors = models.ManyToManyField(User, related_name="project_mentors", verbose_name=_('Mentors'),)
+    owner = models.ForeignKey(User, related_name="project_owner",
+                              verbose_name=_('Owner'),)
+    mentors = models.ManyToManyField(User, related_name="project_mentors",
+                                     verbose_name=_('Mentors'),)
 
     def __str__(self):
         return self.title
@@ -47,10 +49,14 @@ class Project(models.Model):
 class Task(models.Model):
     title = models.CharField(max_length=50, verbose_name=_('Title'),)
     lead_text = models.CharField(max_length=300, verbose_name=_('Lead text'),)
-    description = models.CharField(max_length=5000, verbose_name=_('Description'),)
-    mentor = models.ForeignKey(User, related_name="task_mentor")
-    project = models.ForeignKey(Project, related_name="task_project")
-    contributors = models.ManyToManyField(User, related_name="task_contributors", verbose_name=_('Contributors'),)
+    description = models.CharField(max_length=5000,
+                                   verbose_name=_('Description'),)
+    mentor = models.ForeignKey(User, related_name="mentor_tasks")
+    project = models.ForeignKey(Project, related_name="tasks")
+    assignee = models.ForeignKey(User, null=True, related_name="assignee_tasks",
+                                 verbose_name=_('Assignee'),)
+    task_done = models.BooleanField(null=False, default=False)
+    task_checked = models.BooleanField(null=False, default=False)
 
     def __str__(self):
         return self.title
