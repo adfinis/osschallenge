@@ -40,7 +40,7 @@
         {% if task.task_done == False and task.assignee_id == user.id %}
         <form action="" method="POST" class="edit">
         {% csrf_token %}
-        <button class="btn btn-primary" name={% trans "Task done" %}>{% trans "Task done" %}</button>
+        <button class="btn btn-primary" name="Task done">{% trans "Task done" %}</button>
         </form>
         {% else %}
         {% endif %}

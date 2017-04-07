@@ -103,11 +103,11 @@ def TaskView(request, pk):
         task.assignee_id = user.id
         task.save()
 
-    elif 'Unclaim' in request.POST:
+    elif 'Release' in request.POST:
         task.assignee_id = None
         task.save()
 
-    elif 'Task_done' in request.POST:
+    elif 'Task done' in request.POST:
         task.task_done = True
         task.assignee_id = user.id
         task.save()
