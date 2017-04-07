@@ -8,7 +8,7 @@
             <a href="/projects/{{ task.project.id }}"
                >{{ task.project.title }}
                {% if task.task_done == True %}
-               / {% trans "done" %} by {{ task.assignee }}
+               / {% trans "done" %} {% trans "by" %} {{ task.assignee }}
                    {% if task.task_checked %}
                        / {% trans "checked" %}
                    {% endif %}
@@ -23,13 +23,13 @@
         {% if task.mentor_id == user.id and task.task_checked == False %}
         <form method="POST" class="edit">
         {% csrf_token %}
-        <button class="btn btn-primary" name={% trans "Checked" %}>{% trans "Checked" %}</button>
+        <button class="btn btn-primary" name="Checked">{% trans "Checked" %}</button>
         </form>
         {% endif %}
         {% if task.mentor_id == user.id and task.task_checked %}
         <form method="POST" class="edit">
         {% csrf_token %}
-        <button class="btn btn-primary" name={% trans "Reopen" %}>{% trans "Reopen" %}</button>
+        <button class="btn btn-primary" name="Reopen">{% trans "Reopen" %}</button>
         </form>
         {% endif %}
     </div>

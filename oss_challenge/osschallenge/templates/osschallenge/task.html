@@ -8,9 +8,9 @@
             <a href="/projects/{{ task.project.id }}"
                >{{ task.project.title }}
                {% if task.task_done == True %}
-               / {% trans "done" %} by {{ task.assignee }}
+               / {% trans "done" %} {% trans "by" %} {{ task.assignee }}
                {% elif task.assignee_id != NULL %}
-               / {% trans "claimed" %} by {{ task.assignee }}
+               / {% trans "claimed" %} {% trans "by" %} {{ task.assignee }}
                {% else %}
                {% endif %}
             </a>
@@ -34,13 +34,13 @@
         {% elif task.assignee_id == user.id and task.task_done == False %}
         <form action="" method="POST" class="edit">
         {% csrf_token %}
-        <button class="btn btn-primary" name={% trans "Unclaim" %}>{% trans "Unclaim" %}</button>
+        <button class="btn btn-primary" name={% trans "Release" %}>{% trans "Release" %}</button>
         </form>
         {% endif %}
         {% if task.task_done == False and task.assignee_id == user.id %}
         <form action="" method="POST" class="edit">
         {% csrf_token %}
-        <button class="btn btn-primary" name={% trans "Task_done" %}>{% trans "Task done" %}</button>
+        <button class="btn btn-primary" name={% trans "Task done" %}>{% trans "Task done" %}</button>
         </form>
         {% else %}
         {% endif %}
