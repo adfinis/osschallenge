@@ -18,7 +18,7 @@
         {% if user.profile.role.id == contributor_id %}
             <p><strong>{% trans "Tasks done:" %}</strong>
             {% for task in finished_tasks_list %}
-                {% if task.task_done and user.id == task.assignee_id %}
+                {% if task.task_checked and user.id == task.assignee_id %}
                     <li>
                         <a href="/tasks/{{ task.id }}">{{ task.title }} -- {{ task.project.title }}</a>
                     </li>
