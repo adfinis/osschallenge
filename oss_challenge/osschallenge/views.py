@@ -113,6 +113,7 @@ def TaskView(request, pk):
         task.save()
 
     return render(request, template_name, {
+        'picture_url': settings.MEDIA_URL + os.path.basename(task.picture.name),
         'task': task,
         'user': user,
         'mentor_id': MENTOR_ID
@@ -122,8 +123,9 @@ def TaskView(request, pk):
 def EditTaskView(request, pk):
     task = get_object_or_404(Task, pk=pk)
     if request.method == 'POST':
-        form = TaskForm(request.POST, instance=task)
+        form = TaskForm(request.POST, request.FILES, instance=task)
 
+        print(form.is_valid())
         if form.is_valid():
             task = form.save()
             return redirect('task', pk=task.pk)
@@ -141,24 +143,28 @@ def EditTaskView(request, pk):
     )
 
 
-class NewTaskView(CreateView):
-    model = Task
-    template_name = 'osschallenge/newtask.html'
-    fields = [
-        'title_de',
-        'title_en_us',
-        'lead_text_de',
-        'lead_text_en_us',
-        'description_de',
-        'description_en_us',
-        'mentor',
-    ]
+def NewTaskView(request, pk):
+    task = Task()
+    if request.method == 'POST':
+        form = TaskForm(request.POST, request.FILES, instance=task)
 
-    def form_valid(self, form):
-        form.instance.project = Project.objects.get(pk=self.kwargs['pk'])
-        return super(NewTaskView, self).form_valid(form)
+        print(form.is_valid())
+        if form.is_valid():
+            form.instance.project = Project.objects.get(pk=pk)
+            task = form.save()
+            return redirect('task', pk=task.pk)
 
-    success_url = '/tasks/'
+    else:
+        form = TaskForm(instance=task)
+
+    return render(
+        request,
+        'osschallenge/newtask.html',
+        {
+            'form': form,
+            'task': task,
+        }
+    )
 
 
 def ProfileView(request):

@@ -2,6 +2,12 @@
 {% load i18n %}
 
 {% block content %}
+{% load staticfiles %}
+{% if task.picture %}
+<div class="task-picture">
+    <img src="{{ picture_url }}" class="img-responsive">
+</div>
+{% endif %}
 <div class="content page-content--scroll">
     <div class="detail">
         <h1 class="tasktitle">{{ task.title }} --
@@ -15,8 +21,7 @@
                {% endif %}
             </a>
         </h1>
-        {% if error_message %} <p><strong>{% trans error_message %}</strong></p>{% endif %}
-
+        {% if error_message %}<p><strong>{% trans error_message %}</strong></p>{% endif %}
         <p>{% trans task.lead_text %}</p>
         <p><strong>{% trans "Description" %}</strong><br>{% trans task.description %}</p>
         <h3>{% trans "Contact:" %}</h3>
@@ -47,3 +52,4 @@
     </div>
 </div>
 {% endblock content %}
+

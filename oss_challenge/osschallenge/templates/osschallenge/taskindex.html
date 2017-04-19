@@ -2,6 +2,7 @@
 {% load i18n %}
 
 {% block content %}
+<div class="content page-content--scroll">
     {% if task_list %}
         <ul class="index">
         {% for task in task_list %}
@@ -21,4 +22,5 @@
     {% else %}
     <p>{% trans "No tasks available." %}</p>
     {% endif %}
+</div>
 {% endblock content %}

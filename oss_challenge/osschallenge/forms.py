@@ -43,6 +43,8 @@ class MentorForm(forms.Form):
 
 
 class TaskForm(ModelForm):
+    picture = forms.FileField(required = False)
+
     class Meta:
         model = Task
         fields = [
@@ -52,7 +54,8 @@ class TaskForm(ModelForm):
             'lead_text_en_us',
             'description_de',
             'description_en_us',
-            'mentor'
+            'mentor',
+            'picture',
         ]
         widgets = {
 

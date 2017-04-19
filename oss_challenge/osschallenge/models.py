@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 
 class Role(models.Model):
@@ -53,21 +54,16 @@ class Task(models.Model):
                                    verbose_name=_('Description'),)
     mentor = models.ForeignKey(User, related_name="mentor_tasks")
     project = models.ForeignKey(Project, related_name="tasks")
-    assignee = models.ForeignKey(User, null=True, related_name="assignee_tasks",
+    assignee = models.ForeignKey(User, null=True,
+                                 related_name="assignee_tasks",
                                  verbose_name=_('Assignee'),)
     task_done = models.BooleanField(null=False, default=False)
     task_checked = models.BooleanField(null=False, default=False)
+    picture = models.FileField(upload_to = settings.MEDIA_ROOT,
+                                null=True)
 
     def __str__(self):
         return self.title
-
-
-class Picture(models.Model):
-    project = models.ForeignKey(Project)
-    picture = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.picture
 
 
 class Comment(models.Model):

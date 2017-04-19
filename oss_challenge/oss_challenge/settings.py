@@ -155,3 +155,8 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'OSS-Challenge <osschallenge@osschallenge.com>'
+
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "oss_challenge/osschallenge/pictures")
+MEDIA_URL = '/media/'
