@@ -75,14 +75,13 @@ div.detail form input {
 
 .grid-cell--2of12 {
     width: 800px;
-    height: 579px;
+    height: auto;
     text-align: center;
 }
 
 .example-grid-content img {
     width: 100%;
     height: auto;
-    border: solid;
     border-radius: 100%;
 }
 

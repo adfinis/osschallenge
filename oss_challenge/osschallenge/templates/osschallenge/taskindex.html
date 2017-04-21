@@ -6,17 +6,40 @@
     {% if task_list %}
         <ul class="index">
         {% for task in task_list %}
-            <li>
-                <a href="/tasks/{{ task.id }}"
-                    >{{ task.title }} -- {{ task.project.title }}
-                    {% if task.task_done == True %}
-                    <strong> / {% trans "done" %} {% trans "by" %} {{ task.assignee }}</strong>
-                    {% elif task.assignee_id != NULL %}
-                    <strong> / {% trans "claimed" %} by {{ task.assignee }}</strong>
+        <div class="grid">
+            <div class="grid-cell grid-cell--2of12">
+                <div class="example-grid-content">
+                    {% if task.fileurl == "/media/file" %}
+                    <li>
+                        <p>No image</p>
+                    </li>
+                    {% elif task.fileurl == "/media/" %}
+                    <li>
+                        <p>No image</p>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{{ task.fileurl }}">
+                            <img class="img-responsive" src="{{ task.fileurl }}">
+                        </a>
+                    </li>
                     {% endif %}
-                </a>
-                <p>{% trans task.lead_text noop %}</p>
-            </li>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell--10of12">
+                <li>
+                    <a href="/tasks/{{ task.id }}"
+                        >{{ task.title }} -- {{ task.project.title }}
+                        {% if task.task_done == True %}
+                        <strong> / {% trans "done" %} {% trans "by" %} {{ task.assignee }}</strong>
+                        {% elif task.assignee_id != NULL %}
+                        <strong> / {% trans "claimed" %} by {{ task.assignee }}</strong>
+                        {% endif %}
+                    </a>
+                    <p>{% trans task.lead_text noop %}</p>
+                </li>
+            </div>
+        </div>
         {% endfor %}
         </ul>
     {% else %}

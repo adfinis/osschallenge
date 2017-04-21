@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
@@ -59,8 +60,12 @@ class Task(models.Model):
                                  verbose_name=_('Assignee'),)
     task_done = models.BooleanField(null=False, default=False)
     task_checked = models.BooleanField(null=False, default=False)
-    picture = models.FileField(upload_to = settings.MEDIA_ROOT,
-                                null=True)
+    picture = models.FileField(upload_to=settings.MEDIA_ROOT,
+                               default="{}/file".format(settings.MEDIA_ROOT),
+                               null=True)
+
+    def fileurl(self):
+        return settings.MEDIA_URL + os.path.basename(self.picture.name)
 
     def __str__(self):
         return self.title

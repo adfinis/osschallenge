@@ -113,7 +113,6 @@ def TaskView(request, pk):
         task.save()
 
     return render(request, template_name, {
-        'picture_url': settings.MEDIA_URL + os.path.basename(task.picture.name),
         'task': task,
         'user': user,
         'mentor_id': MENTOR_ID

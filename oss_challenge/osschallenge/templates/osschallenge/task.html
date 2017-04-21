@@ -6,9 +6,13 @@
 <div class="grid content page-content--scroll">
     <div class="grid-cell grid-cell--2of12">
         <div class="example-grid-content">
-            {% if task.picture %}
-            <a href="{{ picture_url }}">
-                <img src="{{ picture_url }}" class="img-responsive">
+            {% if task.fileurl == "/media/file" %}
+            <p>No image</p>
+            {% elif task.fileurl == "/media/" %}
+            <p>No image</p>
+            {% else %}
+            <a href="{{ task.fileurl }}">
+                <img class="img-responsive" src="{{ task.fileurl }}">
             </a>
             {% endif %}
         </div>
