@@ -9,15 +9,15 @@
         <title>OSS-Challenge {% block title %}{% endblock title %}</title>
     </head>
     <body class="page">
-        <div class="page-viewport">
-            <nav class="nav-side">
-                <header class="nav-side-header">
-                    <button class="nav-toggle nav-side-toggle" onclick="this.parentNode.parentNode.classList.toggle('nav-side--expand')">
+        <div>
+            <nav class="nav-top">
+                <header class="nav-top-header">
+                    <button class="nav-toggle nav-top-toggle" onclick="this.parentNode.parentNode.classList.toggle('nav-top--expand')">
                         <span class="nav-toggle-icon"></span>
                     </button>
                     <a href="/">
-                        <div class="nav-side-header-logo"><img src="{% static "osschallenge/adsy.png" %}"/></div>
-                        <div class="nav-side-header-title">OSS-Challenge</div>
+                        <!--<div class="nav-top-header-logo"><img src="{% static "osschallenge/adsy.png" %}"/></div>-->
+                        <div class="nav-top-header-title">OSS-Challenge</div>
                     </a>
                 </header>
                 <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
@@ -32,53 +32,53 @@
                         </option>
                         {% endfor %}
                     </select>
-                    <input type="submit" value="Go" />
+                    <input name="submit" type="submit" value="Go" />
                 </form>
-                <section class="nav-side-body">
-                    <ul class="nav-side-list">
+                <section class="nav-top-body">
+                    <ul class="nav-top-list nav-top-list--right">
                     {% if user.is_authenticated %}
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/projects">{% trans "Projects" %}</a>
                         </li>
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/tasks">{% trans "Tasks" %}</a>
                         </li>
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/ranking">{% trans "Ranking" %}</a>
                         </li>
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/">{% trans "About" %}</a>
                         </li>
                         <br />
                         {% if user.profile.role.id == mentor_id %}
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/task_administration_index">{% trans "Task administration" %}</a>
                         </li>
                         {% endif %}
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/profile">{% trans "Profile" %}</a>
                         </li>
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/logout">Logout</a>
                         </li>
                     {% else %}
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/projects">{% trans "Projects" %}</a>
                         </li>
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/tasks">{% trans "Tasks" %}</a>
                         </li>
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/ranking">{% trans "Ranking" %}</a>
                         </li>
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/">{% trans "About" %}</a>
                         </li>
                         <br />
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/login">Login</a>
                         </li>
-                        <li class="nav-side-list-item">
+                        <li class="nav-top-list-item">
                             <a href="/register">{% trans "Register" %}</a>
                         </li>
                     {% endif %}
@@ -87,11 +87,6 @@
             </nav>
             {% block content %}
             {% endblock content %}
-            </div>
-            <div class="page-main-overlay" onclick="this.previousElementSibling.previousElementSibling.classList.toggle('nav-side--expand')"></div>
-        </div>
-        <!--<div class="footer">
-        </div> -->
         </div>
     </body>
 </html>

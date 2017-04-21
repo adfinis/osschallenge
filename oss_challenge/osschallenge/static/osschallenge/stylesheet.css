@@ -111,9 +111,23 @@ form.edit div textarea {
     width: 1173px;
 }
 
-div.nav-side-header-logo img {
-    height: 100%;
+nav.nav-top {
+    height: 50px;
     float: left;
+    align-self: top;
+}
+
+input[name=submit] {
+    margin: 10px;
+    float: left;
+    align-self: center;
+}
+
+select[name=language] {
+    margin: 10px;
+    margin-right: 0.5rem;
+    float: left;
+    align-self: center;
 }
 
 ol.breadcrumb {
