@@ -7,7 +7,9 @@
     <div class="grid-cell grid-cell--2of12">
         <div class="example-grid-content">
             {% if task.picture %}
-            <img src="{{ picture_url }}" class="img-responsive">
+            <a href="{{ picture_url }}">
+                <img src="{{ picture_url }}" class="img-responsive">
+            </a>
             {% endif %}
         </div>
     </div>
