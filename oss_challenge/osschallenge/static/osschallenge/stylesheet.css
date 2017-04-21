@@ -73,6 +73,19 @@ div.detail form input {
     display: block;
 }
 
+.grid-cell--2of12 {
+    width: 800px;
+    height: 579px;
+    text-align: center;
+}
+
+.example-grid-content img {
+    width: 100%;
+    height: auto;
+    border: solid;
+    border-radius: 100%;
+}
+
 /* Edit Task/Project */
 
 form.edit div  {

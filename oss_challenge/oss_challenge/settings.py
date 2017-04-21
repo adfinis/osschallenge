@@ -160,3 +160,7 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "oss_challenge/osschallenge/pictures")
 MEDIA_URL = '/media/'
+
+STATICFILES_DIRS = (
+    '/home/jonas/gitty/work/oss-challenge.src/oss_challenge/osschallenge/static/',
+)
