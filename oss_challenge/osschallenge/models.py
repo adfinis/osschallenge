@@ -77,4 +77,4 @@ class Comment(models.Model):
     author = models.ForeignKey(User)
 
     def __str__(self):
-        return self.task
+        return self.text

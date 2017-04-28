@@ -263,10 +263,6 @@ def RankingView(request):
     })
 
 
-def generate_key():
-    return base64.b32encode(os.urandom(7))[:10].lower()
-
-
 class RegistrationView(FormView):
     model = User
     template_name = 'registration/register.html'
@@ -291,7 +287,7 @@ class RegistrationView(FormView):
         return base64.b32encode(os.urandom(7))[:10].lower()
 
     def generate_profile(self, user):
-        profile = Profile(key=generate_key(), user=user)
+        profile = Profile(key=self.generate_key(), user=user)
         profile.save()
         send_mail(
             _('OSS-Challenge account confirmation'),
