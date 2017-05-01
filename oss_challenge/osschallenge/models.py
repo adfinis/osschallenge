@@ -75,6 +75,7 @@ class Comment(models.Model):
     task = models.ForeignKey(Task)
     comment = models.CharField(max_length=150)
     author = models.ForeignKey(User)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.text
+        return self.id

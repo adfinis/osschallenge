@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, Textarea
-from .models import Task, Project, Profile
+from .models import Task, Project, Profile, Comment
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext_lazy as _
@@ -40,6 +40,14 @@ class RegistrationForm(forms.Form):
 
 class MentorForm(forms.Form):
     assign_mentor = forms.CharField(label='New mentor')
+
+
+class CommentForm(ModelForm):
+    comment = forms.CharField(label='New comment')
+
+    class Meta:
+        model = Comment
+        fields = ['comment']
 
 
 class TaskForm(ModelForm):

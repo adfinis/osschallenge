@@ -3,9 +3,9 @@ import os
 from django.views import generic
 from django.shortcuts import redirect, render, get_object_or_404, get_list_or_404
 from django.views.generic.edit import CreateView
-from .models import Task, Project, Profile
+from .models import Task, Project, Profile, Comment
 from django.contrib.auth.models import User
-from .forms import TaskForm, ProjectForm, ProfileForm, UserForm
+from .forms import TaskForm, ProjectForm, ProfileForm, UserForm, CommentForm
 from django.views.generic import FormView
 from .forms import RegistrationForm
 from django.core.mail import send_mail
@@ -112,7 +112,16 @@ def TaskView(request, pk):
         task.assignee_id = user.id
         task.save()
 
+    elif 'Comment' in request.POST:
+        comment = Comment()
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            comment.author = user
+            comment.task = task
+            comment = form.save()
+
     return render(request, template_name, {
+        'comment_list': sorted(get_list_or_404(Comment), key=lambda c: c.created_at, reverse=True),
         'task': task,
         'user': user,
         'mentor_id': MENTOR_ID

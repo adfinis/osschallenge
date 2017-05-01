@@ -145,3 +145,42 @@ form.form-group-login {
   margin-bottom: 1rem;
 }
 
+div.comment {
+    width: 60%;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+}
+
+.comment-title {
+    background-color: rgb(91, 142, 219);
+    color: white;
+}
+
+.comment footer {
+    font-size: 14px;
+}
+
+.textarea {
+    width: 60%;
+}
+
+.task-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card {
+    height: 100%;
+    flex: none;
+    margin-right: 50px;
+}
+
+.card--inverse {
+    border: 1px solid rgb(225, 225, 225);
+    border-radius: 3px;
+}
+
+img.img-responsive {
+    width: 100%;
+}

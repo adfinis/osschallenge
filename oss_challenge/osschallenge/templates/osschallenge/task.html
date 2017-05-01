@@ -40,25 +40,50 @@
                 <br>{{ task.mentor.email }}
                 </p>
                 {% if user.profile.role.id == mentor_id %}
-                <a href="edit/">{% trans "Edit" %}</a>
+                <a href="edit/" class=" btn btn-primary">{% trans "Edit" %}</a>
+                </br>
                 {% elif task.assignee_id == NULL %}
-                <form action="" method="POST" class="edit">
-                {% csrf_token %}
-                <button class="btn btn-primary" name="Claim">{% trans "Claim" %}</button>
-                </form>
+                    <form action="" method="POST" class="edit">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" name="Claim">{% trans "Claim" %}</button>
+                    </form>
                 {% elif task.assignee_id == user.id and task.task_done == False %}
-                <form action="" method="POST" class="edit">
-                {% csrf_token %}
-                <button class="btn btn-primary" name={% trans "Release" %}>{% trans "Release" %}</button>
-                </form>
+                    <form action="" method="POST" class="edit">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" name={% trans "Release" %}>{% trans "Release" %}</button>
+                    </form>
                 {% endif %}
                 {% if task.task_done == False and task.assignee_id == user.id %}
-                <form action="" method="POST" class="edit">
-                {% csrf_token %}
-                <button class="btn btn-primary" name="Task done">{% trans "Task done" %}</button>
-                </form>
+                    <form action="" method="POST" class="edit">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" name="Task done">{% trans "Task done" %}</button>
+                    </form>
                 {% else %}
                 {% endif %}
+                </br>
+                <h3>Enter a comment</h3> 
+                <form method="POST">
+                    <textarea rows="4" class="textarea" name="comment" placeholder="Enter text here..."></textarea>
+                    {% csrf_token %}
+                </br>
+                </br>
+                    <button class="btn btn-primary" name="Comment">{% trans "Comment" %}</button>
+                </form>
+                {% for comment in comment_list %}
+                {% if comment.task_id == task.id %}
+                <div class="card--inverse card--primary comment">
+                    <div class="comment-title card-header">
+                        <b>{{ comment.author.first_name }} {{ comment.author.last_name }}</b>
+                    </div>
+                    <div class="card-block">
+                        {{ comment.comment }}
+                        <footer class="text-right">
+                            {{ comment.created_at|date:'d. m. Y, H:i' }}
+                        </footer>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
