@@ -61,8 +61,8 @@ class Task(models.Model):
     task_done = models.BooleanField(null=False, default=False)
     task_checked = models.BooleanField(null=False, default=False)
     picture = models.FileField(upload_to=settings.MEDIA_ROOT,
-                               default="{}/file".format(settings.MEDIA_ROOT),
-                               null=True)
+                               default="{}/example.jpg".format(settings.MEDIA_ROOT),
+                               null=False)
 
     def fileurl(self):
         return settings.MEDIA_URL + os.path.basename(self.picture.name)

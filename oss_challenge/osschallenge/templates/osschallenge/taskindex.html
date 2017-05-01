@@ -4,44 +4,31 @@
 {% block content %}
 <div class="content page-content--scroll">
     {% if task_list %}
-        <ul class="index">
+        <div class="task-container">
         {% for task in task_list %}
-        <div class="grid">
-            <div class="grid-cell grid-cell--2of12">
-                <div class="example-grid-content">
-                    {% if task.fileurl == "/media/file" %}
-                    <li>
-                        <p>No image</p>
-                    </li>
-                    {% elif task.fileurl == "/media/" %}
-                    <li>
-                        <p>No image</p>
-                    </li>
-                    {% else %}
-                    <li>
-                        <a href="{{ task.fileurl }}">
-                            <img class="img-responsive" src="{{ task.fileurl }}">
-                        </a>
-                    </li>
-                    {% endif %}
+        <ul class="index">
+            <a href="/tasks/{{ task.id }}">
+                <div class="card" style="max-width:400px">
+                    <div class="card-block">
+                        <h4 class="card-title">{{ task.project.title }}</h4>
+                        <h6 class="card-subtitle text-muted">{{ task.title }}
+                            {% if task.task_done == True %}
+                            </br>{% trans "done" %} {% trans "by" %} {{ task.assignee }}
+                            {% elif task.assignee_id != NULL %}
+                            </br>{% trans "claimed" %} {% trans "by" %} {{ task.assignee }}
+                            {% else %}
+                            {% endif %}
+                        </h6>
+                    </div>
+                    <img class="img-responsive" src="{{ task.fileurl }}" alt="Card image">
+                    <div class="card-block">
+                        <p class="card-text">{{ task.description }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="grid-cell grid-cell--10of12">
-                <li>
-                    <a href="/tasks/{{ task.id }}"
-                        >{{ task.title }} -- {{ task.project.title }}
-                        {% if task.task_done == True %}
-                        <strong> / {% trans "done" %} {% trans "by" %} {{ task.assignee }}</strong>
-                        {% elif task.assignee_id != NULL %}
-                        <strong> / {% trans "claimed" %} by {{ task.assignee }}</strong>
-                        {% endif %}
-                    </a>
-                    <p>{% trans task.lead_text noop %}</p>
-                </li>
-            </div>
-        </div>
-        {% endfor %}
+            </a>
         </ul>
+        {% endfor %}
+        </div>
     {% else %}
     <p>{% trans "No tasks available." %}</p>
     {% endif %}
