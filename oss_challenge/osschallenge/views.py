@@ -128,7 +128,8 @@ def TaskView(request, pk):
             comment = form.save()
 
     return render(request, template_name, {
-        'comment_list': sorted(get_list_or_404(Comment), key=lambda c: c.created_at, reverse=True),
+        'comment_list': sorted(Comment.objects.all(),
+                               key=lambda c: c.created_at, reverse=True),
         'task': task,
         'user': user,
         'mentor_id': MENTOR_ID
