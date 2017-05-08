@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-
+from easy_thumbnails.fields import ThumbnailerImageField
 
 class Role(models.Model):
     role = models.CharField(max_length=50)
@@ -60,12 +60,12 @@ class Task(models.Model):
                                  verbose_name=_('Assignee'),)
     task_done = models.BooleanField(null=False, default=False)
     task_checked = models.BooleanField(null=False, default=False)
-    picture = models.FileField(upload_to=settings.MEDIA_ROOT,
-                               default="{}/example.jpg".format(settings.MEDIA_ROOT),
-                               null=False)
+    picture = ThumbnailerImageField(upload_to='',
+                                    default="example.jpg",
+                                    null=False)
 
     def fileurl(self):
-        return settings.MEDIA_URL + os.path.basename(self.picture.name)
+        return settings.MEDIA_URL + os.path.basename(self.picture['avatar'].name)
 
     def __str__(self):
         return self.title

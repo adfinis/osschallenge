@@ -12,7 +12,7 @@
             <p>No image</p>
             {% else %}
             <a href="{{ task.fileurl }}">
-                <img class="img-responsive" src="{{ task.fileurl }}">
+                <img class="img-responsive" src="{{ task.picture.avatar.url }}">
             </a>
             {% endif %}
         </div>

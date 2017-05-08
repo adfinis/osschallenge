@@ -51,7 +51,7 @@ class CommentForm(ModelForm):
 
 
 class TaskForm(ModelForm):
-    picture = forms.FileField(required = False)
+    picture = forms.ImageField(required = False)
 
     class Meta:
         model = Task
