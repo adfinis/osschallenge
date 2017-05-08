@@ -82,7 +82,6 @@ div.detail form input {
 .example-grid-content img {
     width: 100%;
     height: auto;
-    border-radius: 100%;
 }
 
 /* Edit Task/Project */
@@ -164,23 +163,43 @@ div.comment {
     width: 60%;
 }
 
-.task-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.card {
-    height: 100%;
-    flex: none;
-    margin-right: 50px;
-}
-
-.card--inverse {
-    border: 1px solid rgb(225, 225, 225);
-    border-radius: 3px;
-}
-
 img.img-responsive {
     width: 100%;
+}
+
+.task-text {
+    color: black;
+}
+
+.task-grid {
+    padding: 0 18px;
+}
+
+.task-picture {
+    /*height: 200px;*/
+}
+
+.project-title {
+    /*height: 40px;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.task-title {
+    /*height: 66px;*/
+    overflow: hidden;
+}
+
+.task-description {
+    /*height: 105px;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.test {
+    width: 300px;
+}
+
+.task-status {
+    text-align: center;
 }

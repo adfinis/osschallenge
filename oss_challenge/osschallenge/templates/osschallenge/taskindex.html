@@ -1,32 +1,44 @@
 {% extends 'osschallenge/index.html' %}
 {% load i18n %}
+{% load thumbnail %}
 
 {% block content %}
 <div class="content page-content--scroll">
     {% if task_list %}
-        <div class="task-container">
+        <div class="grid grid--2of12 task-grid">
         {% for task in task_list %}
-        <ul class="index">
-            <a href="/tasks/{{ task.id }}">
-                <div class="card" style="max-width:400px">
-                    <div class="card-block">
-                        <h4 class="card-title">{{ task.project.title }}</h4>
-                        <h6 class="card-subtitle text-muted">{{ task.title }}
-                            {% if task.task_done == True %}
-                            </br>{% trans "done" %} {% trans "by" %} {{ task.assignee }}
-                            {% elif task.assignee_id != NULL %}
-                            </br>{% trans "claimed" %} {% trans "by" %} {{ task.assignee }}
-                            {% else %}
-                            {% endif %}
-                        </h6>
+        <div class="grid-cell">
+            <div class="example-grid-content">
+                <div class="card test" style="max-width:400px">
+                    <a href="/tasks/{{ task.id }}">
+                    <div class="task-status">
+                        {% if task.task_done == True %}
+                        <h5>{% trans "done" %} {% trans "by" %} {{ task.assignee }}</h5>
+                        {% elif task.assignee_id != NULL %}
+                        <h5>{% trans "claimed" %} {% trans "by" %} {{ task.assignee }}</h5>
+                        {% else %}
+                        <h5>{% trans "free" %}</h5>
+                        {% endif %}
                     </div>
-                    <img class="img-responsive" src="{{ task.fileurl }}" alt="Card image">
-                    <div class="card-block">
-                        <p class="card-text">{{ task.description }}</p>
+                    <div class="task-picture">
+                        <img src="{{ task.picture.avatar.url }}" alt="Card image">
                     </div>
+                    <div class="card-block">
+                            <div class="project-title">
+                                <h4 class="card-title">{{ task.project.title }}</h4>
+                            </div>
+                            <div class="task-title">
+                                <h6 class="card-subtitle text-muted">{{ task.title }}
+                                                                    </h6>
+                            </div>
+                        <div class="task-description">
+                            </br> <p class="card-text task-text">{{ task.description }}</p>
+                        </div>
+                    </div>
+                        </a>
                 </div>
-            </a>
-        </ul>
+            </div>
+        </div>
         {% endfor %}
         </div>
     {% else %}

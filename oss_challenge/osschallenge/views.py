@@ -89,6 +89,13 @@ def EditProjectView(request, pk):
 def TaskIndexView(request):
     task_list = get_list_or_404(Task)
     template_name = 'osschallenge/taskindex.html'
+    for task in task_list:
+        max_length_description = 150
+        max_length_title = 60
+        if len(task.description) > max_length_description:
+            task.description = task.description[:max_length_description] + " ..."
+        if len(task.title) > max_length_title:
+            task.title = task.title[:max_length_title] + " ..."
     return render(request, template_name, {
         'task_list': task_list,
         'mentor_id': MENTOR_ID
@@ -156,7 +163,6 @@ def NewTaskView(request, pk):
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES, instance=task)
 
-        print(form.is_valid())
         if form.is_valid():
             form.instance.project = Project.objects.get(pk=pk)
             task = form.save()
