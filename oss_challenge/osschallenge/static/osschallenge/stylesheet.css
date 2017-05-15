@@ -196,3 +196,16 @@ img.img-responsive {
 .task-status {
     text-align: center;
 }
+
+.markdown {
+    font-size: 12px;
+}
+
+.example-grid-content {
+    display: flex;
+    align-self: stretch;
+}
+
+.grid-cell {
+    display: flex;
+}
