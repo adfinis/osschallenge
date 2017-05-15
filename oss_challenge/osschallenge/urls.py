@@ -62,6 +62,10 @@ urlpatterns = [
         views.RankingView,
         name='ranking'),
 
+    url(r'^about/$',
+        views.AboutView.as_view(),
+        name='about'),
+
     url(r'^register/$',
         views.RegistrationView.as_view()),
 

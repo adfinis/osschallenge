@@ -209,3 +209,14 @@ img.img-responsive {
 .grid-cell {
     display: flex;
 }
+
+.about {
+    display: flex;
+    justify-content: center;
+}
+
+.about-text {
+    display: flex;
+    justify-content: center;
+}
+

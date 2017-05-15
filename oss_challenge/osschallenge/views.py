@@ -279,6 +279,10 @@ def RankingView(request):
     })
 
 
+class AboutView(generic.TemplateView):
+    template_name = 'osschallenge/about.html'
+
+
 class RegistrationView(FormView):
     model = User
     template_name = 'registration/register.html'
