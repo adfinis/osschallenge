@@ -175,23 +175,16 @@ img.img-responsive {
     padding: 0 18px;
 }
 
-.task-picture {
-    /*height: 200px;*/
-}
-
 .project-title {
-    /*height: 40px;*/
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .task-title {
-    /*height: 66px;*/
     overflow: hidden;
 }
 
 .task-description {
-    /*height: 105px;*/
     overflow: hidden;
     text-overflow: ellipsis;
 }
