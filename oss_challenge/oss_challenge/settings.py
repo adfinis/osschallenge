@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'easy_thumbnails',
+    'django_markdown',
 ]
 
 MIDDLEWARE_CLASSES = [

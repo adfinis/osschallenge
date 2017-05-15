@@ -73,7 +73,7 @@ class Task(models.Model):
 
 class Comment(models.Model):
     task = models.ForeignKey(Task)
-    comment = models.CharField(max_length=150)
+    comment = models.TextField(max_length=150)
     author = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
 

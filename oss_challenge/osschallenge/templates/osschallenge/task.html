@@ -1,5 +1,6 @@
 {% extends 'osschallenge/index.html' %}
 {% load i18n %}
+{% load django_markdown %}
 
 {% block content %}
 {% load staticfiles %}
@@ -62,20 +63,26 @@
                 <form method="POST">
                     <textarea rows="4" class="textarea" name="comment" placeholder="Enter text here..."></textarea>
                     {% csrf_token %}
-                </br>
-                </br>
+                    <strong><p class="markdown">{% trans "Markdown available" %}</p></strong>
                     <button class="btn btn-primary" name="Comment">{% trans "Comment" %}</button>
+                </br>
+                </br>
                 </form>
                 {% for comment in comment_list %}
                 {% if comment.task_id == task.id %}
                 <div class="card--inverse card--primary comment">
                     <div class="comment-title card-header">
-                        <b>{{ comment.author.first_name }} {{ comment.author.last_name }}</b>
+                        {% if comment.author.id == mentor_id %}
+                            <b>{{ comment.author.first_name }} {{comment.author.last_name}} </b>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        {% else %}
+                            <b>{{ comment.author.username }}</b>
+                        {% endif %}
                     </div>
                     <div class="card-block">
-                        {{ comment.comment }}
+                        {{ comment.comment|markdown|linebreaks }}
                         <footer class="text-right">
-                            {{ comment.created_at|date:'d. m. Y, H:i' }}
+                            {{ comment.created_at|date:'Y-m-d, H:i' }}
                         </footer>
                     </div>
                 </div>
