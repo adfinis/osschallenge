@@ -89,9 +89,9 @@ def EditProjectView(request, pk):
 def TaskIndexView(request):
     task_list = get_list_or_404(Task)
     template_name = 'osschallenge/taskindex.html'
+    max_length_description = 150
+    max_length_title = 60
     for task in task_list:
-        max_length_description = 150
-        max_length_title = 60
         if len(task.description) > max_length_description:
             task.description = task.description[:max_length_description] + " ..."
         if len(task.title) > max_length_title:
@@ -141,7 +141,6 @@ def EditTaskView(request, pk):
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES, instance=task)
 
-        print(form.is_valid())
         if form.is_valid():
             task = form.save()
             return redirect('task', pk=task.pk)

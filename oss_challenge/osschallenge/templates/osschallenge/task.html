@@ -6,27 +6,20 @@
 {% load staticfiles %}
 <div class="grid content page-content--scroll">
     <div class="grid-cell grid-cell--2of12">
-        <div class="example-grid-content">
-            {% if task.fileurl == "/media/file" %}
-            <p>No image</p>
-            {% elif task.fileurl == "/media/" %}
-            <p>No image</p>
-            {% else %}
+        <div class="grid-content">
             <a href="{{ task.fileurl }}">
                 <img class="img-responsive" src="{{ task.picture.avatar.url }}">
             </a>
-            {% endif %}
         </div>
     </div>
     <div class="grid-cell grid-cell--10of12">
-        <div class="example-grid-content">
+        <div class="grid-content">
             <div class="detail">
                 <h1 class="tasktitle">{{ task.title }}
                    {% if task.task_done == True %}
                    </br>{% trans "done" %} {% trans "by" %} {{ task.assignee }}
                    {% elif task.assignee_id != NULL %}
                    </br>{% trans "claimed" %} {% trans "by" %} {{ task.assignee }}
-                   {% else %}
                    {% endif %}
                 </h1>
                 {% if error_message %}<p><strong>{% trans error_message %}</strong></p>{% endif %}
@@ -64,29 +57,27 @@
                     <textarea rows="4" class="textarea" name="comment" placeholder="Enter text here..."></textarea>
                     {% csrf_token %}
                     <strong><p class="markdown">{% trans "Markdown available" %}</p></strong>
-                    <button class="btn btn-primary" name="Comment">{% trans "Comment" %}</button>
-                </br>
-                </br>
+                    <button class="btn btn-primary comment" name="Comment">{% trans "Comment" %}</button>
                 </form>
                 {% for comment in comment_list %}
-                {% if comment.task_id == task.id %}
-                <div class="card--inverse card--primary comment">
-                    <div class="comment-title card-header">
-                        {% if comment.author.id == mentor_id %}
-                            <b>{{ comment.author.first_name }} {{comment.author.last_name}} </b>
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                        {% else %}
-                            <b>{{ comment.author.username }}</b>
-                        {% endif %}
-                    </div>
-                    <div class="card-block">
-                        {{ comment.comment|markdown|linebreaks }}
-                        <footer class="text-right">
-                            {{ comment.created_at|date:'Y-m-d, H:i' }}
-                        </footer>
-                    </div>
-                </div>
-                {% endif %}
+                    {% if comment.task_id == task.id %}
+                        <div class="card--inverse card--primary comment">
+                            <div class="comment-title card-header">
+                                {% if comment.author.id == mentor_id %}
+                                    <b>{{ comment.author.first_name }} {{comment.author.last_name}} </b>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                {% else %}
+                                    <b>{{ comment.author.username }}</b>
+                                {% endif %}
+                            </div>
+                            <div class="card-block">
+                                {{ comment.comment|markdown|linebreaks }}
+                                <footer class="text-right">
+                                    {{ comment.created_at|date:'Y-m-d, H:i' }}
+                                </footer>
+                            </div>
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

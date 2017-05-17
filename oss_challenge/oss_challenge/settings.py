@@ -58,6 +58,14 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'oss_challenge.urls'
 
+'''
+THUMBNAIL_ALIASES = {
+    {target}: {
+        {alias name}: {'size': {(width, height)}, 'crop': {True|'smart'|(x-axis, y-axis)}, 'upscale':{True}},
+    },
+}
+'''
+
 THUMBNAIL_ALIASES = {
     '': {
         'avatar': {'size': (350, 350), 'crop': 'smart', 'upscale': True},
@@ -169,6 +177,4 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 MEDIA_ROOT = os.path.join(BASE_DIR, "osschallenge/pictures")
 MEDIA_URL = '/media/'
 
-STATICFILES_DIRS = (
-    '/home/jonas/gitty/work/oss-challenge.src/oss_challenge/osschallenge/static/',
-)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "osschallenge/static/")),

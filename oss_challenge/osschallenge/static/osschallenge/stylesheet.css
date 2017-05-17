@@ -75,11 +75,10 @@ div.detail form input {
 
 .grid-cell--2of12 {
     width: 800px;
-    height: auto;
     text-align: center;
 }
 
-.example-grid-content img {
+.grid-content img {
     width: 100%;
     height: auto;
 }
@@ -160,7 +159,7 @@ div.comment {
 }
 
 .textarea {
-    width: 60%;
+    width: 550px;
 }
 
 img.img-responsive {
@@ -201,7 +200,7 @@ img.img-responsive {
     font-size: 12px;
 }
 
-.example-grid-content {
+.grid-content {
     display: flex;
     align-self: stretch;
 }
@@ -220,3 +219,6 @@ img.img-responsive {
     justify-content: center;
 }
 
+.btn.btn-primary.comment {
+    margin-bottom: 50px;
+}
