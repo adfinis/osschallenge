@@ -80,7 +80,6 @@ div.detail form input {
 
 .grid-content img {
     width: 100%;
-    height: auto;
 }
 
 /* Edit Task/Project */
@@ -188,10 +187,6 @@ img.img-responsive {
     text-overflow: ellipsis;
 }
 
-.test {
-    width: 300px;
-}
-
 .task-status {
     text-align: center;
 }
@@ -221,4 +216,9 @@ img.img-responsive {
 
 .btn.btn-primary.comment {
     margin-bottom: 50px;
+}
+
+.card {
+    width: 300px;
+    max-width: 400px;
 }
