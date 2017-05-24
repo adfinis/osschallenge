@@ -7,9 +7,15 @@
 <div class="grid content page-content--scroll">
     <div class="grid-cell grid-cell--2of12">
         <div class="grid-content">
-            <a href="{{ task.fileurl }}">
-                <img class="img-responsive" src="{{ task.picture.avatar.url }}">
-            </a>
+            <div class="task-picture">
+                <a href="{{ task.fileurl }}">
+                    {% if task.picture.avatar.url %}
+                        <img class="img-responsive" src="{{ task.picture.avatar.url }}">
+                    {% else %}
+                        <img class="img-responsive" src="{% static "osschallenge/example.jpg" %}">
+                    {% endif %}
+                </a>
+            </div>
         </div>
     </div>
     <div class="grid-cell grid-cell--10of12">

@@ -60,9 +60,7 @@ class Task(models.Model):
                                  verbose_name=_('Assignee'),)
     task_done = models.BooleanField(null=False, default=False)
     task_checked = models.BooleanField(null=False, default=False)
-    picture = ThumbnailerImageField(upload_to='',
-                                    default="example.jpg",
-                                    null=False)
+    picture = ThumbnailerImageField(upload_to='', null=True)
 
     def fileurl(self):
         return settings.MEDIA_URL + os.path.basename(self.picture['avatar'].name)

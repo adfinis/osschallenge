@@ -61,7 +61,7 @@ ROOT_URLCONF = 'oss_challenge.urls'
 '''
 THUMBNAIL_ALIASES = {
     {target}: {
-        {alias name}: {'size': {(width, height)}, 'crop': {True|'smart'|(x-axis, y-axis)}, 'upscale':{True}},
+        {alias name}: {'size': {(width, height)}, 'crop': {True|'smart'|(x-axis, y-axis)}, 'upscale':{True|False}},
     },
 }
 '''
@@ -172,9 +172,7 @@ EMAIL_PORT = 25
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'OSS-Challenge <osschallenge@osschallenge.com>'
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "osschallenge/static")
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "osschallenge/pictures")
 MEDIA_URL = '/media/'
-
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "osschallenge/static/")),

@@ -15,7 +15,6 @@ from django.utils.translation import gettext_lazy as _
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
 
-
 def IndexView(request):
     template_name = 'osschallenge/index.html'
 

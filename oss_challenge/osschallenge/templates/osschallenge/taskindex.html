@@ -1,6 +1,7 @@
 {% extends 'osschallenge/index.html' %}
 {% load i18n %}
 {% load thumbnail %}
+{% load static %}
 
 {% block content %}
 <div class="content page-content--scroll">
@@ -8,34 +9,36 @@
         <div class="grid grid--2of12 task-grid">
             {% for task in task_list %}
                 <div class="grid-cell">
-                    <div class="grid-content">
-                        <div class="card">
-                            <a href="/tasks/{{ task.id }}">
-                                <div class="task-status">
-                                    {% if task.task_done == True %}
-                                    <h5>{% trans "done" %} {% trans "by" %} {{ task.assignee }}</h5>
-                                    {% elif task.assignee_id != NULL %}
-                                    <h5>{% trans "claimed" %} {% trans "by" %} {{ task.assignee }}</h5>
-                                    {% else %}
-                                    <h5>{% trans "free" %}</h5>
-                                    {% endif %}
-                                </div>
-                                <div class="task-picture">
-                                    <img src="{{ task.picture.avatar.url }}" alt="Card image">
-                                </div>
-                                <div class="card-block">
-                                        <div class="project-title">
-                                            <h4 class="card-title">{{ task.project.title }}</h4>
-                                        </div>
-                                        <div class="task-title">
-                                            <h6 class="card-subtitle text-muted">{{ task.title }}</h6>
-                                        </div>
-                                    <div class="task-description">
-                                        </br> <p class="card-text task-text">{{ task.description }}</p>
+                    <div class="card">
+                        <a href="/tasks/{{ task.id }}">
+                            <div class="task-status">
+                                {% if task.task_done == True %}
+                                <h5>{% trans "done" %} {% trans "by" %} {{ task.assignee }}</h5>
+                                {% elif task.assignee_id != NULL %}
+                                <h5>{% trans "claimed" %} {% trans "by" %} {{ task.assignee }}</h5>
+                                {% else %}
+                                <h5>{% trans "free" %}</h5>
+                                {% endif %}
+                            </div>
+                            <div class="task-picture">
+                                {% if task.picture %}
+                                    <img class="img-responsive" src="{{ task.picture.avatar.url }}" alt="Card image">
+                                {% else %}
+                                    <img class="img-responsive" src="{% static "osschallenge/example.jpg" %}">
+                                {% endif %}
+                            </div>
+                            <div class="card-block">
+                                    <div class="project-title">
+                                        <h4 class="card-title">{{ task.project.title }}</h4>
                                     </div>
+                                    <div class="task-title">
+                                        <h6 class="card-subtitle text-muted">{{ task.title }}</h6>
+                                    </div>
+                                <div class="task-description">
+                                    </br> <p class="card-text task-text">{{ task.description }}</p>
                                 </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             {% endfor %}

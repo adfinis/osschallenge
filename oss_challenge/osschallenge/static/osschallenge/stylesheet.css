@@ -78,10 +78,6 @@ div.detail form input {
     text-align: center;
 }
 
-.grid-content img {
-    width: 100%;
-}
-
 /* Edit Task/Project */
 
 form.edit div  {
@@ -163,6 +159,7 @@ div.comment {
 
 img.img-responsive {
     width: 100%;
+    height: 100%;
 }
 
 .task-text {
@@ -195,11 +192,6 @@ img.img-responsive {
     font-size: 12px;
 }
 
-.grid-content {
-    display: flex;
-    align-self: stretch;
-}
-
 .grid-cell {
     display: flex;
 }
@@ -220,5 +212,11 @@ img.img-responsive {
 
 .card {
     width: 300px;
-    max-width: 400px;
+    height: 615px;
+
 }
+
+.task-picture {
+    height: 298px;
+}
+
