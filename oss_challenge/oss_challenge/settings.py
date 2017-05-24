@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'easy_thumbnails',
+    'django_markdown',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -55,6 +57,20 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'oss_challenge.urls'
+
+'''
+THUMBNAIL_ALIASES = {
+    {target}: {
+        {alias name}: {'size': {(width, height)}, 'crop': {True|'smart'|(x-axis, y-axis)}, 'upscale':{True|False}},
+    },
+}
+'''
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (350, 350), 'crop': 'smart', 'upscale': True},
+    },
+}
 
 TEMPLATES = [
     {
@@ -155,3 +171,8 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'OSS-Challenge <osschallenge@osschallenge.com>'
+
+STATIC_ROOT = os.path.join(BASE_DIR, "osschallenge/static")
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "osschallenge/pictures")
+MEDIA_URL = '/media/'

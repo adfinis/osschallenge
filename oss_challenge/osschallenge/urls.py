@@ -2,6 +2,8 @@ from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from . import views
 from .forms import LoginForm
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$',
@@ -25,7 +27,7 @@ urlpatterns = [
         name='editproject'),
 
     url(r'^projects/(?P<pk>[0-9]+)/new_task/$',
-        views.NewTaskView.as_view(),
+        views.NewTaskView,
         name='newtask'),
 
     url(r'^tasks/$',
@@ -60,6 +62,10 @@ urlpatterns = [
         views.RankingView,
         name='ranking'),
 
+    url(r'^about/$',
+        views.AboutView.as_view(),
+        name='about'),
+
     url(r'^register/$',
         views.RegistrationView.as_view()),
 
@@ -92,3 +98,9 @@ urlpatterns = [
 
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

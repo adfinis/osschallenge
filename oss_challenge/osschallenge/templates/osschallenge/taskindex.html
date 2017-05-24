@@ -1,24 +1,50 @@
 {% extends 'osschallenge/index.html' %}
 {% load i18n %}
+{% load thumbnail %}
+{% load static %}
 
 {% block content %}
+<div class="content page-content--scroll">
     {% if task_list %}
-        <ul class="index">
-        {% for task in task_list %}
-            <li>
-                <a href="/tasks/{{ task.id }}"
-                    >{{ task.title }} -- {{ task.project.title }}
-                    {% if task.task_done == True %}
-                    <strong> / {% trans "done" %} by {{ task.assignee }}</strong>
-                    {% elif task.assignee_id != NULL %}
-                    <strong> / {% trans "claimed" %} by {{ task.assignee }}</strong>
-                    {% endif %}
-                </a>
-                <p>{% trans task.lead_text noop %}</p>
-            </li>
-        {% endfor %}
-        </ul>
+        <div class="grid grid--2of12 task-grid">
+            {% for task in task_list %}
+                <div class="grid-cell">
+                    <div class="card">
+                        <a href="/tasks/{{ task.id }}">
+                            <div class="task-status">
+                                {% if task.task_done == True %}
+                                <h5>{% trans "done" %} {% trans "by" %} {{ task.assignee }}</h5>
+                                {% elif task.assignee_id != NULL %}
+                                <h5>{% trans "claimed" %} {% trans "by" %} {{ task.assignee }}</h5>
+                                {% else %}
+                                <h5>{% trans "free" %}</h5>
+                                {% endif %}
+                            </div>
+                            <div class="task-picture">
+                                {% if task.picture %}
+                                    <img class="img-responsive" src="{{ task.picture.avatar.url }}" alt="Card image">
+                                {% else %}
+                                    <img class="img-responsive" src="{% static "osschallenge/example.jpg" %}">
+                                {% endif %}
+                            </div>
+                            <div class="card-block">
+                                    <div class="project-title">
+                                        <h4 class="card-title">{{ task.project.title }}</h4>
+                                    </div>
+                                    <div class="task-title">
+                                        <h6 class="card-subtitle text-muted">{{ task.title }}</h6>
+                                    </div>
+                                <div class="task-description">
+                                    </br> <p class="card-text task-text">{{ task.description }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     {% else %}
     <p>{% trans "No tasks available." %}</p>
     {% endif %}
+</div>
 {% endblock content %}

@@ -1,9 +1,10 @@
 from django import forms
 from django.forms import ModelForm, Textarea
-from .models import Task, Project, Profile
+from .models import Task, Project, Profile, Comment
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext_lazy as _
+from django_markdown.widgets import MarkdownWidget
 
 
 class LoginForm(AuthenticationForm):
@@ -42,7 +43,17 @@ class MentorForm(forms.Form):
     assign_mentor = forms.CharField(label='New mentor')
 
 
+class CommentForm(ModelForm):
+    comment = forms.CharField(widget = MarkdownWidget(), label='New comment')
+
+    class Meta:
+        model = Comment
+        fields = ['comment']
+
+
 class TaskForm(ModelForm):
+    picture = forms.ImageField(required = False)
+
     class Meta:
         model = Task
         fields = [
@@ -52,7 +63,8 @@ class TaskForm(ModelForm):
             'lead_text_en_us',
             'description_de',
             'description_en_us',
-            'mentor'
+            'mentor',
+            'picture',
         ]
         widgets = {
 

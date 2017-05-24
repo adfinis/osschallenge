@@ -1,49 +1,94 @@
 {% extends 'osschallenge/index.html' %}
 {% load i18n %}
+{% load django_markdown %}
+{% load static %}
 
 {% block content %}
-<div class="content page-content--scroll">
-    <div class="detail">
-        <h1 class="tasktitle">{{ task.title }} --
-            <a href="/projects/{{ task.project.id }}"
-               >{{ task.project.title }}
-               {% if task.task_done == True %}
-               / {% trans "done" %} by {{ task.assignee }}
-               {% elif task.assignee_id != NULL %}
-               / {% trans "claimed" %} by {{ task.assignee }}
-               {% else %}
-               {% endif %}
-            </a>
-        </h1>
-        {% if error_message %} <p><strong>{% trans error_message %}</strong></p>{% endif %}
-
-        <p>{% trans task.lead_text %}</p>
-        <p><strong>{% trans "Description" %}</strong><br>{% trans task.description %}</p>
-        <h3>{% trans "Contact:" %}</h3>
-        <p>{{ task.mentor.username }}
-        <br>{{ task.mentor.first_name }} {{ task.mentor.last_name }}
-        <br>{{ task.mentor.email }}
-        </p>
-        {% if user.profile.role.id == mentor_id %}
-        <a href="edit/">{% trans "Edit" %}</a>
-        {% elif task.assignee_id == NULL %}
-        <form action="" method="POST" class="edit">
-        {% csrf_token %}
-        <button class="btn btn-primary" name="Claim">{% trans "Claim" %}</button>
-        </form>
-        {% elif task.assignee_id == user.id and task.task_done == False %}
-        <form action="" method="POST" class="edit">
-        {% csrf_token %}
-        <button class="btn btn-primary" name={% trans "Unclaim" %}>{% trans "Unclaim" %}</button>
-        </form>
-        {% endif %}
-        {% if task.task_done == False and task.assignee_id == user.id %}
-        <form action="" method="POST" class="edit">
-        {% csrf_token %}
-        <button class="btn btn-primary" name={% trans "Task_done" %}>{% trans "Task done" %}</button>
-        </form>
-        {% else %}
-        {% endif %}
+{% load staticfiles %}
+<div class="grid content page-content--scroll">
+    <div class="grid-cell grid-cell--2of12">
+        <div class="grid-content">
+            <div class="task-picture">
+                <a href="{{ task.fileurl }}">
+                    {% if task.picture.avatar.url %}
+                        <img class="img-responsive" src="{{ task.picture.avatar.url }}">
+                    {% else %}
+                        <img class="img-responsive" src="{% static "osschallenge/example.jpg" %}">
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-cell grid-cell--10of12">
+        <div class="grid-content">
+            <div class="detail">
+                <h1 class="tasktitle">{{ task.title }}
+                   {% if task.task_done == True %}
+                   </br>{% trans "done" %} {% trans "by" %} {{ task.assignee }}
+                   {% elif task.assignee_id != NULL %}
+                   </br>{% trans "claimed" %} {% trans "by" %} {{ task.assignee }}
+                   {% endif %}
+                </h1>
+                {% if error_message %}<p><strong>{% trans error_message %}</strong></p>{% endif %}
+                <p>{% trans task.lead_text %}</p>
+                <p><strong>{% trans "Description" %}</strong><br>{% trans task.description %}</p>
+                <h3>{% trans "Contact:" %}</h3>
+                <p>{{ task.mentor.username }}
+                <br>{{ task.mentor.first_name }} {{ task.mentor.last_name }}
+                <br>{{ task.mentor.email }}
+                </p>
+                {% if user.profile.role.id == mentor_id %}
+                <a href="edit/" class=" btn btn-primary">{% trans "Edit" %}</a>
+                </br>
+                {% elif task.assignee_id == NULL %}
+                    <form action="" method="POST" class="edit">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" name="Claim">{% trans "Claim" %}</button>
+                    </form>
+                {% elif task.assignee_id == user.id and task.task_done == False %}
+                    <form action="" method="POST" class="edit">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" name={% trans "Release" %}>{% trans "Release" %}</button>
+                    </form>
+                {% endif %}
+                {% if task.task_done == False and task.assignee_id == user.id %}
+                    <form action="" method="POST" class="edit">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" name="Task done">{% trans "Task done" %}</button>
+                    </form>
+                {% else %}
+                {% endif %}
+                </br>
+                <h3>Enter a comment</h3> 
+                <form method="POST">
+                    <textarea rows="4" class="textarea" name="comment" placeholder="Enter text here..."></textarea>
+                    {% csrf_token %}
+                    <strong><p class="markdown">{% trans "Markdown available" %}</p></strong>
+                    <button class="btn btn-primary comment" name="Comment">{% trans "Comment" %}</button>
+                </form>
+                {% for comment in comment_list %}
+                    {% if comment.task_id == task.id %}
+                        <div class="card--inverse card--primary comment">
+                            <div class="comment-title card-header">
+                                {% if comment.author.id == mentor_id %}
+                                    <b>{{ comment.author.first_name }} {{comment.author.last_name}} </b>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                {% else %}
+                                    <b>{{ comment.author.username }}</b>
+                                {% endif %}
+                            </div>
+                            <div class="card-block">
+                                {{ comment.comment|markdown|linebreaks }}
+                                <footer class="text-right">
+                                    {{ comment.created_at|date:'Y-m-d, H:i' }}
+                                </footer>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}
+

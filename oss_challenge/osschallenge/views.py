@@ -3,9 +3,9 @@ import os
 from django.views import generic
 from django.shortcuts import redirect, render, get_object_or_404, get_list_or_404
 from django.views.generic.edit import CreateView
-from .models import Task, Project, Profile
+from .models import Task, Project, Profile, Comment
 from django.contrib.auth.models import User
-from .forms import TaskForm, ProjectForm, ProfileForm, UserForm
+from .forms import TaskForm, ProjectForm, ProfileForm, UserForm, CommentForm
 from django.views.generic import FormView
 from .forms import RegistrationForm
 from django.core.mail import send_mail
@@ -14,7 +14,6 @@ from django.utils.translation import gettext_lazy as _
 
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
-
 
 def IndexView(request):
     template_name = 'osschallenge/index.html'
@@ -89,6 +88,13 @@ def EditProjectView(request, pk):
 def TaskIndexView(request):
     task_list = get_list_or_404(Task)
     template_name = 'osschallenge/taskindex.html'
+    max_length_description = 150
+    max_length_title = 60
+    for task in task_list:
+        if len(task.description) > max_length_description:
+            task.description = task.description[:max_length_description] + " ..."
+        if len(task.title) > max_length_title:
+            task.title = task.title[:max_length_title] + " ..."
     return render(request, template_name, {
         'task_list': task_list,
         'mentor_id': MENTOR_ID
@@ -103,16 +109,26 @@ def TaskView(request, pk):
         task.assignee_id = user.id
         task.save()
 
-    elif 'Unclaim' in request.POST:
+    elif 'Release' in request.POST:
         task.assignee_id = None
         task.save()
 
-    elif 'Task_done' in request.POST:
+    elif 'Task done' in request.POST:
         task.task_done = True
         task.assignee_id = user.id
         task.save()
 
+    elif 'Comment' in request.POST:
+        comment = Comment()
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            comment.author = user
+            comment.task = task
+            comment = form.save()
+
     return render(request, template_name, {
+        'comment_list': sorted(Comment.objects.all(),
+                               key=lambda c: c.created_at, reverse=True),
         'task': task,
         'user': user,
         'mentor_id': MENTOR_ID
@@ -122,7 +138,7 @@ def TaskView(request, pk):
 def EditTaskView(request, pk):
     task = get_object_or_404(Task, pk=pk)
     if request.method == 'POST':
-        form = TaskForm(request.POST, instance=task)
+        form = TaskForm(request.POST, request.FILES, instance=task)
 
         if form.is_valid():
             task = form.save()
@@ -141,24 +157,27 @@ def EditTaskView(request, pk):
     )
 
 
-class NewTaskView(CreateView):
-    model = Task
-    template_name = 'osschallenge/newtask.html'
-    fields = [
-        'title_de',
-        'title_en_us',
-        'lead_text_de',
-        'lead_text_en_us',
-        'description_de',
-        'description_en_us',
-        'mentor',
-    ]
+def NewTaskView(request, pk):
+    task = Task()
+    if request.method == 'POST':
+        form = TaskForm(request.POST, request.FILES, instance=task)
 
-    def form_valid(self, form):
-        form.instance.project = Project.objects.get(pk=self.kwargs['pk'])
-        return super(NewTaskView, self).form_valid(form)
+        if form.is_valid():
+            form.instance.project = Project.objects.get(pk=pk)
+            task = form.save()
+            return redirect('task', pk=task.pk)
 
-    success_url = '/tasks/'
+    else:
+        form = TaskForm(instance=task)
+
+    return render(
+        request,
+        'osschallenge/newtask.html',
+        {
+            'form': form,
+            'task': task,
+        }
+    )
 
 
 def ProfileView(request):
@@ -258,8 +277,8 @@ def RankingView(request):
     })
 
 
-def generate_key():
-    return base64.b32encode(os.urandom(7))[:10].lower()
+class AboutView(generic.TemplateView):
+    template_name = 'osschallenge/about.html'
 
 
 class RegistrationView(FormView):
@@ -286,7 +305,7 @@ class RegistrationView(FormView):
         return base64.b32encode(os.urandom(7))[:10].lower()
 
     def generate_profile(self, user):
-        profile = Profile(key=generate_key(), user=user)
+        profile = Profile(key=self.generate_key(), user=user)
         profile.save()
         send_mail(
             _('OSS-Challenge account confirmation'),

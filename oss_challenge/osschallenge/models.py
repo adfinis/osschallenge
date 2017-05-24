@@ -1,7 +1,9 @@
+import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-
+from django.conf import settings
+from easy_thumbnails.fields import ThumbnailerImageField
 
 class Role(models.Model):
     role = models.CharField(max_length=50)
@@ -53,27 +55,25 @@ class Task(models.Model):
                                    verbose_name=_('Description'),)
     mentor = models.ForeignKey(User, related_name="mentor_tasks")
     project = models.ForeignKey(Project, related_name="tasks")
-    assignee = models.ForeignKey(User, null=True, related_name="assignee_tasks",
+    assignee = models.ForeignKey(User, null=True,
+                                 related_name="assignee_tasks",
                                  verbose_name=_('Assignee'),)
     task_done = models.BooleanField(null=False, default=False)
     task_checked = models.BooleanField(null=False, default=False)
+    picture = ThumbnailerImageField(upload_to='', null=True)
+
+    def fileurl(self):
+        return settings.MEDIA_URL + os.path.basename(self.picture['avatar'].name)
 
     def __str__(self):
         return self.title
 
 
-class Picture(models.Model):
-    project = models.ForeignKey(Project)
-    picture = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.picture
-
-
 class Comment(models.Model):
     task = models.ForeignKey(Task)
-    comment = models.CharField(max_length=150)
+    comment = models.TextField(max_length=150)
     author = models.ForeignKey(User)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.task
+        return self.id

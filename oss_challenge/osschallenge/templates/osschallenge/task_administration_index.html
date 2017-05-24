@@ -8,7 +8,7 @@
             {% if task.mentor_id == user.id and task.task_done %}
             <li>
                 <a href="/task_administration/{{ task.id }}"
-                   >{{ task.title }} -- {{ task.project.title }} / {% trans "done" %} by {{ task.assignee }}
+                   >{{ task.title }} -- {{ task.project.title }} / {% trans "done" %} {% trans "by" %} {{ task.assignee }}
                    {% if task.task_checked %}
                        / {% trans "checked" %}
                    {% endif %}
