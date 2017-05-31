@@ -73,7 +73,7 @@ div.detail form input {
     display: block;
 }
 
-.grid-cell--2of12 {
+.grid-cell--3of12 {
     width: 800px;
     text-align: center;
 }
@@ -109,6 +109,7 @@ nav.nav-top {
     height: 80px;
     float: left;
     align-self: top;
+    margin-bottom: 10px;
 }
 
 section.nav-top-body {
@@ -117,7 +118,7 @@ section.nav-top-body {
 
 .nav-top-header-logo {
     display: flex;
-    height: 150px;
+    height: auto;
     width: 150px;
 }
 
@@ -164,7 +165,7 @@ ol.breadcrumb {
 div.form-group-login {
   width: 300px;
   margin-bottom: 1rem;
-}
+}1rem
 
 form.form-group-login {
   width: 300px;
