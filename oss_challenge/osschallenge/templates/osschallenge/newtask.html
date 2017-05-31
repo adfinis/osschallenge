@@ -15,7 +15,10 @@
                     {% trans field.label_tag %} {{ field | add_class:'form-control' }}
                 </div>
             {% endfor %}
-            <button class="btn btn-primary">{% trans "Add Task" %}</button>
+            <br>
+            <div class="btn-add-task">
+                <button class="btn btn-primary">{% trans "Add Task" %}</button>
+            </div>
         </form>
     </div>
 </div>

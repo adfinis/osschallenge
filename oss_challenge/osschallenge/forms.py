@@ -52,7 +52,7 @@ class CommentForm(ModelForm):
 
 
 class TaskForm(ModelForm):
-    picture = forms.ImageField(required = False)
+    picture = forms.ImageField(label=_('Add picture'), required = False, widget=forms.FileInput)
 
     class Meta:
         model = Task

@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from easy_thumbnails.fields import ThumbnailerImageField
 
+
 class Role(models.Model):
     role = models.CharField(max_length=50)
 

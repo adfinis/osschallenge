@@ -25,6 +25,7 @@ div.loginform input {
 }
 
 div.content {
+    display: flex;
     width: 100%;
     margin: 3px 0 0 0;
     padding: 10px 12px 80px 12px;
@@ -254,3 +255,29 @@ img.img-responsive {
     height: 298px;
 }
 
+form.edit div input {
+    width: 300px;
+}
+
+.form-group-login {
+    width: 300px;
+}
+
+label[for="id_picture"] {
+    width: 100px;
+    background-color: #900;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 11px;
+    text-align: center;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.form-group-login input[type="file"] {
+    display: none;
+}
+
+.div.save-image {
+    margin-top: 40px;
+}
