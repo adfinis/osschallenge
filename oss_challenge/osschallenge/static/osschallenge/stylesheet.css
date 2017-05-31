@@ -104,9 +104,42 @@ form.edit div textarea {
 }
 
 nav.nav-top {
-    height: 50px;
+    display: flex;
+    align-items: center;
+    height: 80px;
     float: left;
     align-self: top;
+}
+
+section.nav-top-body {
+    max-height: 80px;
+}
+
+.nav-top-header-logo {
+    display: flex;
+    height: 150px;
+    width: 150px;
+}
+
+.nav-top-header-logo.img {
+    display: flex;
+}
+
+.nav-top-list.nav-top-list--right {
+    height: 80px;
+}
+
+.nav-top-list-item {
+    height: 80px;
+}
+
+a.link {
+    height: 80px;
+}
+
+.set_language {
+    display: flex;
+    align-items: center;
 }
 
 input[name=submit] {
