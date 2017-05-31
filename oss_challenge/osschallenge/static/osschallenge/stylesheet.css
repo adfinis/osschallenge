@@ -150,13 +150,6 @@ input[name=submit] {
     align-self: center;
 }
 
-select[name=language] {
-    margin: 10px;
-    margin-right: 0.5rem;
-    float: left;
-    align-self: center;
-}
-
 ol.breadcrumb {
     display: flex;
     align-items: center;
