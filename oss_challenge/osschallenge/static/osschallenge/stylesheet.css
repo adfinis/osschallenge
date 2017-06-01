@@ -274,7 +274,29 @@ label[for="id_picture"] {
 .div.save-image {
     margin-top: 40px;
 }
+
 .alert.alert-success {
     width: 30%;
     padding: 0.5rem 1rem;
 }
+
+.profile {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.content-profile {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 3px 0 0 0;
+    padding: 10px 12px 80px 12px;
+}
+
+.card-profile {
+    position: relative;
+    margin-bottom: 0.5rem;
+    background-color: #fff;
+    border: 1px solid rgb(225, 225, 225);
+} 
