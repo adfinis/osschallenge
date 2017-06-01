@@ -105,6 +105,7 @@ def TaskView(request, pk):
     task = get_object_or_404(Task, pk=pk)
     user = get_object_or_404(User, pk=request.user.id)
     template_name = 'osschallenge/task.html'
+    notification = ""
     if 'Claim' in request.POST:
         task.assignee_id = user.id
         task.save()
@@ -121,6 +122,7 @@ def TaskView(request, pk):
     elif 'Comment' in request.POST:
         comment = Comment()
         form = CommentForm(request.POST, instance=comment)
+        notification = "Your comment has been posted"
         if form.is_valid():
             comment.author = user
             comment.task = task
@@ -131,7 +133,8 @@ def TaskView(request, pk):
                                key=lambda c: c.created_at, reverse=True),
         'task': task,
         'user': user,
-        'mentor_id': MENTOR_ID
+        'mentor_id': MENTOR_ID,
+        'notification': notification
     })
 
 

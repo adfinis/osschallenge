@@ -235,7 +235,7 @@ img.img-responsive {
 }
 
 .btn.btn-primary.comment {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .card {
@@ -273,4 +273,8 @@ label[for="id_picture"] {
 
 .div.save-image {
     margin-top: 40px;
+}
+.alert.alert-success {
+    width: 30%;
+    padding: 0.5rem 1rem;
 }
