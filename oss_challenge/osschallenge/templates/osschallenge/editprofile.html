@@ -7,7 +7,7 @@
 <div class="content">
     <div class="detail">
         <h1>{{ profile.user }}</h1>
-        <form action="" method="POST" class="edit">
+        <form action="" method="POST" class="edit" enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in form_user %}
             <div class="form-group-login">
@@ -19,7 +19,10 @@
                 {% trans field.label_tag %} {{ field | add_class:'form-control' }}
             </div>
             {% endfor %}
-            <button class="btn btn-primary">{% trans "Save" %}</button>
+            <br>
+            <div class="save-image">
+                <button class="btn btn-primary">{% trans "Save" %}</button>
+            </div>
         </form>
     </div>
 </div>

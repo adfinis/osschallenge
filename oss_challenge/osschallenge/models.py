@@ -27,6 +27,10 @@ class Profile(models.Model):
     links = models.CharField(max_length=50)
     contact = models.CharField(max_length=50)
     key = models.CharField(max_length=10, unique=True)
+    picture = ThumbnailerImageField(upload_to='profile-pictures', null=True)
+
+    def fileurl(self):
+        return settings.MEDIA_URL + os.path.basename(self.picture['avatar'].name)
 
     def __str__(self):
         return self.user.username

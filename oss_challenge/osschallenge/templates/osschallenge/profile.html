@@ -1,36 +1,46 @@
 {% extends 'osschallenge/index.html' %}
 {% load i18n %}
+{% load static %}
 
 {% block content %}
 <div class="content">
-    <div class="detail">
-        <h1>{{ user.username }}</h1>
-        <p><strong>{% trans "First name:" %}</strong> {{ user.first_name }}</p>
-        <p><strong>{% trans "Last name:" %}</strong> {{ user.last_name }}</p>
-        <p><strong>E-Mail:</strong> {{ user.email }}</p>
-        <p><strong>{% trans "Role:" %}</strong> {% trans user.profile.role.role %}</p>
-        <br>
-        {% if user.profile.role.id == contributor_id %}
-            <p><strong>{% trans "Points reached:" %} </strong>{{user.profile.points }}</p>
-        {% endif %}
-        <p><strong>Links:</strong><a href="http://{{user.profile.links }}">{{user.profile.links }}</a></p>
-        <p><strong>{% trans "Contact:" %}</strong> {{user.profile.contact }}</p>
-        {% if user.profile.role.id == contributor_id %}
-            <p><strong>{% trans "Tasks done:" %}</strong>
-            {% for task in finished_tasks_list %}
-                {% if task.task_checked and user.id == task.assignee_id %}
-                    <li>
-                        <a href="/tasks/{{ task.id }}">{{ task.title }} -- {{ task.project.title }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-        </p>
-        <a href="/password_change">{% trans "Reset Password" %}</a>
-        </br>
-        <a href="edit/">
-            <button class="btn btn-primary">{% trans "Edit" %}</button>
-        </a>
+    <div class="profile">
+        <div class="profile-picture">
+            {% if profile.picture.avatar.url %}
+            <img class="img-responsive" src="{{ profile.picture.avatar.url }}">
+            {% else %}
+            <img class="img-responsive" src="{% static "osschallenge/profile-example.png" %}">
+            {% endif %}
+        </div>
+        <div class="detail">
+            <h1>{{ user.username }}</h1>
+            <p><strong>{% trans "First name:" %}</strong> {{ user.first_name }}</p>
+            <p><strong>{% trans "Last name:" %}</strong> {{ user.last_name }}</p>
+            <p><strong>E-Mail:</strong> {{ user.email }}</p>
+            <p><strong>{% trans "Role:" %}</strong> {% trans user.profile.role.role %}</p>
+            <br>
+            {% if user.profile.role.id == contributor_id %}
+                <p><strong>{% trans "Points reached:" %} </strong>{{user.profile.points }}</p>
+            {% endif %}
+            <p><strong>Links:</strong><a href="http://{{user.profile.links }}">{{user.profile.links }}</a></p>
+            <p><strong>{% trans "Contact:" %}</strong> {{user.profile.contact }}</p>
+            {% if user.profile.role.id == contributor_id %}
+                <p><strong>{% trans "Tasks done:" %}</strong>
+                {% for task in finished_tasks_list %}
+                    {% if task.task_checked and user.id == task.assignee_id %}
+                        <li>
+                            <a href="/tasks/{{ task.id }}">{{ task.title }} -- {{ task.project.title }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            </p>
+            <a href="/password_change">{% trans "Reset Password" %}</a>
+            </br>
+            <a href="edit/">
+                <button class="btn btn-primary">{% trans "Edit" %}</button>
+            </a>
+        </div>
     </div>
 </div>
 {% endblock content %}

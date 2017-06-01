@@ -15,6 +15,7 @@ from django.utils.translation import gettext_lazy as _
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
 
+
 def IndexView(request):
     template_name = 'osschallenge/index.html'
 
@@ -184,6 +185,7 @@ def NewTaskView(request, pk):
 
 
 def ProfileView(request):
+    profile = get_object_or_404(Profile, user_id=request.user.id)
     finished_tasks_list = get_list_or_404(Task)
     user_profile_points = 0
     template_name = 'osschallenge/profile.html'
@@ -193,7 +195,8 @@ def ProfileView(request):
             'contributor_id': CONTRIBUTOR_ID,
             'mentor_id': MENTOR_ID,
             'finished_tasks_list': finished_tasks_list,
-            'user_profile_points': user_profile_points
+            'user_profile_points': user_profile_points,
+            'profile': profile,
         })
     else:
         return redirect('/login/')
@@ -203,7 +206,7 @@ def EditProfileView(request):
     profile = get_object_or_404(Profile, user_id=request.user.id)
     user = get_object_or_404(User, pk=request.user.id)
     if request.method == 'POST':
-        form_profile = ProfileForm(request.POST, instance=profile)
+        form_profile = ProfileForm(request.POST, request.FILES, instance=profile)
         form_user = UserForm(request.POST, instance=user)
 
         if form_profile.is_valid() and form_user.is_valid():

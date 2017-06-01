@@ -64,7 +64,7 @@ class TaskForm(ModelForm):
             'description_de',
             'description_en_us',
             'mentor',
-            'picture',
+            'picture'
         ]
         widgets = {
 
@@ -110,11 +110,14 @@ class ProjectForm(ModelForm):
 
 
 class ProfileForm(ModelForm):
+    picture = forms.ImageField(label=_('Change picture'), required = False, widget=forms.FileInput)
+
     class Meta:
         model = Profile
         fields = [
             'links',
-            'contact'
+            'contact',
+            'picture'
         ]
 
 

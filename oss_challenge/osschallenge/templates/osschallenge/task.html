@@ -11,9 +11,9 @@
             <div class="task-picture">
                 <a href="{{ task.fileurl }}">
                     {% if task.picture.avatar.url %}
-                        <img class="img-responsive" src="{{ task.picture.avatar.url }}">
+                    <img class="img-responsive" src="{{ task.picture.avatar.url }}">
                     {% else %}
-                        <img class="img-responsive" src="{% static "osschallenge/example.jpg" %}">
+                    <img class="img-responsive" src="{% static "osschallenge/example.jpg" %}">
                     {% endif %}
                 </a>
             </div>
