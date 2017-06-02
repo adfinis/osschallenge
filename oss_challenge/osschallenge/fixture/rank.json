@@ -1,0 +1,51 @@
+[
+    {
+        "fields": {
+            "rank": "Youngling"
+        },
+        "model": "osschallenge.ranks",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "rank": "Padawan"
+        },
+        "model": "osschallenge.ranks",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "rank": "Jedi Knight"
+        },
+        "model": "osschallenge.ranks",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "rank": "Jedi Master"
+        },
+        "model": "osschallenge.ranks",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "rank": "Jedi Grand Master"
+        },
+        "model": "osschallenge.ranks",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "rank": "Jedi Council Member"
+        },
+        "model": "osschallenge.ranks",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "rank": "Yoda"
+        },
+        "model": "osschallenge.ranks",
+        "pk": 7
+    }
+]

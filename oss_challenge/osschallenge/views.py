@@ -187,7 +187,6 @@ def NewTaskView(request, pk):
 def ProfileView(request):
     profile = get_object_or_404(Profile, user_id=request.user.id)
     finished_tasks_list = get_list_or_404(Task)
-    user_profile_points = 0
     template_name = 'osschallenge/profile.html'
 
     if request.user.is_authenticated():
@@ -195,8 +194,7 @@ def ProfileView(request):
             'contributor_id': CONTRIBUTOR_ID,
             'mentor_id': MENTOR_ID,
             'finished_tasks_list': finished_tasks_list,
-            'user_profile_points': user_profile_points,
-            'profile': profile,
+            'profile': profile
         })
     else:
         return redirect('/login/')

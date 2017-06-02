@@ -15,6 +15,9 @@
                 <h4 class="card-title">{{ user.username }}</h4>
             </div>
             <ul class="list-group list-group--flush">
+                {% if user.profile.role.id == contributor_id %}
+                <li class="list-group-item"><strong>Rank: </strong> {{ user.profile.get_rank }}</li>
+                {% endif %}
                 <li class="list-group-item"><strong>{% trans "First name:" %}</strong> {{ user.first_name }}</li>
                 <li class="list-group-item"><strong>{% trans "Last name:" %}</strong> {{ user.last_name }}</li>
                 <li class="list-group-item"><strong>E-Mail:</strong> {{ user.email }}</li>
