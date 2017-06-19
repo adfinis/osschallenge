@@ -21,7 +21,7 @@
                 <li class="list-group-item"><strong>{% trans "First name:" %}</strong> {{ user.first_name }}</li>
                 <li class="list-group-item"><strong>{% trans "Last name:" %}</strong> {{ user.last_name }}</li>
                 <li class="list-group-item"><strong>E-Mail:</strong> {{ user.email }}</li>
-                <li class="list-group-item"><strong>{% trans "Role:" %}</strong> {% trans user.profile.role.role %}</li>
+                <li class="list-group-item"><strong>{% trans "Role:" %}</strong> {% trans user.profile.role.name %}</li>
                 {% if user.profile.role.id == contributor_id %}
                 <li class="list-group-item"><strong>{% trans "Points reached:" %} </strong>{{ user.profile.points }}</li>
                 {% endif %}

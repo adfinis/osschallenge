@@ -7,17 +7,18 @@ from easy_thumbnails.fields import ThumbnailerImageField
 
 
 class Role(models.Model):
-    role = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.role
+        return self.name
 
 
 class Rank(models.Model):
-    rank = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    required_points = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.rank
+        return self.name
 
 
 class Groups(models.Model):
@@ -37,20 +38,9 @@ class Profile(models.Model):
     picture = ThumbnailerImageField(upload_to='profile-pictures', null=True)
 
     def get_rank(self):
-        rank_id = 1
-        if self.points > 10 and self.points <= 25:
-            rank_id = 2
-        elif self.points > 25 and self.points <= 40:
-            rank_id = 3
-        elif self.points > 40 and self.points <= 55:
-            rank_id = 4
-        elif self.points > 55 and self.points <= 80:
-            rank_id = 5
-        elif self.points > 80 and self.points <= 105:
-            rank_id = 6
-        elif self.points > 105:
-            rank_id = 7
-        return Rank.objects.get(pk=rank_id)
+        matches = Rank.objects.filter(required_points__lte=self.points)
+        rank = max(matches)
+        return rank
 
     def fileurl(self):
         return settings.MEDIA_URL + os.path.basename(self.picture['avatar'].name)

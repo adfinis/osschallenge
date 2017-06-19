@@ -6,7 +6,7 @@
     <div class="listcontent">
         <ul class="index">
             {% for user in ranking_list %}
-                {% if user.profile.role_id == 1 %}
+                {% if user.profile.role_id == contributor_id %}
                 <li>
                     <h1>{{ user.username }}</h1>
                     <p><strong>{% trans "Rank: " %}</strong>{{ user.profile.get_rank }}</p>

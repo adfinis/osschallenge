@@ -276,6 +276,7 @@ def RankingView(request):
     ranking_list = User.objects.order_by('-profile__points')
     template_name = 'osschallenge/ranking.html'
     return render(request, template_name, {
+        'contributor_id': CONTRIBUTOR_ID,
         'ranking_list': ranking_list,
         'mentor_id': MENTOR_ID,
     })
