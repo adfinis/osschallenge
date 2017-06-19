@@ -38,8 +38,8 @@ class Profile(models.Model):
     picture = ThumbnailerImageField(upload_to='profile-pictures', null=True)
 
     def get_rank(self):
-        matches = Rank.objects.filter(required_points__lte=self.points)
-        rank = max(matches)
+        matches = Rank.objects.filter(required_points__lte=self.points).order_by('-required_points')
+        rank = matches[0]
         return rank
 
     def fileurl(self):
