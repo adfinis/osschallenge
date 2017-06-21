@@ -16,71 +16,71 @@
                     <button class="nav-toggle nav-top-toggle" onclick="this.parentNode.parentNode.classList.toggle('nav-top--expand')">
                         <span class="nav-toggle-icon"></span>
                     </button>
-                    <a href="/">
-                        <!--<div class="nav-top-header-logo"><img src="{% static "osschallenge/adsy.png" %}"/></div>-->
-                        <div class="nav-top-header-title">OSS-Challenge</div>
+                    <a href="/about">
+                        <div class="nav-top-header-logo"><img src="{% static "osschallenge/oss-challenge.svg" %}"/></div>
                     </a>
+                    <div class="set_language">
+                        <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                            <input name="next" type="hidden" value="{{ redirect_to }}" />
+                            <select class="form-control" name="language" onchange="this.form.submit();">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for language in languages %}
+                                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
                 </header>
-                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-                    <input name="next" type="hidden" value="{{ redirect_to }}" />
-                    <select name="language">
-                        {% get_current_language as LANGUAGE_CODE %}
-                        {% get_available_languages as LANGUAGES %}
-                        {% get_language_info_list for LANGUAGES as languages %}
-                        {% for language in languages %}
-                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
-                        {{ language.name_local }} ({{ language.code }})
-                        </option>
-                        {% endfor %}
-                    </select>
-                    <input name="submit" type="submit" value="Go" />
-                </form>
                 <section class="nav-top-body">
                     <ul class="nav-top-list nav-top-list--right">
                     {% if user.is_authenticated %}
                         <li class="nav-top-list-item">
-                            <a href="/projects">{% trans "Projects" %}</a>
+                            <a class="link" href="/projects">{% trans "Projects" %}</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a href="/tasks">{% trans "Tasks" %}</a>
+                            <a class="link" href="/tasks">{% trans "Tasks" %}</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a href="/ranking">{% trans "Ranking" %}</a>
+                            <a class="link" href="/ranking">{% trans "Ranking" %}</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a href="/about">{% trans "About" %}</a>
+                            <a class="link" href="/about">{% trans "About" %}</a>
                         </li>
                         <br />
                         {% if user.profile.role.id == mentor_id %}
-                        <li class="nav-top-list-item">
-                            <a href="/task_administration_index">{% trans "Task administration" %}</a>
-                        </li>
+                            <li class="nav-top-list-item">
+                                <a class="link" href="/task_administration_index">{% trans "Task administration" %}</a>
+                            </li>
                         {% endif %}
                         <li class="nav-top-list-item">
-                            <a href="/profile">{% trans "Profile" %}</a>
+                            <a class="link" href="/profile">{% trans "Profile" %}</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a href="/logout">Logout</a>
+                            <a class="link" href="/logout">Logout</a>
                         </li>
                     {% else %}
                         <li class="nav-top-list-item">
-                            <a href="/projects">{% trans "Projects" %}</a>
+                            <a class="link" href="/projects">{% trans "Projects" %}</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a href="/tasks">{% trans "Tasks" %}</a>
+                            <a class="link" href="/tasks">{% trans "Tasks" %}</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a href="/ranking">{% trans "Ranking" %}</a>
+                            <a class="link" href="/ranking">{% trans "Ranking" %}</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a href="/">{% trans "About" %}</a>
+                            <a class="link" href="/">{% trans "About" %}</a>
                         </li>
                         <br />
                         <li class="nav-top-list-item">
-                            <a href="/login">Login</a>
+                            <a class="link" href="/login">Login</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a href="/register">{% trans "Register" %}</a>
+                            <a class="link" href="/register">{% trans "Register" %}</a>
                         </li>
                     {% endif %}
                     </ul>

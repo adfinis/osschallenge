@@ -2,16 +2,15 @@
 {% load i18n %}
 
 {% block content %}
-<div class="content page-content--scroll">
+<div class="content-ranking">
     <div class="listcontent">
         <ul class="index">
             {% for user in ranking_list %}
-                {% if user.is_staff == False %}
+                {% if user.profile.role_id == contributor_id %}
                 <li>
                     <h1>{{ user.username }}</h1>
-                    <p><strong>{% trans "Points reached:" %}</strong>
-                    {{ user.profile.points }}
-                    </p>
+                    <p><strong>{% trans "Rank: " %}</strong>{{ user.profile.get_rank }}</p>
+                    <p><strong>{% trans "Points reached: " %}</strong>{{ user.profile.points }}</p>
                 </li>
                 {% endif %}
             {% endfor %}

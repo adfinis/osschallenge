@@ -25,6 +25,7 @@ div.loginform input {
 }
 
 div.content {
+    display: flex;
     width: 100%;
     margin: 3px 0 0 0;
     padding: 10px 12px 80px 12px;
@@ -73,7 +74,7 @@ div.detail form input {
     display: block;
 }
 
-.grid-cell--2of12 {
+.grid-cell--3of12 {
     width: 800px;
     text-align: center;
 }
@@ -104,20 +105,47 @@ form.edit div textarea {
 }
 
 nav.nav-top {
-    height: 50px;
+    display: flex;
+    align-items: center;
+    height: 80px;
     float: left;
     align-self: top;
+    margin-bottom: 10px;
+}
+
+section.nav-top-body {
+    max-height: 80px;
+}
+
+.nav-top-header-logo {
+    display: flex;
+    height: auto;
+    width: 150px;
+}
+
+.nav-top-header-logo.img {
+    display: flex;
+}
+
+.nav-top-list.nav-top-list--right {
+    height: 80px;
+}
+
+.nav-top-list-item {
+    height: 80px;
+}
+
+a.link {
+    height: 80px;
+}
+
+.set_language {
+    display: flex;
+    align-items: center;
 }
 
 input[name=submit] {
     margin: 10px;
-    float: left;
-    align-self: center;
-}
-
-select[name=language] {
-    margin: 10px;
-    margin-right: 0.5rem;
     float: left;
     align-self: center;
 }
@@ -207,7 +235,7 @@ img.img-responsive {
 }
 
 .btn.btn-primary.comment {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .card {
@@ -220,3 +248,63 @@ img.img-responsive {
     height: 298px;
 }
 
+form.edit div input {
+    width: 300px;
+}
+
+.form-group-login {
+    width: 300px;
+}
+
+label[for="id_picture"] {
+    width: 100px;
+    background-color: #900;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 11px;
+    text-align: center;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.form-group-login input[type="file"] {
+    display: none;
+}
+
+.div.save-image {
+    margin-top: 40px;
+}
+
+.alert.alert-success {
+    width: 30%;
+    padding: 0.5rem 1rem;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.content-profile {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 3px 0 0 0;
+    padding: 10px 12px 80px 12px;
+}
+
+.card-profile {
+    position: relative;
+    margin-bottom: 0.5rem;
+    background-color: #fff;
+    border: 1px solid rgb(225, 225, 225);
+}
+
+.content-ranking {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 3px 0 0 0;
+    padding: 10px 12px 80px 12px;
+}

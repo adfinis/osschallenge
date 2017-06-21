@@ -5,11 +5,20 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from easy_thumbnails.fields import ThumbnailerImageField
 
+
 class Role(models.Model):
-    role = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.role
+        return self.name
+
+
+class Rank(models.Model):
+    name = models.CharField(max_length=50)
+    required_points = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
 
 
 class Groups(models.Model):
@@ -26,6 +35,14 @@ class Profile(models.Model):
     links = models.CharField(max_length=50)
     contact = models.CharField(max_length=50)
     key = models.CharField(max_length=10, unique=True)
+    picture = ThumbnailerImageField(upload_to='profile-pictures', null=True)
+
+    def get_rank(self):
+        matches = Rank.objects.filter(required_points__lte=self.points).order_by('-required_points')
+        return matches[0]
+
+    def fileurl(self):
+        return settings.MEDIA_URL + os.path.basename(self.picture['avatar'].name)
 
     def __str__(self):
         return self.user.username

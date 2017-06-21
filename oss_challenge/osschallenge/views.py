@@ -15,6 +15,7 @@ from django.utils.translation import gettext_lazy as _
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
 
+
 def IndexView(request):
     template_name = 'osschallenge/index.html'
 
@@ -105,6 +106,7 @@ def TaskView(request, pk):
     task = get_object_or_404(Task, pk=pk)
     user = get_object_or_404(User, pk=request.user.id)
     template_name = 'osschallenge/task.html'
+    notification = ""
     if 'Claim' in request.POST:
         task.assignee_id = user.id
         task.save()
@@ -121,6 +123,7 @@ def TaskView(request, pk):
     elif 'Comment' in request.POST:
         comment = Comment()
         form = CommentForm(request.POST, instance=comment)
+        notification = "Your comment has been posted"
         if form.is_valid():
             comment.author = user
             comment.task = task
@@ -131,7 +134,8 @@ def TaskView(request, pk):
                                key=lambda c: c.created_at, reverse=True),
         'task': task,
         'user': user,
-        'mentor_id': MENTOR_ID
+        'mentor_id': MENTOR_ID,
+        'notification': notification
     })
 
 
@@ -181,8 +185,8 @@ def NewTaskView(request, pk):
 
 
 def ProfileView(request):
+    profile = get_object_or_404(Profile, user_id=request.user.id)
     finished_tasks_list = get_list_or_404(Task)
-    user_profile_points = 0
     template_name = 'osschallenge/profile.html'
 
     if request.user.is_authenticated():
@@ -190,7 +194,7 @@ def ProfileView(request):
             'contributor_id': CONTRIBUTOR_ID,
             'mentor_id': MENTOR_ID,
             'finished_tasks_list': finished_tasks_list,
-            'user_profile_points': user_profile_points
+            'profile': profile
         })
     else:
         return redirect('/login/')
@@ -200,7 +204,7 @@ def EditProfileView(request):
     profile = get_object_or_404(Profile, user_id=request.user.id)
     user = get_object_or_404(User, pk=request.user.id)
     if request.method == 'POST':
-        form_profile = ProfileForm(request.POST, instance=profile)
+        form_profile = ProfileForm(request.POST, request.FILES, instance=profile)
         form_user = UserForm(request.POST, instance=user)
 
         if form_profile.is_valid() and form_user.is_valid():
@@ -272,6 +276,7 @@ def RankingView(request):
     ranking_list = User.objects.order_by('-profile__points')
     template_name = 'osschallenge/ranking.html'
     return render(request, template_name, {
+        'contributor_id': CONTRIBUTOR_ID,
         'ranking_list': ranking_list,
         'mentor_id': MENTOR_ID,
     })

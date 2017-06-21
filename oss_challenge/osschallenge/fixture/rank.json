@@ -1,0 +1,58 @@
+[
+    {
+        "fields": {
+            "name": "Youngling",
+            "required_points": 0
+        },
+        "model": "osschallenge.rank",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "name": "Padawan",
+            "required_points": 15
+        },
+        "model": "osschallenge.rank",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "name": "Jedi Knight",
+            "required_points": 30
+        },
+        "model": "osschallenge.rank",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "name": "Jedi Master",
+            "required_points": 45
+        },
+        "model": "osschallenge.rank",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "name": "Jedi Grand Master",
+            "required_points": 60
+        },
+        "model": "osschallenge.rank",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "name": "Jedi Council Member",
+            "required_points": 85
+        },
+        "model": "osschallenge.rank",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "name": "Yoda",
+            "required_points": 110
+        },
+        "model": "osschallenge.rank",
+        "pk": 7
+    }
+]
