@@ -39,8 +39,7 @@ class Profile(models.Model):
 
     def get_rank(self):
         matches = Rank.objects.filter(required_points__lte=self.points).order_by('-required_points')
-        rank = matches[0]
-        return rank
+        return matches[0]
 
     def fileurl(self):
         return settings.MEDIA_URL + os.path.basename(self.picture['avatar'].name)
