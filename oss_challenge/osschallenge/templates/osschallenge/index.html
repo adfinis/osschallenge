@@ -19,21 +19,6 @@
                     <a href="/about">
                         <div class="nav-top-header-logo"><img src="{% static "osschallenge/oss-challenge.svg" %}"/></div>
                     </a>
-                    <div class="set_language">
-                        <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-                            <input name="next" type="hidden" value="{{ redirect_to }}" />
-                            <select class="form-control" name="language" onchange="this.form.submit();">
-                                {% get_current_language as LANGUAGE_CODE %}
-                                {% get_available_languages as LANGUAGES %}
-                                {% get_language_info_list for LANGUAGES as languages %}
-                                {% for language in languages %}
-                                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
-                                {{ language.name_local }} ({{ language.code }})
-                                </option>
-                                {% endfor %}
-                            </select>
-                        </form>
-                    </div>
                 </header>
                 <section class="nav-top-body">
                     <ul class="nav-top-list nav-top-list--right">
@@ -62,6 +47,25 @@
                         <li class="nav-top-list-item">
                             <a class="link" href="/logout">Logout</a>
                         </li>
+                        <ul class="dropdown">
+                            <a class="link">{% trans "Language" %}</a>
+                            <div class="dropdown-content">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+
+                                {% for language in languages %}
+                                <li>
+                                    <form action="{% url 'set_language' %}" method="post" id="form_{{ language.code }}" style="display:inline!important;">
+                                        {% csrf_token %}
+                                        <input name="next" type="hidden" value="{{ redirect_to }}" />
+                                        <input name="language" type="hidden" value="{{ language.code }}" />
+                                    </form>
+                                    <button class="{% cycle 'en' 'de' %}" type="submit" form="form_{{ language.code }}" value="Submit">{{ language.code }}</button>
+                                </li>
+                                {% endfor %}
+                            </div>
+                        </ul>
                     {% else %}
                         <li class="nav-top-list-item">
                             <a class="link" href="/projects">{% trans "Projects" %}</a>
@@ -82,6 +86,25 @@
                         <li class="nav-top-list-item">
                             <a class="link" href="/register">{% trans "Register" %}</a>
                         </li>
+                        <ul class="dropdown">
+                            <a class="link">{% trans "Language" %}</a>
+                            <div class="dropdown-content">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+
+                                {% for language in languages %}
+                                <li>
+                                    <form action="{% url 'set_language' %}" method="post" id="form_{{ language.code }}" style="display:inline!important;">
+                                        {% csrf_token %}
+                                        <input name="next" type="hidden" value="{{ redirect_to }}" />
+                                        <input name="language" type="hidden" value="{{ language.code }}" />
+                                    </form>
+                                    <button class="{% cycle 'en' 'de' %}" type="submit" form="form_{{ language.code }}" value="Submit">{{ language.code }}</button>
+                                </li>
+                                {% endfor %}
+                            </div>
+                        </ul>
                     {% endif %}
                     </ul>
                 </section>
