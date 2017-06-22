@@ -3,6 +3,9 @@
 
 <html>
     <head>
+        <script type="text/javascript" src="{% static "js/jquery-3.2.1.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/js.cookie.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/menu.js" %}"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'osschallenge/adcssy.css'%}"/>
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'osschallenge/font-awesome.min.css'%}"/>
@@ -47,25 +50,16 @@
                         <li class="nav-top-list-item">
                             <a class="link" href="/logout">Logout</a>
                         </li>
-                        <ul class="dropdown">
-                            <a class="link">{% trans "Language" %}</a>
-                            <div class="dropdown-content">
-                                {% get_current_language as LANGUAGE_CODE %}
+                        <li class="dropdown">
+                            <a class="link" href="#">{% trans "Language" %}</a>
+                            <ul class="dropdown-content">
                                 {% get_available_languages as LANGUAGES %}
                                 {% get_language_info_list for LANGUAGES as languages %}
-
                                 {% for language in languages %}
-                                <li>
-                                    <form action="{% url 'set_language' %}" method="post" id="form_{{ language.code }}" style="display:inline!important;">
-                                        {% csrf_token %}
-                                        <input name="next" type="hidden" value="{{ redirect_to }}" />
-                                        <input name="language" type="hidden" value="{{ language.code }}" />
-                                    </form>
-                                    <button class="{% cycle 'en' 'de' %}" type="submit" form="form_{{ language.code }}" value="Submit">{{ language.code }}</button>
-                                </li>
+                                <li><a id="{{ language.code }}" class="link language-selection" href="#">{{ language.name_local }}</a></li>
                                 {% endfor %}
-                            </div>
-                        </ul>
+                            </ul>
+                        </li>
                     {% else %}
                         <li class="nav-top-list-item">
                             <a class="link" href="/projects">{% trans "Projects" %}</a>
@@ -86,25 +80,16 @@
                         <li class="nav-top-list-item">
                             <a class="link" href="/register">{% trans "Register" %}</a>
                         </li>
-                        <ul class="dropdown">
-                            <a class="link">{% trans "Language" %}</a>
-                            <div class="dropdown-content">
-                                {% get_current_language as LANGUAGE_CODE %}
+                        <li class="dropdown">
+                            <a class="link" href="#">{% trans "Language" %}</a>
+                            <ul class="dropdown-content">
                                 {% get_available_languages as LANGUAGES %}
                                 {% get_language_info_list for LANGUAGES as languages %}
-
                                 {% for language in languages %}
-                                <li>
-                                    <form action="{% url 'set_language' %}" method="post" id="form_{{ language.code }}" style="display:inline!important;">
-                                        {% csrf_token %}
-                                        <input name="next" type="hidden" value="{{ redirect_to }}" />
-                                        <input name="language" type="hidden" value="{{ language.code }}" />
-                                    </form>
-                                    <button class="{% cycle 'en' 'de' %}" type="submit" form="form_{{ language.code }}" value="Submit">{{ language.code }}</button>
-                                </li>
+                                <li><a id="{{ language.code }}" class="link language-selection" href="#">{{ language.name_local }}</a></li>
                                 {% endfor %}
-                            </div>
-                        </ul>
+                            </ul>
+                        </li>
                     {% endif %}
                     </ul>
                 </section>
