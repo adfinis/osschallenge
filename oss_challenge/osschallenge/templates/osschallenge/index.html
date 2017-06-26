@@ -4,7 +4,6 @@
 <html>
     <head>
         <script type="text/javascript" src="{% static "js/jquery-3.2.1.js" %}"></script>
-        <script type="text/javascript" src="{% static "js/js.cookie.js" %}"></script>
         <script type="text/javascript" src="{% static "js/menu.js" %}"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'osschallenge/adcssy.css'%}"/>
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -25,7 +24,7 @@
                 </header>
                 <section class="nav-top-body">
                     <ul class="nav-top-list nav-top-list--right">
-                    {% if user.is_authenticated %}
+                        {% if user.is_authenticated %}
                         <li class="nav-top-list-item">
                             <a class="link" href="/projects">{% trans "Projects" %}</a>
                         </li>
@@ -36,13 +35,13 @@
                             <a class="link" href="/ranking">{% trans "Ranking" %}</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a class="link" href="/about">{% trans "About" %}</a>
+                            <a class="link" href="/">{% trans "About" %}</a>
                         </li>
                         <br />
                         {% if user.profile.role.id == mentor_id %}
-                            <li class="nav-top-list-item">
-                                <a class="link" href="/task_administration_index">{% trans "Task administration" %}</a>
-                            </li>
+                        <li class="nav-top-list-item">
+                            <a class="link" href="/task_administration_index">{% trans "Task administration" %}</a>
+                        </li>
                         {% endif %}
                         <li class="nav-top-list-item">
                             <a class="link" href="/profile">{% trans "Profile" %}</a>
@@ -50,17 +49,7 @@
                         <li class="nav-top-list-item">
                             <a class="link" href="/logout">Logout</a>
                         </li>
-                        <li class="dropdown">
-                            <a class="link" href="#">{% trans "Language" %}</a>
-                            <ul class="dropdown-content">
-                                {% get_available_languages as LANGUAGES %}
-                                {% get_language_info_list for LANGUAGES as languages %}
-                                {% for language in languages %}
-                                <li><a id="{{ language.code }}" class="link language-selection" href="#">{{ language.name_local }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    {% else %}
+                        {% else %}
                         <li class="nav-top-list-item">
                             <a class="link" href="/projects">{% trans "Projects" %}</a>
                         </li>
@@ -80,6 +69,10 @@
                         <li class="nav-top-list-item">
                             <a class="link" href="/register">{% trans "Register" %}</a>
                         </li>
+                        {% endif %}
+                        <form id="language-form" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                            <input id="language-input" name="language" type="hidden" value="" />
+                        </form>
                         <li class="dropdown">
                             <a class="link" href="#">{% trans "Language" %}</a>
                             <ul class="dropdown-content">
@@ -90,7 +83,6 @@
                                 {% endfor %}
                             </ul>
                         </li>
-                    {% endif %}
                     </ul>
                 </section>
             </nav>
