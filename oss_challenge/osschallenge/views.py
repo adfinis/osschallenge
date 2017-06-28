@@ -282,8 +282,11 @@ def RankingView(request):
     })
 
 
-class AboutView(generic.TemplateView):
+def AboutView(request):
     template_name = 'osschallenge/about.html'
+    return render(request, template_name, {
+        'mentor_id': MENTOR_ID,
+    })
 
 
 class RegistrationView(FormView):
