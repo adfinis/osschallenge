@@ -1,6 +1,20 @@
 html, body {
     margin: 0;
     height: 100%;
+    font-family: Open Sans, sans-serif;
+}
+
+@font-face {
+    font-family: Open Sans, sans-serif;
+} 
+
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+font-family: 'Open Sans', sans-serif;
+  -webkit-font-feature-settings: "dlig", "liga", "lnum", "kern";
+          font-feature-settings: "dlig", "liga", "lnum", "kern";
+  font-weight: 500;
 }
 
 /* Base Template */
@@ -170,6 +184,7 @@ section.nav-top-body {
     display: flex;
     height: auto;
     width: 150px;
+    background: url(oss-challenge.svg);
 }
 
 .nav-top-header-logo.img {
