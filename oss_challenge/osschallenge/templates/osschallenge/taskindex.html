@@ -22,9 +22,9 @@
                             </div>
                             <div class="task-picture">
                                 {% if task.picture %}
-                                    <img class="img-responsive" src="{{ task.picture.avatar.url }}" alt="Card image">
+                                    <img class="task-index-picture" src="{{ task.picture.avatar.url }}" alt="Card image">
                                 {% else %}
-                                    <img class="img-responsive" src="{% static "osschallenge/example.jpg" %}">
+                                    <img class="task-index-picture" src="{% static "osschallenge/example.jpg" %}">
                                 {% endif %}
                             </div>
                             <div class="card-block">

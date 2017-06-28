@@ -4,19 +4,18 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="content page-content--scroll">
-    <div class="detail">
-        <h1>{{ task.title }} -{% trans "Edit" %}</h1>
-        <form action="" method="post" class="edit" enctype="multipart/form-data"> 
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="form-group-login">
-                    {{ field.label_tag }} {{ field | add_class:'form-control' }}
-                </div>
-            {% endfor %}
-            <div class="save-image">
-                <button class="btn btn-primary">{% trans "Save" %}</button>
-            </div>
-        </form>
-    </div>
+<div class="detail">
+    <h1>{{ task.title }} -{% trans "Edit" %}</h1>
+    <form action="" method="post" class="edit" enctype="multipart/form-data"> 
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group-login">
+            {{ field.label_tag }} {{ field | add_class:'form-control' }}
+        </div>
+        {% endfor %}
+        <div class="save-image">
+            <button class="btn btn-primary">{% trans "Save" %}</button>
+        </div>
+    </form>
+</div>
 {% endblock content %}
