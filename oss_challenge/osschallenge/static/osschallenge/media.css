@@ -64,33 +64,28 @@
         width: 100%;
     }
 
-    button.nav-toggle.nav-top-toggle:active ~ section.nav-top-body {
-        display: block;
-    }
-
     li.nav-top-list-item a {
         height: 100px;
         background-color: rgb(91, 192, 222);
     }
 
-   li.dropdown {
-       background-color: rgb(91, 192, 222);
-   }
+    li.dropdown {
+        background-color: rgb(91, 192, 222);
+    }
 
-   li.dropdown ul {
-       background-color: rgb(91, 192, 222);
-       width: 100%;
-       margin-left: 10px;
-   }
+    li.dropdown ul {
+        background-color: rgb(91, 192, 222);
+        width: 100%;
+        margin-left: 10px;
+    }
 
-   .dropdown-content li a {
-      color:rgb(38, 91, 171);
-   }
+    .dropdown-content li a {
+        color:rgb(38, 91, 171);
+    }
 
-   .dropdown-content li a:hover {
-      width: 100%;
-   }
-
+    .dropdown-content li a:hover {
+        width: 100%;
+    }
 }
 
 @media (max-width: 1525px) {
@@ -126,4 +121,12 @@
     .textarea {
         width: 90%;
     }
+
+/* Task Administration */
+
+   div.detail-task-administration {
+       margin: 0 0 10px 0;
+       display: flex;
+       flex-direction: column;
+   }
 }
