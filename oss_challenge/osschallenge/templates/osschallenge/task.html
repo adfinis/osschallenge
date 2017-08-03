@@ -7,7 +7,7 @@
 {% load staticfiles %}
 <div class="grid content">
     <div class="grid-cell grid-cell--3of12">
-        <div class="grid-content">
+        <div class="task-detail-left">
             <div class="task-detail-picture">
                 <a href="{{ task.fileurl }}">
                     {% if task.picture.avatar.url %}
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="grid-cell grid-cell--9of12">
-        <div class="grid-content">
+        <div class="task-detail-right">
             <div class="task-detail">
                 <h1 class="tasktitle">{{ task.title }}
                    {% if task.task_done == True %}

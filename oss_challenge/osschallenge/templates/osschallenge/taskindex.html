@@ -22,18 +22,18 @@
                             </div>
                             <div class="task-picture">
                                 {% if task.picture %}
-                                    <img class="task-index-picture" src="{{ task.picture.avatar.url }}" alt="Card image">
+                                <img class="task-index-picture" src="{{ task.picture.avatar.url }}" alt="Card image">
                                 {% else %}
-                                    <img class="task-index-picture" src="{% static "osschallenge/example.jpg" %}">
+                                <img class="task-index-picture" src="{% static "osschallenge/example.jpg" %}">
                                 {% endif %}
                             </div>
                             <div class="card-block">
-                                    <div class="project-title">
-                                        <h4 class="card-title">{{ task.project.title }}</h4>
-                                    </div>
-                                    <div class="task-title">
-                                        <h6 class="card-subtitle text-muted">{{ task.title }}</h6>
-                                    </div>
+                                <div class="project-title">
+                                    <h4 class="card-title">{{ task.project.title }}</h4>
+                                </div>
+                                <div class="task-title">
+                                    <h6 class="card-subtitle text-muted">{{ task.title }}</h6>
+                                </div>
                                 <div class="task-description">
                                     </br> <p class="card-text task-text">{{ task.description }}</p>
                                 </div>

@@ -4,20 +4,8 @@ html, body {
     font-family: Open Sans, sans-serif;
 }
 
-@font-face {
-    font-family: Open Sans, sans-serif;
-} 
-
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-font-family: 'Open Sans', sans-serif;
-  -webkit-font-feature-settings: "dlig", "liga", "lnum", "kern";
-          font-feature-settings: "dlig", "liga", "lnum", "kern";
-  font-weight: 500;
-}
 
 /* Base Template */
-
 div.main {
     position: relative;
     width: 1200px;
@@ -45,7 +33,6 @@ div.content {
 }
 
 /* Index Lists */
-
 ul.index {
     list-style: none;
     margin: 0;
@@ -70,7 +57,6 @@ h1 a {
 }
 
 /* DetailView */
-
 h1.tasktitle {
     margin-top: 0;
 }
@@ -104,7 +90,6 @@ div.detail form input {
 }
 
 /* Grid */
-
 .grid-cell--3of12 {
     width: 800px;
     text-align: center;
@@ -119,7 +104,11 @@ div.detail form input {
     padding-right: 0px;
 }
 
-.grid-content {
+.task-detail-left {
+    width: 100%;
+}
+
+.task-detail-right {
     width: 100%;
 }
 
@@ -148,7 +137,6 @@ div.buttons a button.btn.btn-primary {
 }
 
 /* Edit Task/Project */
-
 form.edit div  {
     margin: 10px 0;
 }
@@ -303,10 +291,9 @@ img.img-responsive {
 }
 
 /* Card */
-
 .card {
     width: 220px;
-    height: 560px;
+    height: 580px;
 }
 
 .card-block-comment {
@@ -407,7 +394,6 @@ label[for="id_picture"] {
 }
 
 /* Dropdown Menu */
-
 .dropdown {
     position: inherit;
     display: inline-block;

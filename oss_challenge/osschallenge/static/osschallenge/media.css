@@ -1,46 +1,34 @@
 @media (max-width: 480px) {
 
-/* Task View */
-
-    .grid-cell.grid-cell--9of12 {
-        flex: 0 0 100%;
-    }
-
-/* Edit Project */
-
+    /* Edit Project */
     .detail h1 {
         text-align: center;
     }
 
-/* New Project */
-
+    /* New Project */
     .btn.btn-primary.add-project {
         width: 150px;
     }
 
-/* New Task */
-
+    /* New Task */
     .btn.btn-primary.add-task {
         margin: 10px 0 0 0;
     }
 
-/* Task Index */
-
-    .grid.grid--2of12.task-grid {
+    /* Task Index */
+    .task-detail-left {
         flex-direction: column;
         align-items: center;
     }
 
     .card {
-        height: 445px; 
-        width: 
+        height: 465px;
     }
 }
 
 @media (max-width:  768px) {
 
-/* Task View */
-
+    /* Task View */
     .btn.btn-primary {
         font-size: 0.75rem;
         padding: 0.5rem 1rem;
@@ -50,14 +38,12 @@
         min-height: 2rem;
     }
 
-/* New Task */
-
+    /* New Task */
     .btn.btn-primary.add-task {
         margin: 10px 0 0 0;
     }
 
-/* Responsive Menu */
-
+    /* Responsive Menu */
     section.nav-top-body {
         display: none;
         overflow: visible;
@@ -90,14 +76,13 @@
 
 @media (max-width: 1525px) {
 
-/* Task View */
-
+    /* Task View */
     .grid.content {
         display: flex;
         justify-content: center;
     }
 
-    .grid-cell.grid-cell--9of12 {
+    .task-detail-right {
         flex: 0 0 100%;
         text-align: center;
         margin: 30px 0 0 0;
@@ -122,9 +107,8 @@
         width: 90%;
     }
 
-/* Task Administration */
-
-   div.detail-task-administration {
+    /* Task Administration */
+    div.detail-task-administration {
        margin: 0 0 10px 0;
        display: flex;
        flex-direction: column;

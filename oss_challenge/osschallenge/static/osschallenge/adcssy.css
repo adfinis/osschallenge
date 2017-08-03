@@ -2341,45 +2341,6 @@ category: Basics
        url('../fonts/TheSansOffice.woff') format('woff'),
        url('../fonts/TheSansOffice.ttf') format('truetype');
 }
-@font-face {
-  font-family: TheSansLT;
-  font-weight: 300;
-  font-style: normal;
-  src:
-    url(../fonts/TheSans_LT_300_.eot)  format('embedded-opentype'),
-    url(../fonts/TheSans_LT_300_.svg)  format('svg'),
-    url(../fonts/TheSans_LT_300_.woff) format('woff');
-}
-
-@font-face {
-  font-family: TheSansLT;
-  font-weight: 300;
-  font-style: italic;
-  src:
-    url(../fonts/TheSans_LT_300i.eot)  format('embedded-opentype'),
-    url(../fonts/TheSans_LT_300i.svg)  format('svg'),
-    url(../fonts/TheSans_LT_300i.woff) format('woff');
-}
-
-@font-face {
-  font-family: TheSansLT;
-  font-weight: 500;
-  font-style: normal;
-  src:
-    url(../fonts/TheSans_LT_500_.eot)  format('embedded-opentype'),
-    url(../fonts/TheSans_LT_500_.svg)  format('svg'),
-    url(../fonts/TheSans_LT_500_.woff) format('woff');
-}
-
-@font-face {
-  font-family: TheSansLT;
-  font-weight: 500;
-  font-style: italic;
-  src:
-    url(../fonts/TheSans_LT_500i.eot)  format('embedded-opentype'),
-    url(../fonts/TheSans_LT_500i.svg)  format('svg'),
-    url(../fonts/TheSans_LT_500i.woff) format('woff');
-}
 /*doc
 ---
 title: Media Query Debug
