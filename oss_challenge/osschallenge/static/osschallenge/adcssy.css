@@ -2331,16 +2331,6 @@ category: Basics
   overflow: visible;
   clip: auto;
 }
-@font-face {
-  font-family: 'TheSansOffice Regular';
-  font-style: normal;
-  font-weight: normal;
-  src: local('TheSansOffice Regular'),
-       url('../fonts/TheSansOffice.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/TheSansOffice.svg#TheSansOffice-Regular') format('svg'),
-       url('../fonts/TheSansOffice.woff') format('woff'),
-       url('../fonts/TheSansOffice.ttf') format('truetype');
-}
 /*doc
 ---
 title: Media Query Debug
