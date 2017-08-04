@@ -2497,7 +2497,7 @@ html {
   background: #fff;
   color: rgb(61, 61, 61);
   font-weight: 300;
-  font-family: 'TheSansLT', 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: calc(13px + 5 * ((100vw - 420px) / 1020));
 }
 @media screen and (min-width: 1440px) {
@@ -3672,7 +3672,7 @@ Counting Headings:
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   color: #000;
-  font-family: 'TheSansLT', 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   -webkit-font-feature-settings: "dlig", "liga", "lnum", "kern";
           font-feature-settings: "dlig", "liga", "lnum", "kern";
   font-weight: 500;
