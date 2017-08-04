@@ -51,16 +51,17 @@
     }
 
     li.nav-top-list-item a {
-        height: 100px;
-        background-color: rgb(91, 192, 222);
+        height: 40px;
+        background-color: white;
     }
 
     li.dropdown {
-        background-color: rgb(91, 192, 222);
+        background-color: white;
+        height: 40px;
     }
 
     li.dropdown ul {
-        background-color: rgb(91, 192, 222);
+        background-color: white;
         width: 100%;
         margin-left: 10px;
     }
@@ -71,6 +72,10 @@
 
     .dropdown-content li a:hover {
         width: 100%;
+    }
+
+    a.link {
+        height: 40px;
     }
 }
 
