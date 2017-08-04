@@ -6,21 +6,24 @@
         <script type="text/javascript" src="{% static "js/jquery-3.2.1.js" %}"></script>
         <script type="text/javascript" src="{% static "js/menu.js" %}"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'osschallenge/adcssy.css'%}"/>
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'osschallenge/font-awesome.min.css'%}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'osschallenge/stylesheet.css'%}"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
+        <link rel="stylesheet" href="{% static 'osschallenge/media.css' %}"/>
+        <link rel="stylesheet" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>OSS-Challenge {% block title %}{% endblock title %}</title>
     </head>
     <body class="page">
         <div>
             <nav class="nav-top">
                 <header class="nav-top-header">
-                    <button class="nav-toggle nav-top-toggle" onclick="this.parentNode.parentNode.classList.toggle('nav-top--expand')">
-                        <span class="nav-toggle-icon"></span>
-                    </button>
+
                     <a href="/about">
                         <div class="nav-top-header-logo"><img src="{% static "osschallenge/oss-challenge.svg" %}"/></div>
                     </a>
+                    <button class="nav-toggle nav-top-toggle">
+                        <span class="nav-toggle-icon"></span>
+                    </button>
                 </header>
                 <section class="nav-top-body">
                     <ul class="nav-top-list nav-top-list--right">
@@ -37,7 +40,6 @@
                         <li class="nav-top-list-item">
                             <a class="link" href="/about">{% trans "About" %}</a>
                         </li>
-                        <br />
                         {% if user.profile.role.id == mentor_id %}
                         <li class="nav-top-list-item">
                             <a class="link" href="/task_administration_index">{% trans "Task administration" %}</a>
@@ -62,7 +64,6 @@
                         <li class="nav-top-list-item">
                             <a class="link" href="/about">{% trans "About" %}</a>
                         </li>
-                        <br />
                         <li class="nav-top-list-item">
                             <a class="link" href="/login">Login</a>
                         </li>

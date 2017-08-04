@@ -1,10 +1,11 @@
 html, body {
     margin: 0;
     height: 100%;
+    font-family: Open Sans, sans-serif;
 }
 
-/* Base Template */
 
+/* Base Template */
 div.main {
     position: relative;
     width: 1200px;
@@ -32,11 +33,10 @@ div.content {
 }
 
 /* Index Lists */
-
 ul.index {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 10px 12px 80px 12px;
 }
 
 ul.index li {
@@ -57,13 +57,28 @@ h1 a {
 }
 
 /* DetailView */
-
 h1.tasktitle {
     margin-top: 0;
 }
 
+div.detail-task-administration {
+    margin: 0 500px 10px 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 div.detail {
     margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.detail-project {
+    margin-bottom: 10px;
+    width: 100%
 }
 
 div.detail a {
@@ -74,13 +89,54 @@ div.detail form input {
     display: block;
 }
 
+/* Grid */
 .grid-cell--3of12 {
     width: 800px;
     text-align: center;
 }
 
-/* Edit Task/Project */
+.grid--2of12 > .grid-cell {
+    display: flex;
+    flex: 0 0 0;
+}
 
+.grid-cell {
+    padding-right: 0px;
+}
+
+.task-detail-left {
+    width: 100%;
+}
+
+.task-detail-right {
+    width: 100%;
+}
+
+.btn.btn-primary.btn-profile {
+    width: 150px;
+}
+
+.btn.btn-primary {
+    width: 200px;
+    margin: 10px 0 0 0;
+}
+
+.btn.btn-primary.add-project {
+    width: 200px;
+}
+
+.btn.btn-primary.add-task {
+    width: 200px;
+    margin: 10px 0 0 0;
+    height: 2rem;
+}
+
+div.buttons a button.btn.btn-primary {
+    display: block;
+    margin: 10px 0 0 0;
+}
+
+/* Edit Task/Project */
 form.edit div  {
     margin: 10px 0;
 }
@@ -121,6 +177,7 @@ section.nav-top-body {
     display: flex;
     height: auto;
     width: 150px;
+    background: url(oss-challenge.svg);
 }
 
 .nav-top-header-logo.img {
@@ -177,25 +234,24 @@ div.comment {
     color: white;
 }
 
+.comment-title.card-header {
+    width: 60%;
+}
+
 .comment footer {
     font-size: 14px;
 }
 
 .textarea {
-    width: 550px;
+    width: 60%;
 }
 
 img.img-responsive {
     width: 100%;
-    height: 100%;
 }
 
 .task-text {
     color: black;
-}
-
-.task-grid {
-    padding: 0 18px;
 }
 
 .project-title {
@@ -216,12 +272,12 @@ img.img-responsive {
     text-align: center;
 }
 
-.markdown {
-    font-size: 12px;
+.task-status h5 {
+    font-size: 15px;
 }
 
-.grid-cell {
-    display: flex;
+.markdown {
+    font-size: 12px;
 }
 
 .about {
@@ -234,18 +290,46 @@ img.img-responsive {
     justify-content: center;
 }
 
-.btn.btn-primary.comment {
-    margin-bottom: 20px;
-}
-
+/* Card */
 .card {
-    width: 300px;
-    height: 615px;
-
+    width: 220px;
+    height: 580px;
 }
 
-.task-picture {
+.card-block-comment {
+    padding: 1rem;
+    width: 60%;
+    border-color: rgb(91, 142, 219);
+    border-style: none solid solid solid;
+    border-width: 0 1px 1px 1px;
+}
+
+.card-profile {
+    position: relative;
+    margin-bottom: 0.5rem;
+    background-color: #fff;
+    border: 1px solid rgb(225, 225, 225);
+}
+
+.card-header {
+    border-bottom: none;
+}
+
+.card--inverse.card--primary.comment {
+    width: 100%;
+}
+
+.task-detail-picture {
+    display: flex;
+    justify-content: center;
     height: 298px;
+}
+
+.task-index-picture {
+    display: flex;
+    justify-content: center;
+    height: 220px;
+    width: 100%;
 }
 
 form.edit div input {
@@ -257,14 +341,16 @@ form.edit div input {
 }
 
 label[for="id_picture"] {
-    width: 100px;
-    background-color: #900;
+    width: 200px;
     border-radius: 4px;
-    padding: 5px;
-    font-size: 11px;
+    font-size: 0.75rem;
     text-align: center;
-    color: #FFF;
     cursor: pointer;
+    background-color: rgb( 91, 142, 219);
+    border-color: rgb(71, 128, 215);
+    color: #fff;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
 }
 
 .form-group-login input[type="file"] {
@@ -294,13 +380,6 @@ label[for="id_picture"] {
     padding: 10px 12px 80px 12px;
 }
 
-.card-profile {
-    position: relative;
-    margin-bottom: 0.5rem;
-    background-color: #fff;
-    border: 1px solid rgb(225, 225, 225);
-}
-
 .content-ranking {
     display: flex;
     justify-content: center;
@@ -309,6 +388,12 @@ label[for="id_picture"] {
     padding: 10px 12px 80px 12px;
 }
 
+.page-content {
+    display: flex;
+    align-items: center;
+}
+
+/* Dropdown Menu */
 .dropdown {
     position: inherit;
     display: inline-block;

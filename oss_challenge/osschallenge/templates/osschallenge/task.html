@@ -7,21 +7,21 @@
 {% load staticfiles %}
 <div class="grid content">
     <div class="grid-cell grid-cell--3of12">
-        <div class="grid-content">
-            <div class="task-picture">
+        <div class="task-detail-left">
+            <div class="task-detail-picture">
                 <a href="{{ task.fileurl }}">
                     {% if task.picture.avatar.url %}
-                    <img class="img-responsive" src="{{ task.picture.avatar.url }}">
+                    <img class="task-detail-picture" src="{{ task.picture.avatar.url }}">
                     {% else %}
-                    <img class="img-responsive" src="{% static "osschallenge/example.jpg" %}">
+                    <img class="task-detail-picture" src="{% static "osschallenge/example.jpg" %}">
                     {% endif %}
                 </a>
             </div>
         </div>
     </div>
     <div class="grid-cell grid-cell--9of12">
-        <div class="grid-content">
-            <div class="detail">
+        <div class="task-detail-right">
+            <div class="task-detail">
                 <h1 class="tasktitle">{{ task.title }}
                    {% if task.task_done == True %}
                    </br>{% trans "done" %} {% trans "by" %} {{ task.assignee }}
@@ -64,31 +64,33 @@
                     <textarea rows="4" class="textarea" name="comment" placeholder="Enter text here..."></textarea>
                     {% csrf_token %}
                     <strong><p class="markdown">{% trans "Markdown available" %}</p></strong>
-                    <button class="btn btn-primary comment" name="Comment">{% trans "Comment" %}</button>
+                    <button class="btn btn-primary" name="Comment">{% trans "Comment" %}</button>
                     {% if notification %}
                         <div class="alert alert-success" role="alert">{{ notification }}</div>
                     {% endif %}
                 </form>
-                {% for comment in comment_list %}
-                    {% if comment.task_id == task.id %}
-                        <div class="card--inverse card--primary comment">
-                            <div class="comment-title card-header">
-                                {% if comment.author.id == mentor_id %}
-                                    <b>{{ comment.author.first_name }} {{comment.author.last_name}} </b>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                {% else %}
-                                    <b>{{ comment.author.username }}</b>
-                                {% endif %}
+                <div class="comment-box">
+                    {% for comment in comment_list %}
+                        {% if comment.task_id == task.id %}
+                            <div class="card--inverse card--primary comment">
+                                <div class="comment-title card-header">
+                                    {% if comment.author.id == mentor_id %}
+                                        <b>{{ comment.author.first_name }} {{comment.author.last_name}} </b>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    {% else %}
+                                        <b>{{ comment.author.username }}</b>
+                                    {% endif %}
+                                </div>
+                                <div class="card-block-comment">
+                                    {{ comment.comment|markdown|linebreaks }}
+                                    <footer class="text-right">
+                                        {{ comment.created_at|date:'Y-m-d, H:i' }}
+                                    </footer>
+                                </div>
                             </div>
-                            <div class="card-block">
-                                {{ comment.comment|markdown|linebreaks }}
-                                <footer class="text-right">
-                                    {{ comment.created_at|date:'Y-m-d, H:i' }}
-                                </footer>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

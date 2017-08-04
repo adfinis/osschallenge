@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="content page-content--scroll">
-    <div class="detail">
+    <div class="detail-project">
         <h1>{{ project.title }}</h1>
 
         {% if error_message %}<p><strong>{% trans  error_message %}</strong></p>{% endif %}
@@ -17,15 +17,16 @@
         <p><a href="http://{{ project.website }}">
             <strong>{% trans "Website" %}</strong>
         </a></p>
-        
-        {% if user.profile.role.id == mentor_id %}
-        <a href="edit/">
-            <button class=" btn btn-primary">{% trans "Edit" %}</button>
-        </a>
-        <a href="new_task/">
-            <button class="btn btn-primary">{% trans "New Task" %}</button>
-        </a>
-        {% endif %}
+        <div class="buttons">
+            {% if user.profile.role.id == mentor_id %}
+            <a href="edit/">
+                <button class=" btn btn-primary">{% trans "Edit" %}</button>
+            </a>
+            <a href="new_task/">
+                <button class="btn btn-primary">{% trans "New Task" %}</button>
+            </a>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock content %}

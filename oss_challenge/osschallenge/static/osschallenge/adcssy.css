@@ -2331,55 +2331,6 @@ category: Basics
   overflow: visible;
   clip: auto;
 }
-@font-face {
-  font-family: 'TheSansOffice Regular';
-  font-style: normal;
-  font-weight: normal;
-  src: local('TheSansOffice Regular'),
-       url('../fonts/TheSansOffice.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/TheSansOffice.svg#TheSansOffice-Regular') format('svg'),
-       url('../fonts/TheSansOffice.woff') format('woff'),
-       url('../fonts/TheSansOffice.ttf') format('truetype');
-}
-@font-face {
-  font-family: TheSansLT;
-  font-weight: 300;
-  font-style: normal;
-  src:
-    url(../fonts/TheSans_LT_300_.eot)  format('embedded-opentype'),
-    url(../fonts/TheSans_LT_300_.svg)  format('svg'),
-    url(../fonts/TheSans_LT_300_.woff) format('woff');
-}
-
-@font-face {
-  font-family: TheSansLT;
-  font-weight: 300;
-  font-style: italic;
-  src:
-    url(../fonts/TheSans_LT_300i.eot)  format('embedded-opentype'),
-    url(../fonts/TheSans_LT_300i.svg)  format('svg'),
-    url(../fonts/TheSans_LT_300i.woff) format('woff');
-}
-
-@font-face {
-  font-family: TheSansLT;
-  font-weight: 500;
-  font-style: normal;
-  src:
-    url(../fonts/TheSans_LT_500_.eot)  format('embedded-opentype'),
-    url(../fonts/TheSans_LT_500_.svg)  format('svg'),
-    url(../fonts/TheSans_LT_500_.woff) format('woff');
-}
-
-@font-face {
-  font-family: TheSansLT;
-  font-weight: 500;
-  font-style: italic;
-  src:
-    url(../fonts/TheSans_LT_500i.eot)  format('embedded-opentype'),
-    url(../fonts/TheSans_LT_500i.svg)  format('svg'),
-    url(../fonts/TheSans_LT_500i.woff) format('woff');
-}
 /*doc
 ---
 title: Media Query Debug
@@ -2546,7 +2497,7 @@ html {
   background: #fff;
   color: rgb(61, 61, 61);
   font-weight: 300;
-  font-family: 'TheSansLT', 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: calc(13px + 5 * ((100vw - 420px) / 1020));
 }
 @media screen and (min-width: 1440px) {
@@ -3721,7 +3672,7 @@ Counting Headings:
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   color: #000;
-  font-family: 'TheSansLT', 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   -webkit-font-feature-settings: "dlig", "liga", "lnum", "kern";
           font-feature-settings: "dlig", "liga", "lnum", "kern";
   font-weight: 500;

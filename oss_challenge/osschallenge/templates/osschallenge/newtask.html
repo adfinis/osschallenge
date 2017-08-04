@@ -4,22 +4,20 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="content page-content--scroll">
-    <div class="detail">
+<div class="detail">
 
-        <h1>{% trans "New Task" %}</h1>
-        <form action="" method="POST" class="edit" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="form-group-login">
-                    {% trans field.label_tag %} {{ field | add_class:'form-control' }}
-                </div>
-            {% endfor %}
-            <br>
-            <div class="btn-add-task">
-                <button class="btn btn-primary">{% trans "Add Task" %}</button>
-            </div>
-        </form>
-    </div>
+    <h1>{% trans "New Task" %}</h1>
+    <form action="" method="POST" class="edit" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group-login">
+            {% trans field.label_tag %} {{ field | add_class:'form-control' }}
+        </div>
+        {% endfor %}
+        <br>
+        <div class="btn-add-task">
+            <button class="btn btn-primary add-task">{% trans "Add Task" %}</button>
+        </div>
+    </form>
 </div>
 {% endblock content %}
