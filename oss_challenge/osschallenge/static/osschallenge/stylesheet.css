@@ -275,6 +275,11 @@ img.img-responsive {
     font-size: 15px;
 }
 
+.task-grid {
+    display: flex;
+    justify-content: center;
+}
+
 .markdown {
     font-size: 12px;
 }
@@ -429,4 +434,25 @@ label[for="id_picture"] {
 
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+}
+
+/* Search Function */
+.search-function {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+form.search {
+    display: flex;
+}
+
+div.search-function div {
+    display: flex;
+    align-self: flex-end;
+}
+
+div.search-function input.btn {
+    width: 80px;
+    margin: 0 0 0 10px;
 }

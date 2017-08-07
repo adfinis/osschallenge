@@ -28,6 +28,17 @@
 
 @media (max-width:  768px) {
 
+    /* Task Index */
+    div.search-function div input.form-control {
+        min-height: 2rem;
+        line-height: 0;
+        font-size: 0.9rem;
+    }
+
+    div.search-function div input.btn.btn-primary {
+        min-height: 2rem;
+    }
+
     /* Task View */
     .btn.btn-primary {
         font-size: 0.75rem;
