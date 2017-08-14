@@ -7,7 +7,7 @@
 <div class="content">
     <div class="taskindex">
         <div class="search-function">
-            <form class="search" method=get">
+            <form class="search" method="get">
                 <div><input class="form-control" type="text" name="search" placeholder="search task"></div>
                 <div><input class="btn btn-primary" type="submit" value="Submit"></div>
             </form>
@@ -58,11 +58,11 @@
                     <a href="/tasks/{{ task.id }}">
                         <div class="task-status">
                             {% if task.task_done == True %}
-                            <h5>{% trans "done" %} {% trans "by" %} {{ task.assignee }}</h5>
+                            {% trans "done" %} {% trans "by" %} {{ task.assignee }}
                             {% elif task.assignee_id != NULL %}
-                            <h5>{% trans "claimed" %} {% trans "by" %} {{ task.assignee }}</h5>
+                            {% trans "claimed" %} {% trans "by" %} {{ task.assignee }}
                             {% else %}
-                            <h5>{% trans "free" %}</h5>
+                            {% trans "free" %}
                             {% endif %}
                         </div>
                         <div class="task-picture">

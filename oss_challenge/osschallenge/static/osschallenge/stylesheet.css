@@ -269,10 +269,9 @@ img.img-responsive {
 
 .task-status {
     text-align: center;
-}
-
-.task-status h5 {
     font-size: 15px;
+    font-weight: bold;
+    color: black;
 }
 
 .task-grid {
