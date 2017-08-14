@@ -237,6 +237,10 @@ div.comment {
     width: 60%;
 }
 
+.comment-title.card-header a {
+    color: white;
+}
+
 .comment footer {
     font-size: 14px;
 }
