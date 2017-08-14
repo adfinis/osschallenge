@@ -4,7 +4,6 @@ html, body {
     font-family: Open Sans, sans-serif;
 }
 
-
 /* Base Template */
 div.main {
     position: relative;
@@ -270,10 +269,14 @@ img.img-responsive {
 
 .task-status {
     text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
 }
 
-.task-status h5 {
-    font-size: 15px;
+.task-grid {
+    display: flex;
+    justify-content: center;
 }
 
 .markdown {
@@ -430,4 +433,25 @@ label[for="id_picture"] {
 
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+}
+
+/* Search Function */
+.search-function {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+form.search {
+    display: flex;
+}
+
+div.search-function div {
+    display: flex;
+    align-self: flex-end;
+}
+
+div.search-function input.btn {
+    width: 80px;
+    margin: 0 0 0 10px;
 }

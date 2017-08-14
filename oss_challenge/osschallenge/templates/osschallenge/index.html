@@ -71,9 +71,6 @@
                             <a class="link" href="/register">{% trans "Register" %}</a>
                         </li>
                         {% endif %}
-                        <form id="language-form" action="{% url 'set_language' %}" method="post">{% csrf_token %}
-                            <input id="language-input" name="language" type="hidden" value="" />
-                        </form>
                         <li class="dropdown">
                             <a class="link" href="#">{% trans "Language" %}</a>
                             <ul class="dropdown-content">
@@ -84,6 +81,9 @@
                                 {% endfor %}
                             </ul>
                         </li>
+                        <form id="language-form" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                            <input id="language-input" name="language" type="hidden" value="" />
+                        </form>
                     </ul>
                 </section>
             </nav>

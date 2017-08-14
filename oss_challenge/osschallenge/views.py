@@ -96,6 +96,17 @@ def TaskIndexView(request):
             task.description = task.description[:max_length_description] + " ..."
         if len(task.title) > max_length_title:
             task.title = task.title[:max_length_title] + " ..."
+    if request.GET:
+        match_list = Task.objects.filter(title__icontains=request.GET['search'])
+        for match in match_list:
+            if len(match.description) > max_length_description:
+                match.description = match.description[:max_length_description] + " ..."
+            if len(match.title) > max_length_title:
+                match.title = match.title[:max_length_title] + " ..."
+        return render(request, template_name, {
+            'match_list': match_list,
+            'task_list': task_list
+        })
     return render(request, template_name, {
         'task_list': task_list,
         'mentor_id': MENTOR_ID

@@ -28,6 +28,17 @@
 
 @media (max-width:  768px) {
 
+    /* Task Index */
+    div.search-function div input.form-control {
+        min-height: 2rem;
+        line-height: 0;
+        font-size: 0.9rem;
+    }
+
+    div.search-function div input.btn.btn-primary {
+        min-height: 2rem;
+    }
+
     /* Task View */
     .btn.btn-primary {
         font-size: 0.75rem;
@@ -51,16 +62,17 @@
     }
 
     li.nav-top-list-item a {
-        height: 100px;
-        background-color: rgb(91, 192, 222);
+        height: 40px;
+        background-color: white;
     }
 
     li.dropdown {
-        background-color: rgb(91, 192, 222);
+        background-color: white;
+        height: 40px;
     }
 
     li.dropdown ul {
-        background-color: rgb(91, 192, 222);
+        background-color: white;
         width: 100%;
         margin-left: 10px;
     }
@@ -71,6 +83,10 @@
 
     .dropdown-content li a:hover {
         width: 100%;
+    }
+
+    a.link {
+        height: 40px;
     }
 }
 
