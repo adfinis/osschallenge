@@ -195,8 +195,9 @@ def NewTaskView(request, pk):
     )
 
 
-def ProfileView(request):
-    profile = get_object_or_404(Profile, user_id=request.user.id)
+def ProfileView(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = get_object_or_404(Profile, user_id=user.id)
     finished_tasks_list = get_list_or_404(Task)
     template_name = 'osschallenge/profile.html'
 
@@ -205,7 +206,8 @@ def ProfileView(request):
             'contributor_id': CONTRIBUTOR_ID,
             'mentor_id': MENTOR_ID,
             'finished_tasks_list': finished_tasks_list,
-            'profile': profile
+            'profile': profile,
+
         })
     else:
         return redirect('/login/')

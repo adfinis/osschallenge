@@ -46,7 +46,7 @@
                         </li>
                         {% endif %}
                         <li class="nav-top-list-item">
-                            <a class="link" href="/profile">{% trans "Profile" %}</a>
+                            <a class="link" href="/profile/{{ request.user.username }}">{% trans "Profile" %}</a>
                         </li>
                         <li class="nav-top-list-item">
                             <a class="link" href="/logout">Logout</a>

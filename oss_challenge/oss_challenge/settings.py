@@ -160,7 +160,7 @@ STATIC_URL = '/static/'
 
 # Login redirects to
 
-LOGIN_REDIRECT_URL = '/profile/'
+LOGIN_REDIRECT_URL = '/tasks/'
 
 # Mailserver login settings
 

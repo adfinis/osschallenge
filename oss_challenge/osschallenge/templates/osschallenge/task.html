@@ -75,10 +75,10 @@
                             <div class="card--inverse card--primary comment">
                                 <div class="comment-title card-header">
                                     {% if comment.author.id == mentor_id %}
-                                        <b>{{ comment.author.first_name }} {{comment.author.last_name}} </b>
+                                    <a class="link" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.first_name }} {{comment.author.last_name}}</b></a>
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                     {% else %}
-                                        <b>{{ comment.author.username }}</b>
+                                    <a class="link" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.username }}</b></a>
                                     {% endif %}
                                 </div>
                                 <div class="card-block-comment">

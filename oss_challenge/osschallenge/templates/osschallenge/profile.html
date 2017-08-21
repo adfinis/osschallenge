@@ -12,36 +12,44 @@
             <img class="card-img-top" src="{% static "osschallenge/profile-example.png" %}">
             {% endif %}
             <div class="card-block">
-                <h4 class="card-title">{{ user.username }}</h4>
+                <h4 class="card-title">{{ profile.user.username }}</h4>
             </div>
             <ul class="list-group list-group--flush">
-                {% if user.profile.role.id == contributor_id %}
-                <li class="list-group-item"><strong>Rank: </strong> {{ user.profile.get_rank }}</li>
+                {% if profile.role_id == contributor_id %}
+                <li class="list-group-item"><strong>Rank: </strong> {{ profile.get_rank }}</li>
                 {% endif %}
-                <li class="list-group-item"><strong>{% trans "First name:" %}</strong> {{ user.first_name }}</li>
-                <li class="list-group-item"><strong>{% trans "Last name:" %}</strong> {{ user.last_name }}</li>
-                <li class="list-group-item"><strong>E-Mail:</strong> {{ user.email }}</li>
-                <li class="list-group-item"><strong>{% trans "Role:" %}</strong> {% trans user.profile.role.name %}</li>
-                {% if user.profile.role.id == contributor_id %}
-                <li class="list-group-item"><strong>{% trans "Points reached:" %} </strong>{{ user.profile.points }}</li>
+                {% if request.user.id == profile.user.id or profile.role_id == mentor_id %}
+                <li class="list-group-item"><strong>{% trans "First name:" %}</strong> {{ profile.user.first_name }}</li>
+                <li class="list-group-item"><strong>{% trans "Last name:" %}</strong> {{ profile.user.last_name }}</li>
+                <li class="list-group-item"><strong>E-Mail:</strong> {{ profile.user.email }}</li>
                 {% endif %}
-                <li class="list-group-item"><strong>Links:</strong> <a href="http://{{ user.profile.links }}" class="card-link">{{ user.profile.links }}</a></li>
-                <li class="list-group-item"><strong>{% trans "Contact:" %}</strong> <a href="#" class="card-link">{{user.profile.contact }}</a></li>
-                {% if user.profile.role.id == contributor_id %}
+                {% if profile.role_id == mentor_id %}
+                <li class="list-group-item"><strong>{% trans "Role:" %}</strong> {% trans profile.role.name %}</li>
+                {% endif %}
+                {% if profile.role_id == contributor_id %}
+                <li class="list-group-item"><strong>{% trans "Points reached:" %} </strong>{{ profile.points }}</li>
+                {% endif %}
+                <li class="list-group-item"><strong>Links:</strong> <a href="http://{{ profile.links }}" class="card-link">{{ profile.links }}</a></li>
+                {% if request.user.id == profile.user.id %}
+                <li class="list-group-item"><strong>{% trans "Contact:" %}</strong> <a href="#" class="card-link">{{profile.contact }}</a></li>
+                {% endif %}
+                {% if profile.role_id == contributor_id %}
                 <li class="list-group-item"><strong>{% trans "Tasks done:" %}</strong></li>
-                    {% for task in finished_tasks_list %}
-                        {% if task.task_checked and user.id == task.assignee_id %}
-                            <li class="list-group-item"><a href="/tasks/{{ task.id }}">{{ task.title }} -- {{ task.project.title }}</a></li>
-                        {% endif %}
-                    {% endfor %}
+                {% for task in finished_tasks_list %}
+                {% if task.task_checked and profile.user.id == task.assignee_id %}
+                <li class="list-group-item"><a href="/tasks/{{ task.id }}">{{ task.title }} -- {{ task.project.title }}</a></li>
+                {% endif %}
+                {% endfor %}
                 {% endif %}
             </ul>
         </div>
+        {% if request.user.id == profile.user.id %}
         <a href="/password_change">{% trans "Reset Password" %}</a>
         </br>
         <a href="edit/">
             <button class="btn btn-primary btn-profile">{% trans "Edit" %}</button>
         </a>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}
