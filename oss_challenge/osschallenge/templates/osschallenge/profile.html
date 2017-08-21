@@ -15,7 +15,7 @@
                 <h4 class="card-title">{{ profile.user.username }}</h4>
             </div>
             <ul class="list-group list-group--flush">
-                {% if profile.role.id == contributor_id %}
+                {% if profile.role_id == contributor_id %}
                 <li class="list-group-item"><strong>Rank: </strong> {{ profile.get_rank }}</li>
                 {% endif %}
                 {% if request.user.id == profile.user.id or profile.role_id == mentor_id %}
@@ -26,14 +26,14 @@
                 {% if profile.role_id == mentor_id %}
                 <li class="list-group-item"><strong>{% trans "Role:" %}</strong> {% trans profile.role.name %}</li>
                 {% endif %}
-                {% if profile.role.id == contributor_id %}
+                {% if profile.role_id == contributor_id %}
                 <li class="list-group-item"><strong>{% trans "Points reached:" %} </strong>{{ profile.points }}</li>
                 {% endif %}
                 <li class="list-group-item"><strong>Links:</strong> <a href="http://{{ profile.links }}" class="card-link">{{ profile.links }}</a></li>
                 {% if request.user.id == profile.user.id %}
                 <li class="list-group-item"><strong>{% trans "Contact:" %}</strong> <a href="#" class="card-link">{{profile.contact }}</a></li>
                 {% endif %}
-                {% if profile.role.id == contributor_id %}
+                {% if profile.role_id == contributor_id %}
                 <li class="list-group-item"><strong>{% trans "Tasks done:" %}</strong></li>
                 {% for task in finished_tasks_list %}
                 {% if task.task_checked and profile.user.id == task.assignee_id %}
