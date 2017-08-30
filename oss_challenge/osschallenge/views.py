@@ -223,7 +223,7 @@ def EditProfileView(request):
         if form_profile.is_valid() and form_user.is_valid():
             profile = form_profile.save()
             user = form_user.save()
-            return redirect('profile')
+            return redirect('profile', user.username)
 
     else:
         form_profile = ProfileForm(instance=profile)

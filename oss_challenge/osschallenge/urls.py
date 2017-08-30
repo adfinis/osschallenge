@@ -42,13 +42,13 @@ urlpatterns = [
         views.EditTaskView,
         name='edittask'),
 
-    url(r'^profile/(?P<username>[0-9A-Za-z_\-\.\+\@]+)/$',
-        views.ProfileView,
-        name='profile'),
-
     url(r'^profile/edit/$',
         views.EditProfileView,
         name='editprofile'),
+
+    url(r'^profile/(?P<username>[0-9A-Za-z_\-\.\+\@]+)/$',
+        views.ProfileView,
+        name='profile'),
 
     url(r'^task_administration_index/$',
         views.TaskAdministrationIndexView,

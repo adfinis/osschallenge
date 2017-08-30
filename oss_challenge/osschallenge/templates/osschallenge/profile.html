@@ -46,7 +46,7 @@
         {% if request.user.id == profile.user.id %}
         <a href="/password_change">{% trans "Reset Password" %}</a>
         </br>
-        <a href="edit/">
+        <a href="/profile/edit">
             <button class="btn btn-primary btn-profile">{% trans "Edit" %}</button>
         </a>
         {% endif %}
