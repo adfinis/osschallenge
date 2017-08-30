@@ -71,24 +71,26 @@
                 </form>
                 <div class="comment-box">
                     {% for comment in comment_list %}
-                        {% if comment.task_id == task.id %}
-                            <div class="card--inverse card--primary comment">
-                                <div class="comment-title card-header">
-                                    {% if comment.author.id == mentor_id %}
-                                    <a class="link" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.first_name }} {{comment.author.last_name}}</b></a>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    {% else %}
-                                    <a class="link" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.username }}</b></a>
-                                    {% endif %}
-                                </div>
-                                <div class="card-block-comment">
-                                    {{ comment.comment|markdown|linebreaks }}
-                                    <footer class="text-right">
-                                        {{ comment.created_at|date:'Y-m-d, H:i' }}
-                                    </footer>
-                                </div>
-                            </div>
-                        {% endif %}
+                    {% if comment.task_id == task.id %}
+                    <div class="card--inverse card--primary comment">
+                        <div class="comment-title card-header">
+                            {% if comment.author.profile.role_id == mentor_id %}
+                            <a class="link" href="/profile/{{ comment.author.username }}/">
+                                <b>{{ comment.author.first_name }} {{comment.author.last_name}}</b>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </a>
+                            {% else %}
+                            <a class="link" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.username }}</b></a>
+                            {% endif %}
+                        </div>
+                        <div class="card-block-comment">
+                            {{ comment.comment|markdown|linebreaks }}
+                            <footer class="text-right">
+                                {{ comment.created_at|date:'Y-m-d, H:i' }}
+                            </footer>
+                        </div>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
