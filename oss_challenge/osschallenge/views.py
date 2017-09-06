@@ -91,22 +91,30 @@ def TaskIndexView(request):
     template_name = 'osschallenge/taskindex.html'
     max_length_description = 150
     max_length_title = 60
+    no_tasks = "There are no tasks"
     for task in task_list:
         if len(task.description) > max_length_description:
             task.description = task.description[:max_length_description] + " ..."
         if len(task.title) > max_length_title:
             task.title = task.title[:max_length_title] + " ..."
     if request.GET:
-        match_list = Task.objects.filter(title__icontains=request.GET['search'])
-        for match in match_list:
-            if len(match.description) > max_length_description:
-                match.description = match.description[:max_length_description] + " ..."
-            if len(match.title) > max_length_title:
-                match.title = match.title[:max_length_title] + " ..."
-        return render(request, template_name, {
-            'match_list': match_list,
-            'task_list': task_list
-        })
+        match_list = Task.objects.filter(Q(title__icontains=request.GET['search']) | Q(project__title__icontains=request.GET['search'])).distinct()
+        if match_list:
+            for match in match_list:
+                if len(match.description) > max_length_description:
+                    match.description = match.description[:max_length_description] + " ..."
+                if len(match.title) > max_length_title:
+                    match.title = match.title[:max_length_title] + " ..."
+            return render(request, template_name, {
+                'match_list': match_list,
+                'task_list': task_list
+            })
+        else:
+            return render(request, template_name, {
+                'no_tasks': no_tasks,
+                'task_list': task_list,
+                'match_list': match_list,
+            })
     return render(request, template_name, {
         'task_list': task_list,
         'mentor_id': MENTOR_ID
