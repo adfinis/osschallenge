@@ -11,6 +11,7 @@ from .forms import RegistrationForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from django.db.models import Q
 
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
@@ -27,20 +28,10 @@ def IndexView(request):
 class NewProjectView(CreateView):
     model = Project
     template_name = 'osschallenge/newproject.html'
-    fields = [
-        'title_de',
-        'title_en_us',
-        'lead_text_de',
-        'lead_text_en_us',
-        'description_de',
-        'description_en_us',
-        'licence',
-        'github',
-        'website',
-        'owner'
-    ]
+    form_class = ProjectForm
 
     def form_valid(self, form):
+        form.instance.owner = self.request.user
         return super(NewProjectView, self).form_valid(form)
 
     success_url = '/projects/'
@@ -54,13 +45,20 @@ def ProjectIndexView(request):
         'mentor_id': MENTOR_ID
     })
 
-
 def ProjectView(request, pk):
     project = get_object_or_404(Project, pk=pk)
+    mentors = project.mentors.all()
+    owner = project.owner
+    current_user = request.user.id
+    can_create_new_tasks = project.mentors.filter(id=current_user)
     template_name = 'osschallenge/project.html'
     return render(request, template_name, {
         'project': project,
-        'mentor_id': MENTOR_ID
+        'mentor_id': MENTOR_ID,
+        'mentors' : mentors,
+        'owner' : owner,
+        'current_user': current_user,
+        'can_create_new_tasks': can_create_new_tasks
     })
 
 
@@ -124,6 +122,10 @@ def TaskIndexView(request):
 def TaskView(request, pk):
     task = get_object_or_404(Task, pk=pk)
     user = get_object_or_404(User, pk=request.user.id)
+    current_user = request.user.id
+    project = get_object_or_404(Project, pk=task.project_id)
+    mentors = project.mentors.all()
+    can_edit = project.mentors.filter(id=current_user)
     template_name = 'osschallenge/task.html'
     notification = ""
     if 'Claim' in request.POST:
@@ -154,7 +156,10 @@ def TaskView(request, pk):
         'task': task,
         'user': user,
         'mentor_id': MENTOR_ID,
-        'notification': notification
+        'contributor_id': CONTRIBUTOR_ID,
+        'mentors': mentors,
+        'notification': notification,
+        'can_edit': can_edit
     })
 
 
@@ -330,7 +335,7 @@ class RegistrationView(FormView):
 
         return super(RegistrationView, self).form_valid(form)
 
-    def generate_key():
+    def generate_key(self):
         return base64.b32encode(os.urandom(7))[:10].lower()
 
     def generate_profile(self, user):

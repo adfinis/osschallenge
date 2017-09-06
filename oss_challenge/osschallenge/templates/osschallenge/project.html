@@ -9,19 +9,29 @@
         {% if error_message %}<p><strong>{% trans  error_message %}</strong></p>{% endif %}
 
         <p>{% trans project.lead_text noop %}</p>
-        <p><strong>{% trans "Description" %}</strong><br>{% trans project.description noop %}</p>
-        <p><strong>{% trans "Licence" %}</strong> {{ project.licence }}</p>
+        <p><strong>{% trans "Description: " %}</strong>{% trans project.description noop %}</p>
+        <p><strong>{% trans "Licence:" %}</strong> {{ project.licence }}</p>
         <p><a href="http://{{ project.github }}">
             <strong>Git-Hub</strong>
         </a></p>
         <p><a href="http://{{ project.website }}">
             <strong>{% trans "Website" %}</strong>
         </a></p>
+        <p><strong>{% trans "Owner: " %}</strong>{{ owner }}</p>
+        <p>
+            <strong>{% trans "Mentor: " %}</strong>
+            {% for user in mentors %}
+            {{ user }}
+            {% endfor %}
+        </p>
         <div class="buttons">
-            {% if user.profile.role.id == mentor_id %}
+            {% if current_user == project.owner_id %}
             <a href="edit/">
                 <button class=" btn btn-primary">{% trans "Edit" %}</button>
             </a>
+            {% endif %}
+
+            {% if current_user == project.owner_id or can_create_new_tasks   %}
             <a href="new_task/">
                 <button class="btn btn-primary">{% trans "New Task" %}</button>
             </a>
