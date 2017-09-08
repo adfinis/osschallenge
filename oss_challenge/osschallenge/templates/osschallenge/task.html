@@ -43,7 +43,7 @@
                 <a href="edit/" class=" btn btn-primary">{% trans "Edit" %}</a>
                 </br>
                 {% endif %}
-                {% if current_user == contributor_id and task.assignee_id == NULL %}
+                {% if current_user_id == contributor_id and task.assignee_id == NULL %}
                     <form action="" method="POST" class="edit">
                         {% csrf_token %}
                         <button class="btn btn-primary" name="Claim">{% trans "Claim" %}</button>

@@ -49,15 +49,15 @@ def ProjectView(request, pk):
     project = get_object_or_404(Project, pk=pk)
     mentors = project.mentors.all()
     owner = project.owner
-    current_user = request.user.id
-    can_create_new_tasks = project.mentors.filter(id=current_user)
+    current_user_id = request.user.id
+    can_create_new_tasks = project.mentors.filter(id=current_user_id)
     template_name = 'osschallenge/project.html'
     return render(request, template_name, {
         'project': project,
         'mentor_id': MENTOR_ID,
         'mentors' : mentors,
         'owner' : owner,
-        'current_user': current_user,
+        'current_user_id': current_user_id,
         'can_create_new_tasks': can_create_new_tasks
     })
 
@@ -122,10 +122,10 @@ def TaskIndexView(request):
 def TaskView(request, pk):
     task = get_object_or_404(Task, pk=pk)
     user = get_object_or_404(User, pk=request.user.id)
-    current_user = request.user.id
+    current_user_id = request.user.id
     project = get_object_or_404(Project, pk=task.project_id)
     mentors = project.mentors.all()
-    can_edit = project.mentors.filter(id=current_user)
+    can_edit = project.mentors.filter(id=current_user_id)
     template_name = 'osschallenge/task.html'
     notification = ""
     if 'Claim' in request.POST:

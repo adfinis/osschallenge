@@ -25,13 +25,13 @@
             {% endfor %}
         </p>
         <div class="buttons">
-            {% if current_user == project.owner_id %}
+            {% if current_user_id == project.owner_id %}
             <a href="edit/">
                 <button class=" btn btn-primary">{% trans "Edit" %}</button>
             </a>
             {% endif %}
 
-            {% if current_user == project.owner_id or can_create_new_tasks   %}
+            {% if current_user_id == project.owner_id or can_create_new_tasks   %}
             <a href="new_task/">
                 <button class="btn btn-primary">{% trans "New Task" %}</button>
             </a>
