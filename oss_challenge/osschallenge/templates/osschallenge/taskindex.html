@@ -8,11 +8,13 @@
     <div class="taskindex">
         <div class="search-function">
             <form class="search" method="get">
-                <div><input class="form-control" type="text" name="search" placeholder="search task"></div>
-                <div><input class="btn btn-primary" type="submit" value="Submit"></div>
+                <div><input class="form-control" type="text" name="search" required="required" placeholder="search task"></div>
+                <div><input class="btn btn-primary submit-button" type="submit" value="Submit"></div>
             </form>
         </div>
-        {% if match_list %}
+        {% if no_tasks %}
+        <div class="no-tasks">{{ no_tasks }}</div>
+        {% elif match_list %}
         <div class="grid grid--2of12 task-grid">
             {% for match in match_list %}
             <div class="grid-cell">
@@ -22,9 +24,15 @@
                             {% if match.task_done == True %}
                             <h5>{% trans "done" %} {% trans "by" %} {{ match.assignee }}</h5>
                             {% elif match.assignee_id != NULL %}
-                            <h5>{% trans "claimed" %} {% trans "by" %} {{ match.assignee }}</h5>
+                            <h5>
+                                <i class="fa fa-ban" aria-hidden="true"></i>
+                                {% trans "claimed" %} {% trans "by" %} {{ match.assignee }}
+                            </h5>
                             {% else %}
-                            <h5>{% trans "free" %}</h5>
+                            <h5>
+                                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                {% trans "available" %}
+                            </h5>
                             {% endif %}
                         </div>
                         <div class="task-picture">
@@ -60,9 +68,15 @@
                             {% if task.task_done == True %}
                             {% trans "done" %} {% trans "by" %} {{ task.assignee }}
                             {% elif task.assignee_id != NULL %}
-                            {% trans "claimed" %} {% trans "by" %} {{ task.assignee }}
+                            <h5>
+                                <i class="fa fa-ban" aria-hidden="true"></i>
+                                {% trans "claimed" %} {% trans "by" %} {{ task.assignee }}
+                            </h5>
                             {% else %}
-                            {% trans "free" %}
+                            <h5>
+                                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                {% trans "available" %}
+                            </h5>
                             {% endif %}
                         </div>
                         <div class="task-picture">

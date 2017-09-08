@@ -63,7 +63,6 @@ class TaskForm(ModelForm):
             'lead_text_en_us',
             'description_de',
             'description_en_us',
-            'mentor',
             'picture'
         ]
         widgets = {
@@ -82,6 +81,8 @@ class TaskForm(ModelForm):
 
 
 class ProjectForm(ModelForm):
+    mentors = forms.ModelMultipleChoiceField(label=_('Choose  mentors'), queryset=User.objects.filter(profile__role_id=2))
+
     class Meta:
         model = Project
         fields = [
@@ -94,7 +95,7 @@ class ProjectForm(ModelForm):
             'licence',
             'github',
             'website',
-            'owner'
+            'mentors'
         ]
         widgets = {
             'lead_text': Textarea(attrs={

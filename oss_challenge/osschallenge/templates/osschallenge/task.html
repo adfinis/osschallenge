@@ -33,14 +33,17 @@
                 <p>{% trans task.lead_text %}</p>
                 <p><strong>{% trans "Description" %}</strong><br>{% trans task.description %}</p>
                 <h3>{% trans "Contact:" %}</h3>
-                <p>{{ task.mentor.username }}
-                <br>{{ task.mentor.first_name }} {{ task.mentor.last_name }}
-                <br>{{ task.mentor.email }}
+                {% for user in mentors %}
+                <p>Username: {{ user }}
+                <br>Name: {{ user.first_name }} {{ user.last_name }}
+                <br>Email: {{ user.email }}
+                {% endfor %}
                 </p>
-                {% if user.profile.role.id == mentor_id %}
+                {% if can_edit %}
                 <a href="edit/" class=" btn btn-primary">{% trans "Edit" %}</a>
                 </br>
-                {% elif task.assignee_id == NULL %}
+                {% endif %}
+                {% if current_user_id == contributor_id and task.assignee_id == NULL %}
                     <form action="" method="POST" class="edit">
                         {% csrf_token %}
                         <button class="btn btn-primary" name="Claim">{% trans "Claim" %}</button>
@@ -71,24 +74,26 @@
                 </form>
                 <div class="comment-box">
                     {% for comment in comment_list %}
-                        {% if comment.task_id == task.id %}
-                            <div class="card--inverse card--primary comment">
-                                <div class="comment-title card-header">
-                                    {% if comment.author.id == mentor_id %}
-                                    <a class="link" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.first_name }} {{comment.author.last_name}}</b></a>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    {% else %}
-                                    <a class="link" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.username }}</b></a>
-                                    {% endif %}
-                                </div>
-                                <div class="card-block-comment">
-                                    {{ comment.comment|markdown|linebreaks }}
-                                    <footer class="text-right">
-                                        {{ comment.created_at|date:'Y-m-d, H:i' }}
-                                    </footer>
-                                </div>
-                            </div>
-                        {% endif %}
+                    {% if comment.task_id == task.id %}
+                    <div class="card--inverse card--primary comment">
+                        <div class="comment-title card-header">
+                            {% if comment.author.profile.role_id == mentor_id %}
+                            <a class="link" href="/profile/{{ comment.author.username }}/">
+                                <b>{{ comment.author.first_name }} {{comment.author.last_name}}</b>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </a>
+                            {% else %}
+                            <a class="link" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.username }}</b></a>
+                            {% endif %}
+                        </div>
+                        <div class="card-block-comment">
+                            {{ comment.comment|markdown|linebreaks }}
+                            <footer class="text-right">
+                                {{ comment.created_at|date:'Y-m-d, H:i' }}
+                            </footer>
+                        </div>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>

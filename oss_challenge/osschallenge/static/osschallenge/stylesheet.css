@@ -76,7 +76,10 @@ div.detail {
 }
 
 div.detail-project {
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px 0 0 0;
     width: 100%
 }
 
@@ -133,6 +136,10 @@ div.detail form input {
 div.buttons a button.btn.btn-primary {
     display: block;
     margin: 10px 0 0 0;
+}
+
+.btn.btn-primary.submit-button {
+    width: 100px;
 }
 
 /* Edit Task/Project */
@@ -339,6 +346,10 @@ img.img-responsive {
     width: 100%;
 }
 
+.taskindex {
+    width: 100%;
+}
+
 form.edit div input {
     width: 300px;
 }
@@ -458,4 +469,23 @@ div.search-function div {
 div.search-function input.btn {
     width: 80px;
     margin: 0 0 0 10px;
+}
+
+.fa.fa-check-circle {
+    color: green;
+}
+
+.fa.fa-ban {
+    color: red;
+}
+
+.submitbutton {
+    width: 100px;
+}
+
+.no-tasks {
+    text-align: center;
+    color: red;
+    font-size: 50px;
+    margin: 50px 0 0 0;
 }

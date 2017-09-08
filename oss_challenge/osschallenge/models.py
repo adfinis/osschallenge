@@ -70,7 +70,6 @@ class Task(models.Model):
     lead_text = models.CharField(max_length=300, verbose_name=_('Lead text'),)
     description = models.CharField(max_length=5000,
                                    verbose_name=_('Description'),)
-    mentor = models.ForeignKey(User, related_name="mentor_tasks")
     project = models.ForeignKey(Project, related_name="tasks")
     assignee = models.ForeignKey(User, null=True,
                                  related_name="assignee_tasks",
