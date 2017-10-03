@@ -26,15 +26,18 @@ div.loginform input {
 
 div.content {
     display: flex;
-    width: 100%;
-    margin: 3px 0 0 0;
+    max-width: 1416px;
+    margin: 0 auto 0 auto;
     padding: 10px 12px 80px 12px;
 }
 
 /* Index Lists */
 ul.index {
+    display: flex;
+    flex-direction: column;
     list-style: none;
-    margin: 0;
+    width: 100%;
+    margin: 0 auto 0 auto;
     padding: 10px 12px 80px 12px;
 }
 
@@ -77,10 +80,13 @@ div.detail {
 
 div.detail-project {
     display: flex;
+    max-width: 1300px;
     flex-direction: column;
-    align-items: center;
-    margin: 50px 0 0 0;
     width: 100%
+}
+
+div.detail-project a.link {
+    height: 100%;
 }
 
 div.detail a {
@@ -94,7 +100,6 @@ div.detail form input {
 /* Grid */
 .grid-cell--3of12 {
     width: 800px;
-    text-align: center;
 }
 
 .grid--2of12 > .grid-cell {
@@ -106,12 +111,13 @@ div.detail form input {
     padding-right: 0px;
 }
 
-.task-detail-left {
+.detail-left {
     width: 100%;
 }
 
-.task-detail-right {
+.detail-right {
     width: 100%;
+    margin: 0 0 0 20px;
 }
 
 .btn.btn-primary.btn-profile {
@@ -164,6 +170,10 @@ form.edit div textarea {
     resize: none;
     margin: 5px 0;
     width: 1173px;
+}
+
+form.edit {
+    margin: 0px;
 }
 
 nav.nav-top {
@@ -241,7 +251,7 @@ div.comment {
 }
 
 .comment-title.card-header {
-    width: 60%;
+    width: 100%;
 }
 
 .comment-title.card-header a {
@@ -279,7 +289,6 @@ img.img-responsive {
 }
 
 .task-status {
-    text-align: center;
     font-size: 15px;
     font-weight: bold;
     color: black;
@@ -287,7 +296,6 @@ img.img-responsive {
 
 .task-grid {
     display: flex;
-    justify-content: center;
 }
 
 .markdown {
@@ -308,11 +316,12 @@ img.img-responsive {
 .card {
     width: 220px;
     height: 580px;
+    margin: 0 0 30px 0;
 }
 
 .card-block-comment {
     padding: 1rem;
-    width: 60%;
+    width: 100%;
     border-color: rgb(91, 142, 219);
     border-style: none solid solid solid;
     border-width: 0 1px 1px 1px;
@@ -336,18 +345,24 @@ img.img-responsive {
 .task-detail-picture {
     display: flex;
     justify-content: center;
-    height: 298px;
+    height: 330px;
 }
 
 .task-index-picture {
     display: flex;
     justify-content: center;
-    height: 220px;
+    height: 195px;
     width: 100%;
+    object-fit: cover;
 }
 
 .taskindex {
     width: 100%;
+}
+
+.taskindex h4 {
+    margin: 30px 0 30px 0;
+    color: rgb( 91, 142, 219)
 }
 
 form.edit div input {
@@ -423,7 +438,7 @@ label[for="id_picture"] {
     background-color: white;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    width: 91px;
+    width: 110px;
 }
 
 .dropdown-content a {
@@ -431,7 +446,8 @@ label[for="id_picture"] {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-    width: 91px;
+    width: 110px;
+    height: 60px;
 }
 
 .dropdown-content li {
@@ -453,8 +469,7 @@ label[for="id_picture"] {
 /* Search Function */
 .search-function {
     display: flex;
-    justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 form.search {
@@ -471,12 +486,28 @@ div.search-function input.btn {
     margin: 0 0 0 10px;
 }
 
+.fa.fa-github {
+    color: black;
+}
+
+.fa.fa-globe {
+    color: black;
+}
+
+.fa.fa-circle-o {
+    color: green;
+}
+
 .fa.fa-check-circle {
     color: green;
 }
 
-.fa.fa-ban {
-    color: red;
+.fa.fa-check-circle-o {
+    color: darkblue;
+}
+
+.fa.fa-spinner {
+    color: darkblue;
 }
 
 .submitbutton {
