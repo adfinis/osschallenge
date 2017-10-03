@@ -9,8 +9,8 @@
     <div class="taskindex">
         <div class="taskindex-top-items">
             <div class="my-tasks">
-                <h1>All Tasks</h1>
-                <a class="link" href="/my_tasks/{{ request.user.username }}">{% trans "Show my Tasks" %}</a>
+                <h1>My Tasks</h1>
+                <a class="link" href="/tasks">{% trans "Show all Tasks" %}</a>
                 <a class="link" href="/task_administration_index/">{% trans "Tasks to review" %}</a>
             </div>
             <div class="search-function">
@@ -30,9 +30,9 @@
             </div>
             {% endfor %}
         </div>
-        {% elif task_list %}
+        {% elif user_task_list %}
         <div class="grid grid--2of12 task-grid">
-            {% for task in task_list %}
+            {% for task in user_task_list %}
             <div class="grid-cell">
                 {% task_card task %}
             </div>

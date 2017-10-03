@@ -229,6 +229,10 @@ a.link {
     height: 80px;
 }
 
+div.my-tasks a.link {
+    height: 30px;
+}
+
 .set_language {
     display: flex;
     align-items: center;

@@ -101,11 +101,50 @@ def EditProjectView(request, pk):
         }
     )
 
+def MyTaskIndexView(request, username):
+    user = get_object_or_404(User, username=username)
+    current_user_id = request.user.id
+    task_list = get_list_or_404(Task)
+    user_task_objects = Task.objects.filter( assignee_id=current_user_id)
+    user_task_list = []
+    for obj in user_task_objects:
+        user_task_list.append(obj)
+    template_name = 'osschallenge/mytasksindex.html'
+    max_length_description = 130
+    max_length_title = 60
+    no_tasks = "There are no tasks"
+    for task in user_task_objects:
+        if len(task.description) > max_length_description:
+            task.description = task.description[:max_length_description] + " ..."
+        if len(task.title) > max_length_title:
+            task.title = task.title[:max_length_title] + " ..."
+    if request.GET:
+        match_list = Task.objects.filter(Q(title__icontains=request.GET['search']) | Q(project__title__icontains=request.GET['search'])).distinct()
+        if match_list:
+            for match in match_list:
+                if len(match.description) > max_length_description:
+                    match.description = match.description[:max_length_description] + " ..."
+                if len(match.title) > max_length_title:
+                    match.title = match.title[:max_length_title] + " ..."
+            return render(request, template_name, {
+                'match_list': match_list,
+                'user_task_list': user_task_list
+            })
+        else:
+            return render(request, template_name, {
+                'no_tasks': no_tasks,
+                'user_task_list': user_task_list,
+                'match_list': match_list,
+            })
+    return render(request, template_name, {
+        'user_task_list': user_task_list,
+        'mentor_id': MENTOR_ID
+    })
 
 def TaskIndexView(request):
     task_list = get_list_or_404(Task)
     template_name = 'osschallenge/taskindex.html'
-    max_length_description = 150
+    max_length_description = 130
     max_length_title = 60
     no_tasks = "There are no tasks"
     for task in task_list:
@@ -139,50 +178,74 @@ def TaskIndexView(request):
 
 def TaskView(request, pk):
     task = get_object_or_404(Task, pk=pk)
-    user = get_object_or_404(User, pk=request.user.id)
-    current_user_id = request.user.id
-    project = get_object_or_404(Project, pk=task.project_id)
-    mentors = project.mentors.all()
-    can_edit = project.mentors.filter(id=current_user_id)
     template_name = 'osschallenge/task.html'
     notification = ""
-    if 'Claim' in request.POST:
-        task.assignee_id = user.id
-        task.save()
-
-    elif 'Release' in request.POST:
-        task.assignee_id = None
-        task.save()
-
-    elif 'Task done' in request.POST:
-        task.task_done = True
-        task.assignee_id = user.id
-        task.save()
-
-    elif 'Comment' in request.POST:
-        comment = Comment()
-        form = CommentForm(request.POST, instance=comment)
-        notification = "Your comment has been posted"
-        if form.is_valid():
-            comment.author = user
-            comment.task = task
-            comment = form.save()
-
-    return render(request, template_name, {
+    render_params = {
         'comment_list': sorted(Comment.objects.all(),
                                key=lambda c: c.created_at, reverse=True),
         'task': task,
-        'user': user,
-        'mentor_id': MENTOR_ID,
-        'contributor_id': CONTRIBUTOR_ID,
-        'mentors': mentors,
         'notification': notification,
-        'can_edit': can_edit
-    })
+    }
+    if request.user.id:
+        user = request.user
+        project = get_object_or_404(Project, pk=task.project_id)
+        render_params['user'] = get_object_or_404(User, pk=request.user.id)
+        render_params['mentor_id'] = MENTOR_ID
+        render_params['contributor_id'] = CONTRIBUTOR_ID
+        render_params['mentors'] = project.mentors.all()
+        render_params['is_mentor_of_this_task'] = project.mentors.filter(id=user.id)
+
+
+        if 'Claim' in request.POST:
+            task.assignee_id = user.id
+            task.save()
+
+        elif 'Release' in request.POST:
+            task.assignee_id = None
+            task.task_done = False
+            task.save()
+
+        elif 'Task done' in request.POST:
+            task.task_done = True
+            task.assignee_id = user.id
+            task.save()
+
+        elif 'Comment' in request.POST:
+            comment = Comment()
+            form = CommentForm(request.POST, instance=comment)
+            notification = "Your comment has been posted"
+            if form.is_valid():
+                comment.author = user
+                comment.task = task
+                comment = form.save()
+
+        elif 'delete-task' in request.POST:
+            task.delete()
+            return redirect('/tasks/')
+
+        elif 'Approve' in request.POST:
+            profile = get_object_or_404(Profile, user_id=task.assignee_id)
+            task.task_checked = True
+            profile.points += 5
+            task.save()
+            profile.save()
+
+        elif 'Reopen' in request.POST:
+            profile = get_object_or_404(Profile, user_id=task.assignee_id)
+            task.task_checked = False
+            profile.points -= 5
+            task.save()
+            profile.save()
+
+
+    return render(request, template_name, render_params)
 
 
 def EditTaskView(request, pk):
     task = get_object_or_404(Task, pk=pk)
+    user = request.user
+    project = get_object_or_404(Project, pk=task.project_id)
+    is_mentor_of_this_task = project.mentors.filter(id=user.id)
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES, instance=task)
 
@@ -199,6 +262,7 @@ def EditTaskView(request, pk):
         {
             'form': form,
             'task': task,
+            'is_mentor_of_this_task': is_mentor_of_this_task
         }
     )
 
@@ -231,6 +295,10 @@ def ProfileView(request, username):
     profile = get_object_or_404(Profile, user_id=user.id)
     finished_tasks_list = get_list_or_404(Task)
     template_name = 'osschallenge/profile.html'
+
+    if 'delete-profile' in request.POST:
+        user.delete()
+        return redirect('/login/')
 
     if request.user.is_authenticated():
         return render(request, template_name, {
@@ -273,47 +341,36 @@ def EditProfileView(request):
 
 
 def TaskAdministrationIndexView(request):
-    finished_task_list = get_list_or_404(Task)
+    user = request.user
+    finished_tasks = Task.objects.filter(task_done=True)
+    finished_task_list = []
+    for obj in finished_tasks:
+        finished_task_list.append(obj)
     template_name = 'osschallenge/task_administration_index.html'
 
-    if request.user.is_authenticated():
-        return render(request, template_name, {
-            'finished_task_list': finished_task_list,
-            'contributor_id': CONTRIBUTOR_ID,
-            'mentor_id': MENTOR_ID
-        })
-
-
-def TaskAdministrationView(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    profile = get_object_or_404(Profile, user_id=task.assignee_id)
-    user = get_object_or_404(User, pk=request.user.id)
-    finished_task_list = get_list_or_404(Task)
-    user_profile_points = 0
-    template_name = 'osschallenge/task_administration.html'
-
-    if 'Checked' in request.POST:
-        task.task_checked = True
-        profile.points += 5
-        task.save()
-        profile.save()
-
-    if 'Reopen' in request.POST:
-        task.task_checked = False
-        profile.points -= 5
-        task.save()
-        profile.save()
-
-    if request.user.is_authenticated():
-        return render(request, template_name, {
-            'finished_task_list': finished_task_list,
-            'mentor_id': MENTOR_ID,
-            'contributor_id': CONTRIBUTOR_ID,
-            'task': task,
-            'user': user,
-            'profile': profile,
-            'user_profile_points': user_profile_points
-        })
+    if request.GET:
+        match_list = Task.objects.filter(Q(title__icontains=request.GET['search']) | Q(project__title__icontains=request.GET['search'])).distinct()
+        if match_list:
+            for match in match_list:
+                if len(match.description) > max_length_description:
+                    match.description = match.description[:max_length_description] + " ..."
+                if len(match.title) > max_length_title:
+                    match.title = match.title[:max_length_title] + " ..."
+            return render(request, template_name, {
+                'match_list': match_list,
+                'finished_task_list': finished_task_list
+            })
+        else:
+            return render(request, template_name, {
+                'no_tasks': no_tasks,
+                'finished_task_list': finished_task_list,
+                'match_list': match_list,
+            })
+    return render(request, template_name, {
+        'finished_task_list': finished_task_list,
+        'mentor_id': MENTOR_ID,
+        'task_list': Task.objects.filter(Q(project__mentors__id=user.id) & Q(task_done=True))
+    })
 
 
 def RankingView(request):

@@ -1,9 +1,10 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
 from . import views
 from .forms import LoginForm
 from django.conf import settings
 from django.conf.urls.static import static
+
 
 urlpatterns = [
     url(r'^$',
@@ -38,6 +39,10 @@ urlpatterns = [
         views.TaskView,
         name='task'),
 
+    url(r'^my_tasks/(?P<username>[0-9A-Za-z_\-\.\+\@]+)/$',
+        views.MyTaskIndexView,
+        name='task'),
+
     url(r'^tasks/(?P<pk>[0-9]+)/edit/$',
         views.EditTaskView,
         name='edittask'),
@@ -54,9 +59,9 @@ urlpatterns = [
         views.TaskAdministrationIndexView,
         name='taskadministrationindex'),
 
-    url(r'^task_administration/(?P<pk>[0-9]+)/$',
-        views.TaskAdministrationView,
-        name='taskadministration'),
+    # url(r'^task_administration/(?P<pk>[0-9]+)/$',
+        # views.TaskAdministrationView,
+        # name='taskadministration'),
 
     url(r'^ranking/$',
         views.RankingView,

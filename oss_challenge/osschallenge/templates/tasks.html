@@ -1,0 +1,50 @@
+{% load i18n %}
+{% load thumbnail %}
+{% load static %}
+
+<div class="card">
+    <a href="/tasks/{{ task.id }}">
+        <div class="task-status">
+
+            {% if task.task_checked %}
+            <h5>
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                {% trans "approved" %}
+            </h5>
+            {% elif task.task_done == True %}
+            <h5>
+                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                {% trans "done" %}
+            </h5>
+            {% elif task.assignee_id != NULL %}
+            <h5>
+                <i class="fa fa-spinner" aria-hidden="true"></i>
+                {% trans "claimed" %}
+            </h5>
+            {% else %}
+            <h5>
+                <i class="fa fa-circle-o" aria-hidden="true"></i>
+                {% trans "available" %}
+            </h5>
+            {% endif %}
+        </div>
+        <div class="task-picture">
+            {% if task.picture %}
+            <img class="task-index-picture" src="{{ task.picture.avatar.url }}" alt="Card image">
+            {% else %}
+            <img class="task-index-picture" src="{% static "osschallenge/example.jpg" %}">
+            {% endif %}
+        </div>
+        <div class="card-block">
+            <div class="project-title">
+                <h4 class="card-title">{{ task.project.title }}</h4>
+            </div>
+            <div class="task-title">
+                <h6 class="card-subtitle text-muted">{{ task.title }}</h6>
+            </div>
+            <div class="task-description">
+                </br><p class="card-text task-text">{{ task.description }}</p>
+            </div>
+        </div>
+    </a>
+</div>
