@@ -49,6 +49,10 @@
         <a href="/profile/edit">
             <button class="btn btn-primary btn-profile">{% trans "Edit" %}</button>
         </a>
+        <form action="" method="POST" class="edit">
+            {% csrf_token %}
+            <button class="btn btn-primary btn-profile" name="delete-profile">{% trans "Delete my Profile" %}</button>
+        </form>
         {% endif %}
     </div>
 </div>

@@ -47,18 +47,36 @@ def ProjectIndexView(request):
 
 def ProjectView(request, pk):
     project = get_object_or_404(Project, pk=pk)
+    task_objects = Task.objects.filter(project_id=project.id)
+    task_list = []
+    max_length_description = 110
+    max_length_title = 60
+    for obj in task_objects:
+        task_list.append(obj)
+    for task in task_objects:
+        if len(task.description) > max_length_description:
+            task.description = task.description[:max_length_description] + " ..."
+        if len(task.title) > max_length_title:
+            task.title = task.title[:max_length_title] + " ..."
     mentors = project.mentors.all()
     owner = project.owner
     current_user_id = request.user.id
     can_create_new_tasks = project.mentors.filter(id=current_user_id)
     template_name = 'osschallenge/project.html'
+
+    if 'delete-project' in request.POST:
+        project.delete()
+        return redirect('/projects/')
+
+
     return render(request, template_name, {
         'project': project,
         'mentor_id': MENTOR_ID,
         'mentors' : mentors,
         'owner' : owner,
         'current_user_id': current_user_id,
-        'can_create_new_tasks': can_create_new_tasks
+        'can_create_new_tasks': can_create_new_tasks,
+        'task_list': task_list
     })
 
 
