@@ -97,6 +97,8 @@ urlpatterns = [
         name='login'),
 
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
+
+    url('^markdown/', include( 'django_markdown.urls')),
 ]
 
 if settings.DEBUG:

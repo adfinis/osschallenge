@@ -489,3 +489,51 @@ div.search-function input.btn {
     font-size: 50px;
     margin: 50px 0 0 0;
 }
+
+.title-and-links {
+    display: flex;
+}
+
+.new-task-button {
+    display: flex;
+    justify-content: end;
+    margin: 0 5 14px 0;
+}
+
+.my-tasks {
+    display: flex;
+    flex-direction: column;
+}
+
+.taskindex-top-items {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icons {
+    display: flex;
+}
+
+.fa.fa-github.fa-2x {
+    margin: 0 10px 0 0;
+}
+
+.project {
+    display: flex;
+}
+
+#markItUpMarkdown-comment {
+    width: 615px;
+}
+
+.markItUpContainer {
+    width: 615px;
+}
+
+.markItUpHeader {
+    width: 615px;
+}
+
+#markdown-comment {
+    width: 615px;
+}

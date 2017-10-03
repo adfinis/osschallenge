@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django_markdown',
 ]
 
+MARKDOWN_EXTENSIONS = 'extra', 'codehilite'
+
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

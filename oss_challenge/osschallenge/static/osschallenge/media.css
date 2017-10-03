@@ -16,17 +16,52 @@
     }
 
     /* Task Index */
-    .task-detail-left {
+    .detail-left {
         flex-direction: column;
-        align-items: center;
+        width: 280px;
     }
 
     .card {
-        height: 465px;
+        height: 485px;
+    }
+
+    .taskindex-top-items {
+        flex-direction: column;
+    }
+
+    /* Markdown Editor */
+    #markItUpMarkdown-comment {
+        width: 275px !important;
+    }
+
+    .markItUpContainer {
+        width: 275px !important;
+    }
+
+    .markItUpHeader {
+        width: 275px !important;
+    }
+
+    #markdown-comment {
+        width: 275px !important;
+    }
+
+    /* Comment Boxes */
+    .comment-title.card-header {
+        width: 275px !important;
+    }
+
+    .card-block-comment {
+        width: 275px !important;
+        text-align: left;
+    }
+
+    .textarea {
+        width: 275px !important;
     }
 }
 
-@media (max-width:  768px) {
+@media (max-width: 768px) {
 
     /* Task Index */
     div.search-function div input.form-control {

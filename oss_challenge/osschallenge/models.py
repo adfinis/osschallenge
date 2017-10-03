@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from easy_thumbnails.fields import ThumbnailerImageField
+from django_markdown.models import MarkdownField
 
 
 class Role(models.Model):
@@ -87,7 +88,7 @@ class Task(models.Model):
 
 class Comment(models.Model):
     task = models.ForeignKey(Task)
-    comment = models.TextField(max_length=150)
+    comment = MarkdownField(max_length=150)
     author = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
 

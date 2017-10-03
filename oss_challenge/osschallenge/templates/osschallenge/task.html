@@ -87,7 +87,7 @@
                             {% endif %}
                         </div>
                         <div class="card-block-comment">
-                            {{ comment.comment|markdown|linebreaks }}
+                            {{ comment.comment|markdown|linebreaks}}
                             <footer class="text-right">
                                 {{ comment.created_at|date:'Y-m-d, H:i' }}
                             </footer>
@@ -96,7 +96,18 @@
                     {% endif %}
                     {% endfor %}
                 </div>
-            </div>
+                <h3>Enter a comment</h3> 
+                <form method="POST">
+                    <textarea id="markdown-comment" rows="4" class="textarea" name="comment" placeholder="Enter text here..."></textarea>
+                    {% markdown_editor "#markdown-comment" %}
+                    {% markdown_media %}
+                    {% csrf_token %}
+                    <button class="btn btn-primary" name="Comment">{% trans "Comment" %}</button>
+                    {% if notification %}
+                    <div class="alert alert-success" role="alert">{{ notification }}</div>
+                    {% endif %}
+                </form>
+            {% endif %}
         </div>
     </div>
 </div>

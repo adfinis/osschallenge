@@ -4,7 +4,7 @@ from .models import Task, Project, Profile, Comment
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext_lazy as _
-from django_markdown.widgets import MarkdownWidget
+from django_markdown.fields import MarkdownFormField
 
 
 class LoginForm(AuthenticationForm):
@@ -44,7 +44,7 @@ class MentorForm(forms.Form):
 
 
 class CommentForm(ModelForm):
-    comment = forms.CharField(widget = MarkdownWidget(), label='New comment')
+    comment = MarkdownFormField()
 
     class Meta:
         model = Comment
