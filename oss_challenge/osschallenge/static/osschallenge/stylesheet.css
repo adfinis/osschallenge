@@ -53,6 +53,19 @@ ul.index li a {
     color: black;
 }
 
+ul.ranking-index {
+    list-style: none;
+    width: 1300px;
+    text-align: center;
+    margin: 0 auto 0 auto;
+    padding: 10px 12px 80px 12px;
+}
+
+ul.ranking-index li a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
 h1 a {
     text-decoration: none;
     color: black;
