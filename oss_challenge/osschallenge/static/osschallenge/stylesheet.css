@@ -27,7 +27,7 @@ div.loginform input {
 div.content {
     display: flex;
     max-width: 1416px;
-    margin: 0 auto 0 auto;
+    margin: 0 auto 40px auto;
     padding: 10px 12px 80px 12px;
 }
 
@@ -367,6 +367,7 @@ img.img-responsive {
     display: flex;
     justify-content: center;
     height: 330px;
+    margin: 0 0 30px 0;
 }
 
 .task-index-picture {
@@ -424,14 +425,6 @@ label[for="id_picture"] {
     display: flex;
     flex-direction: column;
 
-}
-
-.content-profile {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin: 3px 0 0 0;
-    padding: 10px 12px 80px 12px;
 }
 
 .content-ranking {
@@ -575,17 +568,118 @@ div.search-function input.btn {
 }
 
 #markItUpMarkdown-comment {
-    width: 615px;
+    width: 100%;
 }
 
 .markItUpContainer {
-    width: 615px;
+    width: 100%;
 }
 
 .markItUpHeader {
-    width: 615px;
+    width: 100%;
+}
+
+.markItUpHeader ul li {
+    margin: 0 10px 10px 0;
 }
 
 #markdown-comment {
-    width: 615px;
+    width: 100%;
+}
+
+th {
+    font-weight: bold !important;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #5B8EDB;
+}
+
+#developed {
+    text-align: right;
+    width: 526px;
+    height: 80px;
+}
+
+#developed p {
+    margin: 25px;
+    font-size: 16px;
+}
+
+#developed p a {
+    color: white;
+}
+
+#github {
+    text-align: center;
+    width: 526px;
+    height: 80px;
+}
+
+#github p {
+    margin: 25px;
+    font-size: 16px;
+}
+
+#license {
+    width: 526px;
+    height: 80px;
+}
+
+#license p {
+    margin: 25px;
+    font-size: 16px;
+}
+
+#license p a {
+    color: white;
+}
+
+span{
+    background: none repeat scroll 0 0 #F8F8F8;
+    font-family: Open Sans, sans-serif;
+    border: 1px solid #DFDFDF;
+    color: #5B8EDB;
+    font-size: 18px;
+    height: 30px;
+    margin: 0 auto 0 -30px;
+    position: relative;
+    text-align: center;
+    left: 50px;
+    display: none;
+    padding: 0 10px;
+
+}
+
+span:after{
+    content: '';
+    margin: 9px;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-bottom: 5px solid white 
+    border-right: 5px solid white;
+    background-color: white;
+    left: -1%;
+    margin-left: -5px;
+    -moz-transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+}
+
+.fa.fa-star:hover span {
+    display: inline;
+}
+
+.logged-in-user {
+    margin: 20px;
+    color: #5B8EDB;
+    font-size: 0.85rem;
 }
