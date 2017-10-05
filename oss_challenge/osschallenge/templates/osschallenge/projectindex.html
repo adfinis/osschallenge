@@ -2,13 +2,16 @@
 {% load i18n %}
 
 {% block content %}
+<div class="content">
     {% if project_list %}
         <ul class="index">
         {% for project in project_list %}
+        <div class="project">
             <li>
                 <a href="/projects/{{ project.id }}">{{ project.title }}</a>
                 <p>{% trans project.lead_text noop %}</p>
             </li>
+        </div>
         {% endfor %}
         {% if user.profile.role.id == mentor_id %}
             <a href="new_project/">
@@ -19,4 +22,5 @@
     {% else %}
     <p>{% trans "No projects available." %}</p>
     {% endif %}
+</div>
 {% endblock content %}
