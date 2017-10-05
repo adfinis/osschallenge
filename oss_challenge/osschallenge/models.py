@@ -42,9 +42,6 @@ class Profile(models.Model):
         matches = Rank.objects.filter(required_points__lte=self.points).order_by('-required_points')
         return matches[0]
 
-    def fileurl(self):
-        return settings.MEDIA_URL + os.path.basename(self.picture['avatar'].name)
-
     def __str__(self):
         return self.user.username
 
@@ -78,9 +75,6 @@ class Task(models.Model):
     task_done = models.BooleanField(null=False, default=False)
     task_checked = models.BooleanField(null=False, default=False)
     picture = ThumbnailerImageField(upload_to='', null=True)
-
-    def fileurl(self):
-        return settings.MEDIA_URL + os.path.basename(self.picture['avatar'].name)
 
     def __str__(self):
         return self.title
