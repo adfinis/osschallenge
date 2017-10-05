@@ -19,13 +19,14 @@
         <div>
             <nav class="nav-top">
                 <header class="nav-top-header">
-
                     <a href="/about">
                         <div class="nav-top-header-logo"><img src="{% static "osschallenge/oss-challenge.svg" %}"/></div>
                     </a>
-                    <button class="nav-toggle nav-top-toggle">
-                        <span class="nav-toggle-icon"></span>
-                    </button>
+                    {% if user.is_authenticated %}
+                        <div class="logged-in-user">
+                            <a href="/profile/{{ user.username }}">Logged in as {{ user.username }}</a>
+                        </div>
+                    {% endif %}
                 </header>
                 <section class="nav-top-body">
                     <ul class="nav-top-list nav-top-list--right">
