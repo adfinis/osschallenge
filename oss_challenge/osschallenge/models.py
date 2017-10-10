@@ -80,6 +80,7 @@ class Task(models.Model):
     task_done = models.BooleanField(null=False, default=False)
     task_checked = models.BooleanField(null=False, default=False)
     picture = ThumbnailerImageField(upload_to='', null=True)
+    approved_by = models.ForeignKey(User, null=True)
 
     def __str__(self):
         return self.title
