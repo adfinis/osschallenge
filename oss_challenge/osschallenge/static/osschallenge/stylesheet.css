@@ -662,8 +662,8 @@ footer {
     color: white;
 }
 
-span{
-    background: none repeat scroll 0 0 #F8F8F8;
+.hidden-span{
+    background: none repeat scroll 0 0 white;
     font-family: Open Sans, sans-serif;
     border: 1px solid #DFDFDF;
     color: #5B8EDB;
@@ -678,23 +678,21 @@ span{
 
 }
 
-span:after{
+.hidden-span:after{
     content: '';
     margin: 9px;
     position: absolute;
     width: 10px;
     height: 10px;
-    border-bottom: 5px solid white 
-    border-right: 5px solid white;
     background-color: white;
-    left: -1%;
+    left: -0.5%;
     margin-left: -5px;
     -moz-transform: rotate(135deg);
     -webkit-transform: rotate(135deg);
     transform: rotate(135deg);
 }
 
-.fa.fa-star:hover span {
+.fa.fa-star:hover .hidden-span {
     display: inline;
 }
 
@@ -702,4 +700,23 @@ span:after{
     margin: 20px;
     color: #5B8EDB;
     font-size: 0.85rem;
+}
+
+.text-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-comment {
+    display: flex;
+}
+
+.date {
+    display: flex;
+    font-size: 14px;
+}
+
+table.table.table--striped.table--hover.table--bordered thead tr th {
+    width: 20%;
 }
