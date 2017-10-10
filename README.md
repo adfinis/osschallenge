@@ -10,4 +10,5 @@ docker-compose up
 python manage.py migrate
 python manage.py loaddata osschallenge/fixture/role.json
 python manage.py createsuperuser
+python manage.py delete_quarter_ranks (cronjob who deletes the quarter_points in the profile model every quarter)
 ```

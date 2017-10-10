@@ -1,5 +1,7 @@
 import base64
 import os
+import time
+import bisect
 from django.views import generic
 from django.shortcuts import redirect, render, get_object_or_404, get_list_or_404
 from django.views.generic.edit import CreateView
@@ -374,12 +376,16 @@ def TaskAdministrationIndexView(request):
 
 
 def RankingView(request):
-    ranking_list = User.objects.order_by('-profile__points')
+    ranking_list = User.objects.order_by('-profile__total_points')
+    quarters = range(1, 12, 3)
+    month = int(time.strftime("%m"))
+    quarter = bisect.bisect(quarters, month)
     template_name = 'osschallenge/ranking.html'
     return render(request, template_name, {
         'contributor_id': CONTRIBUTOR_ID,
         'ranking_list': ranking_list,
         'mentor_id': MENTOR_ID,
+        'quarter': quarter,
     })
 
 

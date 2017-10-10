@@ -9,15 +9,30 @@
                 <th>Username</th>
                 <th>Rank</th>
                 <th>Points</th>
+                {% if quarter == 1 %}
+                <th>Rank for the first quarter</th>
+                <th>Points for the first quarter</th>
+                {% elif quarter == 2 %}
+                <th>Rank for the second quarter</th>
+                <th>Points for the second quarter</th>
+                {% elif quarter == 3 %}
+                <th>Rank for the third quarter</th>
+                <th>Points for the third quarter</th>
+                {% elif quarter == 4 %}
+                <th>Rank for the fourth quarter</th>
+                <th>Points for the fourth quarter</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
             {% for user in ranking_list %}
-            {% if user.profile.role_id == contributor_id %}
+            {% if user.profile.role_id == contributor_id and user.is_active %}
             <tr>
                 <td>{{ user.username }}</td>
                 <td>{{ user.profile.get_rank }}</td>
-                <td>{{ user.profile.points }}</td>
+                <td>{{ user.profile.total_points }}</td>
+                <td>{{ user.profile.get_rank_for_quarter }}</td>
+                <td>{{ user.profile.quarter_points }}</td>
             </tr>
             {% endif %}
             {% endfor %}
