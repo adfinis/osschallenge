@@ -370,6 +370,12 @@ img.img-responsive {
     margin: 0 0 30px 0;
 }
 
+.profile-detail-picture {
+    display: flex;
+    height: 325px;
+    margin: 0 0 30px 0;
+}
+
 .task-index-picture {
     display: flex;
     justify-content: center;

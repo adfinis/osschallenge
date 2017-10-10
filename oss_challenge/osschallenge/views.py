@@ -47,6 +47,7 @@ def ProjectIndexView(request):
         'mentor_id': MENTOR_ID
     })
 
+
 def ProjectView(request, pk):
     project = get_object_or_404(Project, pk=pk)
     task_objects = Task.objects.filter(project_id=project.id)
@@ -103,6 +104,7 @@ def EditProjectView(request, pk):
         }
     )
 
+
 def MyTaskIndexView(request, username):
     user = get_object_or_404(User, username=username)
     current_user_id = request.user.id
@@ -143,6 +145,7 @@ def MyTaskIndexView(request, username):
         'mentor_id': MENTOR_ID
     })
 
+
 def TaskIndexView(request):
     task_list = get_list_or_404(Task)
     template_name = 'osschallenge/taskindex.html'
@@ -182,12 +185,7 @@ def TaskView(request, pk):
     task = get_object_or_404(Task, pk=pk)
     template_name = 'osschallenge/task.html'
     notification = ""
-    render_params = {
-        'comment_list': sorted(Comment.objects.all(),
-                               key=lambda c: c.created_at, reverse=True),
-        'task': task,
-        'notification': notification,
-    }
+    render_params = {}
     if request.user.id:
         user = request.user
         project = get_object_or_404(Project, pk=task.project_id)
@@ -196,7 +194,6 @@ def TaskView(request, pk):
         render_params['contributor_id'] = CONTRIBUTOR_ID
         render_params['mentors'] = project.mentors.all()
         render_params['is_mentor_of_this_task'] = project.mentors.filter(id=user.id)
-
 
         if 'Claim' in request.POST:
             task.assignee_id = user.id

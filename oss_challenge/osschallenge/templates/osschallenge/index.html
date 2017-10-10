@@ -35,7 +35,7 @@
                             <a class="link" href="/projects">{% trans "Projects" %}</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a class="link" href="/tasks">{% trans "Tasks" %}</a>
+                            <a class="link" href="/my_tasks/{{ request.user.username }}">{% trans "Tasks" %}</a>
                         </li>
                         <li class="nav-top-list-item">
                             <a class="link" href="/ranking">{% trans "Ranking" %}</a>
@@ -43,11 +43,6 @@
                         <li class="nav-top-list-item">
                             <a class="link" href="/about">{% trans "About" %}</a>
                         </li>
-                        {% if user.profile.role.id == mentor_id %}
-                        <li class="nav-top-list-item">
-                            <a class="link" href="/task_administration_index">{% trans "Task administration" %}</a>
-                        </li>
-                        {% endif %}
                         <li class="nav-top-list-item">
                             <a class="link" href="/profile/{{ request.user.username }}">{% trans "Profile" %}</a>
                         </li>

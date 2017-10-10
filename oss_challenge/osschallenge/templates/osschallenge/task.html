@@ -8,13 +8,11 @@
     <div class="grid-cell grid-cell--3of12">
         <div class="detail-left">
             <div class="task-detail-picture">
-                <a href="{{ task.fileurl }}">
-                    {% if task.picture.avatar.url %}
-                    <img class="task-detail-picture" src="{{ task.picture.avatar.url }}">
-                    {% else %}
-                    <img class="task-detail-picture" src="{% static "osschallenge/example.jpg" %}">
-                    {% endif %}
-                </a>
+                {% if task.picture.avatar.url %}
+                <img class="task-detail-picture" src="{{ task.picture.avatar.url }}">
+                {% else %}
+                <img class="task-detail-picture" src="{% static "osschallenge/example.jpg" %}">
+                {% endif %}
             </div>
             <h2 class="tasktitle">{{ task.title }}</h2>
             <p>
@@ -22,35 +20,33 @@
                     <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                     {% trans "done" %}
                     {% if task.assignee_id %}
-                        {% trans "by" %} {{ task.assignee }}
+                        {% trans "by" %} <a class="link" href="/profile/{{ task.assignee }}/">{{ task.assignee }}</a>
                     {% endif %}
                 {% elif task.assignee_id != NULL %}
                     <i class="fa fa-spinner" aria-hidden="true"></i>
-                    {% trans "claimed" %} {% trans "by" %} {{ task.assignee }}
+                    {% trans "claimed" %} {% trans "by" %} <a class="link" href="/profile/{{ task.assignee }}/">{{ task.assignee }}</a>
                 {% endif %}
                 {% if task.task_checked == False %}
                     {% for user in mentors %}
-                    <br>{% trans "supervised by" %} <a class="link" href="/profile/{{ user.username }}/">{{ user }}</a>
-                        {% endfor %}
-                {% elif task.task_checked %}
-                    {% for user in mentors %}
-                    <br><i class="fa fa-check-circle" aria-hidden="true"></i>
-                    {% trans "approved" %} {% trans "by" %} <a class="link" href="/profile/{{ user.username }}/">{{ user }}</a>
+                        <br>{% trans "supervised by" %} <a class="link" href="/profile/{{ user.username }}/">{{ user }}</a>
                     {% endfor %}
+                {% elif task.task_checked %}
+                    <br><i class="fa fa-check-circle" aria-hidden="true"></i>
+                    {% trans "approved" %} {% trans "by" %} <a class="link" href="/profile/{{ task.approved_by.username }}/">{{ task.approved_by.username }}</a>
                 {% endif %}
             </p>
             <p>{% trans task.lead_text %}</p>
             <p><strong>{% trans "Description" %}</strong><br>{% trans task.description %}</p>
             <div>
-                {% if user.profile.role_id == contributor_id and task.assignee_id == NULL %}
+                {% if user.profile.role_id == contributor_id and task.assignee_id == NULL and user.is_authenticated %}
                     <form action="" method="POST" class="edit">
                         {% csrf_token %}
                         <button class="btn btn-primary" name="Claim">{% trans "Claim" %}</button>
                     </form>
-                {% elif task.assignee_id == user.id and task.task_checked == False %}
+                {% elif task.assignee_id == user.id and task.task_checked == False and user.is_authenticated%}
                     <form action="" method="POST" class="edit">
                         {% csrf_token %}
-                        <button class="btn btn-primary" name={% trans "Release" %}>{% trans "Release" %}</button>
+                        <button class="btn btn-primary" name="Release">{% trans "Release" %}</button>
                     </form>
                 {% endif %}
                 {% if task.task_done == False and task.assignee_id == user.id %}

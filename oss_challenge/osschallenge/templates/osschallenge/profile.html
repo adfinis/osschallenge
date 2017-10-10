@@ -1,59 +1,73 @@
 {% extends 'osschallenge/index.html' %}
 {% load i18n %}
 {% load static %}
+{% load tasks %}
 
 {% block content %}
-<div class="content">
-    <div class="profile">
-        <div class="card-profile">
-            {% if profile.picture.avatar.url %}
-            <img class="card-img-top" src="{{ profile.picture.avatar.url }}" alt="Card image">
-            {% else %}
-            <img class="card-img-top" src="{% static "osschallenge/profile-example.png" %}">
-            {% endif %}
-            <div class="card-block">
-                <h4 class="card-title">{{ profile.user.username }}</h4>
-            </div>
-            <ul class="list-group list-group--flush">
-                {% if profile.role_id == contributor_id %}
-                <li class="list-group-item"><strong>Rank: </strong> {{ profile.get_rank }}</li>
+<div class="grid content">
+    <div class="grid-cell grid-cell--4of12">
+        <div class="detail-left">
+            <div class="profile-detail-picture">
+                {% if profile.picture.avatar.url %}
+                <img class="profile-detail-picture" src="{{ profile.picture.avatar.url }}" alt="Card image">
+                {% else %}
+                <img class="profile-detail-picture" src="{% static "osschallenge/profile-example.png" %}">
                 {% endif %}
-                {% if request.user.id == profile.user.id or profile.role_id == mentor_id %}
-                <li class="list-group-item"><strong>{% trans "First name:" %}</strong> {{ profile.user.first_name }}</li>
-                <li class="list-group-item"><strong>{% trans "Last name:" %}</strong> {{ profile.user.last_name }}</li>
-                <li class="list-group-item"><strong>E-Mail:</strong> {{ profile.user.email }}</li>
+            </div>
+            <h4 class="card-title">{{ profile.user.username }}</h4>
+            <p>
+                {% if profile.role_id == contributor_id %}
+                <strong>{% trans "Rank " %}</strong> {{ profile.get_rank }}<br>
+                <strong>{% trans "Rank for this quarter " %}</strong> {{ profile.get_rank_for_quarter }}
+                {% endif %}
+                {% if request.user.id == profile.user.id or profile.role_id == mentor_id %}<br>
+                <strong>{% trans "First name " %}</strong> {{ profile.user.first_name }}<br>
+                <strong>{% trans "Last name " %}</strong> {{ profile.user.last_name }}<br>
+                <strong>E-Mail </strong> {{ profile.user.email }}<br>
                 {% endif %}
                 {% if profile.role_id == mentor_id %}
-                <li class="list-group-item"><strong>{% trans "Role:" %}</strong> {% trans profile.role.name %}</li>
+                <strong>{% trans "Role " %}</strong> {% trans profile.role.name %}<br>
                 {% endif %}
                 {% if profile.role_id == contributor_id %}
-                <li class="list-group-item"><strong>{% trans "Points reached:" %} </strong>{{ profile.points }}</li>
+                <strong>{% trans "Points reached " %} </strong>{{ profile.total_points }}<br>
                 {% endif %}
-                <li class="list-group-item"><strong>Links:</strong> <a href="http://{{ profile.links }}" class="card-link">{{ profile.links }}</a></li>
+                <strong>Links </strong> <a href="http://{{ profile.links }}" class="card-link">{{ profile.links }}</a><br>
                 {% if request.user.id == profile.user.id %}
-                <li class="list-group-item"><strong>{% trans "Contact:" %}</strong> <a href="#" class="card-link">{{profile.contact }}</a></li>
+                <strong>{% trans "Contact " %}</strong> <a href="#" class="card-link">{{profile.contact }}</a><br>
                 {% endif %}
-                {% if profile.role_id == contributor_id %}
-                <li class="list-group-item"><strong>{% trans "Tasks done:" %}</strong></li>
-                {% for task in finished_tasks_list %}
-                {% if task.task_checked and profile.user.id == task.assignee_id %}
-                <li class="list-group-item"><a href="/tasks/{{ task.id }}">{{ task.title }} -- {{ task.project.title }}</a></li>
-                {% endif %}
-                {% endfor %}
-                {% endif %}
-            </ul>
+            </p>
+            {% if request.user.id == profile.user.id %}
+
+            <a href="/password_change">
+                <button class="btn btn-primary btn-profile">{% trans "Reset Password" %}</button>
+            </a>
+            <a href="/profile/edit">
+                <button class="btn btn-primary btn-profile">{% trans "Edit" %}</button>
+            </a>
+            {% endif %}
         </div>
-        {% if request.user.id == profile.user.id %}
-        <a href="/password_change">{% trans "Reset Password" %}</a>
-        </br>
-        <a href="/profile/edit">
-            <button class="btn btn-primary btn-profile">{% trans "Edit" %}</button>
-        </a>
-        <form action="" method="POST" class="edit">
-            {% csrf_token %}
-            <button class="btn btn-primary btn-profile" name="delete-profile">{% trans "Delete my Profile" %}</button>
-        </form>
-        {% endif %}
+    </div>
+    <div class="grid-cell grid-cell--8of12">
+        <div class="detail-right-profile">
+            {% if profile.role_id == contributor_id %} 
+            <div class="taskindex">
+                {% if finished_task_list %}
+                <h2>Finished tasks</h2>
+                <div class="grid grid--2of12">
+                    {% for task in finished_task_list %}
+                        {% if task.assignee_id == profile.user_id %}
+                            <div class="grid-cell">
+                                {% task_card task %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p>{% trans "No tasks available." %}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock content %}
