@@ -47,9 +47,23 @@ ul.index li {
     padding: 5px;
 }
 
-ul.index li a {
+
+ul.index a:nth-of-type(2n+1) {
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: rgb(243, 243, 243);
+}
+
+ul.index li p:first-of-type {
     text-decoration: none;
     font-weight: bold;
+    color: black;
+}
+
+
+ul.index a li{
+    text-decoration: none;
     color: black;
 }
 

@@ -6,12 +6,13 @@
     {% if project_list %}
         <ul class="index">
         {% for project in project_list %}
-        <div class="project">
+
+        <a href="/projects/{{ project.id }}">
             <li>
-                <a href="/projects/{{ project.id }}">{{ project.title }}</a>
+                <p>{{ project.title }}</p>
                 <p>{% trans project.lead_text noop %}</p>
             </li>
-        </div>
+        </a>
         {% endfor %}
         {% if user.profile.role.id == mentor_id %}
             <a href="new_project/">
