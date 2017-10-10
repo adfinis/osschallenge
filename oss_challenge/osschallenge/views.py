@@ -216,30 +216,40 @@ def TaskView(request, pk):
             comment = Comment()
             form = CommentForm(request.POST, instance=comment)
             notification = "Your comment has been posted"
+            render_params['notification'] = notification
             if form.is_valid():
                 comment.author = user
                 comment.task = task
                 comment = form.save()
 
-        elif 'delete-task' in request.POST:
-            task.delete()
-            return redirect('/tasks/')
+        elif 'Delete-comment' in request.POST:
+            comment_id = (request.POST['Delete-comment'])
+            comment = get_object_or_404(Comment, pk=comment_id)
+            if comment.author_id == request.user.id:
+                comment.delete()
 
         elif 'Approve' in request.POST:
             profile = get_object_or_404(Profile, user_id=task.assignee_id)
             task.task_checked = True
-            profile.points += 5
+            task.approved_by = user
+            profile.total_points += 5
+            profile.quarter_points += 5
             task.save()
             profile.save()
 
         elif 'Reopen' in request.POST:
             profile = get_object_or_404(Profile, user_id=task.assignee_id)
             task.task_checked = False
-            profile.points -= 5
+            profile.total_points -= 5
+            profile.quarter_points -= 5
+            if profile.quarter_points < 0:
+                profile.quarter_points = 0
             task.save()
             profile.save()
 
-
+    render_params['comment_list'] = sorted(Comment.objects.all(),
+                               key=lambda c: c.created_at)
+    render_params['task'] = task
     return render(request, template_name, render_params)
 
 
@@ -248,6 +258,11 @@ def EditTaskView(request, pk):
     user = request.user
     project = get_object_or_404(Project, pk=task.project_id)
     is_mentor_of_this_task = project.mentors.filter(id=user.id)
+
+    if 'Delete-task' in request.POST:
+        task.delete()
+        return redirect('/tasks/')
+
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES, instance=task)
 
@@ -295,28 +310,46 @@ def NewTaskView(request, pk):
 def ProfileView(request, username):
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(Profile, user_id=user.id)
-    finished_tasks_list = get_list_or_404(Task)
+    finished_tasks = Task.objects.filter(task_done=True)
+    finished_task_list = []
+    for obj in finished_tasks:
+        finished_task_list.append(obj)
     template_name = 'osschallenge/profile.html'
 
-    if 'delete-profile' in request.POST:
-        user.delete()
-        return redirect('/login/')
+    if user.is_active == False:
+        return redirect('/profile_does_not_exist/')
 
-    if request.user.is_authenticated():
-        return render(request, template_name, {
-            'contributor_id': CONTRIBUTOR_ID,
-            'mentor_id': MENTOR_ID,
-            'finished_tasks_list': finished_tasks_list,
-            'profile': profile,
+
+    return render(request, template_name, {
+        'contributor_id': CONTRIBUTOR_ID,
+        'mentor_id': MENTOR_ID,
+        'finished_task_list': finished_task_list,
+        'profile': profile,
 
         })
-    else:
-        return redirect('/login/')
+
+
+def ProfileDoesNotExistView(request):
+    template_name = 'osschallenge/profile_does_not_exist.html'
+
+    return render(request, template_name, {
+    })
 
 
 def EditProfileView(request):
     profile = get_object_or_404(Profile, user_id=request.user.id)
     user = get_object_or_404(User, pk=request.user.id)
+
+    if 'delete-profile' in request.POST:
+        user.is_active = False
+        user.profile.total_points = 0
+        user.profile.links = ""
+        user.profile.contact = ""
+        user.profile.picture = "static/osschallenge/example.jpg"
+        user.save()
+        user.profile.save()
+        return redirect('/login/')
+
     if request.method == 'POST':
         form_profile = ProfileForm(request.POST, request.FILES, instance=profile)
         form_user = UserForm(request.POST, instance=user)

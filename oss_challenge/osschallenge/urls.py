@@ -55,13 +55,13 @@ urlpatterns = [
         views.ProfileView,
         name='profile'),
 
+    url(r'^profile_does_not_exist/$',
+        views.ProfileDoesNotExistView,
+        name='profiledoesnotexist'),
+
     url(r'^task_administration_index/$',
         views.TaskAdministrationIndexView,
         name='taskadministrationindex'),
-
-    # url(r'^task_administration/(?P<pk>[0-9]+)/$',
-        # views.TaskAdministrationView,
-        # name='taskadministration'),
 
     url(r'^ranking/$',
         views.RankingView,

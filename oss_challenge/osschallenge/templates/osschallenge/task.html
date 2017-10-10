@@ -91,23 +91,33 @@
                             {% if comment.author.profile.role_id == mentor_id %}
                             <a class="link" href="/profile/{{ comment.author.username }}/">
                                 <b>{{ comment.author.first_name }} {{comment.author.last_name}}</b>
-                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"><span class="hidden-span">This user is mentor</span></i>
                             </a>
                             {% else %}
                             <a class="link" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.username }}</b></a>
                             {% endif %}
                         </div>
                         <div class="card-block-comment">
-                            {{ comment.comment|markdown|linebreaks}}
-                            <footer class="text-right">
-                                {{ comment.created_at|date:'Y-m-d, H:i' }}
-                            </footer>
+                            {{ comment.comment|markdown|linebreaks }}
+                            <div class="text-right">
+                                <div class="date">
+                                    {{ comment.created_at|date:'Y-m-d, H:i' }}
+                                </div>
+                                {% if comment.author.id == user.id %}
+                                <div class="delete-comment">
+                                    <form action="" method="POST" class="delete">
+                                        {% csrf_token %}
+                                        <button class="btn btn-primary delete-comment" value="{{comment.id}}" name="Delete-comment">{% trans "Delete this comment" %}</button>
+                                    </form>
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                     {% endif %}
                     {% endfor %}
                 </div>
-                <h3>Enter a comment</h3> 
+                <h3>Add a comment</h3> 
                 <form method="POST">
                     <textarea id="markdown-comment" rows="4" class="textarea" name="comment" placeholder="Enter text here..."></textarea>
                     {% markdown_editor "#markdown-comment" %}

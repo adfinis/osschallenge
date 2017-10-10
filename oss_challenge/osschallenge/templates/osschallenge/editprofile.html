@@ -22,6 +22,10 @@
             <div class="save-image">
                 <button class="btn btn-primary">{% trans "Save" %}</button>
             </div>
+            <form action="" method="POST" class="edit">
+                {% csrf_token %}
+                <button class="btn btn-primary delete-button" name="delete-profile">{% trans "Delete my Profile" %}</button>
+            </form>
         </form>
     </div>
 </div>
