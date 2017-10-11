@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('button[name=delete-task]').click(function() {
+  $('button[name=Delete-task]').click(function() {
     if (confirm('Do you really want to delete this task?')) {
       return true
     }

@@ -27,25 +27,20 @@
             </p>
             <div class="icons">
                 <p>
-                <a href="http://{{ project.github }}">
-                    <i class="fa fa-github fa-2x" aria-hidden="true"></i>
-                </a>
+                    <a href="http://{{ project.github }}">
+                        <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+                    </a>
                 </p>
                 <p>
-                <a href="http://{{ project.website }}">
-                    <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
-
-                </a>
+                    <a href="http://{{ project.website }}">
+                        <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
+                    </a>
                 </p>
             </div>
             {% if current_user_id == project.owner_id %}
             <a href="edit/">
                 <button class=" btn btn-primary">{% trans "Edit" %}</button>
             </a>
-            <form action="" method="POST" class="edit">
-                {% csrf_token %}
-                <button class="btn btn-primary" name="delete-project">{% trans "Delete this Project" %}</button>
-            </form>
             {% endif %}
         </div>
     </div>

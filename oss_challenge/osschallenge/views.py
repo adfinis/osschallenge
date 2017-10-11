@@ -67,11 +67,6 @@ def ProjectView(request, pk):
     can_create_new_tasks = project.mentors.filter(id=current_user_id)
     template_name = 'osschallenge/project.html'
 
-    if 'delete-project' in request.POST:
-        project.delete()
-        return redirect('/projects/')
-
-
     return render(request, template_name, {
         'project': project,
         'mentor_id': MENTOR_ID,
@@ -85,6 +80,12 @@ def ProjectView(request, pk):
 
 def EditProjectView(request, pk):
     project = get_object_or_404(Project, pk=pk)
+    user = request.user
+
+    if 'delete-project' in request.POST:
+        project.delete()
+        return redirect('/projects/')
+
     if request.method == 'POST':
         form = ProjectForm(request.POST, instance=project)
 
