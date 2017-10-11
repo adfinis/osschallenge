@@ -69,19 +69,6 @@
                             <a class="link" href="/register">{% trans "Register" %}</a>
                         </li>
                         {% endif %}
-                        <li class="dropdown">
-                            <a class="link" href="#">{% trans "Language" %}</a>
-                            <ul class="dropdown-content">
-                                {% get_available_languages as LANGUAGES %}
-                                {% get_language_info_list for LANGUAGES as languages %}
-                                {% for language in languages %}
-                                <li><a id="{{ language.code }}" class="link language-selection" href="#">{{ language.name_local }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                        <form id="language-form" action="{% url 'set_language' %}" method="post">{% csrf_token %}
-                            <input id="language-input" name="language" type="hidden" value="" />
-                        </form>
                     </ul>
                 </section>
             </nav>
@@ -90,6 +77,18 @@
         </div>
     </body>
     <footer>
+        <div id="languages">
+            <ol class="breadcrumb">
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                <li><a id="{{ language.code }}" class="link language-selection" href="#">{{ language.name_local }}</a></li>
+                {% endfor %}
+            </ol>
+            <form id="language-form" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <input id="language-input" name="language" type="hidden" value="" />
+            </form>
+        </div>
         <div id="developed">
             <p>Developed by <a target="_blank" href="https://www.adfinis-sygroup.ch/"> Adfinis SyGroup AG</a></p>
         </div>

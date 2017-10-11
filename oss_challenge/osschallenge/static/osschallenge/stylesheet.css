@@ -147,7 +147,7 @@ div.detail form input {
 }
 
 .btn.btn-primary.btn-profile {
-    width: 150px;
+    width: 200px;
 }
 
 .btn.btn-primary {
@@ -621,9 +621,25 @@ footer {
     background-color: #5B8EDB;
 }
 
-#developed {
+#languages {
     text-align: right;
-    width: 526px;
+    width: 25%;
+    height: 80px;
+}
+
+#languages ol {
+    margin: 25px;
+    font-size: 16px;
+    border: none;
+}
+
+#languages ol li a {
+    color: white;
+}
+
+#developed {
+    text-align: center;
+    width: 25%;
     height: 80px;
 }
 
@@ -638,7 +654,7 @@ footer {
 
 #github {
     text-align: center;
-    width: 526px;
+    width: 25%;
     height: 80px;
 }
 
@@ -648,7 +664,7 @@ footer {
 }
 
 #license {
-    width: 526px;
+    width: 25%;
     height: 80px;
 }
 
