@@ -102,7 +102,6 @@ div.detail {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 div.detail-project {
@@ -719,4 +718,12 @@ footer {
 
 table.table.table--striped.table--hover.table--bordered thead tr th {
     width: 20%;
+}
+
+.btn-add-task {
+    width: 100px;
+}
+
+.save-image {
+    width: 100px;
 }

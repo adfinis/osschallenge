@@ -14,12 +14,12 @@
             </li>
         </a>
         {% endfor %}
+        </ul>
         {% if user.profile.role.id == mentor_id %}
             <a href="new_project/">
                 <button class="btn btn-primary">{% trans "New Project" %}</button>
             </a>
         {% endif %}
-        </ul>
     {% else %}
     <p>{% trans "No projects available." %}</p>
     {% endif %}

@@ -14,14 +14,11 @@
                 {{ field.label_tag }} {{ field | add_class:'form-control' }}
             </div>
             {% endfor %}
+            {% if is_mentor_of_this_task %}
             <div class="save-image">
                 <button class="btn btn-primary">{% trans "Save" %}</button>
-            </div>
-            {% if is_mentor_of_this_task %}
-            <form action="" method="POST" class="edit">
-                {% csrf_token %}
                 <button class="btn btn-primary delete-button" name="Delete-task">{% trans "Delete this Task" %}</button>
-            </form>
+            </div>
             {% endif %}
         </form>
     </div>

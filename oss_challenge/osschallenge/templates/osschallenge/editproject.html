@@ -14,7 +14,12 @@
                 {% trans field.label_tag %} {{ field | add_class:'form-control' }}
             </div>
             {% endfor %}
-            <button class="btn btn-primary">{% trans "Save" %}</button>
+            {% if user.id == project.owner_id %}
+            <div class="save-image">
+                <button class="btn btn-primary">{% trans "Save" %}</button>
+                <button class="btn btn-primary delete-button" name="delete-project">{% trans "Delete this Project" %}</button>
+            </div>
+            {% endif %}
         </form>
     </div>
 </div>

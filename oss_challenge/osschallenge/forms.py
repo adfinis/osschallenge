@@ -67,21 +67,35 @@ class TaskForm(ModelForm):
         ]
         widgets = {
 
-            'lead_text': Textarea(attrs={
-                'cols': 100,
+            'lead_text_de': Textarea(attrs={
+                'cols': 50,
                 'rows': 3,
             }),
 
-            'description': Textarea(attrs={
-                'cols': 100,
-                'rows': 8,
+            'lead_text_en_us': Textarea(attrs={
+                'cols': 50,
+                'rows': 3,
+            }),
+
+            'description_de': Textarea(attrs={
+                'cols': 50,
+                'rows': 5,
+            }),
+
+            'description_en_us': Textarea(attrs={
+                'cols': 50,
+                'rows': 5,
             }),
 
         }
 
 
 class ProjectForm(ModelForm):
-    mentors = forms.ModelMultipleChoiceField(label=_('Choose  mentors'), queryset=User.objects.filter(profile__role_id=2))
+    mentors = forms.ModelMultipleChoiceField(
+        label=_('Choose  mentors'),
+        required=True,
+        queryset=User.objects.filter(profile__role_id=2),
+    )
 
     class Meta:
         model = Project
@@ -98,15 +112,26 @@ class ProjectForm(ModelForm):
             'mentors'
         ]
         widgets = {
-            'lead_text': Textarea(attrs={
-                'cols': 100,
+            'lead_text_de': Textarea(attrs={
+                'cols': 50,
                 'rows': 3,
             }),
 
-            'description': Textarea(attrs={
-                'cols': 100,
-                'rows': 8,
+            'lead_text_en_us': Textarea(attrs={
+                'cols': 50,
+                'rows': 3,
             }),
+
+            'description_de': Textarea(attrs={
+                'cols': 50,
+                'rows': 5,
+            }),
+
+            'description_en_us': Textarea(attrs={
+                'cols': 50,
+                'rows': 5,
+            }),
+
         }
 
 
