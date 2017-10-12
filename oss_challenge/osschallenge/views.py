@@ -3,7 +3,7 @@ import os
 import time
 import bisect
 from django.views import generic
-from django.shortcuts import redirect, render, get_object_or_404, get_list_or_404
+from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView
 from .models import Task, Project, Profile, Comment
 from django.contrib.auth.models import User
@@ -14,7 +14,6 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Q
-from django.http import Http404
 
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
@@ -41,6 +40,7 @@ class NewProjectView(CreateView):
 
 
 def ProjectIndexView(request):
+    task_list = list(Task.objects.all())
     project_list = list(Project.objects.all())
     template_name = 'osschallenge/projectindex.html'
     return render(request, template_name, {
@@ -50,7 +50,7 @@ def ProjectIndexView(request):
 
 
 def ProjectView(request, pk):
-    project = get_object_or_404(Project, pk=pk)
+    project = Project.objects.get(pk=pk)
     task_objects = Task.objects.filter(project_id=project.id)
     task_list = []
     max_length_description = 110
@@ -80,7 +80,7 @@ def ProjectView(request, pk):
 
 
 def EditProjectView(request, pk):
-    project = get_object_or_404(Project, pk=pk)
+    project = Project.objects.get(pk=pk)
     user = request.user
 
     if 'delete-project' in request.POST:
@@ -108,7 +108,7 @@ def EditProjectView(request, pk):
 
 
 def MyTaskIndexView(request, username):
-    user = get_object_or_404(User, username=username)
+    user = User.objects.get(username=username)
     current_user_id = request.user.id
     user_task_objects = Task.objects.filter( assignee_id=current_user_id)
     user_task_list = []
@@ -181,14 +181,14 @@ def TaskIndexView(request):
 
 
 def TaskView(request, pk):
-    task = get_object_or_404(Task, pk=pk)
+    task = Task.objects.get(pk=pk)
     template_name = 'osschallenge/task.html'
     notification = ""
     render_params = {}
     if request.user.id:
         user = request.user
-        project = get_object_or_404(Project, pk=task.project_id)
-        render_params['user'] = get_object_or_404(User, pk=request.user.id)
+        project = Project.objects.get(pk=task.project_id)
+        render_params['user'] = User.objects.get(pk=request.user.id)
         render_params['mentor_id'] = MENTOR_ID
         render_params['contributor_id'] = CONTRIBUTOR_ID
         render_params['mentors'] = project.mentors.all()
@@ -220,12 +220,12 @@ def TaskView(request, pk):
 
         elif 'Delete-comment' in request.POST:
             comment_id = (request.POST['Delete-comment'])
-            comment = get_object_or_404(Comment, pk=comment_id)
+            comment = Comment.objects.get(pk=comment_id)
             if comment.author_id == request.user.id:
                 comment.delete()
 
         elif 'Approve' in request.POST:
-            profile = get_object_or_404(Profile, user_id=task.assignee_id)
+            profile = Profile.objects.get(user_id=task.assignee_id)
             task.task_checked = True
             task.approved_by = user
             profile.total_points += 5
@@ -234,7 +234,7 @@ def TaskView(request, pk):
             profile.save()
 
         elif 'Reopen' in request.POST:
-            profile = get_object_or_404(Profile, user_id=task.assignee_id)
+            profile = Profile.objects.get(user_id=task.assignee_id)
             task.task_checked = False
             profile.total_points -= 5
             profile.quarter_points -= 5
@@ -250,9 +250,9 @@ def TaskView(request, pk):
 
 
 def EditTaskView(request, pk):
-    task = get_object_or_404(Task, pk=pk)
+    task = Task.objects.get(pk=pk)
     user = request.user
-    project = get_object_or_404(Project, pk=task.project_id)
+    project = Project.objects.get(pk=task.project_id)
     is_mentor_of_this_task = project.mentors.filter(id=user.id)
 
     if 'Delete-task' in request.POST:
@@ -304,8 +304,8 @@ def NewTaskView(request, pk):
 
 
 def ProfileView(request, username):
-    user = get_object_or_404(User, username=username)
-    profile = get_object_or_404(Profile, user_id=user.id)
+    user = User.objects.get(username=username)
+    profile = Profile.objects.get(user_id=user.id)
     finished_tasks = Task.objects.filter(task_done=True)
     finished_task_list = []
     for obj in finished_tasks:
@@ -333,8 +333,8 @@ def ProfileDoesNotExistView(request):
 
 
 def EditProfileView(request):
-    profile = get_object_or_404(Profile, user_id=request.user.id)
-    user = get_object_or_404(User, pk=request.user.id)
+    profile = Profile.objects.get(user_id=request.user.id)
+    user = User.objects.get(pk=request.user.id)
 
     if 'delete-profile' in request.POST:
         user.is_active = False
