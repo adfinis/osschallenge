@@ -28,7 +28,7 @@
             {% for user in ranking_list %}
             {% if user.profile.role_id == contributor_id and user.is_active %}
             <tr>
-                <td>{{ user.username }}</td>
+                <td><a href="/profile/{{ user.username }}">{{ user.username }}</td>
                 <td>{{ user.profile.get_rank }}</td>
                 <td>{{ user.profile.total_points }}</td>
                 <td>{{ user.profile.get_rank_for_quarter }}</td>
