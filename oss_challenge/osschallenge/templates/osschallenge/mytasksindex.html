@@ -22,9 +22,7 @@
                 </form>
             </div>
         </div>
-        {% if no_tasks %}
-        <div class="no-tasks">{{ no_tasks }}</div>
-        {% elif match_list %}
+        {% if match_list %}
         <div class="grid grid--2of12 task-grid">
             {% for match in match_list %}
             <div class="grid-cell">

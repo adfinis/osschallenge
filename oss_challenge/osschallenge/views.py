@@ -14,6 +14,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Q
+from django.http import Http404
 
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
@@ -109,7 +110,6 @@ def EditProjectView(request, pk):
 def MyTaskIndexView(request, username):
     user = get_object_or_404(User, username=username)
     current_user_id = request.user.id
-    task_list = get_list_or_404(Task)
     user_task_objects = Task.objects.filter( assignee_id=current_user_id)
     user_task_list = []
     for obj in user_task_objects:
@@ -117,7 +117,6 @@ def MyTaskIndexView(request, username):
     template_name = 'osschallenge/mytasksindex.html'
     max_length_description = 130
     max_length_title = 60
-    no_tasks = "There are no tasks"
     for task in user_task_objects:
         if len(task.description) > max_length_description:
             task.description = task.description[:max_length_description] + " ..."
@@ -137,7 +136,6 @@ def MyTaskIndexView(request, username):
             })
         else:
             return render(request, template_name, {
-                'no_tasks': no_tasks,
                 'user_task_list': user_task_list,
                 'match_list': match_list,
             })
@@ -148,7 +146,7 @@ def MyTaskIndexView(request, username):
 
 
 def TaskIndexView(request):
-    task_list = get_list_or_404(Task)
+    task_list = list(Task.objects.all())
     template_name = 'osschallenge/taskindex.html'
     max_length_description = 130
     max_length_title = 60
@@ -213,7 +211,7 @@ def TaskView(request, pk):
         elif 'Comment' in request.POST:
             comment = Comment()
             form = CommentForm(request.POST, instance=comment)
-            notification = "Your comment has been posted"
+            notification = _("Your comment has been posted")
             render_params['notification'] = notification
             if form.is_valid():
                 comment.author = user
