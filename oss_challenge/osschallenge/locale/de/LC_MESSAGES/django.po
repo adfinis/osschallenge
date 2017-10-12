@@ -348,7 +348,7 @@ msgstr "Aufgabe erledigt"
 
 #: osschallenge/templates/osschallenge/task.html:66
 msgid "Approve"
-msgstr ""
+msgstr "Bestätigen"
 
 #: osschallenge/templates/osschallenge/task.html:72
 msgid "Reopen"
