@@ -751,3 +751,7 @@ table.table.table--striped.table--hover.table--bordered thead tr th {
 .errorlist {
     list-style-type: none;
 }
+
+.no-projects {
+    width: 100%;
+}
