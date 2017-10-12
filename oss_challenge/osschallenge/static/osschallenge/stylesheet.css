@@ -743,3 +743,11 @@ table.table.table--striped.table--hover.table--bordered thead tr th {
 .save-image {
     width: 100px;
 }
+
+.text-center {
+    text-align: center;
+}
+
+.errorlist {
+    list-style-type: none;
+}

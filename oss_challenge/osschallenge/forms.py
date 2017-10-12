@@ -36,7 +36,16 @@ class RegistrationForm(forms.Form):
             User.objects.get(email=email)
         except User.DoesNotExist:
             return email
-        raise forms.ValidationError('Email is already taken.')
+        raise forms.ValidationError(_('Email is already taken.'))
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+
+        try:
+            User.objects.get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError(_('Username is already taken.'))
 
 
 class MentorForm(forms.Form):
