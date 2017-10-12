@@ -24,7 +24,7 @@
                     {% endif %}
                 {% elif task.assignee_id != NULL %}
                     <i class="fa fa-spinner" aria-hidden="true"></i>
-                    {% trans "claimed" %} {% trans "by" %} <a class="link" href="/profile/{{ task.assignee }}/">{{ task.assignee }}</a>
+                    {% trans "claimed by" %} <a class="link" href="/profile/{{ task.assignee }}/">{{ task.assignee }}</a>
                 {% endif %}
                 {% if task.task_checked == False %}
                     {% for user in mentors %}
@@ -32,7 +32,7 @@
                     {% endfor %}
                 {% elif task.task_checked %}
                     <br><i class="fa fa-check-circle" aria-hidden="true"></i>
-                    {% trans "approved" %} {% trans "by" %} <a class="link" href="/profile/{{ task.approved_by.username }}/">{{ task.approved_by.username }}</a>
+                    {% trans "approved by" %} <a class="link" href="/profile/{{ task.approved_by.username }}/">{{ task.approved_by.username }}</a>
                 {% endif %}
             </p>
             <p>{% trans task.lead_text %}</p>
@@ -87,7 +87,7 @@
                             {% if comment.author.profile.role_id == mentor_id %}
                             <a class="link" href="/profile/{{ comment.author.username }}/">
                                 <b>{{ comment.author.first_name }} {{comment.author.last_name}}</b>
-                                <i class="fa fa-star" aria-hidden="true"><span class="hidden-span">This user is mentor</span></i>
+                                <i class="fa fa-star" aria-hidden="true"><span class="hidden-span">{% trans "This user is mentor" %}</span></i>
                             </a>
                             {% else %}
                             <a class="link" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.username }}</b></a>
@@ -113,9 +113,9 @@
                     {% endif %}
                     {% endfor %}
                 </div>
-                <h3>Add a comment</h3> 
+                <h3>{% trans "Add a comment" %}</h3> 
                 <form method="POST">
-                    <textarea id="markdown-comment" rows="4" class="textarea" name="comment" placeholder="Enter text here..."></textarea>
+                    <textarea id="markdown-comment" rows="4" class="textarea" name="comment" placeholder="{% trans "Enter text here..." %}"></textarea>
                     {% markdown_editor "#markdown-comment" %}
                     {% markdown_media %}
                     {% csrf_token %}

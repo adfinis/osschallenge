@@ -24,7 +24,7 @@
                     </a>
                     {% if user.is_authenticated %}
                         <div class="logged-in-user">
-                            <a href="/profile/{{ user.username }}">Logged in as {{ user.username }}</a>
+                            <a href="/profile/{{ user.username }}">{% trans "Logged in as" %} {{ user.username }}</a>
                         </div>
                     {% endif %}
                 </header>
@@ -90,12 +90,12 @@
             </form>
         </div>
         <div id="developed">
-            <p>Developed by <a target="_blank" href="https://www.adfinis-sygroup.ch/"> Adfinis SyGroup AG</a></p>
+            <p>{% trans "Developed by" %}<a target="_blank" href="https://www.adfinis-sygroup.ch/"> Adfinis SyGroup AG</a></p>
         </div>
         <div id="github">
-            <p>Code on Github</p>
+            <p>{% trans "Code on Github" %}</p>
         </div>
         <div id="license">
-            <p><a target="_blank" href="https://www.gnu.org/licenses/">Code license GPL-3.0</a><p>
+            <p><a target="_blank" href="https://www.gnu.org/licenses/">{% trans "Code license" %} GPL-3.0</a><p>
     </footer>
 </html>

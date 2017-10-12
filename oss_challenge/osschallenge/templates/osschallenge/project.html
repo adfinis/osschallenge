@@ -10,15 +10,15 @@
             <h1>{{ project.title }}</h1>
             {% if error_message %}<p><strong>{% trans  error_message %}</strong></p>{% endif %}
 
-            <p>{% trans project.lead_text noop %}</p>
-            <p><strong>{% trans "Description: " %}</strong>{% trans project.description noop %}</p>
-            <p><strong>{% trans "Licence:" %}</strong> {{ project.licence }}</p>
-            <p><strong>{% trans "Owner: " %}</strong>
+            <p>{{ project.lead_text }}</p>
+            <p><strong>{% trans "Description" %}</strong> {{ project.description }}</p>
+            <p><strong>{% trans "Licence" %}</strong> {{ project.licence }}</p>
+            <p><strong>{% trans "Owner" %}</strong>
             <a class="link" href="/profile/{{ project.owner.username }}/">
                 {{ owner }}</p>
             </a>
             <p>
-            <strong>{% trans "Mentor: " %}</strong>
+            <strong>{% trans "Mentor" %}</strong>
             {% for user in mentors %}
             <a class="link" href="/profile/{{ user.username }}/">
                 {{ user }}

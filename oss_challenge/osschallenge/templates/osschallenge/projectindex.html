@@ -10,7 +10,7 @@
         <a href="/projects/{{ project.id }}">
             <li>
                 <p>{{ project.title }}</p>
-                <p>{% trans project.lead_text noop %}</p>
+                <p>{{ project.lead_text }}</p>
             </li>
         </a>
         {% endfor %}

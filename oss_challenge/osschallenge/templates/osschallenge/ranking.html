@@ -6,21 +6,21 @@
     <table class="table table--striped table--hover table--bordered">
         <thead>
             <tr>
-                <th>Username</th>
-                <th>Rank</th>
-                <th>Points</th>
+                <th>{% trans "Username" %}</th>
+                <th>{% trans "Rank" %}</th>
+                <th>{% trans "Points" %}</th>
                 {% if quarter == 1 %}
-                <th>Rank for the first quarter</th>
-                <th>Points for the first quarter</th>
+                <th>{% trans "Rank for the first quarter" %}</th>
+                <th>{% trans "Points for the first quarter" %}</th>
                 {% elif quarter == 2 %}
-                <th>Rank for the second quarter</th>
-                <th>Points for the second quarter</th>
+                <th>{% trans "Rank for the second quarter" %}</th>
+                <th>{% trans "Points for the second quarter" %}</th>
                 {% elif quarter == 3 %}
-                <th>Rank for the third quarter</th>
-                <th>Points for the third quarter</th>
+                <th>{% trans "Rank for the third quarter" %}</th>
+                <th>{% trans "Points for the third quarter" %}</th>
                 {% elif quarter == 4 %}
-                <th>Rank for the fourth quarter</th>
-                <th>Points for the fourth quarter</th>
+                <th>{% trans "Rank for the fourth quarter" %}</th>
+                <th>{% trans "Points for the fourth quarter" %}</th>
                 {% endif %}
             </tr>
         </thead>

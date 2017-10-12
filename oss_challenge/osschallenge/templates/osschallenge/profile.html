@@ -17,23 +17,23 @@
             <h4 class="card-title">{{ profile.user.username }}</h4>
             <p>
                 {% if profile.role_id == contributor_id %}
-                <strong>{% trans "Rank " %}</strong> {{ profile.get_rank }}<br>
-                <strong>{% trans "Rank for this quarter " %}</strong> {{ profile.get_rank_for_quarter }}
+                <strong>{% trans "Rank" %} </strong> {{ profile.get_rank }}<br>
+                <strong>{% trans "Rank for this quarter" %} </strong> {{ profile.get_rank_for_quarter }}
                 {% endif %}
                 {% if request.user.id == profile.user.id or profile.role_id == mentor_id %}<br>
-                <strong>{% trans "First name " %}</strong> {{ profile.user.first_name }}<br>
-                <strong>{% trans "Last name " %}</strong> {{ profile.user.last_name }}<br>
+                <strong>{% trans "First name" %} </strong> {{ profile.user.first_name }}<br>
+                <strong>{% trans "Last name" %} </strong> {{ profile.user.last_name }}<br>
                 <strong>E-Mail </strong> {{ profile.user.email }}<br>
                 {% endif %}
                 {% if profile.role_id == mentor_id %}
-                <strong>{% trans "Role " %}</strong> {% trans profile.role.name %}<br>
+                <strong>{% trans "Role" %} </strong> {% trans profile.role.name %}<br>
                 {% endif %}
                 {% if profile.role_id == contributor_id %}
-                <strong>{% trans "Points reached " %} </strong>{{ profile.total_points }}<br>
+                <strong>{% trans "Points reached" %} </strong>{{ profile.total_points }}<br>
                 {% endif %}
                 <strong>Links </strong> <a href="http://{{ profile.links }}" class="card-link">{{ profile.links }}</a><br>
                 {% if request.user.id == profile.user.id %}
-                <strong>{% trans "Contact " %}</strong> <a href="#" class="card-link">{{profile.contact }}</a><br>
+                <strong>{% trans "Contact" %} </strong> <a href="#" class="card-link">{{profile.contact }}</a><br>
                 {% endif %}
             </p>
             {% if request.user.id == profile.user.id %}
@@ -52,7 +52,7 @@
             {% if profile.role_id == contributor_id %} 
             <div class="taskindex">
                 {% if finished_task_list %}
-                <h2>Finished tasks</h2>
+                <h2>{% trans "Finished tasks" %}</h2>
                 <div class="grid grid--2of12">
                     {% for task in finished_task_list %}
                         {% if task.assignee_id == profile.user_id %}

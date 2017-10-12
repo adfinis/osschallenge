@@ -40,7 +40,7 @@ class RegistrationForm(forms.Form):
 
 
 class MentorForm(forms.Form):
-    assign_mentor = forms.CharField(label='New mentor')
+    assign_mentor = forms.CharField(label=_('New mentor'))
 
 
 class CommentForm(ModelForm):
@@ -52,7 +52,7 @@ class CommentForm(ModelForm):
 
 
 class TaskForm(ModelForm):
-    picture = forms.ImageField(label=_('Add picture'), required = False, widget=forms.FileInput)
+    picture = forms.ImageField(label=_('Change picture'), required = False, widget=forms.FileInput)
 
     class Meta:
         model = Task
@@ -142,7 +142,7 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = [
             'links',
-            'contact',
+            _('contact'),
             'picture'
         ]
 
