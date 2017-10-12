@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OSS CHALLENGE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-12 10:53+0200\n"
+"POT-Creation-Date: 2017-10-12 14:45+0200\n"
 "PO-Revision-Date: 2017-03-16 15:42+0100\n"
 "Last-Translator: Jonas Lehmann <jonas.lehmann@adfinis-sygroup.ch>\n"
 "Language-Team: German <jonas.lehmann@adfinis-sygroup.ch>\n"
@@ -40,19 +40,27 @@ msgstr "Passwort"
 msgid "Password (Again)"
 msgstr "Passwort (Erneut)"
 
-#: osschallenge/forms.py:43
+#: osschallenge/forms.py:39
+msgid "Email is already taken."
+msgstr "Email wird bereits verwendet."
+
+#: osschallenge/forms.py:48
+msgid "Username is already taken."
+msgstr "Benutzername wird bereits verwendet."
+
+#: osschallenge/forms.py:52
 msgid "New mentor"
 msgstr "Neuer Mentor"
 
-#: osschallenge/forms.py:55 osschallenge/forms.py:139
+#: osschallenge/forms.py:64 osschallenge/forms.py:148
 msgid "Change picture"
 msgstr "Bild ändern"
 
-#: osschallenge/forms.py:95
+#: osschallenge/forms.py:104
 msgid "Choose  mentors"
 msgstr "Mentoren wählen"
 
-#: osschallenge/forms.py:145
+#: osschallenge/forms.py:154
 msgid "contact"
 msgstr "Kontakt"
 
@@ -190,7 +198,7 @@ msgstr "suche in allen Aufgaben"
 msgid "Search"
 msgstr "Suchen"
 
-#: osschallenge/templates/osschallenge/mytasksindex.html:44
+#: osschallenge/templates/osschallenge/mytasksindex.html:42
 #: osschallenge/templates/osschallenge/profile.html:66
 #: osschallenge/templates/osschallenge/project.html:66
 #: osschallenge/templates/osschallenge/task_administration_index.html:42
@@ -499,11 +507,15 @@ msgstr "beansprucht"
 msgid "available"
 msgstr "verfügbar"
 
-#: osschallenge/views.py:457
+#: osschallenge/views.py:214
+msgid "Your comment has been posted"
+msgstr "Dein Kommentar wurde hinzugefügt"
+
+#: osschallenge/views.py:455
 msgid "OSS-Challenge account confirmation"
 msgstr "OSS-Challenge Account Bestätigung"
 
-#: osschallenge/views.py:458
+#: osschallenge/views.py:456
 msgid ""
 "\n"
 "            Hello,\n"
