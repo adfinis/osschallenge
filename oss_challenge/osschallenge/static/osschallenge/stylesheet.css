@@ -759,3 +759,8 @@ table.table.table--striped.table--hover.table--bordered tbody tr td a{
 .no-projects {
     width: 100%;
 }
+
+.profil-infos th {
+    text-align: left;
+    width: 200px;
+}
