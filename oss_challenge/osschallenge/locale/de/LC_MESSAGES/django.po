@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OSS CHALLENGE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-12 14:45+0200\n"
+"POT-Creation-Date: 2017-10-13 10:59+0200\n"
 "PO-Revision-Date: 2017-03-16 15:42+0100\n"
 "Last-Translator: Jonas Lehmann <jonas.lehmann@adfinis-sygroup.ch>\n"
 "Language-Team: German <jonas.lehmann@adfinis-sygroup.ch>\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: osschallenge/forms.py:15 osschallenge/templates/osschallenge/ranking.html:9
+#: osschallenge/forms.py:15 osschallenge/templates/osschallenge/ranking.html:12
 #: osschallenge/templates/registration/login.html:10
 #: osschallenge/templates/registration/login.html:11
 msgid "Username"
 msgstr "Benutzername"
 
-#: osschallenge/forms.py:16 osschallenge/templates/osschallenge/profile.html:24
+#: osschallenge/forms.py:16 osschallenge/templates/osschallenge/profile.html:32
 msgid "First name"
 msgstr "Vorname"
 
-#: osschallenge/forms.py:17 osschallenge/templates/osschallenge/profile.html:25
+#: osschallenge/forms.py:17 osschallenge/templates/osschallenge/profile.html:36
 msgid "Last name"
 msgstr "Nachname"
 
@@ -59,10 +59,6 @@ msgstr "Bild ändern"
 #: osschallenge/forms.py:104
 msgid "Choose  mentors"
 msgstr "Mentoren wählen"
-
-#: osschallenge/forms.py:154
-msgid "contact"
-msgstr "Kontakt"
 
 #: osschallenge/models.py:55 osschallenge/models.py:72
 msgid "Title"
@@ -118,7 +114,7 @@ msgstr "Profil löschen"
 
 #: osschallenge/templates/osschallenge/editproject.html:9
 #: osschallenge/templates/osschallenge/edittask.html:9
-#: osschallenge/templates/osschallenge/profile.html:45
+#: osschallenge/templates/osschallenge/profile.html:74
 #: osschallenge/templates/osschallenge/project.html:42
 #: osschallenge/templates/osschallenge/task.html:61
 msgid "Edit"
@@ -199,7 +195,7 @@ msgid "Search"
 msgstr "Suchen"
 
 #: osschallenge/templates/osschallenge/mytasksindex.html:42
-#: osschallenge/templates/osschallenge/profile.html:66
+#: osschallenge/templates/osschallenge/profile.html:95
 #: osschallenge/templates/osschallenge/project.html:66
 #: osschallenge/templates/osschallenge/task_administration_index.html:42
 #: osschallenge/templates/osschallenge/taskindex.html:46
@@ -208,6 +204,7 @@ msgstr "Keine Aufgaben vorhanden."
 
 #: osschallenge/templates/osschallenge/newproject.html:9
 #: osschallenge/templates/osschallenge/projectindex.html:20
+#: osschallenge/templates/osschallenge/projectindex.html:29
 msgid "New Project"
 msgstr "Neues Projekt"
 
@@ -224,32 +221,36 @@ msgstr "Neue Aufgabe"
 msgid "Add Task"
 msgstr "Aufgabe hinzufügen"
 
-#: osschallenge/templates/osschallenge/profile.html:20
-#: osschallenge/templates/osschallenge/ranking.html:10
+#: osschallenge/templates/osschallenge/no_profile_available.html:7
+msgid "No profile available"
+msgstr "Kein Profil vorhanden."
+
+#: osschallenge/templates/osschallenge/profile.html:22
+#: osschallenge/templates/osschallenge/ranking.html:13
 msgid "Rank"
 msgstr "Rang"
 
-#: osschallenge/templates/osschallenge/profile.html:21
+#: osschallenge/templates/osschallenge/profile.html:26
 msgid "Rank for this quarter"
 msgstr "Rang für dieses Quartal"
 
-#: osschallenge/templates/osschallenge/profile.html:29
+#: osschallenge/templates/osschallenge/profile.html:46
 msgid "Role"
 msgstr "Rolle"
 
-#: osschallenge/templates/osschallenge/profile.html:32
+#: osschallenge/templates/osschallenge/profile.html:52
 msgid "Points reached"
 msgstr "Erreichte Punkte"
 
-#: osschallenge/templates/osschallenge/profile.html:36
+#: osschallenge/templates/osschallenge/profile.html:62
 msgid "Contact"
 msgstr "Kontakt"
 
-#: osschallenge/templates/osschallenge/profile.html:42
+#: osschallenge/templates/osschallenge/profile.html:71
 msgid "Reset Password"
 msgstr "Passwort zurücksetzen"
 
-#: osschallenge/templates/osschallenge/profile.html:55
+#: osschallenge/templates/osschallenge/profile.html:84
 msgid "Finished tasks"
 msgstr "Erledigte Aufgaben"
 
@@ -265,43 +266,47 @@ msgstr "Gehe zu allen Tasks"
 msgid "Mentor"
 msgstr "Mentor"
 
-#: osschallenge/templates/osschallenge/projectindex.html:24
+#: osschallenge/templates/osschallenge/projectindex.html:25
 msgid "No projects available."
 msgstr "Keine Projekte vorhanden."
 
-#: osschallenge/templates/osschallenge/ranking.html:11
+#: osschallenge/templates/osschallenge/ranking.html:7
+msgid "No users available"
+msgstr "Keine Benutzer vorhanden."
+
+#: osschallenge/templates/osschallenge/ranking.html:14
 msgid "Points"
 msgstr "Punkte"
 
-#: osschallenge/templates/osschallenge/ranking.html:13
+#: osschallenge/templates/osschallenge/ranking.html:16
 msgid "Rank for the first quarter"
 msgstr "Rang für das erste Quartal"
 
-#: osschallenge/templates/osschallenge/ranking.html:14
+#: osschallenge/templates/osschallenge/ranking.html:17
 msgid "Points for the first quarter"
 msgstr "Punkte für das erste Quartal"
 
-#: osschallenge/templates/osschallenge/ranking.html:16
+#: osschallenge/templates/osschallenge/ranking.html:19
 msgid "Rank for the second quarter"
 msgstr "Rang für das zweite Quartal"
 
-#: osschallenge/templates/osschallenge/ranking.html:17
+#: osschallenge/templates/osschallenge/ranking.html:20
 msgid "Points for the second quarter"
 msgstr "Punkte für das zweite Quartal"
 
-#: osschallenge/templates/osschallenge/ranking.html:19
+#: osschallenge/templates/osschallenge/ranking.html:22
 msgid "Rank for the third quarter"
 msgstr "Rang für das dritte Quartal"
 
-#: osschallenge/templates/osschallenge/ranking.html:20
+#: osschallenge/templates/osschallenge/ranking.html:23
 msgid "Points for the third quarter"
 msgstr "Punkte für das dritte Quartal"
 
-#: osschallenge/templates/osschallenge/ranking.html:22
+#: osschallenge/templates/osschallenge/ranking.html:25
 msgid "Rank for the fourth quarter"
 msgstr "Rang für das vierte Quartal"
 
-#: osschallenge/templates/osschallenge/ranking.html:23
+#: osschallenge/templates/osschallenge/ranking.html:26
 msgid "Points for the fourth quarter"
 msgstr "Punkte für das vierte Quartal"
 
@@ -511,11 +516,11 @@ msgstr "verfügbar"
 msgid "Your comment has been posted"
 msgstr "Dein Kommentar wurde hinzugefügt"
 
-#: osschallenge/views.py:455
+#: osschallenge/views.py:457
 msgid "OSS-Challenge account confirmation"
 msgstr "OSS-Challenge Account Bestätigung"
 
-#: osschallenge/views.py:456
+#: osschallenge/views.py:458
 msgid ""
 "\n"
 "            Hello,\n"
@@ -537,3 +542,6 @@ msgstr ""
 "            Freundliche Grüsse,\n"
 "            Das OSS-Challenge Team\n"
 "            "
+
+#~ msgid "contact"
+#~ msgstr "Kontakt"
