@@ -151,7 +151,7 @@ class ProfileForm(ModelForm):
         model = Profile
         fields = [
             'links',
-            _('contact'),
+            'contact',
             'picture'
         ]
 

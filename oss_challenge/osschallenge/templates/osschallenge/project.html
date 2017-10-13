@@ -27,12 +27,12 @@
             </p>
             <div class="icons">
                 <p>
-                    <a href="http://{{ project.github }}">
+                    <a href="http://{{ project.github }}" target="blank">
                         <i class="fa fa-github fa-2x" aria-hidden="true"></i>
                     </a>
                 </p>
                 <p>
-                    <a href="http://{{ project.website }}">
+                    <a href="http://{{ project.website }}" target="blank">
                         <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
                     </a>
                 </p>
@@ -47,7 +47,7 @@
     <div class="grid-cell grid-cell--9of12">
         <div class="detail-right">
             <div class="new-task-button">
-                {% if current_user_id == project.owner_id or can_create_new_tasks   %}
+                {% if current_user_id == project.owner_id or can_create_new_tasks %}
                 <a href="new_task/">
                     <button class="btn btn-primary">{% trans "New Task" %}</button>
                 </a>
