@@ -305,7 +305,10 @@ def NewTaskView(request, pk):
 
 def ProfileView(request, username):
     user = User.objects.get(username=username)
-    profile = Profile.objects.get(user_id=user.id)
+    try:
+        profile = Profile.objects.get(user_id=user.id)
+    except Profile.DoesNotExist:
+        return render(request, 'osschallenge/no_profile_available.html')
     finished_tasks = Task.objects.filter(task_done=True)
     finished_task_list = []
     for obj in finished_tasks:
@@ -313,15 +316,14 @@ def ProfileView(request, username):
     template_name = 'osschallenge/profile.html'
 
     if user.is_active == False:
-        return redirect('/profile_does_not_exist/')
-
+        return render(request, 'osschallenge/profile_does_not_exist.html')
 
     return render(request, template_name, {
         'contributor_id': CONTRIBUTOR_ID,
         'mentor_id': MENTOR_ID,
         'finished_task_list': finished_task_list,
         'profile': profile,
-
+        'user': user,
         })
 
 

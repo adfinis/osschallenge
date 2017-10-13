@@ -5,71 +5,69 @@
 
 {% block content %}
 <div class="grid content">
-    {% if user %}
-        <div class="grid-cell grid-cell--4of12">
-            <div class="detail-left">
-                <div class="profile-detail-picture">
-                    {% if profile.picture.avatar.url %}
-                    <img class="profile-detail-picture" src="{{ profile.picture.avatar.url }}" alt="Card image">
-                    {% else %}
-                    <img class="profile-detail-picture" src="{% static "osschallenge/profile-example.png" %}">
-                    {% endif %}
-                </div>
-                <h4 class="card-title">{{ profile.user.username }}</h4>
-                <p>
-                    {% if profile.role_id == contributor_id %}
-                    <strong>{% trans "Rank" %} </strong> {{ profile.get_rank }}<br>
-                    <strong>{% trans "Rank for this quarter" %} </strong> {{ profile.get_rank_for_quarter }}
-                    {% endif %}
-                    {% if request.user.id == profile.user.id or profile.role_id == mentor_id %}<br>
-                    <strong>{% trans "First name" %} </strong> {{ profile.user.first_name }}<br>
-                    <strong>{% trans "Last name" %} </strong> {{ profile.user.last_name }}<br>
-                    <strong>E-Mail </strong> {{ profile.user.email }}<br>
-                    {% endif %}
-                    {% if profile.role_id == mentor_id %}
-                    <strong>{% trans "Role" %} </strong> {% trans profile.role.name %}<br>
-                    {% endif %}
-                    {% if profile.role_id == contributor_id %}
-                    <strong>{% trans "Points reached" %} </strong>{{ profile.total_points }}<br>
-                    {% endif %}
-                    <strong>Links </strong> <a href="http://{{ profile.links }}" class="card-link">{{ profile.links }}</a><br>
-                    {% if request.user.id == profile.user.id %}
-                    <strong>{% trans "Contact" %} </strong> <a href="#" class="card-link">{{profile.contact }}</a><br>
-                    {% endif %}
-                </p>
+    <div class="grid-cell grid-cell--4of12">
+        <div class="detail-left">
+            <div class="profile-detail-picture">
+                {% if profile.picture.avatar.url %}
+                <img class="profile-detail-picture" src="{{ profile.picture.avatar.url }}" alt="Card image">
+                {% else %}
+                <img class="profile-detail-picture" src="{% static "osschallenge/profile-example.png" %}">
+                {% endif %}
+            </div>
+            <h4 class="card-title">{{ profile.user.username }}</h4>
+            <p>
+                {% if profile.role_id == contributor_id %}
+                <strong>{% trans "Rank" %} </strong> {{ profile.get_rank }}<br>
+                <strong>{% trans "Rank for this quarter" %} </strong> {{ profile.get_rank_for_quarter }}
+                {% endif %}
+                {% if request.user.id == profile.user.id or profile.role_id == mentor_id %}<br>
+                <strong>{% trans "First name" %} </strong> {{ profile.user.first_name }}<br>
+                <strong>{% trans "Last name" %} </strong> {{ profile.user.last_name }}<br>
+                <strong>E-Mail </strong> {{ profile.user.email }}<br>
+                {% endif %}
+                {% if profile.role_id == mentor_id %}
+                <strong>{% trans "Role" %} </strong> {% trans profile.role.name %}<br>
+                {% endif %}
+                {% if profile.role_id == contributor_id %}
+                <strong>{% trans "Points reached" %} </strong>{{ profile.total_points }}<br>
+                {% endif %}
+                <strong>Links </strong> <a href="http://{{ profile.links }}" class="card-link">{{ profile.links }}</a><br>
                 {% if request.user.id == profile.user.id %}
+                <strong>{% trans "Contact" %} </strong> <a href="#" class="card-link">{{profile.contact }}</a><br>
+                {% endif %}
+            </p>
+            {% if request.user.id == profile.user.id %}
 
-                <a href="/password_change">
-                    <button class="btn btn-primary btn-profile">{% trans "Reset Password" %}</button>
-                </a>
-                <a href="/profile/edit">
-                    <button class="btn btn-primary btn-profile">{% trans "Edit" %}</button>
-                </a>
-                {% endif %}
-            </div>
+            <a href="/password_change">
+                <button class="btn btn-primary btn-profile">{% trans "Reset Password" %}</button>
+            </a>
+            <a href="/profile/edit">
+                <button class="btn btn-primary btn-profile">{% trans "Edit" %}</button>
+            </a>
+            {% endif %}
         </div>
-        <div class="grid-cell grid-cell--8of12">
-            <div class="detail-right-profile">
-                {% if profile.role_id == contributor_id %} 
-                <div class="taskindex">
-                    {% if finished_task_list %}
-                    <h2>{% trans "Finished tasks" %}</h2>
-                    <div class="grid grid--2of12">
-                        {% for task in finished_task_list %}
-                            {% if task.assignee_id == profile.user_id %}
-                                <div class="grid-cell">
-                                    {% task_card task %}
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    <p>{% trans "No tasks available." %}</p>
-                    {% endif %}
+    </div>
+    <div class="grid-cell grid-cell--8of12">
+        <div class="detail-right-profile">
+            {% if profile.role_id == contributor_id %} 
+            <div class="taskindex">
+                {% if finished_task_list %}
+                <h2>{% trans "Finished tasks" %}</h2>
+                <div class="grid grid--2of12">
+                    {% for task in finished_task_list %}
+                        {% if task.assignee_id == profile.user_id %}
+                            <div class="grid-cell">
+                                {% task_card task %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
+                {% else %}
+                <p>{% trans "No tasks available." %}</p>
                 {% endif %}
             </div>
+            {% endif %}
         </div>
-    {% endif %}
+    </div>
 </div>
 {% endblock content %}
