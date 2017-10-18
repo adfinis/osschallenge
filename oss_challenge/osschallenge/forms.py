@@ -6,6 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext_lazy as _
 from django_markdown.fields import MarkdownFormField
 
+MENTOR_ID = 2
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Username')
@@ -103,7 +104,7 @@ class ProjectForm(ModelForm):
     mentors = forms.ModelMultipleChoiceField(
         label=_('Choose  mentors'),
         required=True,
-        queryset=User.objects.filter(profile__role_id=2),
+        queryset=User.objects.filter(profile__role_id=MENTOR_ID),
     )
 
     class Meta:
