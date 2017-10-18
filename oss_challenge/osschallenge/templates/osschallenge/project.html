@@ -1,41 +1,71 @@
 {% extends 'osschallenge/index.html' %}
 {% load i18n %}
+{% load tasks %}
+{% load static %}
 
 {% block content %}
-<div class="content page-content--scroll">
-    <div class="detail-project">
-        <h1>{{ project.title }}</h1>
+<div class="grid content">
+    <div class="grid-cell grid-cell--3of12">
+        <div class="detail-left">
+            <h1>{{ project.title }}</h1>
+            {% if error_message %}<p><strong>{% trans  error_message %}</strong></p>{% endif %}
 
-        {% if error_message %}<p><strong>{% trans  error_message %}</strong></p>{% endif %}
-
-        <p>{% trans project.lead_text noop %}</p>
-        <p><strong>{% trans "Description: " %}</strong>{% trans project.description noop %}</p>
-        <p><strong>{% trans "Licence:" %}</strong> {{ project.licence }}</p>
-        <p><a href="http://{{ project.github }}">
-            <strong>Git-Hub</strong>
-        </a></p>
-        <p><a href="http://{{ project.website }}">
-            <strong>{% trans "Website" %}</strong>
-        </a></p>
-        <p><strong>{% trans "Owner: " %}</strong>{{ owner }}</p>
-        <p>
-            <strong>{% trans "Mentor: " %}</strong>
+            <p>{{ project.lead_text }}</p>
+            <p><strong>{% trans "Description" %}</strong> {{ project.description }}</p>
+            <p><strong>{% trans "Licence" %}</strong> {{ project.licence }}</p>
+            <p><strong>{% trans "Owner" %}</strong>
+            <a class="link" href="/profile/{{ project.owner.username }}/">
+                {{ owner }}</p>
+            </a>
+            <p>
+            <strong>{% trans "Mentor" %}</strong>
             {% for user in mentors %}
-            {{ user }}
+            <a class="link" href="/profile/{{ user.username }}/">
+                {{ user }}
+            </a>
             {% endfor %}
-        </p>
-        <div class="buttons">
+            </p>
+            <div class="icons">
+                <p>
+                    <a href="http://{{ project.github }}" target="blank">
+                        <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+                    </a>
+                </p>
+                <p>
+                    <a href="http://{{ project.website }}" target="blank">
+                        <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
+                    </a>
+                </p>
+            </div>
             {% if current_user_id == project.owner_id %}
             <a href="edit/">
                 <button class=" btn btn-primary">{% trans "Edit" %}</button>
             </a>
             {% endif %}
-
-            {% if current_user_id == project.owner_id or can_create_new_tasks   %}
-            <a href="new_task/">
-                <button class="btn btn-primary">{% trans "New Task" %}</button>
-            </a>
-            {% endif %}
+        </div>
+    </div>
+    <div class="grid-cell grid-cell--9of12">
+        <div class="detail-right">
+            <div class="new-task-button">
+                {% if current_user_id == project.owner_id or can_create_new_tasks %}
+                <a href="new_task/">
+                    <button class="btn btn-primary">{% trans "New Task" %}</button>
+                </a>
+                {% endif %}
+            </div>
+            <div class="taskindex">
+                {% if task_list %}
+                <div class="grid grid--2of12">
+                    {% for task in task_list %}
+                    <div class="grid-cell">
+                        {% task_card task %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p>{% trans "No tasks available." %}</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

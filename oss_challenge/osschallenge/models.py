@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from easy_thumbnails.fields import ThumbnailerImageField
+from django_markdown.models import MarkdownField
 
 
 class Role(models.Model):
@@ -31,18 +32,20 @@ class Groups(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.ForeignKey(Role, default=1)
-    points = models.IntegerField(default=0)
+    total_points = models.IntegerField(default=0)
+    quarter_points = models.IntegerField(default=0)
     links = models.CharField(max_length=50)
     contact = models.CharField(max_length=50)
     key = models.CharField(max_length=10, unique=True)
     picture = ThumbnailerImageField(upload_to='profile-pictures', null=True)
 
     def get_rank(self):
-        matches = Rank.objects.filter(required_points__lte=self.points).order_by('-required_points')
+        matches = Rank.objects.filter(required_points__lte=self.total_points).order_by('-required_points')
         return matches[0]
 
-    def fileurl(self):
-        return settings.MEDIA_URL + os.path.basename(self.picture['avatar'].name)
+    def get_rank_for_quarter(self):
+        matches = Rank.objects.filter(required_points__lte=self.quarter_points).order_by('-required_points')
+        return matches[0]
 
     def __str__(self):
         return self.user.username
@@ -77,9 +80,7 @@ class Task(models.Model):
     task_done = models.BooleanField(null=False, default=False)
     task_checked = models.BooleanField(null=False, default=False)
     picture = ThumbnailerImageField(upload_to='', null=True)
-
-    def fileurl(self):
-        return settings.MEDIA_URL + os.path.basename(self.picture['avatar'].name)
+    approved_by = models.ForeignKey(User, null=True)
 
     def __str__(self):
         return self.title
@@ -87,7 +88,7 @@ class Task(models.Model):
 
 class Comment(models.Model):
     task = models.ForeignKey(Task)
-    comment = models.TextField(max_length=150)
+    comment = MarkdownField(max_length=150)
     author = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -4,8 +4,9 @@ from .models import Task, Project, Profile, Comment
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext_lazy as _
-from django_markdown.widgets import MarkdownWidget
+from django_markdown.fields import MarkdownFormField
 
+MENTOR_ID = 2
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Username')
@@ -36,15 +37,24 @@ class RegistrationForm(forms.Form):
             User.objects.get(email=email)
         except User.DoesNotExist:
             return email
-        raise forms.ValidationError('Email is already taken.')
+        raise forms.ValidationError(_('Email is already taken.'))
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+
+        try:
+            User.objects.get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError(_('Username is already taken.'))
 
 
 class MentorForm(forms.Form):
-    assign_mentor = forms.CharField(label='New mentor')
+    assign_mentor = forms.CharField(label=_('New mentor'))
 
 
 class CommentForm(ModelForm):
-    comment = forms.CharField(widget = MarkdownWidget(), label='New comment')
+    comment = MarkdownFormField()
 
     class Meta:
         model = Comment
@@ -52,7 +62,7 @@ class CommentForm(ModelForm):
 
 
 class TaskForm(ModelForm):
-    picture = forms.ImageField(label=_('Add picture'), required = False, widget=forms.FileInput)
+    picture = forms.ImageField(label=_('Change picture'), required = False, widget=forms.FileInput)
 
     class Meta:
         model = Task
@@ -67,21 +77,35 @@ class TaskForm(ModelForm):
         ]
         widgets = {
 
-            'lead_text': Textarea(attrs={
-                'cols': 100,
+            'lead_text_de': Textarea(attrs={
+                'cols': 50,
                 'rows': 3,
             }),
 
-            'description': Textarea(attrs={
-                'cols': 100,
-                'rows': 8,
+            'lead_text_en_us': Textarea(attrs={
+                'cols': 50,
+                'rows': 3,
+            }),
+
+            'description_de': Textarea(attrs={
+                'cols': 50,
+                'rows': 5,
+            }),
+
+            'description_en_us': Textarea(attrs={
+                'cols': 50,
+                'rows': 5,
             }),
 
         }
 
 
 class ProjectForm(ModelForm):
-    mentors = forms.ModelMultipleChoiceField(label=_('Choose  mentors'), queryset=User.objects.filter(profile__role_id=2))
+    mentors = forms.ModelMultipleChoiceField(
+        label=_('Choose  mentors'),
+        required=True,
+        queryset=User.objects.filter(profile__role_id=MENTOR_ID),
+    )
 
     class Meta:
         model = Project
@@ -98,15 +122,26 @@ class ProjectForm(ModelForm):
             'mentors'
         ]
         widgets = {
-            'lead_text': Textarea(attrs={
-                'cols': 100,
+            'lead_text_de': Textarea(attrs={
+                'cols': 50,
                 'rows': 3,
             }),
 
-            'description': Textarea(attrs={
-                'cols': 100,
-                'rows': 8,
+            'lead_text_en_us': Textarea(attrs={
+                'cols': 50,
+                'rows': 3,
             }),
+
+            'description_de': Textarea(attrs={
+                'cols': 50,
+                'rows': 5,
+            }),
+
+            'description_en_us': Textarea(attrs={
+                'cols': 50,
+                'rows': 5,
+            }),
+
         }
 
 

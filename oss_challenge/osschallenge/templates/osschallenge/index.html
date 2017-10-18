@@ -5,25 +5,30 @@
     <head>
         <script type="text/javascript" src="{% static "js/jquery-3.2.1.js" %}"></script>
         <script type="text/javascript" src="{% static "js/menu.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/delete_buttons.js" %}"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'osschallenge/adcssy.css'%}"/>
         <link rel="stylesheet" type="text/css" href="{% static 'osschallenge/stylesheet.css'%}"/>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> 
         <link rel="stylesheet" href="{% static 'osschallenge/media.css' %}"/>
         <link rel="stylesheet" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'osschallenge/django_markdown_stylesheet.css' %}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>OSS-Challenge {% block title %}{% endblock title %}</title>
+        {% block meta %}
+        {% endblock meta %}
     </head>
     <body class="page">
         <div>
             <nav class="nav-top">
                 <header class="nav-top-header">
-
                     <a href="/about">
                         <div class="nav-top-header-logo"><img src="{% static "osschallenge/oss-challenge.svg" %}"/></div>
                     </a>
-                    <button class="nav-toggle nav-top-toggle">
-                        <span class="nav-toggle-icon"></span>
-                    </button>
+                    {% if user.is_authenticated %}
+                        <div class="logged-in-user">
+                            <a href="/profile/{{ user.username }}">{% trans "Logged in as" %} {{ user.username }}</a>
+                        </div>
+                    {% endif %}
                 </header>
                 <section class="nav-top-body">
                     <ul class="nav-top-list nav-top-list--right">
@@ -32,7 +37,7 @@
                             <a class="link" href="/projects">{% trans "Projects" %}</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a class="link" href="/tasks">{% trans "Tasks" %}</a>
+                            <a class="link" href="/my_tasks/{{ request.user.username }}">{% trans "Tasks" %}</a>
                         </li>
                         <li class="nav-top-list-item">
                             <a class="link" href="/ranking">{% trans "Ranking" %}</a>
@@ -40,11 +45,6 @@
                         <li class="nav-top-list-item">
                             <a class="link" href="/about">{% trans "About" %}</a>
                         </li>
-                        {% if user.profile.role.id == mentor_id %}
-                        <li class="nav-top-list-item">
-                            <a class="link" href="/task_administration_index">{% trans "Task administration" %}</a>
-                        </li>
-                        {% endif %}
                         <li class="nav-top-list-item">
                             <a class="link" href="/profile/{{ request.user.username }}">{% trans "Profile" %}</a>
                         </li>
@@ -71,19 +71,6 @@
                             <a class="link" href="/register">{% trans "Register" %}</a>
                         </li>
                         {% endif %}
-                        <li class="dropdown">
-                            <a class="link" href="#">{% trans "Language" %}</a>
-                            <ul class="dropdown-content">
-                                {% get_available_languages as LANGUAGES %}
-                                {% get_language_info_list for LANGUAGES as languages %}
-                                {% for language in languages %}
-                                <li><a id="{{ language.code }}" class="link language-selection" href="#">{{ language.name_local }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                        <form id="language-form" action="{% url 'set_language' %}" method="post">{% csrf_token %}
-                            <input id="language-input" name="language" type="hidden" value="" />
-                        </form>
                     </ul>
                 </section>
             </nav>
@@ -91,4 +78,26 @@
             {% endblock content %}
         </div>
     </body>
+    <footer>
+        <div id="languages">
+            <ol class="breadcrumb">
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                <li><a id="{{ language.code }}" class="link language-selection" href="#">{{ language.name_local }}</a></li>
+                {% endfor %}
+            </ol>
+            <form id="language-form" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <input id="language-input" name="language" type="hidden" value="" />
+            </form>
+        </div>
+        <div id="developed">
+            <p>{% trans "Developed by" %}<a target="_blank" href="https://www.adfinis-sygroup.ch/"> Adfinis SyGroup AG</a></p>
+        </div>
+        <div id="github">
+            <p>{% trans "Code on Github" %}</p>
+        </div>
+        <div id="license">
+            <p><a target="_blank" href="https://www.gnu.org/licenses/">{% trans "Code license" %} GPL-3.0</a><p>
+    </footer>
 </html>

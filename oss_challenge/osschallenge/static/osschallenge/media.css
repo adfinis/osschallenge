@@ -1,3 +1,12 @@
+@media (max-width: 476px) {
+
+    /* Taskindex */
+    .grid.grid--2of12.task-grid {
+        display: flex;
+        justify-content: center;
+    }
+}
+
 @media (max-width: 480px) {
 
     /* Edit Project */
@@ -16,17 +25,52 @@
     }
 
     /* Task Index */
-    .task-detail-left {
+    .detail-left {
         flex-direction: column;
-        align-items: center;
+        width: 280px;
     }
 
     .card {
-        height: 465px;
+        height: 485px;
+    }
+
+    .taskindex-top-items {
+        flex-direction: column;
+    }
+
+    /* Markdown Editor */
+    #markItUpMarkdown-comment {
+        width: 275px !important;
+    }
+
+    .markItUpContainer {
+        width: 275px !important;
+    }
+
+    .markItUpHeader {
+        width: 275px !important;
+    }
+
+    #markdown-comment {
+        width: 275px !important;
+    }
+
+    /* Comment Boxes */
+    .comment-title.card-header {
+        width: 275px !important;
+    }
+
+    .card-block-comment {
+        width: 275px !important;
+        text-align: left;
+    }
+
+    .textarea {
+        width: 275px !important;
     }
 }
 
-@media (max-width:  768px) {
+@media (max-width: 768px) {
 
     /* Task Index */
     div.search-function div input.form-control {
@@ -88,39 +132,86 @@
     a.link {
         height: 40px;
     }
+
+    /* Markdown Editor */
+    #markItUpMarkdown-comment {
+        width: 450px;
+    }
+
+    .markItUpContainer {
+        width: 450px;
+    }
+
+    .markItUpHeader {
+        width: 450px;
+    }
+
+    #markdown-comment {
+        width: 450px;
+    }
+
+    /* Comment Boxes */
+    .comment-title.card-header {
+        width: 450px;
+    }
+
+    .card-block-comment {
+        width: 450px;
+        text-align: left;
+    }
+
+    .textarea {
+        width: 450px;
+    }
 }
+
+
+@media (max-width: 980px) {
+
+    ul.index {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 1300px) {
+
+    table td {
+        width: 100px;
+    }
+
+    /* Project View */
+    .new-task-button {
+        justify-content: start;
+    }
+}
+
 
 @media (max-width: 1525px) {
 
     /* Task View */
-    .grid.content {
-        display: flex;
-        justify-content: center;
-    }
-
-    .task-detail-right {
+    .detail-right {
         flex: 0 0 100%;
-        text-align: center;
         margin: 30px 0 0 0;
     }
 
     .card--inverse.card--primary.comment {
         display: flex;
-        align-items: center;
         flex-direction: column;
     }
 
     .comment-title.card-header {
-        width: 90%;
+        width: 615px;
     }
 
     .card-block-comment {
-        width: 90%;
+        width: 615px;
         text-align: left;
     }
 
     .textarea {
-        width: 90%;
+        width: 615px;
     }
 
     /* Task Administration */

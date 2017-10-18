@@ -4,18 +4,23 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="detail">
-    <h1>{{ task.title }} -{% trans "Edit" %}</h1>
-    <form action="" method="post" class="edit" enctype="multipart/form-data"> 
-        {% csrf_token %}
-        {% for field in form %}
-        <div class="form-group-login">
-            {{ field.label_tag }} {{ field | add_class:'form-control' }}
-        </div>
-        {% endfor %}
-        <div class="save-image">
-            <button class="btn btn-primary">{% trans "Save" %}</button>
-        </div>
-    </form>
+<div class="content">
+    <div class="detail">
+        <h1>{{ task.title }} {% trans "Edit" %}</h1>
+        <form action="" method="post" class="edit" enctype="multipart/form-data"> 
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group-login">
+                {{ field.label_tag }} {{ field | add_class:'form-control' }}
+            </div>
+            {% endfor %}
+            {% if is_mentor_of_this_task %}
+            <div class="save-image">
+                <button class="btn btn-primary">{% trans "Save" %}</button>
+                <button class="btn btn-primary delete-button" name="Delete-task">{% trans "Delete this Task" %}</button>
+            </div>
+            {% endif %}
+        </form>
+    </div>
 </div>
 {% endblock content %}

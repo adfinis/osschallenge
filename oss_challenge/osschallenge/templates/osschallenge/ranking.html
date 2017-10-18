@@ -2,19 +2,45 @@
 {% load i18n %}
 
 {% block content %}
-<div class="content-ranking">
-    <div class="listcontent">
-        <ul class="index">
-            {% for user in ranking_list %}
-                {% if user.profile.role_id == contributor_id %}
-                <li>
-                    <h1>{{ user.username }}</h1>
-                    <p><strong>{% trans "Rank: " %}</strong>{{ user.profile.get_rank }}</p>
-                    <p><strong>{% trans "Points reached: " %}</strong>{{ user.profile.points }}</p>
-                </li>
+<div class="content">
+    {% if not ranking_list %}
+        <p>{% trans "No users available" %}</p>
+    {% else %}
+        <table class="table table--striped table--hover table--bordered">
+            <thead>
+                <tr>
+                    <th>{% trans "Username" %}</th>
+                    <th>{% trans "Rank" %}</th>
+                    <th>{% trans "Points" %}</th>
+                    {% if quarter == 1 %}
+                    <th>{% trans "Rank for the first quarter" %}</th>
+                    <th>{% trans "Points for the first quarter" %}</th>
+                    {% elif quarter == 2 %}
+                    <th>{% trans "Rank for the second quarter" %}</th>
+                    <th>{% trans "Points for the second quarter" %}</th>
+                    {% elif quarter == 3 %}
+                    <th>{% trans "Rank for the third quarter" %}</th>
+                    <th>{% trans "Points for the third quarter" %}</th>
+                    {% elif quarter == 4 %}
+                    <th>{% trans "Rank for the fourth quarter" %}</th>
+                    <th>{% trans "Points for the fourth quarter" %}</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in ranking_list %}
+                {% if user.profile.role_id == contributor_id and user.is_active %}
+                <tr>
+                    <td><a href="/profile/{{ user.username }}">{{ user.username }}</td>
+                    <td>{{ user.profile.get_rank }}</td>
+                    <td>{{ user.profile.total_points }}</td>
+                    <td>{{ user.profile.get_rank_for_quarter }}</td>
+                    <td>{{ user.profile.quarter_points }}</td>
+                </tr>
                 {% endif %}
-            {% endfor %}
-        </ul>
-    </div>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 </div>
 {% endblock content %}

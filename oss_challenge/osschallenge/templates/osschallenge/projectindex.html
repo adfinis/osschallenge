@@ -2,21 +2,33 @@
 {% load i18n %}
 
 {% block content %}
+<div class="content">
     {% if project_list %}
         <ul class="index">
         {% for project in project_list %}
+
+        <a href="/projects/{{ project.id }}">
             <li>
-                <a href="/projects/{{ project.id }}">{{ project.title }}</a>
-                <p>{% trans project.lead_text noop %}</p>
+                <p>{{ project.title }}</p>
+                <p>{{ project.lead_text }}</p>
             </li>
+        </a>
         {% endfor %}
+        </ul>
         {% if user.profile.role.id == mentor_id %}
             <a href="new_project/">
                 <button class="btn btn-primary">{% trans "New Project" %}</button>
             </a>
         {% endif %}
-        </ul>
     {% else %}
-    <p>{% trans "No projects available." %}</p>
+    <div class="no-projects">
+        <p >{% trans "No projects available." %}</p>
+    </div>
+    {% if user.profile.role.id == mentor_id %}
+        <a href="new_project/">
+            <button class="btn btn-primary">{% trans "New Project" %}</button>
+        </a>
     {% endif %}
+    {% endif %}
+</div>
 {% endblock content %}

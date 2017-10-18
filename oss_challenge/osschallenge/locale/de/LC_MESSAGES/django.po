@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OSS CHALLENGE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-07 11:50+0200\n"
+"POT-Creation-Date: 2017-10-13 10:59+0200\n"
 "PO-Revision-Date: 2017-03-16 15:42+0100\n"
 "Last-Translator: Jonas Lehmann <jonas.lehmann@adfinis-sygroup.ch>\n"
 "Language-Team: German <jonas.lehmann@adfinis-sygroup.ch>\n"
@@ -17,255 +17,414 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: oss_challenge/osschallenge/forms.py:14
-#: oss_challenge/osschallenge/templates/registration/login.html:10
-#: oss_challenge/osschallenge/templates/registration/login.html:11
+#: osschallenge/forms.py:15 osschallenge/templates/osschallenge/ranking.html:12
+#: osschallenge/templates/registration/login.html:10
+#: osschallenge/templates/registration/login.html:11
 msgid "Username"
 msgstr "Benutzername"
 
-#: oss_challenge/osschallenge/forms.py:15
+#: osschallenge/forms.py:16 osschallenge/templates/osschallenge/profile.html:32
 msgid "First name"
 msgstr "Vorname"
 
-#: oss_challenge/osschallenge/forms.py:16
+#: osschallenge/forms.py:17 osschallenge/templates/osschallenge/profile.html:36
 msgid "Last name"
 msgstr "Nachname"
 
-#: oss_challenge/osschallenge/forms.py:18
-#: oss_challenge/osschallenge/templates/registration/login.html:14
-#: oss_challenge/osschallenge/templates/registration/login.html:15
+#: osschallenge/forms.py:19 osschallenge/templates/registration/login.html:14
+#: osschallenge/templates/registration/login.html:15
 msgid "Password"
 msgstr "Passwort"
 
-#: oss_challenge/osschallenge/forms.py:20
+#: osschallenge/forms.py:21
 msgid "Password (Again)"
 msgstr "Passwort (Erneut)"
 
-#: oss_challenge/osschallenge/models.py:33
-#: oss_challenge/osschallenge/models.py:50
+#: osschallenge/forms.py:39
+msgid "Email is already taken."
+msgstr "Email wird bereits verwendet."
+
+#: osschallenge/forms.py:48
+msgid "Username is already taken."
+msgstr "Benutzername wird bereits verwendet."
+
+#: osschallenge/forms.py:52
+msgid "New mentor"
+msgstr "Neuer Mentor"
+
+#: osschallenge/forms.py:64 osschallenge/forms.py:148
+msgid "Change picture"
+msgstr "Bild ändern"
+
+#: osschallenge/forms.py:104
+msgid "Choose  mentors"
+msgstr "Mentoren wählen"
+
+#: osschallenge/models.py:55 osschallenge/models.py:72
 msgid "Title"
 msgstr "Titel"
 
-#: oss_challenge/osschallenge/models.py:34
-#: oss_challenge/osschallenge/models.py:51
+#: osschallenge/models.py:56 osschallenge/models.py:73
 msgid "Lead text"
 msgstr "Vorspann"
 
-#: oss_challenge/osschallenge/models.py:36
-#: oss_challenge/osschallenge/models.py:53
-#: oss_challenge/osschallenge/templates/osschallenge/project.html:12
-#: oss_challenge/osschallenge/templates/osschallenge/task.html:21
-#: oss_challenge/osschallenge/templates/osschallenge/task_administration.html:22
+#: osschallenge/models.py:58 osschallenge/models.py:75
+#: osschallenge/templates/osschallenge/project.html:14
+#: osschallenge/templates/osschallenge/task.html:39
 msgid "Description"
 msgstr "Beschreibung"
 
-#: oss_challenge/osschallenge/models.py:37
-#: oss_challenge/osschallenge/templates/osschallenge/project.html:13
+#: osschallenge/models.py:59
+#: osschallenge/templates/osschallenge/project.html:15
 msgid "Licence"
 msgstr "Lizenz"
 
-#: oss_challenge/osschallenge/models.py:38
-#: oss_challenge/osschallenge/templates/osschallenge/project.html:18
+#: osschallenge/models.py:60
 msgid "Website"
 msgstr "Webseite"
 
-#: oss_challenge/osschallenge/models.py:41
+#: osschallenge/models.py:63
+#: osschallenge/templates/osschallenge/project.html:16
 msgid "Owner"
 msgstr "Besitzer"
 
-#: oss_challenge/osschallenge/models.py:43
+#: osschallenge/models.py:65
 msgid "Mentors"
 msgstr "Mentoren"
 
-#: oss_challenge/osschallenge/models.py:57
+#: osschallenge/models.py:79
 msgid "Assignee"
 msgstr "Beauftragter"
 
-#: oss_challenge/osschallenge/templates/osschallenge/editprofile.html:22
-#: oss_challenge/osschallenge/templates/osschallenge/editproject.html:17
-#: oss_challenge/osschallenge/templates/osschallenge/edittask.html:16
-msgid "Save"
-msgstr "Speichern"
-
-#: oss_challenge/osschallenge/templates/osschallenge/editproject.html:9
-#: oss_challenge/osschallenge/templates/osschallenge/edittask.html:8
-#: oss_challenge/osschallenge/templates/osschallenge/profile.html:32
-#: oss_challenge/osschallenge/templates/osschallenge/project.html:23
-#: oss_challenge/osschallenge/templates/osschallenge/task.html:28
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: oss_challenge/osschallenge/templates/osschallenge/index.html:41
-#: oss_challenge/osschallenge/templates/osschallenge/index.html:66
-msgid "Projects"
-msgstr "Projekte"
-
-#: oss_challenge/osschallenge/templates/osschallenge/index.html:44
-#: oss_challenge/osschallenge/templates/osschallenge/index.html:69
-msgid "Tasks"
-msgstr "Aufgaben"
-
-#: oss_challenge/osschallenge/templates/osschallenge/index.html:47
-#: oss_challenge/osschallenge/templates/osschallenge/index.html:72
-msgid "Ranking"
-msgstr "Rangliste"
-
-#: oss_challenge/osschallenge/templates/osschallenge/index.html:50
-#: oss_challenge/osschallenge/templates/osschallenge/index.html:75
+#: osschallenge/templates/osschallenge/about.html:7
+#: osschallenge/templates/osschallenge/index.html:44
+#: osschallenge/templates/osschallenge/index.html:63
 msgid "About"
 msgstr "Über"
 
-#: oss_challenge/osschallenge/templates/osschallenge/index.html:55
-msgid "Task administration"
-msgstr "Aufgabenverwaltung"
+#: osschallenge/templates/osschallenge/editprofile.html:23
+#: osschallenge/templates/osschallenge/editproject.html:19
+#: osschallenge/templates/osschallenge/edittask.html:19
+msgid "Save"
+msgstr "Speichern"
 
-#: oss_challenge/osschallenge/templates/osschallenge/index.html:59
+#: osschallenge/templates/osschallenge/editprofile.html:24
+msgid "Delete my Profile"
+msgstr "Profil löschen"
+
+#: osschallenge/templates/osschallenge/editproject.html:9
+#: osschallenge/templates/osschallenge/edittask.html:9
+#: osschallenge/templates/osschallenge/profile.html:74
+#: osschallenge/templates/osschallenge/project.html:42
+#: osschallenge/templates/osschallenge/task.html:61
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: osschallenge/templates/osschallenge/editproject.html:20
+msgid "Delete this Project"
+msgstr "Lösche dieses Projekt"
+
+#: osschallenge/templates/osschallenge/edittask.html:20
+msgid "Delete this Task"
+msgstr "Task löschen"
+
+#: osschallenge/templates/osschallenge/index.html:27
+msgid "Logged in as"
+msgstr "Eingeloggt als"
+
+#: osschallenge/templates/osschallenge/index.html:35
+#: osschallenge/templates/osschallenge/index.html:54
+msgid "Projects"
+msgstr "Projekte"
+
+#: osschallenge/templates/osschallenge/index.html:38
+#: osschallenge/templates/osschallenge/index.html:57
+msgid "Tasks"
+msgstr "Aufgaben"
+
+#: osschallenge/templates/osschallenge/index.html:41
+#: osschallenge/templates/osschallenge/index.html:60
+msgid "Ranking"
+msgstr "Rangliste"
+
+#: osschallenge/templates/osschallenge/index.html:47
 msgid "Profile"
 msgstr "Profil"
 
-#: oss_challenge/osschallenge/templates/osschallenge/index.html:82
-#: oss_challenge/osschallenge/templates/registration/register.html:11
+#: osschallenge/templates/osschallenge/index.html:69
+#: osschallenge/templates/registration/register.html:11
 msgid "Register"
 msgstr "Registrieren"
 
-#: oss_challenge/osschallenge/templates/osschallenge/newproject.html:8
-#: oss_challenge/osschallenge/templates/osschallenge/projectindex.html:15
+#: osschallenge/templates/osschallenge/index.html:93
+msgid "Developed by"
+msgstr "Entwickelt von"
+
+#: osschallenge/templates/osschallenge/index.html:96
+msgid "Code on Github"
+msgstr "Code auf Github"
+
+#: osschallenge/templates/osschallenge/index.html:99
+msgid "Code license"
+msgstr "Code Lizenz"
+
+#: osschallenge/templates/osschallenge/mytasksindex.html:12
+msgid "My Tasks"
+msgstr "Meine Aufgaben"
+
+#: osschallenge/templates/osschallenge/mytasksindex.html:13
+#: osschallenge/templates/osschallenge/task_administration_index.html:13
+msgid "Show all tasks"
+msgstr "Alle Aufgaben anzeigen"
+
+#: osschallenge/templates/osschallenge/mytasksindex.html:15
+#: osschallenge/templates/osschallenge/taskindex.html:17
+msgid "Show tasks to review"
+msgstr "Aufgaben zum Prüfen anzeigen"
+
+#: osschallenge/templates/osschallenge/mytasksindex.html:20
+#: osschallenge/templates/osschallenge/task_administration_index.html:18
+#: osschallenge/templates/osschallenge/taskindex.html:22
+msgid "search all tasks"
+msgstr "suche in allen Aufgaben"
+
+#: osschallenge/templates/osschallenge/mytasksindex.html:21
+#: osschallenge/templates/osschallenge/task_administration_index.html:19
+#: osschallenge/templates/osschallenge/taskindex.html:23
+msgid "Search"
+msgstr "Suchen"
+
+#: osschallenge/templates/osschallenge/mytasksindex.html:42
+#: osschallenge/templates/osschallenge/profile.html:95
+#: osschallenge/templates/osschallenge/project.html:66
+#: osschallenge/templates/osschallenge/task_administration_index.html:42
+#: osschallenge/templates/osschallenge/taskindex.html:46
+msgid "No tasks available."
+msgstr "Keine Aufgaben vorhanden."
+
+#: osschallenge/templates/osschallenge/newproject.html:9
+#: osschallenge/templates/osschallenge/projectindex.html:20
+#: osschallenge/templates/osschallenge/projectindex.html:29
 msgid "New Project"
 msgstr "Neues Projekt"
 
-#: oss_challenge/osschallenge/templates/osschallenge/newproject.html:16
+#: osschallenge/templates/osschallenge/newproject.html:17
 msgid "Add Project"
 msgstr "Projekt hinzufügen"
 
-#: oss_challenge/osschallenge/templates/osschallenge/newtask.html:8
-#: oss_challenge/osschallenge/templates/osschallenge/project.html:26
+#: osschallenge/templates/osschallenge/newtask.html:9
+#: osschallenge/templates/osschallenge/project.html:52
 msgid "New Task"
 msgstr "Neue Aufgabe"
 
-#: oss_challenge/osschallenge/templates/osschallenge/newtask.html:16
+#: osschallenge/templates/osschallenge/newtask.html:19
 msgid "Add Task"
 msgstr "Aufgabe hinzufügen"
 
-#: oss_challenge/osschallenge/templates/osschallenge/profile.html:8
-msgid "First name:"
-msgstr "Vorname:"
+#: osschallenge/templates/osschallenge/no_profile_available.html:7
+msgid "No profile available"
+msgstr "Kein Profil vorhanden."
 
-#: oss_challenge/osschallenge/templates/osschallenge/profile.html:9
-msgid "Last name:"
-msgstr "Nachname:"
+#: osschallenge/templates/osschallenge/profile.html:22
+#: osschallenge/templates/osschallenge/ranking.html:13
+msgid "Rank"
+msgstr "Rang"
 
-#: oss_challenge/osschallenge/templates/osschallenge/profile.html:11
-msgid "Role:"
-msgstr "Rolle:"
+#: osschallenge/templates/osschallenge/profile.html:26
+msgid "Rank for this quarter"
+msgstr "Rang für dieses Quartal"
 
-#: oss_challenge/osschallenge/templates/osschallenge/profile.html:14
-#: oss_challenge/osschallenge/templates/osschallenge/ranking.html:12
-msgid "Points reached:"
-msgstr "Erreichte Punkte:"
+#: osschallenge/templates/osschallenge/profile.html:46
+msgid "Role"
+msgstr "Rolle"
 
-#: oss_challenge/osschallenge/templates/osschallenge/profile.html:17
-#: oss_challenge/osschallenge/templates/osschallenge/task.html:22
-msgid "Contact:"
-msgstr "Kontakt:"
+#: osschallenge/templates/osschallenge/profile.html:52
+msgid "Points reached"
+msgstr "Erreichte Punkte"
 
-#: oss_challenge/osschallenge/templates/osschallenge/profile.html:19
-msgid "Tasks done:"
-msgstr "Erledigte Aufgaben:"
+#: osschallenge/templates/osschallenge/profile.html:62
+msgid "Contact"
+msgstr "Kontakt"
 
-#: oss_challenge/osschallenge/templates/osschallenge/profile.html:29
+#: osschallenge/templates/osschallenge/profile.html:71
 msgid "Reset Password"
 msgstr "Passwort zurücksetzen"
 
-#: oss_challenge/osschallenge/templates/osschallenge/projectindex.html:20
+#: osschallenge/templates/osschallenge/profile.html:84
+msgid "Finished tasks"
+msgstr "Erledigte Aufgaben"
+
+#: osschallenge/templates/osschallenge/profile_does_not_exist.html:7
+msgid "This profile does not exist anymore"
+msgstr "Dieses Profil existiert nicht mehr"
+
+#: osschallenge/templates/osschallenge/profile_does_not_exist.html:8
+msgid "Go to all tasks"
+msgstr "Gehe zu allen Tasks"
+
+#: osschallenge/templates/osschallenge/project.html:21
+msgid "Mentor"
+msgstr "Mentor"
+
+#: osschallenge/templates/osschallenge/projectindex.html:25
 msgid "No projects available."
 msgstr "Keine Projekte vorhanden."
 
-#: oss_challenge/osschallenge/templates/osschallenge/registration_done.html:6
+#: osschallenge/templates/osschallenge/ranking.html:7
+msgid "No users available"
+msgstr "Keine Benutzer vorhanden."
+
+#: osschallenge/templates/osschallenge/ranking.html:14
+msgid "Points"
+msgstr "Punkte"
+
+#: osschallenge/templates/osschallenge/ranking.html:16
+msgid "Rank for the first quarter"
+msgstr "Rang für das erste Quartal"
+
+#: osschallenge/templates/osschallenge/ranking.html:17
+msgid "Points for the first quarter"
+msgstr "Punkte für das erste Quartal"
+
+#: osschallenge/templates/osschallenge/ranking.html:19
+msgid "Rank for the second quarter"
+msgstr "Rang für das zweite Quartal"
+
+#: osschallenge/templates/osschallenge/ranking.html:20
+msgid "Points for the second quarter"
+msgstr "Punkte für das zweite Quartal"
+
+#: osschallenge/templates/osschallenge/ranking.html:22
+msgid "Rank for the third quarter"
+msgstr "Rang für das dritte Quartal"
+
+#: osschallenge/templates/osschallenge/ranking.html:23
+msgid "Points for the third quarter"
+msgstr "Punkte für das dritte Quartal"
+
+#: osschallenge/templates/osschallenge/ranking.html:25
+msgid "Rank for the fourth quarter"
+msgstr "Rang für das vierte Quartal"
+
+#: osschallenge/templates/osschallenge/ranking.html:26
+msgid "Points for the fourth quarter"
+msgstr "Punkte für das vierte Quartal"
+
+#: osschallenge/templates/osschallenge/registration_done.html:7
 msgid "The registration was successful. You may go ahead and login now."
 msgstr "Die Registration war erfolgreich. Du kannst dich nun einloggen."
 
-#: oss_challenge/osschallenge/templates/osschallenge/registration_failed.html:6
+#: osschallenge/templates/osschallenge/registration_failed.html:6
 msgid "The registration has failed. Please try again."
 msgstr "Die Registration ist fehlgeschlagen. Bitte versuche es erneut."
 
-#: oss_challenge/osschallenge/templates/osschallenge/registration_send_mail.html:6
+#: osschallenge/templates/osschallenge/registration_send_mail.html:7
 msgid ""
 "We've emailed you a link for activating your account. You should receive it "
 "shortly."
 msgstr ""
-"Wir haben dir einen Link für die Aktivierung deines Accounts geschickt.Du "
+"Wir haben dir einen Link für die Aktivierung deines Accounts geschickt. Du "
 "solltest ihn in Kürze erhalten."
 
-#: oss_challenge/osschallenge/templates/osschallenge/task.html:11
-#: oss_challenge/osschallenge/templates/osschallenge/task_administration.html:11
-#: oss_challenge/osschallenge/templates/osschallenge/task_administration_index.html:11
-#: oss_challenge/osschallenge/templates/osschallenge/taskindex.html:12
+#: osschallenge/templates/osschallenge/task.html:21
+#: osschallenge/templates/tasks.html:17
 msgid "done"
 msgstr "erledigt"
 
-#: oss_challenge/osschallenge/templates/osschallenge/task.html:11
-#: oss_challenge/osschallenge/templates/osschallenge/task.html:13
-#: oss_challenge/osschallenge/templates/osschallenge/task_administration.html:11
-#: oss_challenge/osschallenge/templates/osschallenge/task_administration_index.html:11
-#: oss_challenge/osschallenge/templates/osschallenge/taskindex.html:12
+#: osschallenge/templates/osschallenge/task.html:23
 msgid "by"
 msgstr "von"
 
-#: oss_challenge/osschallenge/templates/osschallenge/task.html:13
-#: oss_challenge/osschallenge/templates/osschallenge/taskindex.html:14
-msgid "claimed"
-msgstr "beansprucht"
+#: osschallenge/templates/osschallenge/task.html:27
+msgid "claimed by"
+msgstr "beansprucht von"
 
-#: oss_challenge/osschallenge/templates/osschallenge/task.html:32
+#: osschallenge/templates/osschallenge/task.html:31
+msgid "supervised by"
+msgstr "beaufsichtigt von"
+
+#: osschallenge/templates/osschallenge/task.html:35
+msgid "approved by"
+msgstr "bestätigt von"
+
+#: osschallenge/templates/osschallenge/task.html:44
 msgid "Claim"
 msgstr "Beanspruchen"
 
-#: oss_challenge/osschallenge/templates/osschallenge/task.html:37
+#: osschallenge/templates/osschallenge/task.html:49
 msgid "Release"
 msgstr "Freigeben"
 
-#: oss_challenge/osschallenge/templates/osschallenge/task.html:43
+#: osschallenge/templates/osschallenge/task.html:55
 msgid "Task done"
 msgstr "Aufgabe erledigt"
 
-#: oss_challenge/osschallenge/templates/osschallenge/task_administration.html:13
-#: oss_challenge/osschallenge/templates/osschallenge/task_administration_index.html:13
-msgid "checked"
-msgstr "geprüft"
+#: osschallenge/templates/osschallenge/task.html:66
+msgid "Approve"
+msgstr "Bestätigen"
 
-#: oss_challenge/osschallenge/templates/osschallenge/task_administration.html:26
-msgid "Checked"
-msgstr "Geprüft"
-
-#: oss_challenge/osschallenge/templates/osschallenge/task_administration.html:32
+#: osschallenge/templates/osschallenge/task.html:72
 msgid "Reopen"
 msgstr "Wiedereröffnen"
 
-#: oss_challenge/osschallenge/templates/osschallenge/taskindex.html:22
-msgid "No tasks available."
-msgstr "Keine Aufgaben vorhanden."
+#: osschallenge/templates/osschallenge/task.html:90
+msgid "This user is mentor"
+msgstr "Dieser Benutzer ist Mentor"
 
-#: oss_challenge/osschallenge/templates/osschallenge/user_is_already_active.html:6
+#: osschallenge/templates/osschallenge/task.html:106
+msgid "Delete this comment"
+msgstr "Kommentar löschen"
+
+#: osschallenge/templates/osschallenge/task.html:116
+msgid "Add a comment"
+msgstr "Füge einen Kommentar hinzu"
+
+#: osschallenge/templates/osschallenge/task.html:118
+msgid "Enter text here..."
+msgstr "Einen Text eingeben..."
+
+#: osschallenge/templates/osschallenge/task.html:122
+msgid "Comment"
+msgstr "Kommentar"
+
+#: osschallenge/templates/osschallenge/task_administration_index.html:12
+msgid "Tasks to review"
+msgstr "Aufgaben zum Prüfen"
+
+#: osschallenge/templates/osschallenge/task_administration_index.html:14
+#: osschallenge/templates/osschallenge/taskindex.html:14
+msgid "Show my tasks"
+msgstr "Meine Aufgaben anzeigen"
+
+#: osschallenge/templates/osschallenge/taskindex.html:12
+msgid "All Tasks"
+msgstr "Alle Aufgaben"
+
+#: osschallenge/templates/osschallenge/user_is_already_active.html:7
 msgid "This user is already active."
 msgstr "Dieser Benutzer ist bereits aktiv."
 
-#: oss_challenge/osschallenge/templates/registration/logged_out.html:7
+#: osschallenge/templates/registration/logged_out.html:7
 msgid "Logged Out"
 msgstr "Ausgeloggt"
 
-#: oss_challenge/osschallenge/templates/registration/login.html:28
+#: osschallenge/templates/registration/login.html:28
 msgid "Forgot password?"
 msgstr "Passwort vergessen?"
 
-#: oss_challenge/osschallenge/templates/registration/password_change_done.html:6
-msgid "Your password has been changed. <a href=\"/profile\">Back</a>"
-msgstr "Dein Password wurde geändert. <a href=\"/profile\">Zurück</a>"
+#: osschallenge/templates/registration/password_change_done.html:7
+msgid "Your password has been changed. "
+msgstr "Dein Password wurde geändert. "
 
-#: oss_challenge/osschallenge/templates/registration/password_change_form.html:11
+#: osschallenge/templates/registration/password_change_done.html:7
+msgid "Back"
+msgstr "Zurück"
+
+#: osschallenge/templates/registration/password_change_form.html:11
 msgid "Change"
 msgstr "Wechseln"
 
-#: oss_challenge/osschallenge/templates/registration/password_reset_complete.html:6
+#: osschallenge/templates/registration/password_reset_complete.html:6
 msgid ""
 "Your password has been set. You may go ahead and <a href=\"/login\">login</"
 "a> now."
@@ -273,19 +432,19 @@ msgstr ""
 "Dein Password wurde gesetzt. Du kannst dich nun unter <a href=\"/login"
 "\">login</a> einloggen."
 
-#: oss_challenge/osschallenge/templates/registration/password_reset_confirm.html:12
+#: osschallenge/templates/registration/password_reset_confirm.html:12
 msgid "New password:"
 msgstr "Neues Passwort:"
 
-#: oss_challenge/osschallenge/templates/registration/password_reset_confirm.html:19
+#: osschallenge/templates/registration/password_reset_confirm.html:19
 msgid "New password confirmation:"
 msgstr "Neues Passwort bestätigen:"
 
-#: oss_challenge/osschallenge/templates/registration/password_reset_confirm.html:25
+#: osschallenge/templates/registration/password_reset_confirm.html:25
 msgid "Change password"
 msgstr "Password ändern"
 
-#: oss_challenge/osschallenge/templates/registration/password_reset_confirm.html:29
+#: osschallenge/templates/registration/password_reset_confirm.html:29
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
@@ -293,20 +452,20 @@ msgstr ""
 "Der Link für die Rücksetzung des Passworts war ungültig. Wahrscheinlich "
 "wurde er bereits benützt.Bitte führe die Passwortrücksetzung erneut durch."
 
-#: oss_challenge/osschallenge/templates/registration/password_reset_done.html:6
+#: osschallenge/templates/registration/password_reset_done.html:7
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly. If you "
 "don't receive an email, please make sure you've entered the address you "
 "registered with, and check your spam folder."
 msgstr ""
-"Wir haben dir die Anleitung für die Rücksetzung deines Passworts geschickt."
+"Wir haben dir die Anleitung für die Rücksetzung deines Passworts geschickt. "
 "Falls ein Account mit der angegebenen E-Mail Adresse existiert, solltest du "
-"das Mail in Kürze erhalten.Wenn du kein E-Mail erhälst, vergewissere dich "
+"das Mail in Kürze erhalten. Wenn du kein E-Mail erhälst, vergewissere dich "
 "bitte, dass du die richtige E-Mail Adresse eingegeben hast und prüfe deinen "
 "Spam Ordner."
 
-#: oss_challenge/osschallenge/templates/registration/password_reset_email.html:4
+#: osschallenge/templates/registration/password_reset_email.html:4
 #, python-format
 msgid ""
 "To initiate the password reset process for your %(user.email)s OSS-Challenge "
@@ -315,7 +474,7 @@ msgstr ""
 "Für den Passwort-Rücksetzungs-Prozess für deinen %(user.email)s OSS-"
 "ChallengeAccount zu starten, klicke auf den untenstehenden Link:"
 
-#: oss_challenge/osschallenge/templates/registration/password_reset_email.html:8
+#: osschallenge/templates/registration/password_reset_email.html:8
 msgid ""
 "If clicking the link above doesn't work, please copy and paste the URL in a "
 "new browser window instead.\n"
@@ -329,23 +488,39 @@ msgstr ""
 "Freundliche Grüsse,\n"
 "Das Oss-Challenge Team"
 
-#: oss_challenge/osschallenge/templates/registration/password_reset_form.html:15
+#: osschallenge/templates/registration/password_reset_form.html:15
 msgid "Send new password"
 msgstr "Neues Password senden"
 
-#: oss_challenge/osschallenge/templates/registration/password_reset_form.html:18
+#: osschallenge/templates/registration/password_reset_form.html:18
 msgid "Back to login"
 msgstr "Zurück zum Login"
 
-#: oss_challenge/osschallenge/templates/registration/password_reset_subject.txt:3
+#: osschallenge/templates/registration/password_reset_subject.txt:3
 msgid "OSS-Challenge password reset"
 msgstr "OSS-Challenge Passwortrücksetzung"
 
-#: oss_challenge/osschallenge/views.py:295
+#: osschallenge/templates/tasks.html:12
+msgid "approved"
+msgstr "bestätigt"
+
+#: osschallenge/templates/tasks.html:22
+msgid "claimed"
+msgstr "beansprucht"
+
+#: osschallenge/templates/tasks.html:27
+msgid "available"
+msgstr "verfügbar"
+
+#: osschallenge/views.py:214
+msgid "Your comment has been posted"
+msgstr "Dein Kommentar wurde hinzugefügt"
+
+#: osschallenge/views.py:457
 msgid "OSS-Challenge account confirmation"
 msgstr "OSS-Challenge Account Bestätigung"
 
-#: oss_challenge/osschallenge/views.py:296
+#: osschallenge/views.py:458
 msgid ""
 "\n"
 "            Hello,\n"
@@ -367,3 +542,6 @@ msgstr ""
 "            Freundliche Grüsse,\n"
 "            Das OSS-Challenge Team\n"
 "            "
+
+#~ msgid "contact"
+#~ msgstr "Kontakt"
