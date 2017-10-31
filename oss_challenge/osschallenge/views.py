@@ -15,6 +15,7 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Q
 from django.utils import timezone
+from django.db.models import OuterRef, Subquery, Count, Case, When, F, Value, IntegerField
 
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
@@ -409,7 +410,18 @@ def TaskAdministrationIndexView(request):
 
 
 def RankingView(request):
-    ranking_list = User.objects.order_by('-profile__total_points')
+    # for every finished task add 5 points
+    contributors = User.objects.filter(profile__role_id=CONTRIBUTOR_ID)
+    contributors_with_points = contributors.annotate(task_count=Count
+        (
+            Case(
+                When(
+                    assignee_tasks__task_checked=True,
+                    then=1
+                )
+            )
+        ) * 5)
+    ranking_list = contributors_with_points.order_by('-task_count')
     quarters = range(1, 12, 3)
     month = int(time.strftime("%m"))
     quarter = bisect.bisect(quarters, month)
