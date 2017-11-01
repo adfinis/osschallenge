@@ -416,27 +416,20 @@ def RankingView(request):
     quarter = bisect.bisect(quarters, month)
     quarter_month = get_quarter_months(str(quarter))
     today = datetime.today()
-    if quarter == 1:
-        quarter_start = [today.year, 1, 1]
-        quarter_end = [today.year, 3, 31]
-    elif quarter == 2:
-        quarter_start = [today.year, 4, 1]
-        quarter_end = [today.year, 6, 30]
-    elif quarter == 3:
-        quarter_start = [today.year, 7, 1]
-        quarter_end = [today.year, 9, 30]
-    elif quarter == 4:
-        quarter_start = [today.year, 10, 1]
-        quarter_end = [today.year, 12, 31]
-    # for every finished task add 5 points
+    quarter_start = [today.year, quarters[quarter - 1], 1]
+    if quarter == 4:
+        next_quarter = [today.year + 1, 1, 1]
+    else:
+        next_quarter = [today.year, quarters[quarter], 1]
     contributors = User.objects.filter(profile__role_id=CONTRIBUTOR_ID)
+    # for every finished task add 5 points
     contributors_with_points = contributors.annotate(task_count=Count
         (Case(When(assignee_tasks__task_checked=True
                       , then=1)
             )
         ) * 5, quarter_count=Count
         (Case(When(Q(assignee_tasks__task_checked=True) &
-                   Q(assignee_tasks__approval_date__lte=datetime(quarter_end[0], quarter_end[1], quarter_end[2])) &
+                   Q(assignee_tasks__approval_date__lt=datetime(next_quarter[0], next_quarter[1], next_quarter[2])) &
                    Q(assignee_tasks__approval_date__gte=datetime(quarter_start[0], quarter_start[1], quarter_start[2]))
                    , then=1)
             )
