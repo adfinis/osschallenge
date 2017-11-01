@@ -16,6 +16,7 @@ from django.utils.translation import gettext_lazy as _
 from django.db.models import Q
 from django.utils import timezone
 from django.db.models import OuterRef, Subquery, Count, Case, When, F, Value, IntegerField
+from datetime import datetime
 
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
@@ -410,28 +411,54 @@ def TaskAdministrationIndexView(request):
 
 
 def RankingView(request):
-    # for every finished task add 5 points
-    contributors = User.objects.filter(profile__role_id=CONTRIBUTOR_ID)
-    contributors_with_points = contributors.annotate(task_count=Count
-        (
-            Case(
-                When(
-                    assignee_tasks__task_checked=True,
-                    then=1
-                )
-            )
-        ) * 5)
-    ranking_list = contributors_with_points.order_by('-task_count')
     quarters = range(1, 12, 3)
     month = int(time.strftime("%m"))
     quarter = bisect.bisect(quarters, month)
+    quarter_month = get_quarter_months(str(quarter))
+    today = datetime.today()
+    if quarter == 1:
+        quarter_start = [today.year, 1, 1]
+        quarter_end = [today.year, 3, 31]
+    elif quarter == 2:
+        quarter_start = [today.year, 4, 1]
+        quarter_end = [today.year, 6, 30]
+    elif quarter == 3:
+        quarter_start = [today.year, 7, 1]
+        quarter_end = [today.year, 9, 30]
+    elif quarter == 4:
+        quarter_start = [today.year, 10, 1]
+        quarter_end = [today.year, 12, 31]
+    # for every finished task add 5 points
+    contributors = User.objects.filter(profile__role_id=CONTRIBUTOR_ID)
+    contributors_with_points = contributors.annotate(task_count=Count
+        (Case(When(assignee_tasks__task_checked=True
+                      , then=1)
+            )
+        ) * 5, quarter_count=Count
+        (Case(When(Q(assignee_tasks__task_checked=True) &
+                   Q(assignee_tasks__approval_date__lte=datetime(quarter_end[0], quarter_end[1], quarter_end[2])) &
+                   Q(assignee_tasks__approval_date__gte=datetime(quarter_start[0], quarter_start[1], quarter_start[2]))
+                   , then=1)
+            )
+        ) * 5)
+    ranking_list = contributors_with_points.order_by('-task_count')
+
     template_name = 'osschallenge/ranking.html'
     return render(request, template_name, {
         'contributor_id': CONTRIBUTOR_ID,
         'ranking_list': ranking_list,
         'mentor_id': MENTOR_ID,
         'quarter': quarter,
+        'quarter_month': quarter_month,
     })
+
+def get_quarter_months(current_quarter):
+    return {
+        '1': _("(January - March)"),
+        '2': _("(April - June)"),
+        '3': _("(July - September)"),
+        '4': _("(October - December)"),
+    }[current_quarter]
 
 
 def AboutView(request):
