@@ -32,20 +32,10 @@ class Groups(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.ForeignKey(Role, default=1)
-    total_points = models.IntegerField(default=0)
-    quarter_points = models.IntegerField(default=0)
     links = models.CharField(max_length=50)
     contact = models.CharField(max_length=50)
     key = models.CharField(max_length=10, unique=True)
     picture = ThumbnailerImageField(upload_to='profile-pictures', null=True)
-
-    def get_rank(self):
-        matches = Rank.objects.filter(required_points__lte=self.total_points).order_by('-required_points')
-        return matches[0]
-
-    def get_rank_for_quarter(self):
-        matches = Rank.objects.filter(required_points__lte=self.quarter_points).order_by('-required_points')
-        return matches[0]
 
     def __str__(self):
         return self.user.username
@@ -81,6 +71,7 @@ class Task(models.Model):
     task_checked = models.BooleanField(null=False, default=False)
     picture = ThumbnailerImageField(upload_to='', null=True)
     approved_by = models.ForeignKey(User, null=True)
+    approval_date = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.title

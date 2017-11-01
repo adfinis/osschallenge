@@ -20,11 +20,11 @@
                     {% if profile.role_id == contributor_id %}
                     <tr>
                         <th>{% trans "Rank" %}</th>
-                        <td>{{ profile.get_rank }}</td>
+                        <td>{{ rank }}</td>
                     </tr>
                     <tr>
                         <th>{% trans "Rank for this quarter" %}</th>
-                        <td>{{ profile.get_rank_for_quarter }}</td>
+                        <td>{{ rank }}</td>
                     </tr>
                     {% endif %}
                     {% if request.user.id == profile.user.id or profile.role_id == mentor_id %}
@@ -50,7 +50,7 @@
                     {% if profile.role_id == contributor_id %}
                     <tr>
                         <th>{% trans "Points reached" %}</th>
-                        <td>{{ profile.total_points }}</td>
+                        <td>{{ total_points }}</td>
                     </tr>
                     {% endif %}
                     <tr>

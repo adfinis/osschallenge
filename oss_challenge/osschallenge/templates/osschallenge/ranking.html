@@ -1,5 +1,6 @@
 {% extends 'osschallenge/index.html' %}
 {% load i18n %}
+{% load ranks %}
 
 {% block content %}
 <div class="content">
@@ -11,31 +12,26 @@
                 <tr>
                     <th>{% trans "Username" %}</th>
                     <th>{% trans "Rank" %}</th>
-                    <th>{% trans "Points" %}</th>
+                    <th>{% trans "Total points" %}</th>
                     {% if quarter == 1 %}
-                    <th>{% trans "Rank for the first quarter" %}</th>
-                    <th>{% trans "Points for the first quarter" %}</th>
+                    <th>{% trans "Points for the current quarter" %}<br>{{ quarter_month }}</th>
                     {% elif quarter == 2 %}
-                    <th>{% trans "Rank for the second quarter" %}</th>
-                    <th>{% trans "Points for the second quarter" %}</th>
+                    <th>{% trans "Points for the current quarter" %}<br>{{ quarter_month }}</th>
                     {% elif quarter == 3 %}
-                    <th>{% trans "Rank for the third quarter" %}</th>
-                    <th>{% trans "Points for the third quarter" %}</th>
+                    <th>{% trans "Points for the current quarter" %}<br>{{ quarter_month }}</th>
                     {% elif quarter == 4 %}
-                    <th>{% trans "Rank for the fourth quarter" %}</th>
-                    <th>{% trans "Points for the fourth quarter" %}</th>
+                    <th>{% trans "Points for the current quarter" %}<br>{{ quarter_month }}</th>
                     {% endif %}
                 </tr>
             </thead>
             <tbody>
                 {% for user in ranking_list %}
-                {% if user.profile.role_id == contributor_id and user.is_active %}
+                {% if user.is_active %}
                 <tr>
                     <td><a href="/profile/{{ user.username }}">{{ user.username }}</td>
-                    <td>{{ user.profile.get_rank }}</td>
-                    <td>{{ user.profile.total_points }}</td>
-                    <td>{{ user.profile.get_rank_for_quarter }}</td>
-                    <td>{{ user.profile.quarter_points }}</td>
+                    <td>{{ user.task_count|get_rank }}</td>
+                    <td>{{ user.task_count }}</td>
+                    <td>{{ user.quarter_count }}</td>
                 </tr>
                 {% endif %}
                 {% endfor %}

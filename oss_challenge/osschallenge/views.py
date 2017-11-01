@@ -5,7 +5,7 @@ import bisect
 from django.views import generic
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView
-from .models import Task, Project, Profile, Comment
+from .models import Task, Project, Profile, Comment, Rank
 from django.contrib.auth.models import User
 from .forms import TaskForm, ProjectForm, ProfileForm, UserForm, CommentForm
 from django.views.generic import FormView
@@ -14,6 +14,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Q
+from django.utils import timezone
+from django.db.models import OuterRef, Subquery, Count, Case, When, F, Value, IntegerField
+from datetime import datetime
 
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
@@ -228,18 +231,14 @@ def TaskView(request, pk):
             profile = Profile.objects.get(user_id=task.assignee_id)
             task.task_checked = True
             task.approved_by = user
-            profile.total_points += 5
-            profile.quarter_points += 5
+            task.approval_date = timezone.localtime(timezone.now())
             task.save()
             profile.save()
 
         elif 'Reopen' in request.POST:
             profile = Profile.objects.get(user_id=task.assignee_id)
             task.task_checked = False
-            profile.total_points -= 5
-            profile.quarter_points -= 5
-            if profile.quarter_points < 0:
-                profile.quarter_points = 0
+            task.approval_date = None
             task.save()
             profile.save()
 
@@ -305,6 +304,10 @@ def NewTaskView(request, pk):
 
 def ProfileView(request, username):
     user = User.objects.get(username=username)
+    approved_tasks = Task.objects.filter(Q(task_checked=True) & Q(assignee_id=user.id)).count()
+    total_points = approved_tasks * 5
+    matches = Rank.objects.filter(required_points__lte=total_points).order_by('-required_points')
+    rank = matches[0]
     try:
         profile = Profile.objects.get(user_id=user.id)
     except Profile.DoesNotExist:
@@ -324,6 +327,8 @@ def ProfileView(request, username):
         'finished_task_list': finished_task_list,
         'profile': profile,
         'user': user,
+        'total_points':total_points,
+        'rank':rank,
         })
 
 
@@ -340,7 +345,6 @@ def EditProfileView(request):
 
     if 'delete-profile' in request.POST:
         user.is_active = False
-        user.profile.total_points = 0
         user.profile.links = ""
         user.profile.contact = ""
         user.profile.picture = "static/osschallenge/example.jpg"
@@ -407,17 +411,47 @@ def TaskAdministrationIndexView(request):
 
 
 def RankingView(request):
-    ranking_list = User.objects.order_by('-profile__total_points')
     quarters = range(1, 12, 3)
     month = int(time.strftime("%m"))
     quarter = bisect.bisect(quarters, month)
+    quarter_month = get_quarter_months(str(quarter))
+    today = datetime.today()
+    quarter_start = [today.year, quarters[quarter - 1], 1]
+    if quarter == 4:
+        next_quarter = [today.year + 1, 1, 1]
+    else:
+        next_quarter = [today.year, quarters[quarter], 1]
+    contributors = User.objects.filter(profile__role_id=CONTRIBUTOR_ID)
+    # for every finished task add 5 points
+    contributors_with_points = contributors.annotate(task_count=Count
+        (Case(When(assignee_tasks__task_checked=True
+                      , then=1)
+            )
+        ) * 5, quarter_count=Count
+        (Case(When(Q(assignee_tasks__task_checked=True) &
+                   Q(assignee_tasks__approval_date__lt=datetime(next_quarter[0], next_quarter[1], next_quarter[2])) &
+                   Q(assignee_tasks__approval_date__gte=datetime(quarter_start[0], quarter_start[1], quarter_start[2]))
+                   , then=1)
+            )
+        ) * 5)
+    ranking_list = contributors_with_points.order_by('-task_count')
+
     template_name = 'osschallenge/ranking.html'
     return render(request, template_name, {
         'contributor_id': CONTRIBUTOR_ID,
         'ranking_list': ranking_list,
         'mentor_id': MENTOR_ID,
         'quarter': quarter,
+        'quarter_month': quarter_month,
     })
+
+def get_quarter_months(current_quarter):
+    return {
+        '1': _("(January - March)"),
+        '2': _("(April - June)"),
+        '3': _("(July - September)"),
+        '4': _("(October - December)"),
+    }[current_quarter]
 
 
 def AboutView(request):
