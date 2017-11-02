@@ -220,10 +220,10 @@ section.nav-top-body {
 }
 
 .nav-top-header-logo {
-    display: flex;
+    /*display: flex;*/
     height: auto;
     width: 150px;
-    background: url(oss-challenge.svg);
+    /*background: url(oss-challenge.svg);*/
 }
 
 .nav-top-header-logo.img {

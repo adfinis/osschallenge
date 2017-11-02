@@ -3578,7 +3578,6 @@ Modifiers:
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  min-height: 100vh;
 }
 
 .page-main {
@@ -4640,7 +4639,6 @@ Modifiers:
 .nav-top-header-logo {
   width: 40px;
   height: 40px;
-  background: url(../pictures/logo/sy.png);
   background-size: 40px 40px;
   border-radius: 4px;
   margin-right: 0.5rem;
