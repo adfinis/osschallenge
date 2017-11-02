@@ -1,21 +1,21 @@
 [
     {
         "fields": {
-            "role": "Contributor"
+            "name": "Contributor"
         },
         "model": "osschallenge.role",
         "pk": 1
     },
     {
         "fields": {
-            "role": "Mentor"
+            "name": "Mentor"
         },
         "model": "osschallenge.role",
         "pk": 2
     },
     {
         "fields": {
-            "role": "Admin"
+            "name": "Admin"
         },
         "model": "osschallenge.role",
         "pk": 3
