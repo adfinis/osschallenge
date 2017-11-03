@@ -100,14 +100,13 @@
 
     /* Responsive Menu */
     section.nav-top-body {
-        display: none;
         overflow: visible;
         width: 100%;
     }
 
     li.nav-top-list-item a {
         height: 40px;
-        background-color: white;
+        background-color: #f6f6f6;
     }
 
     li.dropdown {

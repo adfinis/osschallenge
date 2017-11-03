@@ -238,6 +238,25 @@ section.nav-top-body {
     height: 80px;
 }
 
+@media (max-width: 767px) {
+    nav.nav-top {
+        display: flex;
+        align-items: center;
+        height: 115px;
+        float: left;
+        align-self: top;
+        margin-bottom: 10px;
+    }
+
+    .nav-top-list.nav-top-list--right{
+        height: 0;
+    }
+
+    .nav-top-list-item {
+        height: 35px;
+    }
+}
+
 a.link {
     height: 80px;
 }
