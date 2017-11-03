@@ -4,6 +4,11 @@ html, body {
     font-family: Open Sans, sans-serif;
 }
 
+/*Wrapper*/
+#wrap {
+    flex: 1 0 auto;
+}
+
 /* Base Template */
 div.main {
     position: relative;
@@ -28,7 +33,7 @@ div.content {
     display: flex;
     max-width: 1416px;
     margin: 0 auto 40px auto;
-    padding: 10px 12px 80px 12px;
+    padding: 10px 12px 0 12px;
 }
 
 /* Index Lists */
@@ -210,7 +215,6 @@ nav.nav-top {
     display: flex;
     align-items: center;
     height: 80px;
-    float: left;
     align-self: top;
     margin-bottom: 10px;
 }
@@ -243,7 +247,6 @@ section.nav-top-body {
         display: flex;
         align-items: center;
         height: 115px;
-        float: left;
         align-self: top;
         margin-bottom: 10px;
     }
@@ -629,71 +632,36 @@ th {
     font-weight: bold !important;
 }
 
-footer {
+.footer {
     display: flex;
     flex-direction: row;
-    color: white;
-    height: 80px;
-    position: fixed;
-    bottom: 0;
+    color: black;
     width: 100%;
-    background-color: #5B8EDB;
+    align-items: center;
+    border-top: 1px solid black;
+    justify-content: space-between;
 }
 
-#languages {
-    text-align: right;
-    width: 25%;
-    height: 80px;
+.footer p {
+    margin: 0 17px 0 0;
+    font-size: 12px;
 }
 
-#languages ol {
+.footer a {
+    color: #3D79D4;
+}
+
+.footer-content ol {
     margin: 25px;
-    font-size: 16px;
+    font-size: 12px;
     border: none;
 }
 
-#languages ol li a {
-    color: white;
+.footer-content ol li a {
+    color: black;
 }
 
-#developed {
-    text-align: center;
-    width: 25%;
-    height: 80px;
-}
-
-#developed p {
-    margin: 25px;
-    font-size: 16px;
-}
-
-#developed p a {
-    color: white;
-}
-
-#github {
-    text-align: center;
-    width: 25%;
-    height: 80px;
-}
-
-#github p {
-    margin: 25px;
-    font-size: 16px;
-}
-
-#license {
-    width: 25%;
-    height: 80px;
-}
-
-#license p {
-    margin: 25px;
-    font-size: 16px;
-}
-
-#license p a {
-    color: white;
+@media (max-width: 767px) {
 }
 
 .hidden-span{
