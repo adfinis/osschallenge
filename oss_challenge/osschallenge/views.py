@@ -15,7 +15,7 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Q
 from django.utils import timezone
-from django.db.models import OuterRef, Subquery, Count, Case, When, F, Value, IntegerField
+from django.db.models import Count, Case, When
 from datetime import datetime
 
 CONTRIBUTOR_ID = 1
@@ -43,7 +43,6 @@ class NewProjectView(CreateView):
 
 
 def ProjectIndexView(request):
-    task_list = list(Task.objects.all())
     project_list = list(Project.objects.all())
     template_name = 'osschallenge/projectindex.html'
     return render(request, template_name, {
@@ -84,7 +83,6 @@ def ProjectView(request, pk):
 
 def EditProjectView(request, pk):
     project = Project.objects.get(pk=pk)
-    user = request.user
 
     if 'delete-project' in request.POST:
         project.delete()
@@ -195,7 +193,9 @@ def TaskView(request, pk):
         render_params['mentor_id'] = MENTOR_ID
         render_params['contributor_id'] = CONTRIBUTOR_ID
         render_params['mentors'] = project.mentors.all()
-        render_params['is_mentor_of_this_task'] = project.mentors.filter(id=user.id)
+        render_params['is_mentor_of_this_task'] = project.mentors.filter(
+            id=user.id
+        )
 
         if 'Claim' in request.POST:
             task.assignee_id = user.id
@@ -243,7 +243,7 @@ def TaskView(request, pk):
             profile.save()
 
     render_params['comment_list'] = sorted(Comment.objects.all(),
-                               key=lambda c: c.created_at)
+                                           key=lambda c: c.created_at)
     render_params['task'] = task
     return render(request, template_name, render_params)
 
@@ -304,9 +304,14 @@ def NewTaskView(request, pk):
 
 def ProfileView(request, username):
     user = User.objects.get(username=username)
-    approved_tasks = Task.objects.filter(Q(task_checked=True) & Q(assignee_id=user.id)).count()
+    approved_tasks = Task.objects.filter(
+        Q(task_checked=True) &
+        Q(assignee_id=user.id)
+    ).count()
     total_points = approved_tasks * 5
-    matches = Rank.objects.filter(required_points__lte=total_points).order_by('-required_points')
+    matches = Rank.objects.filter(
+        required_points__lte=total_points
+    ).order_by('-required_points')
     rank = matches[0]
     try:
         profile = Profile.objects.get(user_id=user.id)
@@ -318,7 +323,7 @@ def ProfileView(request, username):
         finished_task_list.append(obj)
     template_name = 'osschallenge/profile.html'
 
-    if user.is_active == False:
+    if user.is_active is False:
         return render(request, 'osschallenge/profile_does_not_exist.html')
 
     return render(request, template_name, {
@@ -327,14 +332,13 @@ def ProfileView(request, username):
         'finished_task_list': finished_task_list,
         'profile': profile,
         'user': user,
-        'total_points':total_points,
-        'rank':rank,
-        })
+        'total_points': total_points,
+        'rank': rank,
+    })
 
 
 def ProfileDoesNotExistView(request):
     template_name = 'osschallenge/profile_does_not_exist.html'
-
     return render(request, template_name, {
     })
 
@@ -353,7 +357,9 @@ def EditProfileView(request):
         return redirect('/login/')
 
     if request.method == 'POST':
-        form_profile = ProfileForm(request.POST, request.FILES, instance=profile)
+        form_profile = ProfileForm(
+            request.POST, request.FILES, instance=profile
+        )
         form_user = UserForm(request.POST, instance=user)
 
         if form_profile.is_valid() and form_user.is_valid():
@@ -423,17 +429,24 @@ def RankingView(request):
         next_quarter = [today.year, quarters[quarter], 1]
     contributors = User.objects.filter(profile__role_id=CONTRIBUTOR_ID)
     # for every finished task add 5 points
-    contributors_with_points = contributors.annotate(task_count=Count
-        (Case(When(assignee_tasks__task_checked=True
-                      , then=1)
+    contributors_with_points = contributors.annotate(
+        task_count=Count(
+            Case(
+                When(
+                    assignee_tasks__task_checked=True
+                    , then=1)
             )
         ) * 5, quarter_count=Count
         (Case(When(Q(assignee_tasks__task_checked=True) &
-                   Q(assignee_tasks__approval_date__lt=datetime(next_quarter[0], next_quarter[1], next_quarter[2])) &
-                   Q(assignee_tasks__approval_date__gte=datetime(quarter_start[0], quarter_start[1], quarter_start[2]))
+                   Q(assignee_tasks__approval_date__lt=datetime(
+                       next_quarter[0], next_quarter[1], next_quarter[2])
+                     ) &
+                   Q(assignee_tasks__approval_date__gte=datetime(
+                       quarter_start[0], quarter_start[1], quarter_start[2])
+                     )
                    , then=1)
-            )
-        ) * 5)
+              )
+         ) * 5)
     ranking_list = contributors_with_points.order_by('-task_count')
 
     template_name = 'osschallenge/ranking.html'
