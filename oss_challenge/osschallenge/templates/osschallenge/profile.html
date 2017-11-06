@@ -3,6 +3,13 @@
 {% load static %}
 {% load tasks %}
 
+{% block meta %}
+<meta property="og:title" content="OSS-Challenge" />
+<meta property="og:type" content="profile:username" />
+<meta property="og:image" content="{% if profile.picture.avatar.url %} {{ profile.picture.avatar.url }} {% else %} {% static "osschallenge/profile-example.png" %} {% endif %}" />
+<meta property="og:url" content="6ca015aa.ngrok.io/profile/{{ user.username }}/" />
+{% endblock meta %}
+
 {% block content %}
 <div class="grid content">
     <div class="grid-cell grid-cell--4of12">
