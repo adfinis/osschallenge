@@ -661,7 +661,42 @@ th {
     color: black;
 }
 
-@media (max-width: 767px) {
+.footer2 {
+    display: none;
+    flex-direction: row;
+    color: black;
+    width: 100%;
+    border-top: 1px solid black;
+    justify-content: space-between;
+}
+
+@media (max-width: 599px) {
+    .footer {
+        display: none;
+    }
+
+    .footer2 {
+        display: flex;
+    }
+
+    .footer2 p {
+        margin: 5px 17px 1px 0;
+        font-size: 12px;
+    }
+
+    .footer2 a {
+        color: #3D79D4;
+    }
+
+    .footer-content {
+        margin: 25px;
+        font-size: 12px;
+        border: none;
+    }
+
+    .footer-content a {
+        color: black;
+    }
 }
 
 .hidden-span{
