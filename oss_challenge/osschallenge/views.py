@@ -55,15 +55,13 @@ def ProjectView(request, pk):
     project = Project.objects.get(pk=pk)
     task_objects = Task.objects.filter(project_id=project.id)
     task_list = []
-    max_length_description = 110
+    max_length_description = 130
     max_length_title = 60
     for obj in task_objects:
         task_list.append(obj)
     for task in task_objects:
-        if len(task.description) > max_length_description:
-            task.description = task.description[:max_length_description] + " ..."
-        if len(task.title) > max_length_title:
-            task.title = task.title[:max_length_title] + " ..."
+        task.description = shorten(task.description, max_length_description)
+        task.title = shorten(task.title, max_length_title)
     mentors = project.mentors.all()
     owner = project.owner
     current_user_id = request.user.id
@@ -109,28 +107,27 @@ def EditProjectView(request, pk):
 
 
 def MyTaskIndexView(request, username):
-    user = User.objects.get(username=username)
+    max_length_description = 130
+    max_length_title = 60
+    template_name = 'osschallenge/mytasksindex.html'
     current_user_id = request.user.id
-    user_task_objects = Task.objects.filter( assignee_id=current_user_id)
+    user_task_objects = Task.objects.filter(assignee_id=current_user_id)
     user_task_list = []
     for obj in user_task_objects:
         user_task_list.append(obj)
-    template_name = 'osschallenge/mytasksindex.html'
-    max_length_description = 130
-    max_length_title = 60
     for task in user_task_objects:
-        if len(task.description) > max_length_description:
-            task.description = task.description[:max_length_description] + " ..."
-        if len(task.title) > max_length_title:
-            task.title = task.title[:max_length_title] + " ..."
+        task.description = shorten(task.description, max_length_description)
+        task.title = shorten(task.title, max_length_title)
     if request.GET:
-        match_list = Task.objects.filter(Q(title__icontains=request.GET['search']) | Q(project__title__icontains=request.GET['search'])).distinct()
+        match_list = Task.objects.filter(
+            Q(title__icontains=request.GET['search']) |
+            Q(project__title__icontains=request.GET['search'])).distinct()
         if match_list:
             for match in match_list:
-                if len(match.description) > max_length_description:
-                    match.description = match.description[:max_length_description] + " ..."
-                if len(match.title) > max_length_title:
-                    match.title = match.title[:max_length_title] + " ..."
+                match.description = shorten(
+                    match.description, max_length_description
+                )
+                match.title = shorten(match.title, max_length_title)
             return render(request, template_name, {
                 'match_list': match_list,
                 'user_task_list': user_task_list
@@ -146,6 +143,12 @@ def MyTaskIndexView(request, username):
     })
 
 
+def shorten(string, max_length):
+    if len(string) > max_length:
+        return string[:max_length] + " ..."
+    return string
+
+
 def TaskIndexView(request):
     task_list = list(Task.objects.all())
     template_name = 'osschallenge/taskindex.html'
@@ -153,18 +156,18 @@ def TaskIndexView(request):
     max_length_title = 60
     no_tasks = "There are no tasks"
     for task in task_list:
-        if len(task.description) > max_length_description:
-            task.description = task.description[:max_length_description] + " ..."
-        if len(task.title) > max_length_title:
-            task.title = task.title[:max_length_title] + " ..."
+        task.description = shorten(task.description, max_length_description)
+        task.title = shorten(task.title, max_length_title)
     if request.GET:
-        match_list = Task.objects.filter(Q(title__icontains=request.GET['search']) | Q(project__title__icontains=request.GET['search'])).distinct()
+        match_list = Task.objects.filter(
+            Q(title__icontains=request.GET['search']) |
+            Q(project__title__icontains=request.GET['search'])).distinct()
         if match_list:
             for match in match_list:
-                if len(match.description) > max_length_description:
-                    match.description = match.description[:max_length_description] + " ..."
-                if len(match.title) > max_length_title:
-                    match.title = match.title[:max_length_title] + " ..."
+                match.description = shorten(
+                    match.description, max_length_description
+                )
+                match.title = shorten(match.title, max_length_title)
             return render(request, template_name, {
                 'match_list': match_list,
                 'task_list': task_list
@@ -304,6 +307,9 @@ def NewTaskView(request, pk):
 
 def ProfileView(request, username):
     user = User.objects.get(username=username)
+    max_length_description = 130
+    max_length_title = 60
+    template_name = 'osschallenge/profile.html'
     approved_tasks = Task.objects.filter(
         Q(task_checked=True) &
         Q(assignee_id=user.id)
@@ -312,7 +318,7 @@ def ProfileView(request, username):
     matches = Rank.objects.filter(
         required_points__lte=total_points
     ).order_by('-required_points')
-    rank = matches[0]
+    rank = matches.first()
     try:
         profile = Profile.objects.get(user_id=user.id)
     except Profile.DoesNotExist:
@@ -321,7 +327,9 @@ def ProfileView(request, username):
     finished_task_list = []
     for obj in finished_tasks:
         finished_task_list.append(obj)
-    template_name = 'osschallenge/profile.html'
+    for task in finished_task_list:
+        task.description = shorten(task.description, max_length_description)
+        task.title = shorten(task.title, max_length_title)
 
     if user.is_active is False:
         return render(request, 'osschallenge/profile_does_not_exist.html')
@@ -344,8 +352,8 @@ def ProfileDoesNotExistView(request):
 
 
 def EditProfileView(request):
-    profile = Profile.objects.get(user_id=request.user.id)
-    user = User.objects.get(pk=request.user.id)
+    user = request.user
+    profile = Profile.objects.get(user_id=user.id)
 
     if 'delete-profile' in request.POST:
         user.is_active = False
@@ -385,34 +393,43 @@ def EditProfileView(request):
 
 def TaskAdministrationIndexView(request):
     user = request.user
+    template_name = 'osschallenge/task_administration_index.html'
+    max_length_description = 130
+    max_length_title = 60
     finished_tasks = Task.objects.filter(task_done=True)
     finished_task_list = []
     for obj in finished_tasks:
         finished_task_list.append(obj)
-    template_name = 'osschallenge/task_administration_index.html'
-
+    for task in finished_task_list:
+        task.description = shorten(task.description, max_length_description)
+        task.title = shorten(task.title, max_length_title)
     if request.GET:
-        match_list = Task.objects.filter(Q(title__icontains=request.GET['search']) | Q(project__title__icontains=request.GET['search'])).distinct()
+        match_list = Task.objects.filter(
+            Q(title__icontains=request.GET['search']) |
+            Q(project__title__icontains=request.GET['search'])
+        ).distinct()
         if match_list:
             for match in match_list:
-                if len(match.description) > max_length_description:
-                    match.description = match.description[:max_length_description] + " ..."
-                if len(match.title) > max_length_title:
-                    match.title = match.title[:max_length_title] + " ..."
+                match.description = shorten(
+                    match.description, max_length_description
+                )
+                match.title = shorten(match.title, max_length_title)
             return render(request, template_name, {
                 'match_list': match_list,
                 'finished_task_list': finished_task_list
             })
         else:
             return render(request, template_name, {
-                'no_tasks': no_tasks,
                 'finished_task_list': finished_task_list,
                 'match_list': match_list,
             })
     return render(request, template_name, {
         'finished_task_list': finished_task_list,
         'mentor_id': MENTOR_ID,
-        'task_list': Task.objects.filter(Q(project__mentors__id=user.id) & Q(task_done=True))
+        'task_list': Task.objects.filter(
+            Q(project__mentors__id=user.id) &
+            Q(task_done=True)
+        )
     })
 
 
@@ -436,17 +453,20 @@ def RankingView(request):
                     assignee_tasks__task_checked=True
                     , then=1)
             )
-        ) * 5, quarter_count=Count
-        (Case(When(Q(assignee_tasks__task_checked=True) &
-                   Q(assignee_tasks__approval_date__lt=datetime(
-                       next_quarter[0], next_quarter[1], next_quarter[2])
-                     ) &
-                   Q(assignee_tasks__approval_date__gte=datetime(
-                       quarter_start[0], quarter_start[1], quarter_start[2])
-                     )
-                   , then=1)
-              )
-         ) * 5)
+        ) * 5, quarter_count=Count(
+            Case
+            (
+                When(
+                    Q(assignee_tasks__task_checked=True) &
+                    Q(assignee_tasks__approval_date__lt=datetime(
+                        next_quarter[0], next_quarter[1], next_quarter[2])
+                      ) &
+                    Q(assignee_tasks__approval_date__gte=datetime(
+                        quarter_start[0], quarter_start[1], quarter_start[2])
+                      )
+                    , then=1)
+            )
+        ) * 5)
     ranking_list = contributors_with_points.order_by('-task_count')
 
     template_name = 'osschallenge/ranking.html'
@@ -458,13 +478,16 @@ def RankingView(request):
         'quarter_month': quarter_month,
     })
 
-def get_quarter_months(current_quarter):
+
+def get_quarter_months(string_of_current_quarter):
+    if string_of_current_quarter > "4" or string_of_current_quarter < "1":
+        return "-"
     return {
         '1': _("(January - March)"),
         '2': _("(April - June)"),
         '3': _("(July - September)"),
         '4': _("(October - December)"),
-    }[current_quarter]
+    }[string_of_current_quarter]
 
 
 def AboutView(request):
@@ -521,16 +544,16 @@ class RegistrationDoneView(generic.TemplateView):
     template_name = 'osschallenge/registration_done.html'
 
     def get_context_data(request, key):
-            matches = Profile.objects.filter(key=key)
-            if matches.exists():
-                profile = matches.first()
-                if profile.user.is_active:
-                    request.template_name = 'osschallenge/user_is_already_active.html'
-                else:
-                    profile.user.is_active = True
-                    profile.user.save()
+        matches = Profile.objects.filter(key=key)
+        if matches.exists():
+            profile = matches.first()
+            if profile.user.is_active:
+                request.template_name = 'osschallenge/user_is_already_active.html'
             else:
-                request.template_name = 'osschallenge/registration_failed.html'
+                profile.user.is_active = True
+                profile.user.save()
+        else:
+            request.template_name = 'osschallenge/registration_failed.html'
 
 
 class RegistrationSendMailView(generic.TemplateView):
