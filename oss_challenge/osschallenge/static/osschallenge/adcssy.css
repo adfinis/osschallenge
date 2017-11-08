@@ -2509,7 +2509,7 @@ html {
 @media screen and (max-width: 420px) {
 
   html {
-    font-size: 13px;
+    font-size: 11px;
   }
 }
 
@@ -4814,7 +4814,7 @@ Modifiers:
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     background-color: #f6f6f6;
   }
 
@@ -5649,6 +5649,12 @@ fieldset[disabled] .form-control {
   .form-inline .btn {
     display: inline-block;
   }
+}
+
+@media (max-width: 310px) {
+    .form-group input {
+        width: 80%;
+    }
 }
 /*doc
 ---

@@ -290,6 +290,12 @@ div.form-group-login {
   margin-bottom: 1rem;
 }
 
+@media (max-width: 310px) {
+    div.form-group-login input{
+        width: 80%;
+    }
+}
+
 form.form-group-login {
   width: 300px;
   margin-bottom: 1rem;
@@ -479,6 +485,12 @@ label[for="id_picture"] {
 .page-content {
     display: flex;
     align-items: center;
+}
+
+@media (max-width: 310px) {
+    .page-content form {
+        margin-left: 17%;
+    }
 }
 
 /* Dropdown Menu */
@@ -681,7 +693,7 @@ th {
 
     .footer2 p {
         margin: 5px 17px 1px 0;
-        font-size: 12px;
+        font-size: 11px;
     }
 
     .footer2 a {
@@ -690,7 +702,7 @@ th {
 
     .footer-content {
         margin: 25px;
-        font-size: 12px;
+        font-size: 11px;
         border: none;
     }
 
@@ -760,6 +772,12 @@ table.table.table--striped.table--hover.table--bordered thead tr th {
 
 table.table.table--striped.table--hover.table--bordered tbody tr td a{
     color: black;
+}
+
+@media (max-width: 380px) {
+    table.table.table--striped.table--hover.table--bordered thead tr th {
+        font-size: 11px;
+    }
 }
 
 .btn-add-task {
