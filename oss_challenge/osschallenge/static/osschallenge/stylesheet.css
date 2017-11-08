@@ -219,10 +219,6 @@ nav.nav-top {
     margin-bottom: 10px;
 }
 
-section.nav-top-body {
-    max-height: 80px;
-}
-
 .nav-top-header-logo {
     /*display: flex;*/
     height: auto;
@@ -240,24 +236,6 @@ section.nav-top-body {
 
 .nav-top-list-item {
     height: 80px;
-}
-
-@media (max-width: 767px) {
-    nav.nav-top {
-        display: flex;
-        align-items: center;
-        height: 115px;
-        align-self: top;
-        margin-bottom: 10px;
-    }
-
-    .nav-top-list.nav-top-list--right{
-        height: 0;
-    }
-
-    .nav-top-list-item {
-        height: 35px;
-    }
 }
 
 a.link {
@@ -649,7 +627,7 @@ th {
     flex-direction: row;
     color: black;
     width: 100%;
-    align-items: center;
+    align-items: baseline;
     border-top: 1px solid black;
     justify-content: space-between;
 }

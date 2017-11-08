@@ -25,6 +25,9 @@
                     <a href="/about">
                         <div class="nav-top-header-logo"><img src="{% static "osschallenge/oss-challenge.svg" %}"/></div>
                     </a>
+                    <button class="nav-toggle nav-top-toggle">
+                        <span class="nav-toggle-icon"></span>
+                    </button>
                     {% if user.is_authenticated %}
                         <div class="logged-in-user">
                             <a href="/profile/{{ user.username }}">{% trans "Logged in as" %} {{ user.username }}</a>
