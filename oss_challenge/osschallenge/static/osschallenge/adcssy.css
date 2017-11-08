@@ -4754,7 +4754,7 @@ Modifiers:
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
-    max-height: 50px;
+    max-height: 80px;
     -webkit-transition: none;
     transition: none;
   }
