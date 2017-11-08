@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
-from .models import Project, User, Task, Profile, Role
+from .models import Project, User, Task, Profile, Role, Comment
 
 
 class ViewTestCase(TestCase):
@@ -49,8 +49,8 @@ class ViewTestCase(TestCase):
             is_active=False,
             date_joined="2017-10-13 08:17:36.901715+00"
         )
-
-        self.client.login(
+        import ipdb; ipdb.set_trace()
+        login_successful = self.client.login(
             username=self.user1.username,
             password=self.user1.password
         )
@@ -115,6 +115,13 @@ class ViewTestCase(TestCase):
             picture="Test.png"
         )
 
+        self.comment = Comment.objects.create(
+            task=self.task,
+            comment="Test",
+            author=self.user1,
+            created_at="2017-10-18 12:34:51.168157+00"
+        )
+
     def test_IndexView(self):
         url = reverse('index')
         response = self.client.get(url)
@@ -162,6 +169,63 @@ class ViewTestCase(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'osschallenge/task.html')
+
+        # if Claim in request.POST
+        post_url = reverse('alltask', args=[self.project.pk])
+        post_response = self.client.post(post_url, kwargs={'Claim': ['']})
+        self.assertEqual(post_response.status_code, 200)
+
+        # if Release in request.POST
+        post_url = reverse('alltask', args=[self.project.pk])
+        post_response = self.client.post(post_url, kwargs={'Release': ['']})
+        self.assertEqual(post_response.status_code, 200)
+        self.task.assignee = None
+        self.assertEqual(self.task.assignee_id, None)
+        self.task.task_done = False
+        self.assertEqual(self.task.task_done, False)
+
+        # if Task done in request.POST
+        post_url = reverse('alltask', args=[self.project.pk])
+        post_response = self.client.post(post_url, kwargs={'Task done': ['']})
+        self.assertEqual(post_response.status_code, 200)
+        self.task.task_done = True
+        self.assertEqual(self.task.task_done, True)
+        self.task.assignee_id = self.user1.id
+        self.assertEqual(self.task.assignee_id, self.user1.id)
+
+        # if Comment in request.POST
+        post_url = reverse('alltask', args=[self.project.pk])
+        post_response = self.client.post(post_url, kwargs={'Comment': ['']})
+        self.assertEqual(post_response.status_code, 200)
+        self.assertEqual(self.comment.author, self.user1)
+        self.assertEqual(self.comment.task, self.task)
+
+        # if Delete-comment in request.POST
+        post_url = reverse('alltask', args=[self.project.pk])
+        post_response = self.client.post(
+            post_url,
+            kwargs={'Delete-comment': ['']}
+        )
+        self.assertEqual(post_response.status_code, 200)
+        self.assertEqual(self.comment.author_id, self.user1.id)
+
+        # if Approve in request.POST
+        post_url = reverse('alltask', args=[self.project.pk])
+        post_response = self.client.post(post_url, kwargs={'Approve': ['']})
+        self.assertEqual(post_response.status_code, 200)
+        self.task.task_checked = True
+        self.assertEqual(self.task.task_checked, True)
+        self.task.approved_by = self.user1
+        self.assertEqual(self.task.approved_by, self.user1)
+
+        # if Reopen in request.POST
+        post_url = reverse('alltask', args=[self.project.pk])
+        post_response = self.client.post(post_url, kwargs={'Reopen': ['']})
+        self.assertEqual(post_response.status_code, 200)
+        self.task.task_checked = False
+        self.assertEqual(self.task.task_checked, False)
+        self.task.approval_date = None
+        self.assertEqual(self.task.approval_date, None)
 
     def test_EditTaskView(self):
         url = reverse('edittask', args=[self.task.pk])

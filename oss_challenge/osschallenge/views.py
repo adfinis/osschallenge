@@ -189,6 +189,7 @@ def TaskView(request, pk):
     template_name = 'osschallenge/task.html'
     notification = ""
     render_params = {}
+    # import ipdb; ipdb.set_trace()
     if request.user.id:
         user = request.user
         project = Project.objects.get(pk=task.project_id)
