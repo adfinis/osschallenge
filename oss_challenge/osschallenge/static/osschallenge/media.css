@@ -269,3 +269,9 @@
         color: black;
     }
 }
+
+@media (max-width: 380px) {
+    table.table.table--striped.table--hover.table--bordered thead tr th {
+        font-size: 11px;
+    }
+}

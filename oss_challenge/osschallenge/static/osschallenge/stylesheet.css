@@ -238,6 +238,7 @@ nav.nav-top {
 
 a.link {
     height: 80px;
+    padding-top: 32px;
 }
 
 div.my-tasks a.link {
@@ -684,6 +685,7 @@ th {
     margin: 20px;
     color: #5B8EDB;
     font-size: 0.85rem;
+    margin-top: 32px;
 }
 
 .text-right {
