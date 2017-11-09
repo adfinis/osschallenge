@@ -4743,6 +4743,7 @@ Modifiers:
     -webkit-box-pack: left;
         -ms-flex-pack: left;
             justify-content: left;
+    height: 80px;
   }
 
   .nav-top-body {
