@@ -162,6 +162,7 @@ div.detail form input {
 
 .btn.btn-primary.delete-button {
     background-color: red;
+    border-color: red;
 }
 
 .btn.btn-primary.add-project {
