@@ -227,6 +227,23 @@
         border: 1px solid rgb(225, 225, 225);
         border-top: 0;
     }
+
+    a.link {
+        padding-top: 0;
+    }
+
+    .profile-detail-picture {
+        height: 200px;
+        width: 200px;
+    }
+
+    table td {
+        font-size: 11px;
+    }
+
+    .profil-infos th {
+        font-size: 11px;
+    }
 }
 
 @media (max-width: 310px) {
