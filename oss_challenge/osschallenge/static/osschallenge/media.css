@@ -102,6 +102,7 @@
     section.nav-top-body {
         overflow: visible;
         width: 100%;
+        display: none;
     }
 
     li.nav-top-list-item a {
@@ -219,4 +220,52 @@
        display: flex;
        flex-direction: column;
    }
+}
+
+@media (max-width: 767px) {
+    .nav-top-list-item {
+        border: 1px solid rgb(225, 225, 225);
+        border-top: 0;
+    }
+}
+
+@media (max-width: 310px) {
+    div.form-group-login input{
+        width: 80%;
+    }
+}
+
+@media (max-width: 310px) {
+    .page-content form {
+        margin-left: 17%;
+    }
+}
+
+@media (max-width: 599px) {
+    .footer {
+        display: none;
+    }
+
+    .footer2 {
+        display: flex;
+    }
+
+    .footer2 p {
+        margin: 5px 17px 1px 0;
+        font-size: 11px;
+    }
+
+    .footer2 a {
+        color: #3D79D4;
+    }
+
+    .footer-content {
+        margin: 25px;
+        font-size: 11px;
+        border: none;
+    }
+
+    .footer-content a {
+        color: black;
+    }
 }
