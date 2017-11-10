@@ -240,11 +240,11 @@ nav.nav-top {
 
 a.link {
     height: 80px;
-    padding-top: 32px;
 }
 
 div.my-tasks a.link {
     height: 30px;
+    padding-top: 0;
 }
 
 .set_language {

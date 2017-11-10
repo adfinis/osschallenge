@@ -4777,6 +4777,7 @@ Modifiers:
     -ms-flex-item-align: center;
         align-self: center;
     padding: 1rem 0.5rem;
+    padding-top: 32px;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
   }
