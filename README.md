@@ -14,7 +14,7 @@ you should be able to run the following commands:
 $ git clone git@git.adfinis-sygroup.ch:ch-open/oss-challenge.src.git        # Clones the Git Repo into your present folder
 $ cd oss-challenge.src                                                      # Moves into the folder
 ```
-#####Optional
+###### Optional
 Setup an Pyenv/Virtualenv:
 ```bash
 $ pyenv virtualenv 3.6.2 oss-challenge
