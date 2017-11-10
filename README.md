@@ -43,3 +43,6 @@ Now you should be able to run:
 $ python manage.py runserver        # Starts the localhost
 ```
 and go to http://127.0.0.1:8000/ to get to the Website.
+
+## License
+Code released under the [GNU Affero General Public License v3.0](LICENSE).
