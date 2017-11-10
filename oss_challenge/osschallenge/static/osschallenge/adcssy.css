@@ -4747,8 +4747,8 @@ Modifiers:
   }
 
   .nav-top-body {
-    display: -webkit-box;
-    display: -ms-flexbox;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
     display: flex !important;/* If the burgermenu is minimized, an display:none; is applied inline html. Make the screen bigger and flex !important will fix it, so that the menu is still available. */
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
@@ -4781,61 +4781,6 @@ Modifiers:
     border-bottom-left-radius: 3px;
   }
 }
-
-/*@media only screen and (max-width:767px) {
-  .nav-top {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    padding: 0 1.5em;
-  }
-
-  .nav-top-toggle {
-    display: none;
-  }
-
-  .nav-top-header {
-    -webkit-box-pack: left;
-        -ms-flex-pack: left;
-            justify-content: left;
-  }
-
-  .nav-top-body {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
-    max-height: 50px;
-    -webkit-transition: none;
-    transition: none;
-    justify-content: space-evenly;
-  }
-/*
-  .nav-top-list {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    font-size: 0.75rem;
-    background-color: #f6f6f6;
-  }
-
-  .nav-top-list--right {
-    border-top: 0;
-  }
-
-  .nav-top-list a {
-    display: block;
-    -ms-flex-item-align: center;
-        align-self: center;
-    padding: 0.5rem 0.5rem;
-    border-radius: 3px;
-  }
-}
-*/
 /*doc
 ---
 title: Table
