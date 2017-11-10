@@ -14,7 +14,7 @@ you should be able to run the following commands:
 $ git clone git@git.adfinis-sygroup.ch:ch-open/oss-challenge.src.git        # Clones the Git Repo into your present folder
 $ cd oss-challenge.src                                                      # Moves into the folder
 ```
-**Optional:**
+#####Optional
 Setup an Pyenv/Virtualenv:
 ```bash
 $ pyenv virtualenv 3.6.2 oss-challenge
@@ -33,7 +33,8 @@ $ python manage.py migrate                                      # Applies migrat
 $ python manage.py loaddata osschallenge/fixture/role.json      # Loads role fixtures
 $ python manage.py loaddata osschallenge/fixture/rank.json      # Loads rank fixtures
 $ python manage.py createsuperuser                  # Creates new Django superuser
-$ python manage.py delete_quarter_ranks             # Cronjob who deletes the quarter_points in the profile model every quarter
+$ python manage.py delete_quarter_ranks
+# Cronjob who deletes the quarter_points in the profile model every quarter
 ```
 
 Now you should be able to run:
