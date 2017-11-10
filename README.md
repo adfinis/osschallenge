@@ -29,17 +29,17 @@ $ docker-compose up         # Starts the Docker containers
 
 Switch back to your old console and continue with:
 ```bash
-$ pip install -r requirements.txt                               # Installes all requirements
-$ python manage.py migrate                                      # Applies migrations
-$ python manage.py loaddata osschallenge/fixture/role.json      # Loads role fixtures
-$ python manage.py loaddata osschallenge/fixture/rank.json      # Loads rank fixtures
-$ python manage.py createsuperuser                  # Creates new Django superuser
+$ pip install -r requirements.txt                             # Installes all requirements
+$ python manage.py migrate                                    # Applies migrations
+$ python manage.py loaddata osschallenge/fixture/role.json    # Loads role fixtures
+$ python manage.py loaddata osschallenge/fixture/rank.json    # Loads rank fixtures
+$ python manage.py createsuperuser                            # Creates new Django superuser
 $ python manage.py delete_quarter_ranks
 # Cronjob who deletes the quarter_points in the profile model every quarter
 ```
 
 Now you should be able to run:
 ```bash
-$ python manage.py runserver
+$ python manage.py runserver        # Starts the localhost
 ```
 and go to http://127.0.0.1:8000/ to get to the Website.
