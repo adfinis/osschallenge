@@ -1,6 +1,6 @@
 # OSS-Challenge
 
-A website for Opensource tasks
+A website for Open source tasks
 
 ## Installation
 **Requirements**
