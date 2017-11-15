@@ -7,12 +7,20 @@
 <meta property="og:title" content="OSS-Challenge" />
 <meta property="og:type" content="profile:username" />
 <meta property="og:image" content="{% if profile.picture.avatar.url %} {{ profile.picture.avatar.url }} {% else %} {% static "osschallenge/profile-example.png" %} {% endif %}" />
-<meta property="og:url" content="3c35ef31.ngrok.io/profile/{{ user.username }}/" />
+<meta property="og:url" content="fa151491.ngrok.io/profile/{{ user.username }}/" />
 <meta property="og:description" content="{{ user.username }}" />
 <meta property="og:description" content="{% if profile.role_id == contributor_id %} {{total_points}} {% else %} 0 {% endif %}  Punkte erreicht." />
 {% endblock meta %}
 
 {% block content %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.11';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <div class="grid content">
     <div class="grid-cell grid-cell--4of12">
         <div class="detail-left">
@@ -74,8 +82,10 @@
                     {% endif %}
                 </tbody>
             </table>
+        <div class="fb-share-button" data-href="https://http://fa151491.ngrok.io/profile/{{ user.username }}/" data-layout="button" data-size="small" data-mobile-iframe="true">
+            <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhttp%2Ffa151491.ngrok.io%2Fprofile%2F{{ user.username }}%2F&amp;src=sdkpreparse">Teilen</a>
+        </div>
             {% if request.user.id == profile.user.id %}
-
             <a href="/password_change">
                 <button class="btn btn-primary btn-profile">{% trans "Reset Password" %}</button>
             </a>
