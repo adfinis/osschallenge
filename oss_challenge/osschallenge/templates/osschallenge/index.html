@@ -28,15 +28,15 @@
                     <button class="nav-toggle nav-top-toggle">
                         <span class="nav-toggle-icon"></span>
                     </button>
-                    {% if user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
                         <div class="logged-in-user">
-                            <a href="/profile/{{ user.username }}">{% trans "Logged in as" %} {{ user.username }}</a>
+                            <a href="/profile/{{ request.user.username }}">{% trans "Logged in as" %} {{ request.user.username }}</a>
                         </div>
                     {% endif %}
                 </header>
                 <section class="nav-top-body">
                     <ul class="nav-top-list nav-top-list--right">
-                        {% if user.is_authenticated %}
+                        {% if request.user.is_authenticated %}
                         <li class="nav-top-list-item">
                             <a class="link" href="/projects">{% trans "Projects" %}</a>
                         </li>
