@@ -63,13 +63,13 @@ ul.index a:nth-of-type(2n+1) {
 ul.index li p:first-of-type {
     text-decoration: none;
     font-weight: bold;
-    color: black;
+    color: #000000;
 }
 
 
 ul.index a li{
     text-decoration: none;
-    color: black;
+    color: #000000;
 }
 
 ul.ranking-index {
@@ -87,7 +87,7 @@ ul.ranking-index li a {
 
 h1 a {
     text-decoration: none;
-    color: black;
+    color: #000000;
 }
 
 /* DetailView */
@@ -161,8 +161,8 @@ div.detail form input {
 }
 
 .btn.btn-primary.delete-button {
-    background-color: red;
-    border-color: red;
+    background-color: #FF0000;
+    border-color: #FF0000;
 }
 
 .btn.btn-primary.add-project {
@@ -281,7 +281,7 @@ div.comment {
 
 .comment-title {
     background-color: rgb(91, 142, 219);
-    color: white;
+    color: #FFFFFF;
 }
 
 .comment-title.card-header {
@@ -289,7 +289,7 @@ div.comment {
 }
 
 .comment-title.card-header a {
-    color: white;
+    color: #FFFFFF;
 }
 
 .comment footer {
@@ -305,7 +305,7 @@ img.img-responsive {
 }
 
 .task-text {
-    color: black;
+    color: #000000;
 }
 
 .project-title {
@@ -325,7 +325,7 @@ img.img-responsive {
 .task-status {
     font-size: 15px;
     font-weight: bold;
-    color: black;
+    color: #000000;
 }
 
 .task-grid {
@@ -468,7 +468,7 @@ label[for="id_picture"] {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: white;
+    background-color: #FFFFFF;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     width: 110px;
@@ -520,27 +520,27 @@ div.search-function input.btn {
 }
 
 .fa.fa-github {
-    color: black;
+    color: #000000;
 }
 
 .fa.fa-globe {
-    color: black;
+    color: #000000;
 }
 
 .fa.fa-circle-o {
-    color: green;
+    color: #008000;
 }
 
 .fa.fa-check-circle {
-    color: green;
+    color: #008000;
 }
 
 .fa.fa-check-circle-o {
-    color: darkblue;
+    color: #00008B;
 }
 
 .fa.fa-spinner {
-    color: darkblue;
+    color: #00008B;
 }
 
 .submitbutton {
@@ -549,7 +549,7 @@ div.search-function input.btn {
 
 .no-tasks {
     text-align: center;
-    color: red;
+    color: #FF0000;
     font-size: 50px;
     margin: 50px 0 0 0;
 }
@@ -613,7 +613,7 @@ th {
 .footer {
     display: flex;
     flex-direction: row;
-    color: black;
+    color: #000000;
     width: 100%;
     align-items: baseline;
     border-top: 1px solid black;
@@ -642,7 +642,7 @@ th {
 .footer2 {
     display: none;
     flex-direction: row;
-    color: black;
+    color: #000000;
     width: 100%;
     border-top: 1px solid black;
     justify-content: space-between;
@@ -670,7 +670,7 @@ th {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: white;
+    background-color: #FFFFFF;
     left: -0.5%;
     margin-left: -5px;
     -moz-transform: rotate(135deg);
@@ -709,7 +709,7 @@ table.table.table--striped.table--hover.table--bordered thead tr th {
 }
 
 table.table.table--striped.table--hover.table--bordered tbody tr td a{
-    color: black;
+    color: #000000;
 }
 
 .btn-add-task {

@@ -111,12 +111,12 @@
     }
 
     li.dropdown {
-        background-color: white;
+        background-color: rgb(255,255,255);
         height: 40px;
     }
 
     li.dropdown ul {
-        background-color: white;
+        background-color: rgb(255,255,255);
         width: 100%;
         margin-left: 10px;
     }
@@ -283,7 +283,7 @@
     }
 
     .footer-content a {
-        color: black;
+        color: #000000;
     }
 }
 
