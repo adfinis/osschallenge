@@ -22,19 +22,13 @@ $ pyenv local oss-challenge
 ```
  ____________________________________________________________________________________________________________
 
-Open a second console and run:
 ```bash
-$ docker-compose up         # Starts the Docker containers
-```
-
-Switch back to your old console and continue with:
-```bash
+$ docker-compose up                                           # Starts the Docker containers
 $ pip install -r requirements.txt                             # Installes all requirements
 $ python manage.py migrate                                    # Applies migrations
 $ python manage.py loaddata osschallenge/fixture/role.json    # Loads role fixtures
 $ python manage.py loaddata osschallenge/fixture/rank.json    # Loads rank fixtures
 $ python manage.py createsuperuser                            # Creates new Django superuser
-$ python manage.py delete_quarter_ranks
 ```
 
 Now you should be able to run:
