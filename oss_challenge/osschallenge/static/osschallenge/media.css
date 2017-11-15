@@ -111,12 +111,12 @@
     }
 
     li.dropdown {
-        background-color: rgb(255,255,255);
+        background-color: #FFFFFF;
         height: 40px;
     }
 
     li.dropdown ul {
-        background-color: rgb(255,255,255);
+        background-color: #FFFFFF;
         width: 100%;
         margin-left: 10px;
     }
