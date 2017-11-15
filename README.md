@@ -35,7 +35,6 @@ $ python manage.py loaddata osschallenge/fixture/role.json    # Loads role fixtu
 $ python manage.py loaddata osschallenge/fixture/rank.json    # Loads rank fixtures
 $ python manage.py createsuperuser                            # Creates new Django superuser
 $ python manage.py delete_quarter_ranks
-# Cronjob who deletes the quarter_points in the profile model every quarter
 ```
 
 Now you should be able to run:
