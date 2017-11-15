@@ -4,6 +4,11 @@ html, body {
     font-family: Open Sans, sans-serif;
 }
 
+/*Wrapper*/
+#wrap {
+    flex: 1 0 auto;
+}
+
 /* Base Template */
 div.main {
     position: relative;
@@ -28,7 +33,7 @@ div.content {
     display: flex;
     max-width: 1416px;
     margin: 0 auto 40px auto;
-    padding: 10px 12px 80px 12px;
+    padding: 10px 12px 0 12px;
 }
 
 /* Index Lists */
@@ -58,13 +63,13 @@ ul.index a:nth-of-type(2n+1) {
 ul.index li p:first-of-type {
     text-decoration: none;
     font-weight: bold;
-    color: black;
+    color: #000000;
 }
 
 
 ul.index a li{
     text-decoration: none;
-    color: black;
+    color: #000000;
 }
 
 ul.ranking-index {
@@ -82,7 +87,7 @@ ul.ranking-index li a {
 
 h1 a {
     text-decoration: none;
-    color: black;
+    color: #000000;
 }
 
 /* DetailView */
@@ -156,7 +161,8 @@ div.detail form input {
 }
 
 .btn.btn-primary.delete-button {
-    background-color: red;
+    background-color: #FF0000;
+    border-color: #FF0000;
 }
 
 .btn.btn-primary.add-project {
@@ -210,20 +216,13 @@ nav.nav-top {
     display: flex;
     align-items: center;
     height: 80px;
-    float: left;
     align-self: top;
     margin-bottom: 10px;
 }
 
-section.nav-top-body {
-    max-height: 80px;
-}
-
 .nav-top-header-logo {
-    display: flex;
     height: auto;
     width: 150px;
-    background: url(oss-challenge.svg);
 }
 
 .nav-top-header-logo.img {
@@ -244,6 +243,7 @@ a.link {
 
 div.my-tasks a.link {
     height: 30px;
+    padding-top: 0;
 }
 
 .set_language {
@@ -281,7 +281,7 @@ div.comment {
 
 .comment-title {
     background-color: rgb(91, 142, 219);
-    color: white;
+    color: #FFFFFF;
 }
 
 .comment-title.card-header {
@@ -289,7 +289,7 @@ div.comment {
 }
 
 .comment-title.card-header a {
-    color: white;
+    color: #FFFFFF;
 }
 
 .comment footer {
@@ -305,7 +305,7 @@ img.img-responsive {
 }
 
 .task-text {
-    color: black;
+    color: #000000;
 }
 
 .project-title {
@@ -325,7 +325,7 @@ img.img-responsive {
 .task-status {
     font-size: 15px;
     font-weight: bold;
-    color: black;
+    color: #000000;
 }
 
 .task-grid {
@@ -468,7 +468,7 @@ label[for="id_picture"] {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: white;
+    background-color: #FFFFFF;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     width: 110px;
@@ -520,27 +520,27 @@ div.search-function input.btn {
 }
 
 .fa.fa-github {
-    color: black;
+    color: #000000;
 }
 
 .fa.fa-globe {
-    color: black;
+    color: #000000;
 }
 
 .fa.fa-circle-o {
-    color: green;
+    color: #008000;
 }
 
 .fa.fa-check-circle {
-    color: green;
+    color: #008000;
 }
 
 .fa.fa-check-circle-o {
-    color: darkblue;
+    color: #00008B;
 }
 
 .fa.fa-spinner {
-    color: darkblue;
+    color: #00008B;
 }
 
 .submitbutton {
@@ -549,7 +549,7 @@ div.search-function input.btn {
 
 .no-tasks {
     text-align: center;
-    color: red;
+    color: #FF0000;
     font-size: 50px;
     margin: 50px 0 0 0;
 }
@@ -610,71 +610,42 @@ th {
     font-weight: bold !important;
 }
 
-footer {
+.footer {
     display: flex;
     flex-direction: row;
-    color: white;
-    height: 80px;
-    position: fixed;
-    bottom: 0;
+    color: #000000;
     width: 100%;
-    background-color: #5B8EDB;
+    align-items: baseline;
+    border-top: 1px solid black;
+    justify-content: space-between;
 }
 
-#languages {
-    text-align: right;
-    width: 25%;
-    height: 80px;
+.footer p {
+    margin: 0 17px 0 0;
+    font-size: 12px;
 }
 
-#languages ol {
+.footer a {
+    color: #3D79D4;
+}
+
+.footer-content ol {
     margin: 25px;
-    font-size: 16px;
+    font-size: 12px;
     border: none;
 }
 
-#languages ol li a {
-    color: white;
+.footer-content ol li a {
+    color: black;
 }
 
-#developed {
-    text-align: center;
-    width: 25%;
-    height: 80px;
-}
-
-#developed p {
-    margin: 25px;
-    font-size: 16px;
-}
-
-#developed p a {
-    color: white;
-}
-
-#github {
-    text-align: center;
-    width: 25%;
-    height: 80px;
-}
-
-#github p {
-    margin: 25px;
-    font-size: 16px;
-}
-
-#license {
-    width: 25%;
-    height: 80px;
-}
-
-#license p {
-    margin: 25px;
-    font-size: 16px;
-}
-
-#license p a {
-    color: white;
+.footer2 {
+    display: none;
+    flex-direction: row;
+    color: #000000;
+    width: 100%;
+    border-top: 1px solid black;
+    justify-content: space-between;
 }
 
 .hidden-span{
@@ -699,7 +670,7 @@ footer {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: white;
+    background-color: #FFFFFF;
     left: -0.5%;
     margin-left: -5px;
     -moz-transform: rotate(135deg);
@@ -715,6 +686,7 @@ footer {
     margin: 20px;
     color: #5B8EDB;
     font-size: 0.85rem;
+    margin-top: 32px;
 }
 
 .text-right {
@@ -737,7 +709,7 @@ table.table.table--striped.table--hover.table--bordered thead tr th {
 }
 
 table.table.table--striped.table--hover.table--bordered tbody tr td a{
-    color: black;
+    color: #000000;
 }
 
 .btn-add-task {

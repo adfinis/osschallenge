@@ -2509,7 +2509,7 @@ html {
 @media screen and (max-width: 420px) {
 
   html {
-    font-size: 13px;
+    font-size: 11px;
   }
 }
 
@@ -3537,8 +3537,8 @@ Modifiers:
           flex-direction: column;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
-          flex-grow: 1;
-  min-height: 100%;
+  height: 100%;
+  flex-direction: column;
 }
 
 .page-viewport,
@@ -3578,7 +3578,6 @@ Modifiers:
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  min-height: 100vh;
 }
 
 .page-main {
@@ -4631,6 +4630,13 @@ Modifiers:
   display: flex;
 }
 
+@media (max-width: 767px) {
+    .nav-top-header,
+    .nav-top-header a {
+      display: flex;
+    }
+}
+
 .nav-top-header {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
@@ -4640,7 +4646,6 @@ Modifiers:
 .nav-top-header-logo {
   width: 40px;
   height: 40px;
-  background: url(../pictures/logo/sy.png);
   background-size: 40px 40px;
   border-radius: 4px;
   margin-right: 0.5rem;
@@ -4678,8 +4683,6 @@ Modifiers:
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  font-size: 1.25rem;
-  line-height: 2rem;
   list-style: none;
 }
 
@@ -4687,9 +4690,9 @@ Modifiers:
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: baseline;
-      -ms-flex-align: baseline;
-          align-items: baseline;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -4711,7 +4714,6 @@ Modifiers:
 .nav-top-list-item {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
 }
 
 .nav-top-list a {
@@ -4741,16 +4743,17 @@ Modifiers:
     -webkit-box-pack: left;
         -ms-flex-pack: left;
             justify-content: left;
+    height: 80px;
   }
 
   .nav-top-body {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;/* If the burgermenu is minimized, an display:none; is applied inline html. Make the screen bigger and flex !important will fix it, so that the menu is still available. */
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
-    max-height: 50px;
+    max-height: 80px;
     -webkit-transition: none;
     transition: none;
   }
@@ -4774,6 +4777,7 @@ Modifiers:
     -ms-flex-item-align: center;
         align-self: center;
     padding: 1rem 0.5rem;
+    padding-top: 32px;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
   }
@@ -5597,6 +5601,12 @@ fieldset[disabled] .form-control {
     display: inline-block;
   }
 }
+
+@media (max-width: 310px) {
+    .form-group input {
+        width: 80%;
+    }
+}
 /*doc
 ---
 title: Checkbox
@@ -6356,7 +6366,6 @@ Hide the first menu point on non-mobile devices:
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding-bottom: 0.5rem;
   margin-bottom: 1rem;
   border-bottom: 1px solid rgb(225, 225, 225);
 }
