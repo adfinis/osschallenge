@@ -25,7 +25,7 @@ SECRET_KEY = 'ovm))x1!t^^%1g1d+z*!&n0=a5f%hee!wd$c7^n+szx4*u7uts'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

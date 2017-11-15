@@ -7,7 +7,9 @@
 <meta property="og:title" content="OSS-Challenge" />
 <meta property="og:type" content="profile:username" />
 <meta property="og:image" content="{% if profile.picture.avatar.url %} {{ profile.picture.avatar.url }} {% else %} {% static "osschallenge/profile-example.png" %} {% endif %}" />
-<meta property="og:url" content="6ca015aa.ngrok.io/profile/{{ user.username }}/" />
+<meta property="og:url" content="3c35ef31.ngrok.io/profile/{{ user.username }}/" />
+<meta property="og:description" content="{{ user.username }}" />
+<meta property="og:description" content="{% if profile.role_id == contributor_id %} {{total_points}} {% else %} 0 {% endif %}  Punkte erreicht." />
 {% endblock meta %}
 
 {% block content %}
