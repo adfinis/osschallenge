@@ -37,11 +37,11 @@ urlpatterns = [
 
     url(r'^tasks/(?P<pk>[0-9]+)/$',
         views.TaskView,
-        name='alltask'),
+        name='task'),
 
     url(r'^my_tasks/(?P<username>[0-9A-Za-z_\-\.\+\@]+)/$',
         views.MyTaskIndexView,
-        name='task'),
+        name='mytask'),
 
     url(r'^tasks/(?P<pk>[0-9]+)/edit/$',
         views.EditTaskView,
