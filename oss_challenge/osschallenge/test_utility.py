@@ -1,7 +1,9 @@
 from django.test import TestCase
 from .models import Rank
 from templatetags.ranks import get_rank
-from .views import shorten, get_quarter_months
+from .views import shorten, get_quarter_months, get_quarter_start, get_next_quarter
+from freezegun import freeze_time
+from datetime import datetime
 
 
 class UtilityTestCase(TestCase):
@@ -25,3 +27,11 @@ class UtilityTestCase(TestCase):
         self.assertEqual(get_quarter_months("4"), "(October - December)")
         self.assertEqual(get_quarter_months("5"), "-")
         self.assertEqual(get_quarter_months("0"), "-")
+
+    @freeze_time("2017-04-01")
+    def test_get_quarter_start(self):
+        self.assertEqual(get_quarter_start(), datetime(2017, 4, 1, 0, 0))
+
+    @freeze_time("2017-01-01")
+    def test_get_next_quarter(self):
+        self.assertEqual(get_next_quarter(), datetime(2017, 4, 1, 0, 0))
