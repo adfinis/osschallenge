@@ -26,8 +26,7 @@ $ pyenv local oss-challenge
 $ docker-compose up                                           # Starts the Docker containers
 $ pip install -r requirements.txt                             # Installes all requirements
 $ python manage.py migrate                                    # Applies migrations
-$ python manage.py loaddata osschallenge/fixture/role.json    # Loads role fixtures
-$ python manage.py loaddata osschallenge/fixture/rank.json    # Loads rank fixtures
+$ python manage.py loaddata osschallenge/fixture/*.json       # Loads all fixtures
 $ python manage.py createsuperuser                            # Creates new Django superuser
 ```
 
