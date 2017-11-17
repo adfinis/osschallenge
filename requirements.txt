@@ -1,4 +1,5 @@
-Django==1.11
+Django==1.11.6
+coverage==4.4.2
 psycopg2==2.6.2
 django-widget-tweaks==1.4.1
 django-modeltranslation==0.12.1
