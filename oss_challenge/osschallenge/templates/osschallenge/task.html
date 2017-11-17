@@ -115,7 +115,7 @@
                 </div>
                 <h3>{% trans "Add a comment" %}</h3> 
                 <form method="POST">
-                    <textarea id="markdown-comment" rows="4" class="textarea" name="comment" placeholder="{% trans "Enter text here..." %}"></textarea>
+                    <textarea id="markdown-comment" rows="4" required="required" class="textarea" name="comment" placeholder="{% trans "Enter text here..." %}"></textarea>
                     {% markdown_editor "#markdown-comment" %}
                     {% markdown_media %}
                     {% csrf_token %}
