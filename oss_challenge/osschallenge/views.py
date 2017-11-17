@@ -17,6 +17,7 @@ from django.db.models import Q
 from django.utils import timezone
 from django.db.models import Count, Case, When
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
@@ -38,7 +39,6 @@ class NewProjectView(CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super(NewProjectView, self).form_valid(form)
-
     success_url = '/projects/'
 
 
@@ -189,7 +189,6 @@ def TaskView(request, pk):
     template_name = 'osschallenge/task.html'
     notification = ""
     render_params = {}
-    # import ipdb; ipdb.set_trace()
     if request.user.id:
         user = request.user
         project = Project.objects.get(pk=task.project_id)
@@ -202,18 +201,21 @@ def TaskView(request, pk):
         )
 
         if 'Claim' in request.POST:
-            task.assignee_id = user.id
-            task.save()
+            if task.assignee_id is None:
+                task.assignee_id = user.id
+                task.save()
 
         elif 'Release' in request.POST:
-            task.assignee_id = None
-            task.task_done = False
-            task.save()
+            if task.assignee_id is not None:
+                task.assignee_id = None
+                task.task_done = False
+                task.save()
 
         elif 'Task done' in request.POST:
-            task.task_done = True
-            task.assignee_id = user.id
-            task.save()
+            if task.task_done is not True:
+                task.task_done = True
+                task.assignee_id = user.id
+                task.save()
 
         elif 'Comment' in request.POST:
             comment = Comment()
@@ -227,17 +229,18 @@ def TaskView(request, pk):
 
         elif 'Delete-comment' in request.POST:
             comment_id = (request.POST['Delete-comment'])
-            comment = Comment.objects.get(pk=comment_id)
+            comment = Comment.objects.get(id=comment_id)
             if comment.author_id == request.user.id:
                 comment.delete()
 
         elif 'Approve' in request.POST:
-            profile = Profile.objects.get(user_id=task.assignee_id)
-            task.task_checked = True
-            task.approved_by = user
-            task.approval_date = timezone.localtime(timezone.now())
-            task.save()
-            profile.save()
+            if task.task_checked is not True:
+                profile = Profile.objects.get(user_id=task.assignee_id)
+                task.task_checked = True
+                task.approved_by = user
+                task.approval_date = timezone.localtime(timezone.now())
+                task.save()
+                profile.save()
 
         elif 'Reopen' in request.POST:
             profile = Profile.objects.get(user_id=task.assignee_id)
@@ -307,7 +310,10 @@ def NewTaskView(request, pk):
 
 
 def ProfileView(request, username):
-    user = User.objects.get(username=username)
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return render(request, 'osschallenge/no_profile_available.html')
     max_length_description = 130
     max_length_title = 60
     template_name = 'osschallenge/profile.html'
@@ -346,12 +352,6 @@ def ProfileView(request, username):
     })
 
 
-def ProfileDoesNotExistView(request):
-    template_name = 'osschallenge/profile_does_not_exist.html'
-    return render(request, template_name, {
-    })
-
-
 def EditProfileView(request):
     user = request.user
     profile = Profile.objects.get(user_id=user.id)
@@ -370,7 +370,6 @@ def EditProfileView(request):
             request.POST, request.FILES, instance=profile
         )
         form_user = UserForm(request.POST, instance=user)
-
         if form_profile.is_valid() and form_user.is_valid():
             profile = form_profile.save()
             user = form_user.save()
@@ -408,6 +407,7 @@ def TaskAdministrationIndexView(request):
         match_list = Task.objects.filter(
             Q(title__icontains=request.GET['search']) |
             Q(project__title__icontains=request.GET['search'])
+
         ).distinct()
         if match_list:
             for match in match_list:
@@ -417,6 +417,7 @@ def TaskAdministrationIndexView(request):
                 match.title = shorten(match.title, max_length_title)
             return render(request, template_name, {
                 'match_list': match_list,
+
                 'finished_task_list': finished_task_list
             })
         else:
@@ -431,43 +432,60 @@ def TaskAdministrationIndexView(request):
             Q(project__mentors__id=user.id) &
             Q(task_done=True)
         )
+
     })
+
+
+def get_quarter_start():
+    """
+    returns beginning of current quarter
+    """
+    quarters = range(1, 12, 3)
+    month = int(time.strftime("%m"))
+
+    quarter = bisect.bisect(quarters, month)
+    today = datetime.today()
+    quarter_start = [today.year, quarters[quarter - 1], 1]
+    return datetime(quarter_start[0], quarter_start[1], quarter_start[2])
+
+
+def get_next_quarter():
+    """
+    returns beginning of next quarter
+    """
+    return get_quarter_start() + relativedelta(months=3)
 
 
 def RankingView(request):
     quarters = range(1, 12, 3)
     month = int(time.strftime("%m"))
+
     quarter = bisect.bisect(quarters, month)
     quarter_month = get_quarter_months(str(quarter))
-    today = datetime.today()
-    quarter_start = [today.year, quarters[quarter - 1], 1]
-    if quarter == 4:
-        next_quarter = [today.year + 1, 1, 1]
-    else:
-        next_quarter = [today.year, quarters[quarter], 1]
     contributors = User.objects.filter(profile__role_id=CONTRIBUTOR_ID)
     # for every finished task add 5 points
     contributors_with_points = contributors.annotate(
         task_count=Count(
             Case(
                 When(
-                    assignee_tasks__task_checked=True
-                    , then=1)
+                    assignee_tasks__task_checked=True,
+                    then=1
+                )
             )
-        ) * 5, quarter_count=Count(
-            Case
-            (
+        ) * 5,
+        quarter_count=Count(
+            Case(
                 When(
-                    Q(assignee_tasks__task_checked=True) &
-                    Q(assignee_tasks__approval_date__lt=datetime(
-                        next_quarter[0], next_quarter[1], next_quarter[2])
-                      ) &
-                    Q(assignee_tasks__approval_date__gte=datetime(
-                        quarter_start[0], quarter_start[1], quarter_start[2])
-                      )
-                    , then=1)
+                    Q(assignee_tasks__task_checked=True) & Q(
+                        assignee_tasks__approval_date__lt=get_next_quarter()
+                    ) & Q(
+                        assignee_tasks__approval_date__gte=get_quarter_start()
+                    ),
+                    then=1
+                )
             )
-        ) * 5)
+        ) * 5
+    )
     ranking_list = contributors_with_points.order_by('-task_count')
 
     template_name = 'osschallenge/ranking.html'
