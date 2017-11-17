@@ -15,7 +15,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         cls.selenium.quit()
         super(MySeleniumTests, cls).tearDownClass()
 
-    def test_login(self):
+    def test_login_failed(self):
         self.selenium.get('{}{}'.format(self.live_server_url, '/login/'))
         username_input = self.selenium.find_element_by_name("username")
         username_input.send_keys('myuser')
@@ -33,3 +33,18 @@ class MySeleniumTests(StaticLiveServerTestCase):
         self.selenium.get(
             '{}{}'.format(self.live_server_url, '/my_tasks/Yelin/')
         )
+
+    def test_register(self):
+        self.selenium.get('{}{}'.format(self.live_server_url, '/register/'))
+        username_input = self.selenium.find_element_by_name("username")
+        username_input.send_keys('myuser')
+        firstname_input = self.selenium.find_element_by_name("first_name")
+        firstname_input.send_keys('foo')
+        lastname_input = self.selenium.find_element_by_name("last_name")
+        lastname_input.send_keys('bar')
+        email_input = self.selenium.find_element_by_name("email")
+        email_input.send_keys('example@example123.ch')
+        password1_input = self.selenium.find_element_by_name("password1")
+        password1_input.send_keys('12345qwert')
+        password2_input = self.selenium.find_element_by_name("password2")
+        password2_input.send_keys('12345qwert')
