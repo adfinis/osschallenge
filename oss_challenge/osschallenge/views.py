@@ -22,6 +22,9 @@ from dateutil.relativedelta import relativedelta
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
 
+max_length_description = 130
+max_length_title = 60
+
 
 def IndexView(request):
     template_name = 'osschallenge/index.html'
@@ -55,8 +58,6 @@ def ProjectView(request, pk):
     project = Project.objects.get(pk=pk)
     task_objects = Task.objects.filter(project_id=project.id)
     task_list = []
-    max_length_description = 130
-    max_length_title = 60
     for obj in task_objects:
         task_list.append(obj)
     for task in task_objects:
@@ -107,8 +108,6 @@ def EditProjectView(request, pk):
 
 
 def MyTaskIndexView(request, username):
-    max_length_description = 130
-    max_length_title = 60
     template_name = 'osschallenge/mytasksindex.html'
     current_user_id = request.user.id
     user_task_objects = Task.objects.filter(assignee_id=current_user_id)
@@ -152,8 +151,6 @@ def shorten(string, max_length):
 def TaskIndexView(request):
     task_list = list(Task.objects.all())
     template_name = 'osschallenge/taskindex.html'
-    max_length_description = 130
-    max_length_title = 60
     no_tasks = "There are no tasks"
     for task in task_list:
         task.description = shorten(task.description, max_length_description)
@@ -314,8 +311,6 @@ def ProfileView(request, username):
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         return render(request, 'osschallenge/no_profile_available.html')
-    max_length_description = 130
-    max_length_title = 60
     template_name = 'osschallenge/profile.html'
     approved_tasks = Task.objects.filter(
         Q(task_checked=True) &
@@ -394,8 +389,6 @@ def EditProfileView(request):
 def TaskAdministrationIndexView(request):
     user = request.user
     template_name = 'osschallenge/task_administration_index.html'
-    max_length_description = 130
-    max_length_title = 60
     finished_tasks = Task.objects.filter(task_done=True)
     finished_task_list = []
     for obj in finished_tasks:
