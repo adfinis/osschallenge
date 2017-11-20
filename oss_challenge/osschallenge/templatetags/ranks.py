@@ -8,4 +8,6 @@ def get_rank(value):
     ranks = Rank.objects.filter(
         required_points__lte=value
         ).order_by('-required_points')[:1]
+    if ranks.first() == None:
+        return "-"
     return ranks.first().name

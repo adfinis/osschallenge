@@ -8,6 +8,7 @@ from django_markdown.fields import MarkdownFormField
 
 MENTOR_ID = 2
 
+
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Username')
 
@@ -62,7 +63,10 @@ class CommentForm(ModelForm):
 
 
 class TaskForm(ModelForm):
-    picture = forms.ImageField(label=_('Change picture'), required = False, widget=forms.FileInput)
+    picture = forms.ImageField(
+        label=_(
+            'Change picture'
+        ), required = False, widget=forms.FileInput)
 
     class Meta:
         model = Task
@@ -146,7 +150,11 @@ class ProjectForm(ModelForm):
 
 
 class ProfileForm(ModelForm):
-    picture = forms.ImageField(label=_('Change picture'), required = False, widget=forms.FileInput)
+    picture = forms.ImageField(
+        label=_(
+            'Change picture'
+        ), required = False, widget=forms.FileInput
+    )
 
     class Meta:
         model = Profile
