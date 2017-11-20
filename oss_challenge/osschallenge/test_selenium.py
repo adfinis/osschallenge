@@ -21,7 +21,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         username_input.send_keys('myuser')
         password_input = self.selenium.find_element_by_name("password")
         password_input.send_keys('secret')
-        self.selenium.find_element_by_xpath('//button[@value="login"]').click()
+        self.selenium.find_element_by_xpath('//button[@id="login"]').click()
 
     def test_login_and_go_to_mytasks(self):
         self.selenium.get('{}{}'.format(self.live_server_url, '/login/'))
@@ -29,7 +29,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         username_input.send_keys('Yelin')
         password_input = self.selenium.find_element_by_name("password")
         password_input.send_keys('12345qwert')
-        self.selenium.find_element_by_xpath('//button[@value="login"]').click()
+        self.selenium.find_element_by_xpath('//button[@id="login"]').click()
         self.selenium.get(
             '{}{}'.format(self.live_server_url, '/my_tasks/Yelin/')
         )
