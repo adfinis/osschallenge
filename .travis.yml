@@ -12,7 +12,7 @@ services:
 before_install:
     - wget https://pypi.python.org/packages/c6/af/e95a492e882f2618e376ea3eee283d774265288fea4185fbe933879811e7/chrome-driver-2.26.0.1.tar.gz
     - mkdir chromedriver
-    - tar -xzf chromedriver* -C chromedriver
+    - tar -xzf chrome-driver-2.26.0.1.tar.gz -C chromedriver
     - export PATH=$PATH:$PWD/chromedriver
 
 install:
