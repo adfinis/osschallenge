@@ -2,6 +2,6 @@
 *.swo
 *.swp
 .python-version
-oss_challenge/osschallenge/pictures/*
+osschallenge/pictures/*
 .coverage
 geckodriver.log
