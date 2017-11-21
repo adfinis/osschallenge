@@ -4,9 +4,15 @@ from . import views
 from .forms import LoginForm
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
 
 
 urlpatterns = [
+
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+
+    url(r'^admin/', admin.site.urls),
+
     url(r'^$',
         views.IndexView,
         name='index'),
