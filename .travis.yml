@@ -1,7 +1,5 @@
 language: python
 
-dist: trusty
-
 addons:
     chrome: stable
 
