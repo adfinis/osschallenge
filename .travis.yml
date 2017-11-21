@@ -9,14 +9,9 @@ python:
 services:
     - postgresql
 
-before_install:
-    - wget https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip
-    - sudo apt-get install unzip
-    - unzip chromedriver_linux64.zip -d /usr/lib/chromium-browser/
-    - chmod +x chromedriver
-    - export PATH=$PATH:/usr/lib/chromium-browser/
 
 install:
+    - sudo apt install chromium-chromedriver
     - pip install -r requirements.txt
 
 before_script:
