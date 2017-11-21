@@ -3,3 +3,5 @@
 *.swp
 .python-version
 oss_challenge/osschallenge/pictures/*
+.coverage
+geckodriver.log
