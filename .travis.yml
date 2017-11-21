@@ -10,9 +10,9 @@ services:
     - postgresql
 
 before_install:
-    - wget https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip
+    - wget https://pypi.python.org/packages/c6/af/e95a492e882f2618e376ea3eee283d774265288fea4185fbe933879811e7/chrome-driver-2.26.0.1.tar.gz
     - mkdir chromedriver
-    - tar -xzf chromedriver*
+    - tar -xzf chromedriver* -C chromedriver
     - export PATH=$PATH:$PWD/chromedriver
 
 install:
