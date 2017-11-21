@@ -1,5 +1,7 @@
 language: python
 
+dist: trusty
+
 addons:
     chrome: stable
 
@@ -9,9 +11,10 @@ python:
 services:
     - postgresql
 
+before_install:
+    - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
 install:
-    - sudo apt install chromium-chromedriver
     - pip install -r requirements.txt
 
 before_script:
