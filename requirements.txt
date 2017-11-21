@@ -9,3 +9,4 @@ sorl-thumbnail
 python-dateutil
 geckodriver
 freezegun
+selenium
