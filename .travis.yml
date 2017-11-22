@@ -24,4 +24,6 @@ before_script:
 
 script: 
     - coverage run manage.py test osschallenge
-    - coverage report -m
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
