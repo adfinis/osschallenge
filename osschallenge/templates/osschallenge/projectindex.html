@@ -17,7 +17,7 @@
         </ul>
         {% if user.profile.role.id == mentor_id %}
             <a href="new_project/">
-                <button class="btn btn-primary">{% trans "New Project" %}</button>
+                <button id="new-project" class="btn btn-primary">{% trans "New Project" %}</button>
             </a>
         {% endif %}
     {% else %}
@@ -26,7 +26,7 @@
     </div>
     {% if user.profile.role.id == mentor_id %}
         <a href="new_project/">
-            <button class="btn btn-primary">{% trans "New Project" %}</button>
+            <button id="new-project" class="btn btn-primary">{% trans "New Project" %}</button>
         </a>
     {% endif %}
     {% endif %}

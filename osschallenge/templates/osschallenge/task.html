@@ -119,7 +119,7 @@
                     {% markdown_editor "#markdown-comment" %}
                     {% markdown_media %}
                     {% csrf_token %}
-                    <button class="btn btn-primary" name="Comment">{% trans "Comment" %}</button>
+                    <button id="comment" class="btn btn-primary" name="Comment">{% trans "Comment" %}</button>
                     {% if notification %}
                     <div class="alert alert-success" role="alert">{{ notification }}</div>
                     {% endif %}
