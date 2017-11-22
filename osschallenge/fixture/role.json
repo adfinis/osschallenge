@@ -1,0 +1,23 @@
+[
+    {
+        "fields": {
+            "name": "Contributor"
+        },
+        "model": "osschallenge.role",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "name": "Mentor"
+        },
+        "model": "osschallenge.role",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "name": "Admin"
+        },
+        "model": "osschallenge.role",
+        "pk": 3
+    }
+]

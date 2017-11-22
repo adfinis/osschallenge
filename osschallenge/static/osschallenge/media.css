@@ -1,0 +1,294 @@
+@media (max-width: 476px) {
+
+    /* Taskindex */
+    .grid.grid--2of12.task-grid {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* Edit Project */
+    .detail h1 {
+        text-align: center;
+    }
+
+    /* New Project */
+    .btn.btn-primary.add-project {
+        width: 150px;
+    }
+
+    /* New Task */
+    .btn.btn-primary.add-task {
+        margin: 10px 0 0 0;
+    }
+
+    /* Task Index */
+    .detail-left {
+        flex-direction: column;
+        width: 280px;
+    }
+
+    .card {
+        height: 485px;
+    }
+
+    .taskindex-top-items {
+        flex-direction: column;
+    }
+
+    /* Markdown Editor */
+    #markItUpMarkdown-comment {
+        width: 275px !important;
+    }
+
+    .markItUpContainer {
+        width: 275px !important;
+    }
+
+    .markItUpHeader {
+        width: 275px !important;
+    }
+
+    #markdown-comment {
+        width: 275px !important;
+    }
+
+    /* Comment Boxes */
+    .comment-title.card-header {
+        width: 275px !important;
+    }
+
+    .card-block-comment {
+        width: 275px !important;
+        text-align: left;
+    }
+
+    .textarea {
+        width: 275px !important;
+    }
+}
+
+@media (max-width: 767px) {
+
+    /* Task Index */
+    div.search-function div input.form-control {
+        min-height: 2rem;
+        line-height: 0;
+        font-size: 0.9rem;
+    }
+
+    div.search-function div input.btn.btn-primary {
+        min-height: 2rem;
+    }
+
+    /* Task View */
+    .btn.btn-primary {
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        min-height: 2rem;
+    }
+
+    /* New Task */
+    .btn.btn-primary.add-task {
+        margin: 10px 0 0 0;
+    }
+
+    /* Responsive Menu */
+    section.nav-top-body {
+        overflow: visible;
+        width: 100%;
+        display: none;
+    }
+
+    li.nav-top-list-item a {
+        height: 40px;
+        background-color: #f6f6f6;
+    }
+
+    li.dropdown {
+        background-color: #FFFFFF;
+        height: 40px;
+    }
+
+    li.dropdown ul {
+        background-color: #FFFFFF;
+        width: 100%;
+        margin-left: 10px;
+    }
+
+    .dropdown-content li a {
+        color:rgb(38, 91, 171);
+    }
+
+    .dropdown-content li a:hover {
+        width: 100%;
+    }
+
+    a.link {
+        height: 40px;
+    }
+
+    /* Markdown Editor */
+    #markItUpMarkdown-comment {
+        width: 450px;
+    }
+
+    .markItUpContainer {
+        width: 450px;
+    }
+
+    .markItUpHeader {
+        width: 450px;
+    }
+
+    #markdown-comment {
+        width: 450px;
+    }
+
+    /* Comment Boxes */
+    .comment-title.card-header {
+        width: 450px;
+    }
+
+    .card-block-comment {
+        width: 450px;
+        text-align: left;
+    }
+
+    .textarea {
+        width: 450px;
+    }
+}
+
+
+@media (max-width: 980px) {
+
+    ul.index {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 1300px) {
+
+    table td {
+        width: 100px;
+    }
+
+    /* Project View */
+    .new-task-button {
+        justify-content: start;
+    }
+}
+
+
+@media (max-width: 1525px) {
+
+    /* Task View */
+    .detail-right {
+        flex: 0 0 100%;
+        margin: 30px 0 0 0;
+    }
+
+    .card--inverse.card--primary.comment {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .comment-title.card-header {
+        width: 615px;
+    }
+
+    .card-block-comment {
+        width: 615px;
+        text-align: left;
+    }
+
+    .textarea {
+        width: 615px;
+    }
+
+    /* Task Administration */
+    div.detail-task-administration {
+       margin: 0 0 10px 0;
+       display: flex;
+       flex-direction: column;
+   }
+}
+
+@media (max-width: 767px) {
+    .nav-top-list-item {
+        border: 1px solid rgb(225, 225, 225);
+        border-top: 0;
+    }
+
+    a.link {
+        padding-top: 0;
+    }
+
+    .profile-detail-picture {
+        height: 200px;
+        width: 200px;
+    }
+
+    table td {
+        font-size: 11px;
+    }
+
+    .profil-infos th {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 310px) {
+    div.form-group-login input{
+        width: 80%;
+    }
+}
+
+@media (max-width: 310px) {
+    .page-content form {
+        margin-left: 17%;
+    }
+}
+
+@media (max-width: 599px) {
+    .footer {
+        display: none;
+    }
+
+    .footer2 {
+        display: flex;
+    }
+
+    .footer2 p {
+        margin: 5px 17px 1px 0;
+        font-size: 11px;
+    }
+
+    .footer2 a {
+        color: #3D79D4;
+    }
+
+    .footer-content {
+        margin: 25px;
+        font-size: 11px;
+        border: none;
+    }
+
+    .footer-content a {
+        color: #000000;
+    }
+}
+
+@media (max-width: 380px) {
+    table.table.table--striped.table--hover.table--bordered thead tr th {
+        font-size: 11px;
+    }
+}

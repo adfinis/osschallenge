@@ -1,0 +1,44 @@
+{% extends 'osschallenge/index.html' %}
+{% load i18n %}
+{% load thumbnail %}
+{% load static %}
+{% load tasks %}
+
+{% block content %}
+<div class="content">
+    <div class="taskindex">
+        <div class="taskindex-top-items">
+            <div class="my-tasks">
+                <h1>{% trans "Tasks to review" %}</h1>
+                <a class="link" href="/tasks">{% trans "Show all tasks" %}</a>
+                <a class="link" href="/my_tasks/{{ request.user.username }}">{% trans "Show my tasks" %}</a>
+            </div>
+            <div class="search-function">
+                <form class="search" method="get">
+                    <div><input class="form-control" type="text" name="search" required="required" placeholder="{% trans "search all tasks" %}"></div>
+                    <div><input class="btn btn-primary submit-button" type="submit" value="{% trans "Search" %}"></div>
+                </form>
+            </div>
+        </div>
+        {% if match_list %}
+        <div class="grid grid--2of12 task-grid">
+            {% for match in match_list %}
+            <div class="grid-cell">
+                {% task_card match %}
+            </div>
+            {% endfor %}
+        </div>
+        {% elif task_list %}
+        <div class="grid grid--2of12 task-grid">
+            {% for task in finished_task_list %}
+            <div class="grid-cell">
+                {% task_card task %}
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>{% trans "No tasks available." %}</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

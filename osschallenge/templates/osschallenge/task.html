@@ -1,0 +1,132 @@
+{% extends 'osschallenge/index.html' %} {% load i18n %}
+{% load django_markdown %}
+{% load static %}
+
+{% block content %}
+{% load staticfiles %}
+<div class="grid content">
+    <div class="grid-cell grid-cell--3of12">
+        <div class="detail-left">
+            <div class="task-detail-picture">
+                {% if task.picture.avatar.url %}
+                <img class="task-detail-picture" src="{{ task.picture.avatar.url }}">
+                {% else %}
+                <img class="task-detail-picture" src="{% static "osschallenge/example.jpg" %}">
+                {% endif %}
+            </div>
+            <h2 class="tasktitle">{{ task.title }}</h2>
+            <p>
+                {% if task.task_done == True %}
+                    <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                    {% trans "done" %}
+                    {% if task.assignee_id %}
+                        {% trans "by" %} <a class="link" href="/profile/{{ task.assignee }}/">{{ task.assignee }}</a>
+                    {% endif %}
+                {% elif task.assignee_id != NULL %}
+                    <i class="fa fa-spinner" aria-hidden="true"></i>
+                    {% trans "claimed by" %} <a class="link" href="/profile/{{ task.assignee }}/">{{ task.assignee }}</a>
+                {% endif %}
+                {% if task.task_checked == False %}
+                    {% for user in mentors %}
+                        <br>{% trans "supervised by" %} <a class="link" href="/profile/{{ user.username }}/">{{ user }}</a>
+                    {% endfor %}
+                {% elif task.task_checked %}
+                    <br><i class="fa fa-check-circle" aria-hidden="true"></i>
+                    {% trans "approved by" %} <a class="link" href="/profile/{{ task.approved_by.username }}/">{{ task.approved_by.username }}</a>
+                {% endif %}
+            </p>
+            <p>{% trans task.lead_text %}</p>
+            <p><strong>{% trans "Description" %}</strong><br>{% trans task.description %}</p>
+            <div>
+                {% if user.profile.role_id == contributor_id and task.assignee_id == NULL and user.is_authenticated %}
+                    <form action="" method="POST" class="edit">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" name="Claim">{% trans "Claim" %}</button>
+                    </form>
+                {% elif task.assignee_id == user.id and task.task_checked == False and user.is_authenticated%}
+                    <form action="" method="POST" class="edit">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" name="Release">{% trans "Release" %}</button>
+                    </form>
+                {% endif %}
+                {% if task.task_done == False and task.assignee_id == user.id %}
+                    <form action="" method="POST" class="edit">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" name="Task done">{% trans "Task done" %}</button>
+                    </form>
+                {% endif %}
+            </div>
+            <div>
+                {% if is_mentor_of_this_task %}
+                    <a href="edit/" class=" btn btn-primary">{% trans "Edit" %}</a>
+                {% endif %}
+                {% if task.task_done == True and task.task_checked == False and is_mentor_of_this_task %}
+                    <form action="" method="POST" class="approve">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" name="Approve">{% trans "Approve" %}</button>
+                    </form>
+                {% endif %}
+                {% if task.task_checked and is_mentor_of_this_task %}
+                <form method="POST" class="edit">
+                    {% csrf_token %}
+                    <button class="btn btn-primary" name="Reopen">{% trans "Reopen" %}</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="grid-cell grid-cell--9of12">
+        <div class="detail-right">
+            {% if error_message %}<p><strong>{% trans error_message %}</strong></p>{% endif %}
+            {% if user.id %}
+                <div class="comment-box">
+                    {% for comment in comment_list reversed %}
+                    {% if comment.task_id == task.id %}
+                    <div class="card--inverse card--primary comment">
+                        <div class="comment-title card-header">
+                            {% if comment.author.profile.role_id == mentor_id %}
+                            <a class="link" href="/profile/{{ comment.author.username }}/">
+                                <b>{{ comment.author.first_name }} {{comment.author.last_name}}</b>
+                                <i class="fa fa-star" aria-hidden="true"><span class="hidden-span">{% trans "This user is mentor" %}</span></i>
+                            </a>
+                            {% else %}
+                            <a class="link" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.username }}</b></a>
+                            {% endif %}
+                        </div>
+                        <div class="card-block-comment">
+                            {{ comment.comment|markdown|linebreaks }}
+                            <div class="text-right">
+                                <div class="date">
+                                    {{ comment.created_at|date:'Y-m-d, H:i' }}
+                                </div>
+                                {% if comment.author.id == user.id %}
+                                <div class="delete-comment">
+                                    <form action="" method="POST" class="delete">
+                                        {% csrf_token %}
+                                        <button class="btn btn-primary delete-comment" value="{{comment.id}}" name="Delete-comment">{% trans "Delete this comment" %}</button>
+                                    </form>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <h3>{% trans "Add a comment" %}</h3> 
+                <form method="POST">
+                    <textarea id="markdown-comment" rows="4" required="required" class="textarea" name="comment" placeholder="{% trans "Enter text here..." %}"></textarea>
+                    {% markdown_editor "#markdown-comment" %}
+                    {% markdown_media %}
+                    {% csrf_token %}
+                    <button class="btn btn-primary" name="Comment">{% trans "Comment" %}</button>
+                    {% if notification %}
+                    <div class="alert alert-success" role="alert">{{ notification }}</div>
+                    {% endif %}
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
