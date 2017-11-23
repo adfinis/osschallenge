@@ -7,6 +7,7 @@ html, body {
 /*Wrapper*/
 #wrap {
     flex: 1 0 auto;
+    overflow: hidden;
 }
 
 /* Base Template */
@@ -735,4 +736,66 @@ table.table.table--striped.table--hover.table--bordered tbody tr td a{
 .profil-infos th {
     text-align: left;
     width: 200px;
+}
+
+.pony {
+    background: url(pony_spritesheet.png);
+    height: 250px;
+    width: 400px;
+    -webkit-animation: 
+        gallop 0.7s steps(15) infinite,
+        walk 3s linear infinite;
+    animation: 
+        gallop 0.7s steps(15) infinite,
+        walk 3s linear infinite;
+}
+
+@-webkit-keyframes gallop {
+    from { background-position: 0px; }
+    to { background-position: -6000px; }
+}
+
+@keyframes gallop {
+    from { background-position: 0px; }
+    to { background-position: -6000px; }
+}
+
+@-webkit-keyframes walk {
+    0% {
+        display: none;
+        -webkit-transform: translate(-150%)
+    }
+
+    1% {
+        -webkit-transform: translate(-149%);
+    }
+
+    99% {
+        -webkit-transform: translate(409%);
+    }
+
+    100% {
+        display: none;
+        -webkit-transform: translate(410%);
+    }
+}
+
+@keyframes walk {
+    0% {
+        display: none;
+        transform: translate(-150%)
+    }
+
+    1% {
+        transform: translate(-149%);
+    }
+
+    99% {
+        transform: translate(409%);
+    }
+
+    100% {
+        display: none;
+        transform: translate(410%);
+    }
 }

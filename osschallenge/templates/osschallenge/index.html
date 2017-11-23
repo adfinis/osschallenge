@@ -19,19 +19,6 @@
         {% endblock meta %}
     </head>
     <body class="page">
-        {% if request.user.is_authenticated and profile.role_id == contributor_id and profile.total_points == 15 %}
-            <script type="text/javascript" src="{% static "js/rankup.js" %}"></script>
-        {% elif request.user.is_authenticated and profile.role_id == contributor_id and profile.total_points == 30 %}
-            <script type="text/javascript" src="{% static "js/rankup.js" %}"></script>
-        {% elif request.user.is_authenticated and profile.role_id == contributor_id and profile.total_points == 45 %}
-            <script type="text/javascript" src="{% static "js/rankup.js" %}"></script>
-        {% elif request.user.is_authenticated and profile.role_id == contributor_id and profile.total_points == 60 %}
-            <script type="text/javascript" src="{% static "js/rankup.js" %}"></script>
-        {% elif request.user.is_authenticated and profile.role_id == contributor_id and profile.total_points == 85 %}
-            <script type="text/javascript" src="{% static "js/rankup.js" %}"></script>
-        {% elif request.user.is_authenticated and profile.role_id == contributor_id and profile.total_points == 110 %}
-            <script type="text/javascript" src="{% static "js/rankup.js" %}"></script>
-        {% endif %}
         <div id="wrap">
             <nav class="nav-top">
                 <header class="nav-top-header">
