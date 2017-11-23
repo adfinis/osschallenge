@@ -82,7 +82,20 @@
                 <button class="btn btn-primary btn-profile">{% trans "Edit" %}</button>
             </a>
             {% endif %}
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.osschallenge.ch%2Fprofile%2F{{profile.user.username}}%2F" data-rel="popup" title="Bei Facebook teilen" role="button" aria-label="Bei Favebook teilen">Teilen</a>
+            <div class="social-media-buttons">
+                <div class="fb-share-button">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.osschallenge.ch%2Fprofile%2F{{profile.user.username}}%2F" data-rel="popup" title="Bei Facebook teilen" role="button" aria-label="Bei Favebook teilen" class="share-buttons">
+                        <div id="fb-icon"></div>
+                        <span>Teilen</span>
+                    </a>
+                </div>
+                <div class="tweet-button">
+                    <a class="share-buttons" href="https://twitter.com/intent/tweet?hashtags=osschallenge&text=Ich%20habe%20{{total_points}}%20Punkte%20erreicht!&url=https://www.osschallenge.ch/profile/{{profile.user.username}}" title="Tweeten" aria-label="Tweeten">
+                        <div id="twitter-icon"></div>
+                        <span>Tweet</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="grid-cell grid-cell--8of12">
