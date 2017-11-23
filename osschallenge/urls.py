@@ -4,9 +4,15 @@ from . import views
 from .forms import LoginForm
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
 
 
 urlpatterns = [
+
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+
+    url(r'^admin/', admin.site.urls),
+
     url(r'^$',
         views.IndexView,
         name='index'),
@@ -41,7 +47,7 @@ urlpatterns = [
 
     url(r'^my_tasks/(?P<username>[0-9A-Za-z_\-\.\+\@]+)/$',
         views.MyTaskIndexView,
-        name='task'),
+        name='mytask'),
 
     url(r'^tasks/(?P<pk>[0-9]+)/edit/$',
         views.EditTaskView,
@@ -68,13 +74,16 @@ urlpatterns = [
         name='about'),
 
     url(r'^register/$',
-        views.RegistrationView.as_view()),
+        views.RegistrationView.as_view(),
+        name='register'),
 
     url(r'^registration_done/(?P<key>[\w\.-]+)/',
-        views.RegistrationDoneView.as_view()),
+        views.RegistrationDoneView.as_view(),
+        name='registrationdone'),
 
     url(r'^registration_send_mail/$',
-        views.RegistrationSendMailView.as_view()),
+        views.RegistrationSendMailView.as_view(),
+        name='registrationsendmail'),
 
     url(r'^password_change/$', auth_views.password_change,
         name='password_change'),
@@ -99,7 +108,7 @@ urlpatterns = [
 
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
-    url('^markdown/', include( 'django_markdown.urls')),
+    url('^markdown/', include('django_markdown.urls')),
 ]
 
 if settings.DEBUG:
