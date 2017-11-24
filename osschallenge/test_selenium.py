@@ -94,7 +94,7 @@ class MydriverTests(StaticLiveServerTestCase):
         cls.driver.quit()
         super(MydriverTests, cls).tearDownClass()
 
-    def test_register(self):
+    def test_register_successful(self):
         self.driver.get("{}{}".format(self.live_server_url, "/register/"))
         username_input = self.driver.find_element_by_name("username")
         username_input.send_keys("myuser")
@@ -103,11 +103,44 @@ class MydriverTests(StaticLiveServerTestCase):
         lastname_input = self.driver.find_element_by_name("last_name")
         lastname_input.send_keys("bar")
         email_input = self.driver.find_element_by_name("email")
-        email_input.send_keys("example@example123.ch")
+        email_input.send_keys("example@example.ch")
         password1_input = self.driver.find_element_by_name("password1")
         password1_input.send_keys("12345qwert")
         password2_input = self.driver.find_element_by_name("password2")
         password2_input.send_keys("12345qwert")
+        self.driver.find_element_by_id("register").click()
+
+    def test_register_name_already_taken(self):
+        self.driver.get("{}{}".format(self.live_server_url, "/register/"))
+        username_input = self.driver.find_element_by_name("username")
+        username_input.send_keys("Test")
+        firstname_input = self.driver.find_element_by_name("first_name")
+        firstname_input.send_keys("foo")
+        lastname_input = self.driver.find_element_by_name("last_name")
+        lastname_input.send_keys("bar")
+        email_input = self.driver.find_element_by_name("email")
+        email_input.send_keys("example@example.ch")
+        password1_input = self.driver.find_element_by_name("password1")
+        password1_input.send_keys("12345qwert")
+        password2_input = self.driver.find_element_by_name("password2")
+        password2_input.send_keys("12345qwert")
+        self.driver.find_element_by_id("register").click()
+
+    def test_register_passwords_do_not_match(self):
+        self.driver.get("{}{}".format(self.live_server_url, "/register/"))
+        username_input = self.driver.find_element_by_name("username")
+        username_input.send_keys("Test")
+        firstname_input = self.driver.find_element_by_name("first_name")
+        firstname_input.send_keys("foo")
+        lastname_input = self.driver.find_element_by_name("last_name")
+        lastname_input.send_keys("bar")
+        email_input = self.driver.find_element_by_name("email")
+        email_input.send_keys("example@example.ch")
+        password1_input = self.driver.find_element_by_name("password1")
+        password1_input.send_keys("12345qwert")
+        password2_input = self.driver.find_element_by_name("password2")
+        password2_input.send_keys("qwert12345")
+        self.driver.find_element_by_id("register").click()
 
     def test_create_a_new_project(self):
         self.driver.get("{}{}".format(self.live_server_url, "/login/"))
