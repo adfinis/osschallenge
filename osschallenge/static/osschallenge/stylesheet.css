@@ -799,3 +799,12 @@ table.table.table--striped.table--hover.table--bordered tbody tr td a{
         transform: translate(410%);
     }
 }
+
+.rankup-header {
+    text-align: center;
+    margin: 10px;
+}
+
+.rankupmesage {
+    margin: 10px;
+}

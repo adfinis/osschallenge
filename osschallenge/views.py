@@ -336,6 +336,10 @@ def ProfileView(request, username):
     if user.is_active is False:
         return render(request, 'osschallenge/profile_does_not_exist.html')
 
+    if (total_points == 15 or total_points == 30 or total_points == 45 or
+            total_points == 60 or total_points == 85 or total_points == 110):
+        redirect('/rankup/')
+
     return render(request, template_name, {
         'contributor_id': CONTRIBUTOR_ID,
         'mentor_id': MENTOR_ID,
@@ -571,5 +575,16 @@ class RegistrationDoneView(generic.TemplateView):
 class RegistrationSendMailView(generic.TemplateView):
     template_name = 'osschallenge/registration_send_mail.html'
 
-class RankupView(generic.TemplateView):
+def RankupView(request):
+    user = request.user.username
     template_name = 'osschallenge/rankup.html'
+    approved_tasks = Task.objects.filter(
+        Q(task_checked=True) &
+        Q(assignee_id=request.user.id)
+    ).count()
+    total_points = approved_tasks * 5
+
+    return render(request, template_name, {
+        'user': user,
+        'total_points': total_points,
+    })

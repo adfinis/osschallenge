@@ -36,6 +36,7 @@ class Profile(models.Model):
     contact = models.CharField(max_length=50)
     key = models.CharField(max_length=10, unique=True)
     picture = ThumbnailerImageField(upload_to='profile-pictures', null=True)
+    rank = models.ForeignKey(Rank, default=1, verbose_name=_('Rank'),)
 
     def __str__(self):
         return self.user.username

@@ -86,7 +86,7 @@ urlpatterns = [
         name='registrationsendmail'),
 
     url(r'^rankup/$',
-        views.RankupView.as_view(),
+        views.RankupView,
         name='rankup'),
 
     url(r'^password_change/$', auth_views.password_change,
