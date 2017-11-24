@@ -563,7 +563,7 @@ class RegistrationView(FormView):
             The OSS-Challenge Team
             """).format(settings.SITE_URL, profile.key),
             'osschallenge@osschallenge.com',
-            [user.email],
+            [user.email]:,
             fail_silently=False,
         )
 
@@ -592,13 +592,15 @@ def RankupView(request):
     template_name = 'osschallenge/rankup.html'
     user = User.request.get(username = request.user.username)
     profile = Profile.objects.get(user_id=user.id)
+    rank = Rank.objects.all()[profile.rank.id + 1]
     approved_tasks = Task.objects.filter(
         Q(task_checked=True) &
         Q(assignee_id=request.user.id)
     ).count()
     total_points = approved_tasks * 5
-    profile.rank = profile.rank + 1
-    profile.save()
+    if total_points >= rank.required_points:
+        profile.rank = profile.rank + 1
+        profile.save()
 
     return render(request, template_name, {
         'user': user.username,
