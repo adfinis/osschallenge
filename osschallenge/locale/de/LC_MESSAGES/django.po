@@ -543,5 +543,10 @@ msgstr ""
 "            Das OSS-Challenge Team\n"
 "            "
 
+#: osschallenge/models.py:39
+msgid "Rank"
+msgstr "Rang"
+
+
 #~ msgid "contact"
 #~ msgstr "Kontakt"

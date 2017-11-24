@@ -95,6 +95,7 @@ def EditProjectView(request, pk):
             return redirect('project', pk=project.pk)
 
     else:
+
         form = ProjectForm(instance=project)
 
     return render(
@@ -110,8 +111,19 @@ def EditProjectView(request, pk):
 def MyTaskIndexView(request, username):
     template_name = 'osschallenge/mytasksindex.html'
     current_user_id = request.user.id
+    user = User.objects.get(username=username)
+    profile = Profile.objects.get(user_id=user.id)
     user_task_objects = Task.objects.filter(assignee_id=current_user_id)
     user_task_list = []
+    approved_tasks = Task.objects.filter(
+        Q(task_checked=True) &
+        Q(assignee_id=user.id)
+    ).count()
+    total_points = approved_tasks * 5
+    rank = Rank.objects.all()[profile.rank.id + 1]
+    required_points = rank.required_points
+    if required_points <= total_points:
+        redirect('/rankup/')
     for obj in user_task_objects:
         user_task_list.append(obj)
     for task in user_task_objects:
@@ -575,16 +587,20 @@ class RegistrationDoneView(generic.TemplateView):
 class RegistrationSendMailView(generic.TemplateView):
     template_name = 'osschallenge/registration_send_mail.html'
 
+
 def RankupView(request):
-    user = request.user.username
     template_name = 'osschallenge/rankup.html'
+    user = User.request.get(username = request.user.username)
+    profile = Profile.objects.get(user_id=user.id)
     approved_tasks = Task.objects.filter(
         Q(task_checked=True) &
         Q(assignee_id=request.user.id)
     ).count()
     total_points = approved_tasks * 5
+    profile.rank = profile.rank + 1
+    profile.save()
 
     return render(request, template_name, {
-        'user': user,
+        'user': user.username,
         'total_points': total_points,
     })
