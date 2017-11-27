@@ -49,7 +49,7 @@
             <div class="new-task-button">
                 {% if current_user_id == project.owner_id or can_create_new_tasks %}
                 <a href="new_task/">
-                    <button class="btn btn-primary">{% trans "New Task" %}</button>
+                    <button id="new-task" class="btn btn-primary">{% trans "New Task" %}</button>
                 </a>
                 {% endif %}
             </div>
