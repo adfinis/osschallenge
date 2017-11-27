@@ -1,4 +1,8 @@
+![OSS Challenge Logo](/osschallenge/static/osschallenge/oss-challenge.jpg)
+
 # OSS-Challenge
+
+[![codecov](https://codecov.io/gh/adfinis-sygroup/osschallenge/branch/master/graph/badge.svg)](https://codecov.io/gh/adfinis-sygroup/osschallenge)
 
 A website for Open source tasks
 
@@ -38,4 +42,4 @@ $ python manage.py runserver        # Starts the localhost
 and go to http://127.0.0.1:8000/ to get to the Website.
 
 ## License
-Code released under the [GNU Affero General Public License v3.0](LICENSE).
+Code released under the [GNU General Public License v3.0](LICENSE).
