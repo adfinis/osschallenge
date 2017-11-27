@@ -2,6 +2,7 @@
 
 # OSS-Challenge
 
+[![Build Status](https://travis-ci.org/adfinis-sygroup/osschallenge.svg?branch=master)](https://travis-ci.org/adfinis-sygroup/osschallenge)
 [![codecov](https://codecov.io/gh/adfinis-sygroup/osschallenge/branch/master/graph/badge.svg)](https://codecov.io/gh/adfinis-sygroup/osschallenge)
 
 A website for Open source tasks
