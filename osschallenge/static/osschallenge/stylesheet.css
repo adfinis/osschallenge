@@ -36,6 +36,10 @@ div.content {
     padding: 10px 12px 0 12px;
 }
 
+div.content a {
+    height: 100%;
+}
+
 /* Index Lists */
 ul.index {
     display: flex;

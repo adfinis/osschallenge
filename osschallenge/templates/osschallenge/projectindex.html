@@ -15,20 +15,15 @@
         </a>
         {% endfor %}
         </ul>
-        {% if user.profile.role.id == mentor_id %}
-            <a href="new_project/">
-                <button id="new-project" class="btn btn-primary">{% trans "New Project" %}</button>
-            </a>
-        {% endif %}
     {% else %}
     <div class="no-projects">
         <p >{% trans "No projects available." %}</p>
     </div>
+    {% endif %}
     {% if user.profile.role.id == mentor_id %}
         <a href="new_project/">
             <button id="new-project" class="btn btn-primary">{% trans "New Project" %}</button>
         </a>
-    {% endif %}
     {% endif %}
 </div>
 {% endblock content %}
