@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
-from .models import Project, User, Task, Profile, Role, Comment
+from osschallenge.models import Project, User, Task, Profile, Role, Comment
 
 
 class ViewTestCase(TestCase):

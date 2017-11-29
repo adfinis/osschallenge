@@ -1,7 +1,7 @@
 from django.test import TestCase
-from .models import Rank
-from templatetags.ranks import get_rank
-from .views import shorten, get_quarter_months, get_quarter_start, get_next_quarter
+from osschallenge.models import Rank
+from osschallenge.templatetags.ranks import get_rank
+from osschallenge.views import shorten, get_quarter_months, get_quarter_start, get_next_quarter
 from freezegun import freeze_time
 from datetime import datetime
 
