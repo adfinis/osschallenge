@@ -84,7 +84,8 @@ def EditProjectView(request, pk):
     project = Project.objects.get(pk=pk)
 
     if 'delete-project' in request.POST:
-        project.delete()
+        project.active = False
+        project.save()
         return redirect('/projects/')
 
     if request.method == 'POST':
