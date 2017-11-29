@@ -4,9 +4,10 @@ class NewTaskPage(object):
         self.driver = selenium_driver
         self.live_server_url = live_server_url
 
-    def open(self):
-        self.driver.get("{}{}".format(self.live_server_url, "/projects/1/"))
-        self.driver.find_element_by_id("new-task").click()
+    def open(self, project_id):
+        self.driver.get(
+            "{}/projects/{}/new_task".format(self.live_server_url, project_id)
+        )
         return self
 
     def create_new_task(

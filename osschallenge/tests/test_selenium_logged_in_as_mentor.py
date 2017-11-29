@@ -109,50 +109,69 @@ class MydriverTests(StaticLiveServerTestCase):
 
     def test_create_a_new_project(self):
         self.new_project_page.open()
+        new_project = Project(
+            title_de="Mein neues Projekt",
+            title_en_us="My new project",
+            lead_text_de="Einleitung zum Projekt",
+            lead_text_en_us="Short introduction to the project",
+            description_de="Beschreibung zum Projekt",
+            description_en_us="Description for the project",
+            licence="GPL",
+            github="www.github.com",
+            website="www.example.com"
+        )
         self.new_project_page.create_new_project(
-            "Mein neues Projekt",
-            "My new project",
-            "Einleitung zum Projekt",
-            "Short introduction to the project",
-            "Beschreibung zum Projekt",
-            "Description for the project",
-            "GPL",
-            "www.github.com",
-            "www.example.com"
+            new_project.title_de,
+            new_project.title_en_us,
+            new_project.lead_text_de,
+            new_project.lead_text_en_us,
+            new_project.description_de,
+            new_project.description_en_us,
+            new_project.licence,
+            new_project.github,
+            new_project.website
         )
-        project = Project.objects.get(title_de="Mein neues Projekt")
-        self.assertEqual(project.title_de, "Mein neues Projekt")
-        self.assertEqual(project.title_en_us, "My new project")
-        self.assertEqual(project.lead_text_de, "Einleitung zum Projekt")
+        project = Project.objects.get(title_de=new_project.title_de)
+        self.assertEqual(project.title_de, new_project.title_de)
+        self.assertEqual(project.title_en_us, new_project.title_en_us)
+        self.assertEqual(project.lead_text_de, new_project.lead_text_de)
         self.assertEqual(
-            project.lead_text_en_us, "Short introduction to the project"
+            project.lead_text_en_us, new_project.lead_text_en_us
         )
-        self.assertEqual(project.description_de, "Beschreibung zum Projekt")
+        self.assertEqual(project.description_de, new_project.description_de)
         self.assertEqual(
-            project.description_en_us, "Description for the project"
+            project.description_en_us, new_project.description_en_us
         )
-        self.assertEqual(project.licence, "GPL")
-        self.assertEqual(project.github, "www.github.com")
-        self.assertEqual(project.website, "www.example.com")
+        self.assertEqual(project.licence, new_project.licence)
+        self.assertEqual(project.github, new_project.github)
+        self.assertEqual(project.website, new_project.website)
 
     def test_create_a_new_task(self):
-        self.new_task_page.open()
+        self.new_task_page.open(1)
+        new_task = Task(
+            title_de="Mein neuer Task",
+            title_en_us="My new task",
+            lead_text_de="Einleitung zum Task",
+            lead_text_en_us="Short introduction to the task",
+            description_de="Beschreibung zum Task",
+            description_en_us="Description for the task",
+        )
         self.new_task_page.create_new_task(
-            "Mein neuer Task",
-            "My new task",
-            "Einleitung zum Task",
-            "Short introduction for the task",
-            "Beschreibung zum Task",
-            "Description for the task"
+            new_task.title_de,
+            new_task.title_en_us,
+            new_task.lead_text_de,
+            new_task.lead_text_en_us,
+            new_task.description_de,
+            new_task.description_en_us
         )
-        task = Task.objects.get(title_de="Mein neuer Task")
-        self.assertEqual(task.title_de, "Mein neuer Task")
-        self.assertEqual(task.title_en_us, "My new task")
-        self.assertEqual(task.lead_text_de, "Einleitung zum Task")
+        task = Task.objects.get(title_de=new_task.title_de)
+        self.assertEqual(task.title_de, new_task.title_de)
+        self.assertEqual(task.title_en_us, new_task.title_en_us)
+        self.assertEqual(task.lead_text_de, new_task.lead_text_de)
         self.assertEqual(
-            task.lead_text_en_us, "Short introduction for the task"
+            task.lead_text_en_us, new_task.lead_text_en_us
         )
-        self.assertEqual(task.description_de, "Beschreibung zum Task")
+        self.assertEqual(task.description_de, new_task.description_de,)
         self.assertEqual(
-            task.description_en_us, "Description for the task"
+            task.description_en_us, new_task.description_en_us
         )
