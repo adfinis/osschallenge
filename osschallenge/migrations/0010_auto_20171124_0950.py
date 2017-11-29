@@ -19,14 +19,4 @@ class Migration(migrations.Migration):
             name='rank',
             field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='osschallenge.Rank', verbose_name='Rank'),
         ),
-        migrations.AlterField(
-            model_name='profile',
-            name='picture',
-            field=easy_thumbnails.fields.ThumbnailerImageField(null=True, upload_to='profile-pictures'),
-        ),
-        migrations.AlterField(
-            model_name='task',
-            name='picture',
-            field=easy_thumbnails.fields.ThumbnailerImageField(null=True, upload_to=''),
-        ),
     ]

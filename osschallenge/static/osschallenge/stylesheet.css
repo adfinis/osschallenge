@@ -748,6 +748,7 @@ table.table.table--striped.table--hover.table--bordered tbody tr td a{
     animation: 
         gallop 0.7s steps(15) infinite,
         walk 3s linear infinite;
+    margin-top: 110px;
 }
 
 @-webkit-keyframes gallop {
@@ -763,40 +764,40 @@ table.table.table--striped.table--hover.table--bordered tbody tr td a{
 @-webkit-keyframes walk {
     0% {
         display: none;
-        -webkit-transform: translate(-150%)
+        -webkit-transform: translate(-410%)
     }
 
     1% {
-        -webkit-transform: translate(-149%);
+        -webkit-transform: translate(-409%);
     }
 
     99% {
-        -webkit-transform: translate(409%);
+        -webkit-transform: translate(149%);
     }
 
     100% {
         display: none;
-        -webkit-transform: translate(410%);
+        -webkit-transform: translate(150%);
     }
 }
 
 @keyframes walk {
     0% {
         display: none;
-        transform: translate(-150%)
+        transform: translate(-410%)
     }
 
     1% {
-        transform: translate(-149%);
+        transform: translate(-409%);
     }
 
     99% {
-        transform: translate(409%);
+        transform: translate(149%);
     }
 
     100% {
         display: none;
-        transform: translate(410%);
+        transform: translate(150%);
     }
 }
 
@@ -805,6 +806,13 @@ table.table.table--striped.table--hover.table--bordered tbody tr td a{
     margin: 10px;
 }
 
-.rankupmesage {
+.rankupmessage {
     margin: 10px;
+    text-align: center;
+}
+
+.rankup-message {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
 }

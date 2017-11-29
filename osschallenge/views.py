@@ -18,6 +18,7 @@ from django.utils import timezone
 from django.db.models import Count, Case, When
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from django.core.exceptions import ObjectDoesNotExist
 
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
@@ -111,19 +112,10 @@ def EditProjectView(request, pk):
 def MyTaskIndexView(request, username):
     template_name = 'osschallenge/mytasksindex.html'
     current_user_id = request.user.id
-    user = User.objects.get(username=username)
-    profile = Profile.objects.get(user_id=user.id)
     user_task_objects = Task.objects.filter(assignee_id=current_user_id)
     user_task_list = []
-    approved_tasks = Task.objects.filter(
-        Q(task_checked=True) &
-        Q(assignee_id=user.id)
-    ).count()
-    total_points = approved_tasks * 5
-    rank = Rank.objects.all()[profile.rank.id + 1]
-    required_points = rank.required_points
-    if required_points <= total_points:
-        redirect('/rankup/')
+    if rankup_check(request.user.id) is True:
+        return redirect('/rankup/')
     for obj in user_task_objects:
         user_task_list.append(obj)
     for task in user_task_objects:
@@ -164,6 +156,11 @@ def TaskIndexView(request):
     task_list = list(Task.objects.all())
     template_name = 'osschallenge/taskindex.html'
     no_tasks = "There are no tasks"
+    try:
+        if rankup_check(request.user.id) is True:
+            return redirect('/rankup/')
+    except ObjectDoesNotExist:
+        pass
     for task in task_list:
         task.description = shorten(task.description, max_length_description)
         task.title = shorten(task.title, max_length_title)
@@ -319,6 +316,7 @@ def NewTaskView(request, pk):
 
 
 def ProfileView(request, username):
+    rankup_check(request.user.id)
     try:
         user = User.objects.get(username=username)
     except User.DoesNotExist:
@@ -563,7 +561,7 @@ class RegistrationView(FormView):
             The OSS-Challenge Team
             """).format(settings.SITE_URL, profile.key),
             'osschallenge@osschallenge.com',
-            [user.email]:,
+            [user.email],
             fail_silently=False,
         )
 
@@ -576,7 +574,8 @@ class RegistrationDoneView(generic.TemplateView):
         if matches.exists():
             profile = matches.first()
             if profile.user.is_active:
-                request.template_name = 'osschallenge/user_is_already_active.html'
+                request.template_name = (
+                    'osschallenge/user_is_already_active.html')
             else:
                 profile.user.is_active = True
                 profile.user.save()
@@ -590,19 +589,35 @@ class RegistrationSendMailView(generic.TemplateView):
 
 def RankupView(request):
     template_name = 'osschallenge/rankup.html'
-    user = User.request.get(username = request.user.username)
+    user = User.objects.get(username = request.user.username)
     profile = Profile.objects.get(user_id=user.id)
-    rank = Rank.objects.all()[profile.rank.id + 1]
+    needed_points = Rank.objects.all()[profile.rank_id].required_points
     approved_tasks = Task.objects.filter(
         Q(task_checked=True) &
-        Q(assignee_id=request.user.id)
+        Q(assignee_id=user.id)
     ).count()
-    total_points = approved_tasks * 5
-    if total_points >= rank.required_points:
-        profile.rank = profile.rank + 1
+    profile_points = approved_tasks * 5
+
+    if profile_points >= needed_points:
+        profile.rank_id = profile.rank_id + 1
         profile.save()
 
     return render(request, template_name, {
         'user': user.username,
-        'total_points': total_points,
+        'total_points': profile_points,
     })
+
+
+def rankup_check(user_id):
+    profile = Profile.objects.get(user_id=user_id)
+    approved_tasks = Task.objects.filter(
+        Q(task_checked=True) &
+        Q(assignee_id=user_id)
+    ).count()
+    actual_points = approved_tasks * 5
+    profile_points = Rank.objects.all()[profile.rank_id].required_points
+
+    if profile_points <= actual_points:
+        return True
+
+    return False
