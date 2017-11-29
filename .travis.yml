@@ -23,7 +23,7 @@ before_script:
     - psql -c "CREATE DATABASE osschallenge;" -U postgres
 
 script: 
-    - coverage run manage.py test osschallenge
+    - coverage run manage.py test osschallenge/tests
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)
