@@ -11,8 +11,8 @@ class MydriverTests(StaticLiveServerTestCase):
     def setUpClass(self):
         super(MydriverTests, self).setUpClass()
         options = webdriver.ChromeOptions()
-        # options.add_argument('headless')
-        # options.add_argument('window-size=1200x600')
+        options.add_argument('headless')
+        options.add_argument('window-size=1200x600')
         self.driver = webdriver.Chrome(chrome_options=options)
         self.driver.implicitly_wait(10)
 
