@@ -15,7 +15,3 @@ class LoginPage(object):
         password_input.send_keys(password)
         self.driver.find_element_by_id("login").click()
         return self
-
-    def logout(self):
-        self.driver.find_element_by_id("logout").click()
-        return self
