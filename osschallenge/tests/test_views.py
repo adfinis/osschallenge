@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
-from osschallenge.models import Project, User, Task, Profile, Role, Comment
+from osschallenge.models import Project, User, Task, Profile, Role, Comment, Rank
 
 
 class ViewTestCase(TestCase):
@@ -156,9 +156,15 @@ class ViewTestCase(TestCase):
             name="Mentor"
         )
 
+        self.rank1 = Rank.objects.create(
+            id=1,
+            name="Youngling"
+        )
+
         self.profile1 = Profile.objects.create(
             user=self.user1,
             role=self.role,
+            rank=self.rank1,
             links="Test",
             contact="Test",
             key="Test1",
@@ -168,6 +174,7 @@ class ViewTestCase(TestCase):
         self.profile2 = Profile.objects.create(
             user=self.user2,
             role=self.role,
+            rank=self.rank1,
             links="Test",
             contact="Test",
             key="Test2",
@@ -177,6 +184,7 @@ class ViewTestCase(TestCase):
         self.profile3 = Profile.objects.create(
             user=self.user3,
             role=self.role,
+            rank=self.rank1,
             links="Test",
             contact="Test",
             key=False,
@@ -186,6 +194,7 @@ class ViewTestCase(TestCase):
         self.profile4 = Profile.objects.create(
             user=self.user4,
             role=self.role,
+            rank=self.rank1,
             links="Test",
             contact="Test",
             key=123,

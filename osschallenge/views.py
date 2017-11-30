@@ -615,7 +615,10 @@ def rankup_check(user_id):
         Q(assignee_id=user_id)
     ).count()
     actual_points = approved_tasks * 5
-    profile_points = Rank.objects.all()[profile.rank_id].required_points
+    try:
+        profile_points = Rank.objects.all()[profile.rank_id].required_points
+    except IndexError:
+        return False
 
     if profile_points <= actual_points:
         return True
