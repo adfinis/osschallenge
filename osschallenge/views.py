@@ -323,22 +323,15 @@ def ProfileView(request, username):
         pass
     try:
         user = User.objects.get(username=username)
-    except User.DoesNotExist:
+        profile = Profile.objects.get(user_id=user.id)
+    except (Profile.DoesNotExist, User.DoesNotExist):
         return render(request, 'osschallenge/no_profile_available.html')
     template_name = 'osschallenge/profile.html'
-    approved_tasks = Task.objects.filter(
-        Q(task_checked=True) &
-        Q(assignee_id=user.id)
-    ).count()
-    total_points = approved_tasks * 5
+    total_points = profile.get_points()
     matches = Rank.objects.filter(
         required_points__lte=total_points
     ).order_by('-required_points')
     rank = matches.first()
-    try:
-        profile = Profile.objects.get(user_id=user.id)
-    except Profile.DoesNotExist:
-        return render(request, 'osschallenge/no_profile_available.html')
     finished_tasks = Task.objects.filter(task_done=True)
     finished_task_list = []
     for obj in finished_tasks:
@@ -610,13 +603,9 @@ def RankupView(request):
 
 def rankup_check(user_id):
     profile = Profile.objects.get(user_id=user_id)
-    approved_tasks = Task.objects.filter(
-        Q(task_checked=True) &
-        Q(assignee_id=user_id)
-    ).count()
-    actual_points = approved_tasks * 5
+    actual_points = profile.get_points()
     try:
-        profile_points = Rank.objects.all()[profile.rank_id].required_points
+        profile_points = Rank.objects.get(id=profile.rank_id).required_points
     except IndexError:
         return False
 

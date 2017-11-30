@@ -1,10 +1,9 @@
-import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
 from easy_thumbnails.fields import ThumbnailerImageField
 from django_markdown.models import MarkdownField
+from django.db.models import Q
 
 
 class Role(models.Model):
@@ -40,6 +39,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def get_points(self):
+        approved_tasks = Task.objects.filter(
+            Q(task_checked=True) &
+            Q(assignee_id=self.user.id)
+        ).count()
+        return approved_tasks * 5
 
 
 class Project(models.Model):
