@@ -6,14 +6,12 @@
     {% if project_list %}
         <ul class="index">
         {% for project in project_list %}
-        {% if project.active is True %}
         <a href="/projects/{{ project.id }}">
             <li>
                 <p>{{ project.title }}</p>
                 <p>{{ project.lead_text }}</p>
             </li>
         </a>
-        {% endif %}
         {% endfor %}
         </ul>
     {% else %}
