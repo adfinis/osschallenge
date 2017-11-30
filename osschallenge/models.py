@@ -1,8 +1,6 @@
-import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
 from easy_thumbnails.fields import ThumbnailerImageField
 from django_markdown.models import MarkdownField
 
@@ -53,6 +51,7 @@ class Project(models.Model):
                               verbose_name=_('Owner'),)
     mentors = models.ManyToManyField(User, related_name="project_mentors",
                                      verbose_name=_('Mentors'),)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
