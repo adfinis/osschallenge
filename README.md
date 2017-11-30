@@ -29,7 +29,8 @@ $ pyenv local oss-challenge
 
 ```bash
 $ docker-compose up                                           # Starts the Docker containers
-$ pip install -r requirements.txt                             # Installes all requirements
+$ pip install -r requirements.txt                             # Installes requirements
+$ pip install -r dev_requiremnts.txt                          # Installes Dev Requirements
 $ python manage.py migrate                                    # Applies migrations
 $ python manage.py loaddata osschallenge/fixture/*.json       # Loads all fixtures
 $ python manage.py createsuperuser                            # Creates new Django superuser
