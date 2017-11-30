@@ -74,6 +74,19 @@ class ViewTestCase(TestCase):
             date_joined="2017-10-13 08:17:36.901715+00"
         )
 
+        self.user6 = User.objects.create(
+            password="klssajsdfkj",
+            last_login="2017-10-18 11:55:45.681893+00",
+            is_superuser=False,
+            username="rankuper",
+            first_name="Test",
+            last_name="Test",
+            email="example@example123.ch",
+            is_staff=False,
+            is_active=False,
+            date_joined="2017-10-13 08:17:36.901715+00"
+        )
+
         self.client.login(
             username="Test",
             password="klajsdfkj"
@@ -146,6 +159,45 @@ class ViewTestCase(TestCase):
             approval_date="2017-10-18 12:34:51.168157+00"
         )
 
+        self.task5 = Task.objects.create(
+            title="Do Some",
+            lead_text="Do some",
+            description="Do some",
+            project=self.project,
+            assignee=self.user6,
+            task_done=True,
+            task_checked=True,
+            picture="test.png",
+            approved_by=self.user1,
+            approval_date="2017-10-18 12:34:51.168157+00"
+        )
+
+        self.task6 = Task.objects.create(
+            title="Make Code",
+            lead_text="Make Code",
+            description="Make Code",
+            project=self.project,
+            assignee=self.user6,
+            task_done=True,
+            task_checked=True,
+            picture="test.png",
+            approved_by=self.user1,
+            approval_date="2017-10-18 12:34:51.168157+00"
+        )
+
+        self.task7 = Task.objects.create(
+            title="ThinkCode",
+            lead_text="ThinkCode",
+            description="ThinkCode",
+            project=self.project,
+            assignee=self.user6,
+            task_done=True,
+            task_checked=True,
+            picture="test.png",
+            approved_by=self.user1,
+            approval_date="2017-10-18 12:34:51.168157+00"
+        )
+
         self.role = Role.objects.create(
             id=1,
             name="Contributor"
@@ -198,6 +250,16 @@ class ViewTestCase(TestCase):
             links="Test",
             contact="Test",
             key=123,
+            picture="Test.png"
+        )
+
+        self.profile5 = Profile.objects.create(
+            user=self.user6,
+            role=self.role,
+            rank=self.rank1,
+            links="Test",
+            contact="Test",
+            key="Test3",
             picture="Test.png"
         )
 
@@ -572,7 +634,7 @@ class ViewTestCase(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('task', args=[45]),
+            reverse('task', args=[78]),
             status_code=302
         )
 
@@ -727,7 +789,7 @@ class ViewTestCase(TestCase):
 
         url_with_invalid_key = reverse(
             'registrationdone',
-            args=["Test4"]
+            args=["Test14"]
         )
         response_with_invalid_key = self.client.get(url_with_invalid_key)
         self.assertEqual(response_with_invalid_key.status_code, 200)
@@ -744,3 +806,71 @@ class ViewTestCase(TestCase):
             response,
             'osschallenge/registration_send_mail.html'
         )
+
+    def test_redirect_to_rankup_view(self):
+        url_all_tasks = reverse('taskindex', args=[self.user6])
+        response_all_tasks = self.client.get(url_all_tasks)
+        print(url_all_tasks)
+        print(response_all_tasks)
+        self.assertEqual(response_all_tasks.status_code, 200)
+        self.assertTemplateUsed(
+            response_all_tasks,
+            'osschallenge/rankup.html'
+        )
+        self.assertEqual(self.profile5.rank, 2)
+
+        url_my_tasks = reverse('mytasksindex', args=[self.user6])
+        response_my_tasks = self.client.get(url_my_tasks)
+        self.assertEqual(response_my_tasks.status_code, 200)
+        self.assertTemplateUsed(
+            response_my_tasks,
+            'osschallenge/rankup.html'
+        )
+        self.assertEqual(self.profile5.rank, 2)
+
+        url_profile = reverse('profile', args=[self.user6])
+        response_profile = self.client.get(url_profile)
+        self.assertEqual(response_profile.status_code, 200)
+        self.assertTemplateUsed(
+            response_profile,
+            'osschallenge/rankup.html'
+        )
+        self.assertEqual(self.profile5.rank, 2)
+
+    def test_no_redirect_to_rankup_view(self):
+        url_tasks = reverse('taskindex')
+        response_tasks = self.client.get(url_tasks)
+        self.assertEqual(response_tasks.status_code, 200)
+        self.assertTemplateUsed(
+            response_tasks,
+            'osschallenge/taskindex.html'
+        )
+
+        url_all_tasks = reverse('taskindex', args=[self.user2])
+        response_all_tasks = self.client.get(url_all_tasks)
+        print(url_all_tasks)
+        print(response_all_tasks)
+        self.assertEqual(response_all_tasks.status_code, 200)
+        self.assertTemplateUsed(
+            response_all_tasks,
+            'osschallenge/taskindex.html'
+        )
+        self.assertEqual(self.profile5.rank, 1)
+
+        url_my_tasks = reverse('mytasksindex', args=[self.user2])
+        response_my_tasks = self.client.get(url_my_tasks)
+        self.assertEqual(response_my_tasks.status_code, 200)
+        self.assertTemplateUsed(
+            response_my_tasks,
+            'osschallenge/mytasksindex.html'
+        )
+        self.assertEqual(self.profile5.rank, 1)
+
+        url_profile = reverse('profile', args=[self.user2])
+        response_profile = self.client.get(url_profile)
+        self.assertEqual(response_profile.status_code, 200)
+        self.assertTemplateUsed(
+            response_profile,
+            'osschallenge/profile.html'
+        )
+        self.assertEqual(self.profile5.rank, 1)

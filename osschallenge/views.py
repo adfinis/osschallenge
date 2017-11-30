@@ -316,7 +316,11 @@ def NewTaskView(request, pk):
 
 
 def ProfileView(request, username):
-    rankup_check(request.user.id)
+    try:
+        if rankup_check(request.user.id) is True:
+            return redirect('/rankup/')
+    except ObjectDoesNotExist:
+        pass
     try:
         user = User.objects.get(username=username)
     except User.DoesNotExist:
@@ -345,10 +349,6 @@ def ProfileView(request, username):
 
     if user.is_active is False:
         return render(request, 'osschallenge/profile_does_not_exist.html')
-
-    if (total_points == 15 or total_points == 30 or total_points == 45 or
-            total_points == 60 or total_points == 85 or total_points == 110):
-        redirect('/rankup/')
 
     return render(request, template_name, {
         'contributor_id': CONTRIBUTOR_ID,
