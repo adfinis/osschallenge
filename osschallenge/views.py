@@ -46,7 +46,7 @@ class NewProjectView(CreateView):
 
 
 def ProjectIndexView(request):
-    project_list = list(Project.objects.filter(project.active=True))
+    project_list = list(Project.objects.filter(active=True))
     template_name = 'osschallenge/projectindex.html'
     return render(request, template_name, {
         'project_list': project_list,
