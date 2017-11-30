@@ -202,20 +202,22 @@ class ViewTestCase(TestCase):
             name="Mentor"
         )
 
-        self.rank1 = Rank.objects.create(
+        self.rank2 = Rank.objects.create(
             id=1,
-            name="Youngling"
+            name="Youngling",
+            required_points=0
         )
 
-        self.rank2 = Rank.objects.create(
+        self.rank1 = Rank.objects.create(
             id=2,
-            name="Padawan"
+            name="Padawan",
+            required_points=15
         )
 
         self.profile1 = Profile.objects.create(
             user=self.user1,
             role=self.role,
-            rank=self.rank2,
+            rank=self.rank1,
             links="Test",
             contact="Test",
             key="Test1",
@@ -811,11 +813,7 @@ class ViewTestCase(TestCase):
     def test_redirect_to_rankup_view(self):
         url_all_tasks = reverse('taskindex')
         response_all_tasks = self.client.get(url_all_tasks)
-        print(url_all_tasks)
-        print(response_all_tasks)
         self.assertEqual(response_all_tasks.status_code, 200)
-        import ipdb
-        ipdb.set_trace()
         self.assertTemplateUsed(
             response_all_tasks,
             'osschallenge/rankup.html'
