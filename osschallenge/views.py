@@ -582,7 +582,10 @@ class RegistrationSendMailView(generic.TemplateView):
 
 def RankupView(request):
     template_name = 'osschallenge/rankup.html'
-    user = User.objects.get(username = request.user.username)
+    try:
+        user = User.objects.get(username = request.user.username)
+    except ObjectDoesNotExist:
+        return redirect('/')
     profile = Profile.objects.get(user_id=user.id)
     needed_points = Rank.objects.all()[profile.rank_id].required_points
     approved_tasks = Task.objects.filter(
