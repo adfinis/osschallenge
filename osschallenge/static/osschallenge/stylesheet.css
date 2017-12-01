@@ -737,21 +737,22 @@ table.table.table--striped.table--hover.table--bordered tbody tr td a{
     width: 200px;
 }
 
-div.fb-share-button {
+div.social-button {
     margin: 15px 3px 6px 3px;
     padding: 2px;
     width: 100px;
-    background-color: #3B5998;
 }
 
-div.tweet-button {
-    margin: 15px 3px 6px 3px;
-    padding: 2px;
-    width: 100px;
+div#twitter {
     background-color: #1DA1F2;
 }
 
-.share-buttons {
+div#facebook {
+    background-color: #3B5998;
+}
+
+.share-buttons,
+.social-media-buttons {
     display: flex;
 }
 
@@ -762,20 +763,15 @@ div.tweet-button {
 }
 
 #fb-icon {
-    background-image: url("https://de.facebookbrand.com/wp-content/uploads/2016/05/FB-fLogo-Blue-broadcast-2.png");
-    background-size: 24px;
-    height: 24px;
-    width: 24px;
+    background-image: url("fb_logo.png");
 }
 
 #twitter-icon {
-    background-image: url("https://i.imgur.com/VVXC4kq.png");
+    background-image: url("twitter_icon.png");
+}
+
+.social-icon {
     background-size: 24px;
     height: 24px;
     width: 24px;
-
-}
-
-.social-media-buttons {
-    display: flex;
 }
