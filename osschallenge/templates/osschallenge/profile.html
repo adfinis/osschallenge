@@ -84,13 +84,13 @@
             {% endif %}
             <div class="social-media-buttons">
                 <div class="social-button" id="facebook">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.osschallenge.ch%2Fprofile%2F{{profile.user.username}}%2F" target="_blank" title="{% trans Share %}" role="button" aria-label="Bei Facebook teilen" class="share-button">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.osschallenge.ch%2Fprofile%2F{{profile.user.username}}%2F" target="_blank" title="{% trans "Share" %}" role="button" aria-label="{% trans "Share" %}" class="share-button">
                         <div class="social-icon" id="fb-icon"></div>
                         <span>{% trans "Share" %}</span>
                     </a>
                 </div>
                 <div class="social-button" id="twitter">
-                    <a class="share-button" href="https://twitter.com/intent/tweet?hashtags=osschallenge&text={% blocktrans %}I%20reached%20{{total_points}}%20Points!{% endblocktrans %}&url=https://www.osschallenge.ch/profile/{{profile.user.username}}" target="_blank" title="{% trans Tweet %}" aria-label="{% trans Tweet %}">
+                    <a class="share-button" href="https://twitter.com/intent/tweet?hashtags=osschallenge&text={% blocktrans %}I%20reached%20{{total_points}}%20Points!{% endblocktrans %}&url=https://www.osschallenge.ch/profile/{{profile.user.username}}" target="_blank" title="{% trans "Tweet" %}" aria-label="{% trans "Tweet" %}">
                         <div class="social-icon" id="twitter-icon"></div>
                         <span>{% trans "Tweet" %}</span>
                     </a>
