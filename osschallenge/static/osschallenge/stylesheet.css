@@ -751,12 +751,12 @@ div#facebook {
     background-color: #3B5998;
 }
 
-.share-buttons,
+.share-button,
 .social-media-buttons {
     display: flex;
 }
 
-.share-buttons span {
+.share-button span {
     color: #ffffff;
     margin-left: 14px;
     font-size: 17px;
