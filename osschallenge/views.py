@@ -584,15 +584,15 @@ def RankupView(request):
     template_name = 'osschallenge/rankup.html'
     try:
         user = User.objects.get(username = request.user.username)
-    except ObjectDoesNotExist:
-        return redirect('/')
-    profile = Profile.objects.get(user_id=user.id)
-    needed_points = Rank.objects.all()[profile.rank_id].required_points
-    approved_tasks = Task.objects.filter(
-        Q(task_checked=True) &
-        Q(assignee_id=user.id)
-    ).count()
-    actual_points = approved_tasks * 5
+        profile = Profile.objects.get(user_id=user.id)
+        needed_points = Rank.objects.all()[profile.rank_id].required_points
+        approved_tasks = Task.objects.filter(
+            Q(task_checked=True) &
+            Q(assignee_id=user.id)
+        ).count()
+        actual_points = approved_tasks * 5
+    except (ObjectDoesNotExist, IndexError):
+        return redirect('/', permanent=True)
 
     if actual_points >= needed_points:
         profile.rank_id = profile.rank_id + 1

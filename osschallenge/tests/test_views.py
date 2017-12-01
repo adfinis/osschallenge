@@ -856,4 +856,4 @@ class ViewTestCase(TestCase):
     def test_redirect_rankup_to_home(self):
         url = reverse('rankup')
         response = self.client.get(url)
-        self.assertRedirects(response, '/')
+        self.assertRedirects(response, '/', status_code=301)

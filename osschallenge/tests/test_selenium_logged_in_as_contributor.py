@@ -68,7 +68,7 @@ class MydriverTests(StaticLiveServerTestCase):
             required_points=0
         )
 
-        self.rank2 = Role.objecrs.create(
+        self.rank2 = Rank.objects.create(
             id=2,
             name="Padawan",
             required_points=15
