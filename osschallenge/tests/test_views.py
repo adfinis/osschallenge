@@ -812,11 +812,6 @@ class ViewTestCase(TestCase):
             reverse('rankup'),
             status_code=302
         )
-        self.assertTemplateUsed(
-            response_tasks,
-            'osschallenge/rankup.html'
-        )
-        self.assertEqual(self.profile1.rank.id, 2)
 
     def test_redirect_mytasks_to_rankup_view(self):
         url_my_tasks = reverse('mytask', args=[self.user1])
@@ -832,12 +827,11 @@ class ViewTestCase(TestCase):
         self.profile1.save()
 
         response_my_tasks = self.client.get(url_my_tasks)
-        self.assertEqual(response_my_tasks.status_code, 302)
-        self.assertTemplateUsed(
+        self.assertRedirects(
             response_my_tasks,
-            'osschallenge/rankup.html'
+            reverse('rankup'),
+            status_code=302
         )
-        self.assertEqual(self.profile1.rank.id, 2)
 
     def test_redirect_profile_to_rankup_view(self):
         url_profile = reverse('profile', args=[self.user1])
@@ -853,9 +847,8 @@ class ViewTestCase(TestCase):
         self.profile1.save()
 
         response_profile = self.client.get(url_profile)
-        self.assertEqual(response_profile.status_code, 302)
-        self.assertTemplateUsed(
+        self.assertRedirects(
             response_profile,
-            'osschallenge/rankup.html'
+            reverse('rankup'),
+            status_code=302
         )
-        self.assertEqual(self.profile1.rank.id, 2)
