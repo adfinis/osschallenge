@@ -60,6 +60,7 @@ class Project(models.Model):
                               verbose_name=_('Owner'),)
     mentors = models.ManyToManyField(User, related_name="project_mentors",
                                      verbose_name=_('Mentors'),)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title

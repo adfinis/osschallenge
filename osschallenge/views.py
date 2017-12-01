@@ -47,7 +47,7 @@ class NewProjectView(CreateView):
 
 
 def ProjectIndexView(request):
-    project_list = list(Project.objects.all())
+    project_list = list(Project.objects.filter(active=True))
     template_name = 'osschallenge/projectindex.html'
     return render(request, template_name, {
         'project_list': project_list,
@@ -85,7 +85,8 @@ def EditProjectView(request, pk):
     project = Project.objects.get(pk=pk)
 
     if 'delete-project' in request.POST:
-        project.delete()
+        project.active = False
+        project.save()
         return redirect('/projects/')
 
     if request.method == 'POST':
