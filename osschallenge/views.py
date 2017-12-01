@@ -589,15 +589,15 @@ def RankupView(request):
         Q(task_checked=True) &
         Q(assignee_id=user.id)
     ).count()
-    profile_points = approved_tasks * 5
+    actual_points = approved_tasks * 5
 
-    if profile_points >= needed_points:
+    if actual_points >= needed_points:
         profile.rank_id = profile.rank_id + 1
         profile.save()
 
     return render(request, template_name, {
         'user': user.username,
-        'total_points': profile_points,
+        'total_points': actual_points,
     })
 
 
