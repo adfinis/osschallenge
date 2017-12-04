@@ -18,6 +18,7 @@ from django.utils import timezone
 from django.db.models import Count, Case, When
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
@@ -480,7 +481,19 @@ def RankingView(request):
             )
         ) * 5
     )
-    ranking_list = contributors_with_points.order_by('-task_count')
+    ranking_list = contributors_with_points.order_by(
+        '-task_count',
+        'username'
+    )
+
+    paginator = Paginator(ranking_list, 9)
+    page = request.GET.get('page')
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
 
     template_name = 'osschallenge/ranking.html'
     return render(request, template_name, {
@@ -489,6 +502,7 @@ def RankingView(request):
         'mentor_id': MENTOR_ID,
         'quarter': quarter,
         'quarter_month': quarter_month,
+        'users': users,
     })
 
 
