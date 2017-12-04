@@ -222,6 +222,7 @@
    }
 }
 
+
 @media (max-width: 767px) {
     .nav-top-list-item {
         border: 1px solid rgb(225, 225, 225);
@@ -290,5 +291,21 @@
 @media (max-width: 380px) {
     table.table.table--striped.table--hover.table--bordered thead tr th {
         font-size: 11px;
+        height: 5px;
+    }
+}
+
+@media (max-height: 772px) {
+    .pagination {
+        bottom: 5px;
+        width: 50px;
+    }
+
+    table.table.table--striped.table--hover.table--bordered tbody tr td {
+        height: 27px;
+    }
+
+    table.table.table--striped.table--hover.table--bordered {
+        height: 332px;
     }
 }
