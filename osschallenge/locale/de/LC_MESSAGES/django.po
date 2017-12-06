@@ -114,7 +114,7 @@ msgstr "Profil löschen"
 
 #: osschallenge/templates/osschallenge/editproject.html:9
 #: osschallenge/templates/osschallenge/edittask.html:9
-#: osschallenge/templates/osschallenge/profile.html:74
+#: osschallenge/templates/osschallenge/profile.html:79
 #: osschallenge/templates/osschallenge/project.html:42
 #: osschallenge/templates/osschallenge/task.html:61
 msgid "Edit"
@@ -238,7 +238,8 @@ msgstr "Rang für dieses Quartal"
 msgid "Role"
 msgstr "Rolle"
 
-#: osschallenge/templates/osschallenge/profile.html:52
+#: osschallenge/templates/osschallenge/profile.html:12
+#: osschallenge/templates/osschallenge/profile.html:61
 msgid "Points reached"
 msgstr "Erreichte Punkte"
 
@@ -246,7 +247,7 @@ msgstr "Erreichte Punkte"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: osschallenge/templates/osschallenge/profile.html:71
+#: osschallenge/templates/osschallenge/profile.html:82
 msgid "Reset Password"
 msgstr "Passwort zurücksetzen"
 
@@ -543,10 +544,15 @@ msgstr ""
 "            Das OSS-Challenge Team\n"
 "            "
 
-#: osschallenge/models.py:39
-msgid "Rank"
-msgstr "Rang"
+#: osschallenge/templates/osschallenge/profile.html:87
+#: osschallenge/templates/osschallenge/profile.html:88
+msgid "Share"
+msgstr "Teilen"
 
+#: osschallenge/templates/osschallenge/profile.html:95
+msgid "Tweet"
+msgstr "Tweeten"
 
-#~ msgid "contact"
-#~ msgstr "Kontakt"
+#: osschallenge/templates/osschallenge/profile.html:93
+msgid "I%20reached%20{{total_points}}%20Points!"
+msgstr "Ich%20habe%20{{total_points}}%20Punkte%20erreicht!"
