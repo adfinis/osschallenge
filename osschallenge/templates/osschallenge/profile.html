@@ -3,6 +3,15 @@
 {% load static %}
 {% load tasks %}
 
+{% block meta %}
+<meta property="og:title" content="OSS-Challenge" />
+<meta property="og:type" content="profile:username" />
+<meta property="og:image" content="{% if profile.picture.avatar.url %} {{ profile.picture.avatar.url }} {% else %} {% static "osschallenge/profile-example.png" %} {% endif %}" />
+<meta property="og:url" content="www.osschallenge.ch/profile/{{ user.username }}/" />
+<meta property="og:description" content="{{ user.username }}" />
+<meta property="og:description" content="{% if profile.role_id == contributor_id %} {{total_points}} {% else %} 0 {% endif %} {% trans "Points reached." %}" />
+{% endblock meta %}
+
 {% block content %}
 <div class="grid content">
     <div class="grid-cell grid-cell--4of12">
@@ -66,7 +75,6 @@
                 </tbody>
             </table>
             {% if request.user.id == profile.user.id %}
-
             <a href="/password_change">
                 <button class="btn btn-primary btn-profile">{% trans "Reset Password" %}</button>
             </a>
@@ -74,6 +82,20 @@
                 <button id="edit" class="btn btn-primary btn-profile">{% trans "Edit" %}</button>
             </a>
             {% endif %}
+            <div class="social-media-buttons">
+                <div class="social-button" id="facebook">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.osschallenge.ch%2Fprofile%2F{{profile.user.username}}%2F" target="_blank" title="{% trans "Share" %}" role="button" aria-label="{% trans "Share" %}" class="share-button">
+                        <div class="social-icon" id="fb-icon"></div>
+                        <span>{% trans "Share" %}</span>
+                    </a>
+                </div>
+                <div class="social-button" id="twitter">
+                    <a class="share-button" href="https://twitter.com/intent/tweet?hashtags=osschallenge&text={% blocktrans %}I%20reached%20{{total_points}}%20Points!{% endblocktrans %}&url=https://www.osschallenge.ch/profile/{{profile.user.username}}" target="_blank" title="{% trans "Tweet" %}" aria-label="{% trans "Tweet" %}">
+                        <div class="social-icon" id="twitter-icon"></div>
+                        <span>{% trans "Tweet" %}</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="grid-cell grid-cell--8of12">
