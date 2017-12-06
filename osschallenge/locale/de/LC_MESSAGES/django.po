@@ -544,18 +544,6 @@ msgstr ""
 "            Das OSS-Challenge Team\n"
 "            "
 
-<<<<<<< HEAD
-=======
-<<<<<<< feature_levelup_message
-#: osschallenge/models.py:39
-msgid "Rank"
-msgstr "Rang"
-
-
-#~ msgid "contact"
-#~ msgstr "Kontakt"
-=======
->>>>>>> bab65cf05d15e3d7bacf6e72f0f1bf3cf08d4c81
 #: osschallenge/templates/osschallenge/profile.html:87
 #: osschallenge/templates/osschallenge/profile.html:88
 msgid "Share"

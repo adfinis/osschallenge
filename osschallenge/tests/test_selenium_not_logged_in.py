@@ -3,6 +3,7 @@ from selenium import webdriver
 from django.test import Client
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.rankup import RankUpPage
+from osschallenge.tests.pages.profil import ProfilePage
 from osschallenge.models import User, Profile, Role, Rank
 
 
@@ -22,6 +23,7 @@ class MydriverTests(StaticLiveServerTestCase):
         self.client = Client()
         self.register_page = RegisterPage(self.driver, self.live_server_url)
         self.rankup_page = RankUpPage(self.driver, self.live_server_url)
+        self.profile_page = ProfilePage(self.driver, self.live_server_url)
 
         self.role1 = Role.objects.create(
             id=1,
@@ -118,3 +120,7 @@ class MydriverTests(StaticLiveServerTestCase):
     def test_redirect_rankup(self):
         self.rankup_page.open()
         self.driver.find_element_by_id('id_username')
+
+    def test_no_redirect_profile(self):
+        self.profile_page.open("Test")
+        self.driver.find_element_by_id('facebook')

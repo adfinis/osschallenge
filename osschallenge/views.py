@@ -606,10 +606,7 @@ def RankupView(request):
 def rankup_check(user_id):
     profile = Profile.objects.get(user_id=user_id)
     actual_points = profile.get_points()
-    try:
-        profile_points = Rank.objects.get(id=profile.rank_id).required_points
-    except IndexError:
-        return False
+    profile_points = Rank.objects.get(id=profile.rank_id).required_points
 
     if profile_points <= actual_points:
         return True
