@@ -589,7 +589,7 @@ def RankupView(request):
         needed_points = Rank.objects.get(id=profile.rank_id).required_points
         actual_points = profile.get_points()
     except (ObjectDoesNotExist, IndexError):
-        return redirect('/', permanent=True)
+        return redirect('/login', permanent=True)
 
     if actual_points >= needed_points:
         profile.rank = Rank.objects.filter(

@@ -2,6 +2,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from django.test import Client
 from osschallenge.tests.pages.register import RegisterPage
+from osschallenge.tests.pages.rankup import RankUpPage
 from osschallenge.models import User, Profile, Role, Rank
 
 
@@ -20,6 +21,7 @@ class MydriverTests(StaticLiveServerTestCase):
     def setUp(self):
         self.client = Client()
         self.register_page = RegisterPage(self.driver, self.live_server_url)
+        self.rankup_page = RankUpPage(self.driver, self.live_server_url)
 
         self.role1 = Role.objects.create(
             id=1,
@@ -27,8 +29,9 @@ class MydriverTests(StaticLiveServerTestCase):
         )
 
         self.rank1 = Rank.objects.create(
-            id=1,
-            name="Youngling"
+            id=7,
+            name="Yoda",
+            required_points=115
         )
 
         self.user1 = User.objects.create(
@@ -111,3 +114,7 @@ class MydriverTests(StaticLiveServerTestCase):
             "qwert12345"
         )
         self.assertRaises(AssertionError)
+
+    def test_redirect_rankup(self):
+        self.rankup_page.open()
+        self.driver.find_element_by_id('id_username')
