@@ -740,3 +740,42 @@ table.table.table--striped.table--hover.table--bordered tbody tr td a{
     text-align: left;
     width: 200px;
 }
+
+div.social-button {
+    margin: 15px 3px 6px 3px;
+    padding: 2px;
+    width: 100px;
+}
+
+div#twitter {
+    background-color: #1DA1F2;
+}
+
+div#facebook {
+    background-color: #3B5998;
+}
+
+.share-button,
+.social-media-buttons {
+    display: flex;
+}
+
+.share-button span {
+    color: #ffffff;
+    margin-left: 14px;
+    font-size: 17px;
+}
+
+#fb-icon {
+    background-image: url("fb_logo.png");
+}
+
+#twitter-icon {
+    background-image: url("twitter_icon.png");
+}
+
+.social-icon {
+    background-size: 24px;
+    height: 24px;
+    width: 24px;
+}
