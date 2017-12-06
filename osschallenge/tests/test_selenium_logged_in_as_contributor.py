@@ -41,6 +41,7 @@ class MydriverTests(StaticLiveServerTestCase):
         self.task_page = TaskPage(self.driver, self.live_server_url)
 
         self.user1 = User.objects.create(
+            id=1,
             last_login="2017-10-18 11:55:45.681893+00",
             is_superuser=False,
             username="Test",
@@ -64,20 +65,26 @@ class MydriverTests(StaticLiveServerTestCase):
 
         self.rank1 = Rank.objects.create(
             id=1,
-            name="Youngling",
+            name="Padawan",
             required_points=0
         )
 
         self.rank2 = Rank.objects.create(
             id=2,
-            name="Padawan",
+            name="Youngling",
             required_points=15
+        )
+
+        self.rank3 = Rank.objects.create(
+            id=7,
+            name="Yoda",
+            required_points=115
         )
 
         self.profile1 = Profile.objects.create(
             user=self.user1,
             role=self.role1,
-            rank=self.rank1,
+            rank=self.rank3,
             links="Test",
             contact="Test",
             key="Test1",
@@ -109,6 +116,48 @@ class MydriverTests(StaticLiveServerTestCase):
             task_checked=False,
             picture="test.png",
             approved_by=None,
+            approval_date="2017-10-18 12:34:51.168157+00"
+        )
+
+        self.task2 = Task.objects.create(
+            id=2,
+            title="Aug Fixing",
+            lead_text="Aug Fixing",
+            description="Aug Fixing",
+            project=self.project1,
+            assignee=self.user1,
+            task_done=True,
+            task_checked=True,
+            picture="test.png",
+            approved_by=self.user1,
+            approval_date="2017-10-18 12:34:51.168157+00"
+        )
+
+        self.task3 = Task.objects.create(
+            id=3,
+            title="Hug Fixing",
+            lead_text="Hug Fixing",
+            description="Hug Fixing",
+            project=self.project1,
+            assignee=self.user1,
+            task_done=True,
+            task_checked=True,
+            picture="test.png",
+            approved_by=self.user1,
+            approval_date="2017-10-18 12:34:51.168157+00"
+        )
+
+        self.task4 = Task.objects.create(
+            id=4,
+            title="Mug Fixing",
+            lead_text="Mug Fixing",
+            description="Mug Fixing",
+            project=self.project1,
+            assignee=self.user1,
+            task_done=True,
+            task_checked=True,
+            picture="test.png",
+            approved_by=self.user1,
             approval_date="2017-10-18 12:34:51.168157+00"
         )
 
@@ -148,3 +197,10 @@ class MydriverTests(StaticLiveServerTestCase):
         self.profile_page.edit_first_name_in_profile("Foobar")
         user = User.objects.get(username=self.user1.username)
         self.assertEqual(user.first_name, "TestFoobar")
+
+    def test_view_rankup(self):
+        self.profile1.rank = self.rank1
+        self.profile1.save()
+        self.profile_page.open("Test")
+        self.profile1.refresh_from_db()
+        self.assertEqual(self.profile1.rank_id, 2)

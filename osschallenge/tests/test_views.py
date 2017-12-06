@@ -841,7 +841,7 @@ class ViewTestCase(TestCase):
             response_profile,
             'osschallenge/profile.html'
         )
-        self.assertEqual(self.profile1.rank.id, 3)
+        self.assertEqual(self.profile1.rank_id, 3)
 
         self.profile1.rank = self.rank3
         self.profile1.save()
@@ -852,8 +852,3 @@ class ViewTestCase(TestCase):
             reverse('rankup'),
             status_code=302
         )
-
-    def test_redirect_rankup_to_home(self):
-        url = reverse('rankup')
-        response = self.client.get(url)
-        self.assertRedirects(response, '/', status_code=301)
