@@ -446,6 +446,10 @@ label[for="id_picture"] {
 
 }
 
+#project-index {
+    width: 100%;
+}
+
 .content-ranking {
     display: flex;
     justify-content: center;
@@ -708,10 +712,6 @@ table.table.table--striped.table--hover.table--bordered thead tr th {
     width: 20%;
 }
 
-table.table.table--striped.table--hover.table--bordered tbody tr td{
-    height: 65px;
-}
-
 table.table.table--striped.table--hover.table--bordered tbody tr td a{
     color: #000000;
 }
@@ -782,6 +782,5 @@ div#facebook {
 
 /* Pagination */
 .pagination {
-    position: absolute;
-    bottom: 90px;
+    width: 100px;
 }

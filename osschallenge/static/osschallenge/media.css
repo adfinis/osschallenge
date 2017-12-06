@@ -18,6 +18,10 @@
     .btn.btn-primary.add-project {
         width: 150px;
     }
+    /* Project Index */
+    #new-project {
+        width: 100px;
+    }
 
     /* New Task */
     .btn.btn-primary.add-task {
@@ -291,21 +295,5 @@
 @media (max-width: 380px) {
     table.table.table--striped.table--hover.table--bordered thead tr th {
         font-size: 11px;
-        height: 5px;
-    }
-}
-
-@media (max-height: 772px) {
-    .pagination {
-        bottom: 5px;
-        width: 50px;
-    }
-
-    table.table.table--striped.table--hover.table--bordered tbody tr td {
-        height: 27px;
-    }
-
-    table.table.table--striped.table--hover.table--bordered {
-        height: 332px;
     }
 }
