@@ -10,7 +10,7 @@ import easy_thumbnails.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('osschallenge', '0010_auto_20171129_1551.py'),
+        ('osschallenge', '0009_auto_20171025_1357'),
     ]
 
     operations = [
