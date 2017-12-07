@@ -1,7 +1,8 @@
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
-from osschallenge.models import Project, User, Task, Profile, Role, Comment
+from osschallenge.models import User, Role
+from . import factories
 
 
 class ViewTestCase(TestCase):
@@ -35,168 +36,31 @@ class ViewTestCase(TestCase):
             date_joined="2017-10-13 08:17:36.901715+00"
         )
 
-        self.user3 = User.objects.create(
-            password="klajsdfkj",
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="Bar",
-            first_name="Test",
-            last_name="Test",
-            email="example@example.ch",
-            is_staff=False,
-            is_active=False,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
-
-        self.user4 = User.objects.create(
-            password="klsffajsdfkj",
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="example",
-            first_name="Test",
-            last_name="Test",
-            email="example2@example.ch",
-            is_staff=False,
-            is_active=True,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
-
-        self.user5 = User.objects.create(
-            password="klssajsdfkj",
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="Fooo",
-            first_name="Test",
-            last_name="Test",
-            email="example@example123.ch",
-            is_staff=False,
-            is_active=False,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
-
         self.client.login(
             username="Test",
             password="klajsdfkj"
         )
 
-        self.project = Project.objects.create(
-            title_de="OpenStreetMap",
-            title_en_us="OpenStreetMap",
-            lead_text_de="Blablablab",
-            lead_text_en_us="Blablablab",
-            description_de="Blablablab",
-            description_en_us="Blablablab",
-            licence="MIT",
-            website="www.google.ch",
-            github="www.github.com",
-            owner=self.user1
-        )
+        self.project = factories.ProjectFactory(owner=self.user1)
 
         self.project.mentors.add(self.user1)
 
-        self.task1 = Task.objects.create(
-            title="Bug Fixing",
-            lead_text="Bug Fixing",
-            description="Bug Fixing",
-            project=self.project,
-            assignee=None,
-            task_done=False,
-            task_checked=False,
-            picture="test.png",
-            approved_by=None,
-            approval_date="2017-10-18 12:34:51.168157+00"
+        self.task1 = factories.TaskFactory(project=self.project, assignee=None)
+
+        self.task2 = factories.TaskFactory(
+            title="edit", project=self.project,
+            assignee=self.user1, task_checked=True, approved_by=self.user1
         )
 
-        self.task2 = Task.objects.create(
-            title="Edit Code",
-            lead_text="Edit Code",
-            description="Edit Code",
-            project=self.project,
-            assignee=self.user1,
-            task_done=False,
-            task_checked=True,
-            picture="test.png",
-            approved_by=self.user1,
-            approval_date="2017-10-18 12:34:51.168157+00"
-        )
+       # self.role1 = Role.objects.create(
+       #     id=1,
+       #     name="Contributor"
+       # )
 
-        self.task3 = Task.objects.create(
-            title="Code",
-            lead_text="Code",
-            description="Code",
-            project=self.project,
-            assignee=self.user4,
-            task_done=False,
-            task_checked=False,
-            picture="test.png",
-            approved_by=None,
-            approval_date="2017-10-18 12:34:51.168157+00"
-        )
+        role = factories.RoleFactory(name="Mentor")
 
-        self.task4 = Task.objects.create(
-            title="Code abc",
-            lead_text="Code abc",
-            description="Code avc",
-            project=self.project,
-            assignee=self.user1,
-            task_done=True,
-            task_checked=False,
-            picture="test.png",
-            approved_by=None,
-            approval_date="2017-10-18 12:34:51.168157+00"
-        )
-
-        self.role = Role.objects.create(
-            id=1,
-            name="Contributor"
-        )
-
-        self.role = Role.objects.create(
-            id=2,
-            name="Mentor"
-        )
-
-        self.profile1 = Profile.objects.create(
-            user=self.user1,
-            role=self.role,
-            links="Test",
-            contact="Test",
-            key="Test1",
-            picture="Test.png"
-        )
-
-        self.profile2 = Profile.objects.create(
-            user=self.user2,
-            role=self.role,
-            links="Test",
-            contact="Test",
-            key="Test2",
-            picture="Test.png"
-        )
-
-        self.profile3 = Profile.objects.create(
-            user=self.user3,
-            role=self.role,
-            links="Test",
-            contact="Test",
-            key=False,
-            picture="Test.png"
-        )
-
-        self.profile4 = Profile.objects.create(
-            user=self.user4,
-            role=self.role,
-            links="Test",
-            contact="Test",
-            key=123,
-            picture="Test.png"
-        )
-
-        self.comment1 = Comment.objects.create(
-            task=self.task1,
-            comment="Test1",
-            author=self.user1,
-            created_at="2017-10-18 12:34:51.168157+00"
+        self.profile1 = factories.ProfileFactory(
+            user=self.user1, role=role
         )
 
     def test_index_view(self):
@@ -212,6 +76,7 @@ class ViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'osschallenge/newproject.html')
 
     def test_create_new_project(self):
+        user = factories.UserFactory()
         url = reverse('newproject')
         response = self.client.post(
             url,
@@ -225,7 +90,7 @@ class ViewTestCase(TestCase):
                 'licence': 'MIT',
                 'github': 'www.example.ch',
                 'website': 'www.example.ch',
-                'mentors': self.user2.id
+                'mentors': user.id
             }
         )
         self.assertRedirects(
@@ -357,15 +222,16 @@ class ViewTestCase(TestCase):
 
     def test_already_claimed(self):
         # if Claim in request.POST and task is already claimed
-        url = reverse('task', args=[self.task3.pk])
+        user = factories.UserFactory()
+        task = factories.TaskFactory(project=self.project, assignee=user)
+        url = reverse('task', args=[task.pk])
         response = self.client.post(
             url,
             {'Claim': ''}
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.context['task'].assignee_id,
-            self.user4.id
+            response.context['task'].assignee_id, user.id
         )
 
     def test_release(self):
@@ -413,7 +279,8 @@ class ViewTestCase(TestCase):
 
     def test_already_done(self):
         # if Task done in request.POST and task is already done
-        url = reverse('task', args=[self.task4.pk])
+        task = factories.TaskFactory(task_done=True)
+        url = reverse('task', args=[task.pk])
         response = self.client.post(
             url,
             {'Task done': ''}
@@ -425,7 +292,9 @@ class ViewTestCase(TestCase):
 
     def test_comment(self):
         # if Comment in request.POST
-        url = reverse('task', args=[self.task4.pk])
+        task = factories.TaskFactory()
+        factories.CommentFactory(task=task)
+        url = reverse('task', args=[task.pk])
         response = self.client.get(url)
         self.assertEqual(
             len(response.context['comment_list']),
@@ -446,7 +315,9 @@ class ViewTestCase(TestCase):
 
     def test_comment_is_empty(self):
         # if Comment in request.POST but comment is empty
-        url = reverse('task', args=[self.task4.pk])
+        task = factories.TaskFactory()
+        factories.CommentFactory(task=task)
+        url = reverse('task', args=[task.pk])
         response = self.client.get(url)
         self.assertEqual(
             len(response.context['comment_list']),
@@ -463,6 +334,7 @@ class ViewTestCase(TestCase):
 
     def test_delete_comment(self):
         # if Delete-comment in request.POST
+        comment = factories.CommentFactory(author=self.user1, task=self.task1)
         url = reverse('task', args=[self.task1.pk])
         response = self.client.get(url)
         self.assertEqual(
@@ -471,10 +343,10 @@ class ViewTestCase(TestCase):
         )
         delete_response = self.client.post(
             url,
-            {'Delete-comment': self.comment1.id}
+            {'Delete-comment': comment.id}
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(self.comment1.author_id, self.user1.id)
+        self.assertEqual(comment.author_id, self.user1.id)
         self.assertEqual(
             len(delete_response.context['comment_list']),
             0
@@ -482,7 +354,8 @@ class ViewTestCase(TestCase):
 
     def test_approve(self):
         # if Approve in request.POST
-        url = reverse('task', args=[self.task3.pk])
+        task = factories.TaskFactory(task_checked=True, approved_by=self.user1)
+        url = reverse('task', args=[task.pk])
         response = self.client.post(url, {'Approve': ''})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['task'].task_checked, True)
@@ -502,7 +375,8 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['task'].task_checked, True)
         self.assertEqual(
-            response.context['task'].approval_date.strftime("%Y-%m-%d %H:%M:%S.%f+00"),
+            response.context['task'].approval_date.strftime(
+                "%Y-%m-%d %H:%M:%S.%f+00"),
             "2017-10-18 12:34:51.168157+00"
         )
         post_response = self.client.post(url, {'Reopen': ''})
@@ -563,7 +437,7 @@ class ViewTestCase(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('task', args=[45]),
+            reverse('task', args=[28]),
             status_code=302
         )
 
@@ -582,7 +456,8 @@ class ViewTestCase(TestCase):
         )
 
     def test_no_profile(self):
-        url = reverse('profile', args=[self.user5.username])
+        account = factories.UserFactory(is_active = False)
+        url = reverse('profile', args=[account.username])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
@@ -590,7 +465,9 @@ class ViewTestCase(TestCase):
         )
 
     def test_profile_does_not_exist_anymore(self):
-        url = reverse('profile', args=[self.user2.username])
+        user = factories.UserFactory(is_active=False)
+        factories.ProfileFactory(user=user)
+        url = reverse('profile', args=[user.username])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
@@ -694,9 +571,10 @@ class ViewTestCase(TestCase):
         )
 
     def test_registration_done_view(self):
+        profile = factories.ProfileFactory(user=self.user2)
         url_with_inactive_user = reverse(
             'registrationdone',
-            args=[self.profile2.key]
+            args=[profile.key]
         )
         response_with_inactive_user = self.client.get(url_with_inactive_user)
         self.assertEqual(response_with_inactive_user.status_code, 200)
