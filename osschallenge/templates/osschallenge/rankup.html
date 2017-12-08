@@ -6,18 +6,18 @@
 {% block content %}
 <div class="content">
     <div class="rankup-message">
-        <h1 class="rankup-header">{% trans "Glückwunsch" %} {{ user }} {% trans "!" %}</h1>
-        {% if total_points == 15 %}
+        <h1 class="rankup-header">{% trans "Glückwunsch" %} {{ user }}!</h1>
+        {% if total_points >= 15 %}
         <h2 class="rankupmessage">{% trans "Du hast den Rang Padawan erreicht!" %}</h2>
-        {% elif total_points == 30 %}
+        {% elif total_points >= 30 %}
         <h2 class="rankupmessage">{% trans "Du hast den Rang Jedi Ritter erreicht!" %}</h2>
-        {% elif total_points == 45 %}
+        {% elif total_points >= 45 %}
         <h2 class="rankupmessage">{% trans "Du hast den Rang Jedi Meister erreicht!" %}</h2>
-        {% elif total_points == 60 %}
+        {% elif total_points >= 60 %}
         <h2 class="rankupmessage">{% trans "Du hast den Rang Jedi Gross Meister erreicht!" %}</h2>
-        {% elif total_points == 85 %}
+        {% elif total_points >= 85 %}
         <h2 class="rankupmessage">{% trans "Du hast den Rang Jedi Kanzler erreicht!" %}</h2>
-        {% elif total_points == 110 %}
+        {% elif total_points >= 110 %}
         <h2 class="rankupmessage">{% trans "Du hast den Rang Yoda erreicht!" %}</h2>
         {% else %}
         <h2 class="rankupmessage">{% trans "Du solltest nicht hier sein!" %}</h2>
