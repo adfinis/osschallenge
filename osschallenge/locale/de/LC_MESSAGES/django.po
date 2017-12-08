@@ -556,3 +556,35 @@ msgstr "Tweeten"
 #: osschallenge/templates/osschallenge/profile.html:93
 msgid "I%20reached%20{{total_points}}%20Points!"
 msgstr "Ich%20habe%20{{total_points}}%20Punkte%20erreicht!"
+
+#: osschallenge/template/osschallenge/rankup.html:
+msgid "Congratuilations"
+msgstr "Glückwunsch"
+
+#: osschallenge/template/osschallenge/rankup.html:
+msgid "You have reached the rank of Padawan!"
+msgstr "Du hast den Rang Padawan erreicht!"
+
+#: osschallenge/template/osschallenge/rankup.html:
+msgid "You have reached the rank of Jedi Knight!"
+msgstr "Du hast den Rang Jedi Ritter erreicht!"
+
+#: osschallenge/template/osschallenge/rankup.html:
+msgid "You have reached the rank of Jedi Master!"
+msgstr "Du hast den Rang Jedi Meister erreicht!"
+
+#: osschallenge/template/osschallenge/rankup.html:
+msgid "You have reached the rank of Jedi Grand Master!"
+msgstr "Du hast den Rang Jedi Gross Meister erreicht!"
+
+#: osschallenge/template/osschallenge/rankup.html:
+msgid "You have reached the rank of Jedi Council Member!"
+msgstr "Du hast den Rang Jedi Kanzler erreicht!"
+
+#: osschallenge/template/osschallenge/rankup.html:
+msgid "You have rached the rank of Yoda!"
+msgstr "Du hast den Rang Yoda erreicht!"
+
+#: osschallenge/template/osschallenge/rankup.html:
+msgid "You should not be here."
+msgstr "Du solltest nicht hier sein."
