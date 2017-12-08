@@ -6,7 +6,7 @@ from django.views import generic
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView
 from .models import Task, Project, Profile, Comment, Rank
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from .forms import TaskForm, ProjectForm, ProfileForm, UserForm, CommentForm
 from django.views.generic import FormView
 from .forms import RegistrationForm
@@ -29,9 +29,7 @@ max_length_title = 60
 def IndexView(request):
     template_name = 'osschallenge/index.html'
 
-    return render(request, template_name, {
-        'mentor_id': MENTOR_ID
-    })
+    return render(request, template_name)
 
 
 class NewProjectView(CreateView):
@@ -525,16 +523,23 @@ class RegistrationView(FormView):
         user.is_active = False
         user.save()
 
+        group = Group.objects.get(pk=1)
+
+        user.groups.add(
+            group=group.id
+        )
+        user.groups.save()
+
         if user is not None:
-            self.generate_profile(user)
+            self.generate_profile(user, group)
 
         return super(RegistrationView, self).form_valid(form)
 
     def generate_key(self):
         return base64.b32encode(os.urandom(7))[:10].lower()
 
-    def generate_profile(self, user):
-        profile = Profile(key=self.generate_key(), user=user)
+    def generate_profile(self, user, group):
+        profile = Profile(key=self.generate_key(), user=user, role=group.id)
         profile.save()
         send_mail(
             _('OSS-Challenge account confirmation'),
