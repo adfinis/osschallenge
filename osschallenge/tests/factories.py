@@ -21,7 +21,7 @@ class RoleFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Role
 
-    name = "Contributor"
+    name = factory.Faker('word')
 
 
 class ProfileFactory(factory.django.DjangoModelFactory):
@@ -29,7 +29,7 @@ class ProfileFactory(factory.django.DjangoModelFactory):
         model = models.Profile
 
     user = factory.SubFactory(UserFactory)
-    role = factory.SubFactory(RoleFactory)
+    role = "Replace"
     key = factory.Faker(
         'password', length=10, special_chars=False,
         digits=True, upper_case=True, lower_case=True)

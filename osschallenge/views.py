@@ -561,7 +561,9 @@ class RegistrationDoneView(generic.TemplateView):
         if matches.exists():
             profile = matches.first()
             if profile.user.is_active:
-                request.template_name = 'osschallenge/user_is_already_active.html'
+                request.template_name = '''
+                    osschallenge/user_is_already_active.html
+                '''
             else:
                 profile.user.is_active = True
                 profile.user.save()

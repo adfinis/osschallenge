@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
-from osschallenge.models import User, Role
+from osschallenge.models import Role
 from . import factories
 
 
@@ -9,32 +9,10 @@ class ViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
 
-        self.user1 = User.objects.create(
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="Test",
-            first_name="Test",
-            last_name="Test",
-            email="example@example.ch",
-            is_staff=False,
-            is_active=True,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
+        self.user1 = factories.UserFactory(username="Test")
+
         self.user1.set_password("klajsdfkj")
         self.user1.save()
-
-        self.user2 = User.objects.create(
-            password="klajsdfkj",
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="Foo",
-            first_name="Test",
-            last_name="Test",
-            email="example@example.ch",
-            is_staff=False,
-            is_active=False,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
 
         self.client.login(
             username="Test",
@@ -52,16 +30,9 @@ class ViewTestCase(TestCase):
             assignee=self.user1, task_checked=True, approved_by=self.user1
         )
 
-       # self.role1 = Role.objects.create(
-       #     id=1,
-       #     name="Contributor"
-       # )
+        self.role = Role.objects.create(name="Contirb")
 
-        role = factories.RoleFactory(name="Mentor")
-
-        self.profile1 = factories.ProfileFactory(
-            user=self.user1, role=role
-        )
+        self.profile1 = factories.ProfileFactory(user=self.user1, role=self.role)
 
     def test_index_view(self):
         url = reverse('index')
@@ -76,7 +47,6 @@ class ViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'osschallenge/newproject.html')
 
     def test_create_new_project(self):
-        user = factories.UserFactory()
         url = reverse('newproject')
         response = self.client.post(
             url,
@@ -90,7 +60,7 @@ class ViewTestCase(TestCase):
                 'licence': 'MIT',
                 'github': 'www.example.ch',
                 'website': 'www.example.ch',
-                'mentors': user.id
+                'mentors': self.user1.id
             }
         )
         self.assertRedirects(
@@ -571,7 +541,8 @@ class ViewTestCase(TestCase):
         )
 
     def test_registration_done_view(self):
-        profile = factories.ProfileFactory(user=self.user2)
+        user = factories.UserFactory(is_active=False)
+        profile = factories.ProfileFactory(user=user, role=self.role)
         url_with_inactive_user = reverse(
             'registrationdone',
             args=[profile.key]
