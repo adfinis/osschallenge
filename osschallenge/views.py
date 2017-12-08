@@ -523,12 +523,9 @@ class RegistrationView(FormView):
         user.is_active = False
         user.save()
 
+        u = User.objects.get(email=form.data['email'])
         group = Group.objects.get(pk=1)
-
-        user.groups.add(
-            group=group.id
-        )
-        user.groups.save()
+        group.user_set.add(u)
 
         if user is not None:
             self.generate_profile(user, group)
@@ -539,7 +536,7 @@ class RegistrationView(FormView):
         return base64.b32encode(os.urandom(7))[:10].lower()
 
     def generate_profile(self, user, group):
-        profile = Profile(key=self.generate_key(), user=user, role=group.id)
+        profile = Profile(key=self.generate_key(), user=user)
         profile.save()
         send_mail(
             _('OSS-Challenge account confirmation'),
@@ -566,7 +563,9 @@ class RegistrationDoneView(generic.TemplateView):
         if matches.exists():
             profile = matches.first()
             if profile.user.is_active:
-                request.template_name = 'osschallenge/user_is_already_active.html'
+                request.template_name = '''
+                    osschallenge/user_is_already_active.html
+                '''
             else:
                 profile.user.is_active = True
                 profile.user.save()
