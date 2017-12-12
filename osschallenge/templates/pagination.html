@@ -13,7 +13,7 @@
         </a>
     </li>
     {% endif %}
-    <li class="active"><a href="#">{{ current_page }}</a></li>
+    <li class="active"><a href="#" name="active">{{ current_page }}</a></li>
     {% if current_page < last_page %}
     <li><a href="?page={{ next_page }}">{{ next_page }}</a></li>
     <li class="next">

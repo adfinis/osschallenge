@@ -8,6 +8,8 @@ from osschallenge.tests.pages.new_project import NewProjectPage
 from osschallenge.tests.pages.new_task import NewTaskPage
 from osschallenge.tests.pages.profil import ProfilePage
 from osschallenge.tests.pages.task import TaskPage
+from osschallenge.tests.pages.ranking import RankingPage
+from osschallenge.tests.pages.project import ProjectPage
 
 
 class MydriverTests(StaticLiveServerTestCase):
@@ -32,6 +34,8 @@ class MydriverTests(StaticLiveServerTestCase):
         self.new_task_page = NewTaskPage(self.driver, self.live_server_url)
         self.profile_page = ProfilePage(self.driver, self.live_server_url)
         self.task_page = TaskPage(self.driver, self.live_server_url)
+        self.ranking_page = RankingPage(self.driver, self.live_server_url)
+        self.project_page = ProjectPage(self.driver, self.live_server_url)
 
         self.user1 = User.objects.create(
             last_login="2017-10-18 11:55:45.681893+00",
@@ -84,7 +88,7 @@ class MydriverTests(StaticLiveServerTestCase):
             lead_text="Bug Fixing",
             description="Bug Fixing",
             project=self.project1,
-            assignee=None,
+            assignee=self.user1,
             task_done=False,
             task_checked=False,
             picture="test.png",
@@ -128,3 +132,24 @@ class MydriverTests(StaticLiveServerTestCase):
         self.profile_page.edit_first_name_in_profile("Foobar")
         user = User.objects.get(username=self.user1.username)
         self.assertEqual(user.first_name, "TestFoobar")
+
+    def test_ranking_page_not_an_integer(self):
+        self.ranking_page.open('/ranking/?page=a')
+        active_page = self.ranking_page.find_active_page()
+        self.assertRaises(ValueError)
+        self.assertEquals(int(active_page.text), 1)
+
+    def test_task_page_exists_on_all_tasks(self):
+        self.task_page.open_page_one_all_tasks('?page=1')
+        active_page = self.task_page.find_active_page()
+        self.assertEquals(int(active_page.text), 1)
+
+    def test_task_page_exists_on_my_tasks(self):
+        self.task_page.open_page_one_my_tasks('Test', '?page=1')
+        active_page = self.task_page.find_active_page()
+        self.assertEquals(int(active_page.text), 1)
+
+    def test_project_page_exists(self):
+        self.project_page.open_page_one_projects('?page=1')
+        active_page = self.project_page.find_active_page()
+        self.assertEquals(int(active_page.text), 1)

@@ -2,7 +2,6 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from osschallenge.tests.pages.ranking import RankingPage
 from django.test import Client
-from django.core.paginator import EmptyPage
 
 
 class MydriverTests(StaticLiveServerTestCase):
@@ -27,5 +26,6 @@ class MydriverTests(StaticLiveServerTestCase):
         super(MydriverTests, self).tearDownClass()
 
     def test_ranking_with_no_users(self):
-        self.ranking_page.open()
-        self.assertRaises(EmptyPage)
+        self.ranking_page.open('/ranking/?page=100')
+        message = self.ranking_page.find_message()
+        self.assertEquals(message.text, 'No users available')

@@ -299,7 +299,7 @@ class ViewTestCase(TestCase):
         url = reverse('mytask', args=[self.user1.username])
         response = self.client.get(url, {'search': 'edit'})
         self.assertEqual(
-            len(response.context['match_list']),
+            len(response.context['tasks']),
             1
         )
 
@@ -307,7 +307,7 @@ class ViewTestCase(TestCase):
         url = reverse('mytask', args=[self.user1.username])
         response = self.client.get(url, {'search': 'test'})
         self.assertEqual(
-            len(response.context['match_list']),
+            len(response.context['tasks']),
             0
         )
 
@@ -321,7 +321,7 @@ class ViewTestCase(TestCase):
         url = reverse('taskindex')
         response = self.client.get(url, {'search': 'edit'})
         self.assertEqual(
-            len(response.context['match_list']),
+            len(response.context['tasks']),
             1
         )
 
@@ -329,7 +329,7 @@ class ViewTestCase(TestCase):
         url = reverse('taskindex')
         response = self.client.get(url, {'search': 'test'})
         self.assertEqual(
-            len(response.context['match_list']),
+            len(response.context['tasks']),
             0
         )
 
