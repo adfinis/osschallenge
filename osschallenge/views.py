@@ -47,11 +47,18 @@ class NewProjectView(CreateView):
 
 
 def ProjectIndexView(request):
-    project_list = list(Project.objects.filter(active=True))
+    project_list = Project.objects.filter(active=True).order_by('id')
     template_name = 'osschallenge/projectindex.html'
+    if request.GET.get('page'):
+        current_page = request.GET.get('page')
+    else:
+        current_page = 1
+    projects, last_page, current_page = paging(current_page, project_list, 4)
     return render(request, template_name, {
-        'project_list': project_list,
-        'mentor_id': MENTOR_ID
+        'mentor_id': MENTOR_ID,
+        'projects': projects,
+        'current_page': current_page,
+        'last_page': last_page,
     })
 
 
@@ -113,34 +120,25 @@ def MyTaskIndexView(request, username):
     template_name = 'osschallenge/mytasksindex.html'
     current_user_id = request.user.id
     user_task_objects = Task.objects.filter(assignee_id=current_user_id)
-    user_task_list = []
-    for obj in user_task_objects:
-        user_task_list.append(obj)
-    for task in user_task_objects:
+    try:
+        matches = user_task_objects.filter(
+            Q(title__icontains=request.GET.get('search')) |
+            Q(project__title__icontains=request.GET.get('search'))
+        ).distinct().order_by('id')
+    except ValueError:
+        matches = user_task_objects.order_by('id')
+    if request.GET.get('page'):
+        current_page = request.GET.get('page')
+    else:
+        current_page = 1
+    tasks, last_page, current_page = paging(current_page, matches, 5)
+    for task in tasks.object_list:
         task.description = shorten(task.description, max_length_description)
         task.title = shorten(task.title, max_length_title)
-    if request.GET:
-        match_list = Task.objects.filter(
-            Q(title__icontains=request.GET['search']) |
-            Q(project__title__icontains=request.GET['search'])).distinct()
-        if match_list:
-            for match in match_list:
-                match.description = shorten(
-                    match.description, max_length_description
-                )
-                match.title = shorten(match.title, max_length_title)
-            return render(request, template_name, {
-                'match_list': match_list,
-                'user_task_list': user_task_list
-            })
-        else:
-            return render(request, template_name, {
-                'user_task_list': user_task_list,
-                'match_list': match_list,
-            })
     return render(request, template_name, {
-        'user_task_list': user_task_list,
-        'mentor_id': MENTOR_ID
+        'tasks': tasks,
+        'last_page': last_page,
+        'current_page': current_page
     })
 
 
@@ -151,35 +149,26 @@ def shorten(string, max_length):
 
 
 def TaskIndexView(request):
-    task_list = list(Task.objects.all())
     template_name = 'osschallenge/taskindex.html'
-    no_tasks = "There are no tasks"
-    for task in task_list:
+    try:
+        matches = Task.objects.filter(
+            Q(title__icontains=request.GET.get('search')) |
+            Q(project__title__icontains=request.GET.get('search'))
+        ).distinct().order_by('id')
+    except ValueError:
+        matches = Task.objects.all().order_by('id')
+    if request.GET.get('page'):
+        current_page = request.GET.get('page')
+    else:
+        current_page = 1
+    tasks, last_page, current_page = paging(current_page, matches, 5)
+    for task in tasks.object_list:
         task.description = shorten(task.description, max_length_description)
         task.title = shorten(task.title, max_length_title)
-    if request.GET:
-        match_list = Task.objects.filter(
-            Q(title__icontains=request.GET['search']) |
-            Q(project__title__icontains=request.GET['search'])).distinct()
-        if match_list:
-            for match in match_list:
-                match.description = shorten(
-                    match.description, max_length_description
-                )
-                match.title = shorten(match.title, max_length_title)
-            return render(request, template_name, {
-                'match_list': match_list,
-                'task_list': task_list
-            })
-        else:
-            return render(request, template_name, {
-                'no_tasks': no_tasks,
-                'task_list': task_list,
-                'match_list': match_list,
-            })
     return render(request, template_name, {
-        'task_list': task_list,
-        'mentor_id': MENTOR_ID
+        'tasks': tasks,
+        'last_page': last_page,
+        'current_page': current_page
     })
 
 
@@ -485,15 +474,11 @@ def RankingView(request):
         '-task_count',
         'username'
     )
-
-    paginator = Paginator(ranking_list, 9)
-    page = request.GET.get('page')
-    try:
-        users = paginator.page(page)
-    except PageNotAnInteger:
-        users = paginator.page(1)
-    except EmptyPage:
-        users = paginator.page(paginator.num_pages)
+    if request.GET.get('page'):
+        current_page = request.GET.get('page')
+    else:
+        current_page = 1
+    users, last_page, current_page = paging(current_page, ranking_list, 10)
 
     template_name = 'osschallenge/ranking.html'
     return render(request, template_name, {
@@ -503,7 +488,22 @@ def RankingView(request):
         'quarter': quarter,
         'quarter_month': quarter_month,
         'users': users,
+        'last_page': last_page,
+        'current_page': current_page,
     })
+
+
+def paging(page, ordered_item_list, page_sum):
+    paginator = Paginator(ordered_item_list, page_sum)
+    last_page = paginator.num_pages
+    try:
+        paged_elements = paginator.page(page)
+    except PageNotAnInteger:
+        paged_elements = paginator.page(1)
+    except EmptyPage:
+        paged_elements = paginator.page(paginator.num_pages)
+        page = paginator.num_pages
+    return (paged_elements, last_page, page)
 
 
 def get_quarter_months(string_of_current_quarter):

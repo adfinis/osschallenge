@@ -3,6 +3,7 @@
 {% load thumbnail %}
 {% load static %}
 {% load tasks %}
+{% load pagination %}
 
 {% block content %}
 <div class="content">
@@ -24,19 +25,9 @@
                 </form>
             </div>
         </div>
-        {% if no_tasks %}
-        <div class="no-tasks">{{ no_tasks }}</div>
-        {% elif match_list %}
+        {% if tasks %}
         <div class="grid grid--2of12 task-grid">
-            {% for match in match_list %}
-            <div class="grid-cell">
-                {% task_card match %}
-            </div>
-            {% endfor %}
-        </div>
-        {% elif task_list %}
-        <div class="grid grid--2of12 task-grid">
-            {% for task in task_list %}
+            {% for task in tasks %}
             <div class="grid-cell">
                 {% task_card task %}
             </div>
@@ -45,6 +36,7 @@
         {% else %}
         <p>{% trans "No tasks available." %}</p>
         {% endif %}
+    {% paging last_page current_page tasks %}
     </div>
 </div>
 {% endblock content %}
