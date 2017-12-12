@@ -23,7 +23,7 @@ class TaskPage(object):
 
     def open_page_one_my_tasks(self, username, page):
         self.driver.get(
-            "{}/my_tasks/{}/{}".format(self.live_server_url, username, page,)
+            "{}/my_tasks/{}/{}".format(self.live_server_url, username, page)
         )
         return self
 

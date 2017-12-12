@@ -11,5 +11,7 @@ class ProjectPage(object):
         return self
 
     def find_active_page(self):
-        active_page = self.driver.find_element_by_xpath("//a[@name='active']")
+        active_page = self.driver.find_element_by_css_selector(
+            'a[name="active"]'
+        )
         return active_page
