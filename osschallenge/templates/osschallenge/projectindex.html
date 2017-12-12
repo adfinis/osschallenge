@@ -16,12 +16,12 @@
             </a>
             {% endfor %}
             </ul>
+            {% paging last_page current_page projects %}
         {% else %}
         <div class="no-projects">
             <p >{% trans "No projects available." %}</p>
         </div>
         {% endif %}
-        {% paging last_page current_page projects %}
     </div>
     {% if user.profile.role.id == mentor_id %}
         <a href="new_project/">
