@@ -19,9 +19,6 @@ from django.db.models import Count, Case, When
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-CONTRIBUTOR_ID = 1
-MENTOR_ID = 2
-
 max_length_description = 130
 max_length_title = 60
 
@@ -46,9 +43,10 @@ class NewProjectView(CreateView):
 def ProjectIndexView(request):
     project_list = list(Project.objects.filter(active=True))
     template_name = 'osschallenge/projectindex.html'
+    mentor_id = Group.objects.filter(name="Mentor")
     return render(request, template_name, {
         'project_list': project_list,
-        'mentor_id': MENTOR_ID
+        'mentor_id': mentor_id
     })
 
 
@@ -69,7 +67,6 @@ def ProjectView(request, pk):
 
     return render(request, template_name, {
         'project': project,
-        'mentor_id': MENTOR_ID,
         'mentors' : mentors,
         'owner' : owner,
         'current_user_id': current_user_id,
@@ -111,6 +108,7 @@ def MyTaskIndexView(request, username):
     current_user_id = request.user.id
     user_task_objects = Task.objects.filter(assignee_id=current_user_id)
     user_task_list = []
+    mentor_id = Group.objects.filter(name="Mentor")
     for obj in user_task_objects:
         user_task_list.append(obj)
     for task in user_task_objects:
@@ -137,7 +135,7 @@ def MyTaskIndexView(request, username):
             })
     return render(request, template_name, {
         'user_task_list': user_task_list,
-        'mentor_id': MENTOR_ID
+        'mentor_id': mentor_id
     })
 
 
@@ -151,6 +149,7 @@ def TaskIndexView(request):
     task_list = list(Task.objects.all())
     template_name = 'osschallenge/taskindex.html'
     no_tasks = "There are no tasks"
+    mentor_id = Group.objects.filter(name="Mentor")
     for task in task_list:
         task.description = shorten(task.description, max_length_description)
         task.title = shorten(task.title, max_length_title)
@@ -176,12 +175,14 @@ def TaskIndexView(request):
             })
     return render(request, template_name, {
         'task_list': task_list,
-        'mentor_id': MENTOR_ID
+        'mentor_id': mentor_id
     })
 
 
 def TaskView(request, pk):
     task = Task.objects.get(pk=pk)
+    mentor_id = Group.objects.filter(name="Mentor")
+    contributor_id = Group.objects.filter(name="Contributor")
     template_name = 'osschallenge/task.html'
     notification = ""
     render_params = {}
@@ -189,8 +190,8 @@ def TaskView(request, pk):
         user = request.user
         project = Project.objects.get(pk=task.project_id)
         render_params['user'] = User.objects.get(pk=request.user.id)
-        render_params['mentor_id'] = MENTOR_ID
-        render_params['contributor_id'] = CONTRIBUTOR_ID
+        render_params['mentor_id'] = mentor_id
+        render_params['contributor_id'] = contributor_id
         render_params['mentors'] = project.mentors.all()
         render_params['is_mentor_of_this_task'] = project.mentors.filter(
             id=user.id
@@ -310,6 +311,8 @@ def ProfileView(request, username):
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         return render(request, 'osschallenge/no_profile_available.html')
+    mentor_id = Group.objects.filter(name="Mentor")
+    contributor_id = Group.objects.filter(name="Contributor")
     template_name = 'osschallenge/profile.html'
     approved_tasks = Task.objects.filter(
         Q(task_checked=True) &
@@ -336,8 +339,8 @@ def ProfileView(request, username):
         return render(request, 'osschallenge/profile_does_not_exist.html')
 
     return render(request, template_name, {
-        'contributor_id': CONTRIBUTOR_ID,
-        'mentor_id': MENTOR_ID,
+        'contributor_id': contributor_id,
+        'mentor_id': mentor_id,
         'finished_task_list': finished_task_list,
         'profile': profile,
         'user': user,
@@ -419,7 +422,6 @@ def TaskAdministrationIndexView(request):
             })
     return render(request, template_name, {
         'finished_task_list': finished_task_list,
-        'mentor_id': MENTOR_ID,
         'task_list': Task.objects.filter(
             Q(project__mentors__id=user.id) &
             Q(task_done=True)
@@ -454,7 +456,8 @@ def RankingView(request):
 
     quarter = bisect.bisect(quarters, month)
     quarter_month = get_quarter_months(str(quarter))
-    contributors = User.objects.filter(profile__role_id=CONTRIBUTOR_ID)
+    contributor_id = Group.objects.filter(name="Contributor")
+    contributors = User.objects.filter(groups__id=contributor_id)
     # for every finished task add 5 points
     contributors_with_points = contributors.annotate(
         task_count=Count(
@@ -482,9 +485,7 @@ def RankingView(request):
 
     template_name = 'osschallenge/ranking.html'
     return render(request, template_name, {
-        'contributor_id': CONTRIBUTOR_ID,
         'ranking_list': ranking_list,
-        'mentor_id': MENTOR_ID,
         'quarter': quarter,
         'quarter_month': quarter_month,
     })
@@ -503,9 +504,7 @@ def get_quarter_months(string_of_current_quarter):
 
 def AboutView(request):
     template_name = 'osschallenge/about.html'
-    return render(request, template_name, {
-        'mentor_id': MENTOR_ID,
-    })
+    return render(request, template_name)
 
 
 class RegistrationView(FormView):
