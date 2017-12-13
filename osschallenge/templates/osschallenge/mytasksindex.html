@@ -11,7 +11,7 @@
             <div class="my-tasks">
                 <h1>{% trans "My Tasks" %}</h1>
                 <a class="link" href="/tasks">{% trans "Show all tasks" %}</a>
-                {% if user.user_group.group_id.id == mentor_id %}
+                {% if user.groups.get().id == mentor_id %}
                     <a class="link" href="/task_administration_index/">{% trans "Show tasks to review" %}</a>
                 {% endif %}
             </div>

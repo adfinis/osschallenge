@@ -13,7 +13,7 @@
                 {% if user.is_authenticated %}
                     <a class="link" href="/my_tasks/{{ request.user.username }}">{% trans "Show my tasks" %}</a>
                 {% endif %}
-                {% if user.user_group.group_id.id == mentor_id %}
+                {% if user.groups.get().id == mentor_id %}
                     <a class="link" href="/task_administration_index/">{% trans "Show tasks to review" %}</a>
                 {% endif %}
             </div>
