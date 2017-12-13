@@ -38,7 +38,7 @@
             <p>{% trans task.lead_text %}</p>
             <p><strong>{% trans "Description" %}</strong><br>{% trans task.description %}</p>
             <div>
-                {% if user.groups.get()id == contributor_id and task.assignee_id == NULL and user.is_authenticated %}
+                {% if user.groups.get().id == contributor_id and task.assignee_id == NULL and user.is_authenticated %}
                     <form action="" method="POST" class="edit">
                         {% csrf_token %}
                         <button class="btn btn-primary" name="Claim">{% trans "Claim" %}</button>
