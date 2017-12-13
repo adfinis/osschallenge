@@ -16,7 +16,7 @@ from django.utils.translation import gettext_lazy as _
 from django.db.models import Q
 from django.utils import timezone
 from django.db.models import Count, Case, When
-from datetime import datetime
+from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -365,9 +365,12 @@ def get_quarter_start():
     month = int(time.strftime("%m"))
 
     quarter = bisect.bisect(quarters, month)
-    today = datetime.today()
+    today = date.today()
     quarter_start = [today.year, quarters[quarter - 1], 1]
-    return datetime(quarter_start[0], quarter_start[1], quarter_start[2])
+    aware_date = date(
+        *quarter_start
+    )
+    return aware_date
 
 
 def get_next_quarter():

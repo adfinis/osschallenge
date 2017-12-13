@@ -3,7 +3,7 @@ from osschallenge.models import Rank
 from osschallenge.templatetags.ranks import get_rank
 from osschallenge.views import get_quarter_months, get_quarter_start, get_next_quarter
 from freezegun import freeze_time
-from datetime import datetime
+from datetime import date
 from osschallenge.templatetags.shorten import shorten
 
 
@@ -26,11 +26,11 @@ class UtilityTestCase(TestCase):
 
     @freeze_time("2017-04-01")
     def test_get_quarter_start(self):
-        self.assertEqual(get_quarter_start(), datetime(2017, 4, 1, 0, 0))
+        self.assertEqual(get_quarter_start(), date(2017, 4, 1))
 
     @freeze_time("2017-01-01")
     def test_get_next_quarter(self):
-        self.assertEqual(get_next_quarter(), datetime(2017, 4, 1, 0, 0))
+        self.assertEqual(get_next_quarter(), date(2017, 4, 1))
 
     def test_shorten(self):
         self.assertEqual(shorten("abc", 2), "ab ...")

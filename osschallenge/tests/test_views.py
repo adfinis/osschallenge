@@ -104,7 +104,7 @@ class ViewTestCase(TestCase):
             task_checked=False,
             picture="test.png",
             approved_by=None,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.task2 = Task.objects.create(
@@ -117,7 +117,7 @@ class ViewTestCase(TestCase):
             task_checked=True,
             picture="test.png",
             approved_by=self.user1,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.task3 = Task.objects.create(
@@ -130,7 +130,7 @@ class ViewTestCase(TestCase):
             task_checked=False,
             picture="test.png",
             approved_by=None,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.task4 = Task.objects.create(
@@ -143,7 +143,7 @@ class ViewTestCase(TestCase):
             task_checked=False,
             picture="test.png",
             approved_by=None,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.role1 = Role.objects.create(
@@ -502,8 +502,8 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['task'].task_checked, True)
         self.assertEqual(
-            response.context['task'].approval_date.strftime("%Y-%m-%d %H:%M:%S.%f+00"),
-            "2017-10-18 12:34:51.168157+00"
+            response.context['task'].approval_date.strftime("%Y-%m-%d"),
+            "2017-10-18"
         )
         post_response = self.client.post(url, {'Reopen': ''})
         self.assertEqual(post_response.status_code, 200)
@@ -648,7 +648,7 @@ class ViewTestCase(TestCase):
             1
         )
 
-    def test_search_no_match_administration_index_view(self):
+    def test_search_no_match_admin_view(self):
         url = reverse('admin')
         response = self.client.get(url, {'search': 'test'})
         self.assertEqual(

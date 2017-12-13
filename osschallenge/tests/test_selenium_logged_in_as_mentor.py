@@ -79,7 +79,7 @@ class LoggedInAsMentorTest(SeleniumTests):
             task_checked=False,
             picture="test.png",
             approved_by=None,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.client.login(username="Test", password='12345qwert')
