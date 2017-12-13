@@ -92,9 +92,6 @@ class ViewTestCase(TestCase):
 
         self.group.user_set.add(self.user1)
         self.group.user_set.add(self.user2)
-        self.group.user_set.add(self.user3)
-        self.group.user_set.add(self.user4)
-        self.group.user_set.add(self.user5)
 
         self.project = Project.objects.create(
             title_de="OpenStreetMap",

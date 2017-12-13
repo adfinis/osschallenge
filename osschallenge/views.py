@@ -43,10 +43,16 @@ class NewProjectView(CreateView):
 def ProjectIndexView(request):
     project_list = list(Project.objects.filter(active=True))
     template_name = 'osschallenge/projectindex.html'
-    mentor_id = Group.objects.filter(name="Mentor")
+    mentor_id = Group.objects.get(name="Mentor").id
+    groups = '0'
+    try:
+        groups = request.user.groups.get().id
+    except Group.DoesNotExist:
+        pass
     return render(request, template_name, {
         'project_list': project_list,
-        'mentor_id': mentor_id
+        'mentor_id': mentor_id,
+        'group_id': groups
     })
 
 
@@ -562,9 +568,7 @@ class RegistrationDoneView(generic.TemplateView):
         if matches.exists():
             profile = matches.first()
             if profile.user.is_active:
-                request.template_name = '''
-                    osschallenge/user_is_already_active.html
-                '''
+                request.template_name = 'osschallenge/user_is_already_active.html'
             else:
                 profile.user.is_active = True
                 profile.user.save()

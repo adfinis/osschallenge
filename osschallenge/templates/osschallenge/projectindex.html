@@ -19,7 +19,7 @@
         <p >{% trans "No projects available." %}</p>
     </div>
     {% endif %}
-    {% if user.user_groups.group_id.id == mentor_id %}
+    {% if group_id == mentor_id %}
         <a href="new_project/">
             <button id="new-project" class="btn btn-primary">{% trans "New Project" %}</button>
         </a>
