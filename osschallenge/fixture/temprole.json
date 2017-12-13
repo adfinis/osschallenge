@@ -1,0 +1,9 @@
+[
+    {
+        "fields": {
+            "name": "Contributor"
+        },
+        "model": "osschallenge.role",
+        "pk": 1
+    }
+]
