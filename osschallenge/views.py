@@ -44,15 +44,15 @@ def ProjectIndexView(request):
     project_list = list(Project.objects.filter(active=True))
     template_name = 'osschallenge/projectindex.html'
     mentor_id = Group.objects.get(name="Mentor").id
-    groups = '0'
+    group_id = '0'
     try:
-        groups = request.user.groups.get().id
+        group_id = request.user.groups.get().id
     except Group.DoesNotExist:
         pass
     return render(request, template_name, {
         'project_list': project_list,
         'mentor_id': mentor_id,
-        'group_id': groups
+        'group_id': group_id
     })
 
 
@@ -114,7 +114,12 @@ def MyTaskIndexView(request, username):
     current_user_id = request.user.id
     user_task_objects = Task.objects.filter(assignee_id=current_user_id)
     user_task_list = []
-    mentor_id = Group.objects.filter(name="Mentor")
+    mentor_id = Group.objects.get(name="Mentor").id
+    group_id = '0'
+    try:
+        group_id = request.user.groups.get().id
+    except Group.DoesNotExist:
+        pass
     for obj in user_task_objects:
         user_task_list.append(obj)
     for task in user_task_objects:
@@ -141,7 +146,8 @@ def MyTaskIndexView(request, username):
             })
     return render(request, template_name, {
         'user_task_list': user_task_list,
-        'mentor_id': mentor_id
+        'mentor_id': mentor_id,
+        'group_id': group_id
     })
 
 
@@ -155,7 +161,12 @@ def TaskIndexView(request):
     task_list = list(Task.objects.all())
     template_name = 'osschallenge/taskindex.html'
     no_tasks = "There are no tasks"
-    mentor_id = Group.objects.filter(name="Mentor")
+    mentor_id = Group.objects.get(name="Mentor").id
+    group_id = '0'
+    try:
+        group_id = request.user.groups.get().id
+    except Group.DoesNotExist:
+        pass
     for task in task_list:
         task.description = shorten(task.description, max_length_description)
         task.title = shorten(task.title, max_length_title)
@@ -181,14 +192,20 @@ def TaskIndexView(request):
             })
     return render(request, template_name, {
         'task_list': task_list,
-        'mentor_id': mentor_id
+        'mentor_id': mentor_id,
+        'group_id': group_id
     })
 
 
 def TaskView(request, pk):
     task = Task.objects.get(pk=pk)
-    mentor_id = Group.objects.filter(name="Mentor")
-    contributor_id = Group.objects.filter(name="Contributor")
+    mentor_id = Group.objects.get(name="Mentor").id
+    group_id = '0'
+    try:
+        group_id = request.user.groups.get().id
+    except Group.DoesNotExist:
+        pass
+    contributor_id = Group.objects.get(name="Contributor").id
     template_name = 'osschallenge/task.html'
     notification = ""
     render_params = {}
@@ -197,6 +214,7 @@ def TaskView(request, pk):
         project = Project.objects.get(pk=task.project_id)
         render_params['user'] = User.objects.get(pk=request.user.id)
         render_params['mentor_id'] = mentor_id
+        render_params['group_id'] = group_id
         render_params['contributor_id'] = contributor_id
         render_params['mentors'] = project.mentors.all()
         render_params['is_mentor_of_this_task'] = project.mentors.filter(
@@ -317,8 +335,13 @@ def ProfileView(request, username):
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         return render(request, 'osschallenge/no_profile_available.html')
-    mentor_id = Group.objects.filter(name="Mentor")
-    contributor_id = Group.objects.filter(name="Contributor")
+    mentor_id = Group.objects.get(name="Mentor").id
+    group_id = '0'
+    try:
+        group_id = request.user.groups.get().id
+    except Group.DoesNotExist:
+        pass
+    contributor_id = Group.objects.get(name="Contributor").id
     template_name = 'osschallenge/profile.html'
     approved_tasks = Task.objects.filter(
         Q(task_checked=True) &
@@ -347,6 +370,7 @@ def ProfileView(request, username):
     return render(request, template_name, {
         'contributor_id': contributor_id,
         'mentor_id': mentor_id,
+        'group_id': group_id,
         'finished_task_list': finished_task_list,
         'profile': profile,
         'user': user,
@@ -462,7 +486,7 @@ def RankingView(request):
 
     quarter = bisect.bisect(quarters, month)
     quarter_month = get_quarter_months(str(quarter))
-    contributor_id = Group.objects.filter(name="Contributor")
+    contributor_id = Group.objects.get(name="Contributor").id
     contributors = User.objects.filter(groups__id=contributor_id)
     # for every finished task add 5 points
     contributors_with_points = contributors.annotate(
