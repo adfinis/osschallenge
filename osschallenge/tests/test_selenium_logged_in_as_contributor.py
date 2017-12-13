@@ -1,5 +1,3 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium import webdriver
 from django.test import Client
 from osschallenge.models import User, Profile, Role, Project, Task, Comment
 from osschallenge.tests.pages.login import LoginPage
@@ -10,18 +8,14 @@ from osschallenge.tests.pages.profil import ProfilePage
 from osschallenge.tests.pages.task import TaskPage
 from osschallenge.tests.pages.ranking import RankingPage
 from osschallenge.tests.pages.project import ProjectPage
+from osschallenge.tests.selenium_test_options import SeleniumTests
 
 
-class MydriverTests(StaticLiveServerTestCase):
+class LoggedInAsContributor(SeleniumTests):
 
     @classmethod
     def setUpClass(self):
-        super(MydriverTests, self).setUpClass()
-        options = webdriver.ChromeOptions()
-        options.add_argument('headless')
-        options.add_argument('window-size=1200x600')
-        self.driver = webdriver.Chrome(chrome_options=options)
-        self.driver.implicitly_wait(10)
+        super(LoggedInAsContributor, self).setUpClass()
 
     @classmethod
     def setUp(self):
@@ -113,7 +107,7 @@ class MydriverTests(StaticLiveServerTestCase):
     @classmethod
     def tearDownClass(self):
         self.driver.quit()
-        super(MydriverTests, self).tearDownClass()
+        super(LoggedInAsContributor, self).tearDownClass()
 
     def test_write_a_comment(self):
         self.task_page.open(1)

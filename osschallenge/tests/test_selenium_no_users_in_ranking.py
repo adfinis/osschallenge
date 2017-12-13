@@ -1,19 +1,13 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium import webdriver
 from osschallenge.tests.pages.ranking import RankingPage
 from django.test import Client
+from osschallenge.tests.selenium_test_options import SeleniumTests
 
 
-class MydriverTests(StaticLiveServerTestCase):
+class NoUsersInRankingTest(SeleniumTests):
 
     @classmethod
     def setUpClass(self):
-        super(MydriverTests, self).setUpClass()
-        options = webdriver.ChromeOptions()
-        options.add_argument('headless')
-        options.add_argument('window-size=1200x600')
-        self.driver = webdriver.Chrome(chrome_options=options)
-        self.driver.implicitly_wait(10)
+        super(NoUsersInRankingTest, self).setUpClass()
 
     @classmethod
     def setUp(self):
@@ -23,7 +17,7 @@ class MydriverTests(StaticLiveServerTestCase):
     @classmethod
     def tearDownClass(self):
         self.driver.quit()
-        super(MydriverTests, self).tearDownClass()
+        super(NoUsersInRankingTest, self).tearDownClass()
 
     def test_ranking_with_no_users(self):
         self.ranking_page.open('/ranking/?page=100')
