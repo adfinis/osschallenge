@@ -1,7 +1,7 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from django.test import Client
-from osschallenge.models import User, Profile, Role, Project, Task, Comment
+from osschallenge.models import User, Profile, Group, Project, Task, Comment
 from osschallenge.tests.pages.login import LoginPage
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.new_project import NewProjectPage
@@ -50,14 +50,15 @@ class MydriverTests(StaticLiveServerTestCase):
         self.login_page.open()
         self.login_page.login("Test", "12345qwert")
 
-        self.role1 = Role.objects.create(
-            id=1,
-            name="Contributor"
+        self.group = Group.objects.create(
+            id = 1,
+            name = "Contributor"
         )
+
+        self.group.user_set.add(self.user1)
 
         self.profile1 = Profile.objects.create(
             user=self.user1,
-            role=self.role1,
             links="Test",
             contact="Test",
             key="Test1",

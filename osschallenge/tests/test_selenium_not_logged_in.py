@@ -2,7 +2,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from django.test import Client
 from osschallenge.tests.pages.register import RegisterPage
-from osschallenge.models import User, Profile, Role
+from osschallenge.models import User, Profile
 
 
 class MydriverTests(StaticLiveServerTestCase):
@@ -21,11 +21,6 @@ class MydriverTests(StaticLiveServerTestCase):
         self.client = Client()
         self.register_page = RegisterPage(self.driver, self.live_server_url)
 
-        self.role1 = Role.objects.create(
-            id=1,
-            name="Contributor"
-        )
-
         self.user1 = User.objects.create(
             last_login="2017-10-18 11:55:45.681893+00",
             is_superuser=False,
@@ -42,7 +37,6 @@ class MydriverTests(StaticLiveServerTestCase):
 
         self.profile1 = Profile.objects.create(
             user=self.user1,
-            role=self.role1,
             links="Test",
             contact="Test",
             key="Test1",

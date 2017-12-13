@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
-from osschallenge.models import Project, User, Task, Profile, Role, Comment
+from osschallenge.models import Project, User, Task, Profile, Comment, Group
 
 
 class ViewTestCase(TestCase):
@@ -79,6 +79,17 @@ class ViewTestCase(TestCase):
             password="klajsdfkj"
         )
 
+        self.group = Group.objects.create(
+            id = 2,
+            name = "Mentor"
+        )
+
+        self.group.user_set.add(self.user1)
+        self.group.user_set.add(self.user2)
+        self.group.user_set.add(self.user3)
+        self.group.user_set.add(self.user4)
+        self.group.user_set.add(self.user5)
+
         self.project = Project.objects.create(
             title_de="OpenStreetMap",
             title_en_us="OpenStreetMap",
@@ -146,19 +157,8 @@ class ViewTestCase(TestCase):
             approval_date="2017-10-18 12:34:51.168157+00"
         )
 
-        self.role = Role.objects.create(
-            id=1,
-            name="Contributor"
-        )
-
-        self.role = Role.objects.create(
-            id=2,
-            name="Mentor"
-        )
-
         self.profile1 = Profile.objects.create(
             user=self.user1,
-            role=self.role,
             links="Test",
             contact="Test",
             key="Test1",
@@ -167,7 +167,6 @@ class ViewTestCase(TestCase):
 
         self.profile2 = Profile.objects.create(
             user=self.user2,
-            role=self.role,
             links="Test",
             contact="Test",
             key="Test2",
@@ -176,7 +175,6 @@ class ViewTestCase(TestCase):
 
         self.profile3 = Profile.objects.create(
             user=self.user3,
-            role=self.role,
             links="Test",
             contact="Test",
             key=False,
@@ -185,7 +183,6 @@ class ViewTestCase(TestCase):
 
         self.profile4 = Profile.objects.create(
             user=self.user4,
-            role=self.role,
             links="Test",
             contact="Test",
             key=123,
@@ -502,7 +499,9 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['task'].task_checked, True)
         self.assertEqual(
-            response.context['task'].approval_date.strftime("%Y-%m-%d %H:%M:%S.%f+00"),
+            response.context['task'].approval_date.strftime("""
+                %Y-%m-%d %H:%M:%S.%f+00
+            """),
             "2017-10-18 12:34:51.168157+00"
         )
         post_response = self.client.post(url, {'Reopen': ''})
