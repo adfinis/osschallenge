@@ -1,7 +1,8 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from django.test import Client
-from osschallenge.models import User, Profile, Group, Project, Task, Comment
+from osschallenge.models import User, Profile, Project, Task, Comment
+from django.contrib.auth.models import Group
 from osschallenge.tests.pages.login import LoginPage
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.new_project import NewProjectPage

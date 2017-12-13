@@ -1,7 +1,8 @@
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
-from osschallenge.models import Project, User, Task, Profile, Comment, Group
+from osschallenge.models import Project, User, Task, Profile, Comment
+from django.contrib.auth.models import Group
 
 
 class ViewTestCase(TestCase):
@@ -77,6 +78,11 @@ class ViewTestCase(TestCase):
         self.client.login(
             username="Test",
             password="klajsdfkj"
+        )
+
+        Group.objects.create(
+            id = 1,
+            name = "Contributor"
         )
 
         self.group = Group.objects.create(
@@ -499,9 +505,7 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['task'].task_checked, True)
         self.assertEqual(
-            response.context['task'].approval_date.strftime("""
-                %Y-%m-%d %H:%M:%S.%f+00
-            """),
+            response.context['task'].approval_date.strftime("%Y-%m-%d %H:%M:%S.%f+00"),
             "2017-10-18 12:34:51.168157+00"
         )
         post_response = self.client.post(url, {'Reopen': ''})

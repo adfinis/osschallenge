@@ -1,7 +1,8 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from django.test import Client
-from osschallenge.models import User, Profile, Project, Task, Group
+from osschallenge.models import User, Profile, Project, Task
+from django.contrib.auth.models import Group
 from osschallenge.tests.pages.login import LoginPage
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.new_project import NewProjectPage
@@ -45,6 +46,11 @@ class MydriverTests(StaticLiveServerTestCase):
         )
         self.user1.set_password("12345qwert")
         self.user1.save()
+
+        Group.objects.create(
+            id = 1,
+            name = "Contributor"
+        )
 
         self.group = Group.objects.create(
             id = 2,
