@@ -23,9 +23,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 CONTRIBUTOR_ID = 1
 MENTOR_ID = 2
 
-max_length_description = 130
-max_length_title = 60
-
 
 def IndexView(request):
     template_name = 'osschallenge/index.html'
@@ -68,9 +65,6 @@ def ProjectView(request, pk):
     task_list = []
     for obj in task_objects:
         task_list.append(obj)
-    for task in task_objects:
-        task.description = shorten(task.description, max_length_description)
-        task.title = shorten(task.title, max_length_title)
     mentors = project.mentors.all()
     owner = project.owner
     current_user_id = request.user.id
@@ -116,60 +110,49 @@ def EditProjectView(request, pk):
     )
 
 
-def MyTaskIndexView(request, username):
-    template_name = 'osschallenge/mytasksindex.html'
-    current_user_id = request.user.id
-    user_task_objects = Task.objects.filter(assignee_id=current_user_id)
-    search = request.GET.get('search') if request.GET else None
-    if search:
-        matches = user_task_objects.filter(
-            Q(title__icontains=request.GET.get('search')) |
-            Q(project__title__icontains=request.GET.get('search'))
-        ).distinct().order_by('id')
-    else:
-        matches = user_task_objects.order_by('id')
-    if request.GET.get('page'):
-        current_page = request.GET.get('page')
-    else:
-        current_page = 1
-    tasks, last_page, current_page = paging(current_page, matches, 5)
-    for task in tasks.object_list:
-        task.description = shorten(task.description, max_length_description)
-        task.title = shorten(task.title, max_length_title)
-    return render(request, template_name, {
-        'tasks': tasks,
-        'last_page': last_page,
-        'current_page': current_page
-    })
-
-
-def shorten(string, max_length):
-    if len(string) > max_length:
-        return string[:max_length] + " ..."
-    return string
-
-
-def TaskIndexView(request):
+def TaskIndexView(request, username=None):
     template_name = 'osschallenge/taskindex.html'
-    try:
+    title = ""
+    search = request.GET.get('search') if request.GET else None
+    if username is not None:
+        title = _("My Tasks")
+        current_user_id = request.user.id
+        user_task_objects = Task.objects.filter(
+            assignee_id=current_user_id
+        )
+        matches = user_task_objects.order_by('id')
+    elif str(request.path) == '/tasks/admin/':
+        title = _("Tasks to review")
+        user = request.user
         matches = Task.objects.filter(
+            Q(project__mentors__id=user.id) &
+            Q(task_done=True) &
+            Q(task_checked=False)
+        )
+        matches = matches.order_by('id')
+    else:
+        title = _("All Tasks")
+        matches = Task.objects.all().order_by('id')
+
+    if search:
+        matches = matches.filter(
             Q(title__icontains=request.GET.get('search')) |
             Q(project__title__icontains=request.GET.get('search'))
         ).distinct().order_by('id')
-    except ValueError:
-        matches = Task.objects.all().order_by('id')
+
     if request.GET.get('page'):
         current_page = request.GET.get('page')
     else:
         current_page = 1
+
     tasks, last_page, current_page = paging(current_page, matches, 5)
-    for task in tasks.object_list:
-        task.description = shorten(task.description, max_length_description)
-        task.title = shorten(task.title, max_length_title)
     return render(request, template_name, {
         'tasks': tasks,
         'last_page': last_page,
-        'current_page': current_page
+        'current_page': current_page,
+        'mentor_id': MENTOR_ID,
+        'username': username,
+        'title': title
     })
 
 
@@ -321,10 +304,6 @@ def ProfileView(request, username):
     finished_task_list = []
     for obj in finished_tasks:
         finished_task_list.append(obj)
-    for task in finished_task_list:
-        task.description = shorten(task.description, max_length_description)
-        task.title = shorten(task.title, max_length_title)
-
     if user.is_active is False:
         return render(request, 'osschallenge/profile_does_not_exist.html')
 
@@ -335,7 +314,7 @@ def ProfileView(request, username):
         'profile': profile,
         'user': user,
         'total_points': total_points,
-        'rank': rank,
+        'rank': rank
     })
 
 
@@ -376,49 +355,6 @@ def EditProfileView(request):
             'user': user,
         }
     )
-
-
-def TaskAdministrationIndexView(request):
-    user = request.user
-    template_name = 'osschallenge/task_administration_index.html'
-    finished_tasks = Task.objects.filter(task_done=True)
-    finished_task_list = []
-    for obj in finished_tasks:
-        finished_task_list.append(obj)
-    for task in finished_task_list:
-        task.description = shorten(task.description, max_length_description)
-        task.title = shorten(task.title, max_length_title)
-    if request.GET:
-        match_list = Task.objects.filter(
-            Q(title__icontains=request.GET['search']) |
-            Q(project__title__icontains=request.GET['search'])
-
-        ).distinct()
-        if match_list:
-            for match in match_list:
-                match.description = shorten(
-                    match.description, max_length_description
-                )
-                match.title = shorten(match.title, max_length_title)
-            return render(request, template_name, {
-                'match_list': match_list,
-
-                'finished_task_list': finished_task_list
-            })
-        else:
-            return render(request, template_name, {
-                'finished_task_list': finished_task_list,
-                'match_list': match_list,
-            })
-    return render(request, template_name, {
-        'finished_task_list': finished_task_list,
-        'mentor_id': MENTOR_ID,
-        'task_list': Task.objects.filter(
-            Q(project__mentors__id=user.id) &
-            Q(task_done=True)
-        )
-
-    })
 
 
 def get_quarter_start():

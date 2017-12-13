@@ -10,12 +10,17 @@
     <div class="taskindex">
         <div class="taskindex-top-items">
             <div class="my-tasks">
-                <h1>{% trans "All Tasks" %}</h1>
-                {% if user.is_authenticated %}
+                {% if title %}
+                    <h1>{{ title }}</h1>
+                {% endif %}
+                {% if user.is_authenticated and not username == None %}
+                    <a class="link" href="/tasks">{% trans "Show all tasks" %}</a>
+                {% endif %}
+                {% if username == None %}
                     <a class="link" href="/my_tasks/{{ request.user.username }}">{% trans "Show my tasks" %}</a>
                 {% endif %}
                 {% if user.profile.role_id == mentor_id %}
-                    <a class="link" href="/task_administration_index/">{% trans "Show tasks to review" %}</a>
+                    <a class="link" href="/tasks/admin/">{% trans "Show tasks to review" %}</a>
                 {% endif %}
             </div>
             <div class="search-function">

@@ -1,9 +1,10 @@
 from django.test import TestCase
 from osschallenge.models import Rank
 from osschallenge.templatetags.ranks import get_rank
-from osschallenge.views import shorten, get_quarter_months, get_quarter_start, get_next_quarter
+from osschallenge.views import get_quarter_months, get_quarter_start, get_next_quarter
 from freezegun import freeze_time
 from datetime import datetime
+from osschallenge.templatetags.shorten import shorten
 
 
 class UtilityTestCase(TestCase):
@@ -14,11 +15,6 @@ class UtilityTestCase(TestCase):
         self.assertEqual(get_rank(45), rank1.name)
         self.assertEqual(get_rank(10), "-")
         self.assertEqual(get_rank(15), rank2.name)
-
-    def test_shorten(self):
-        self.assertEqual(shorten("abc", 2), "ab ...")
-        self.assertEqual(shorten("abc", 4), "abc")
-        self.assertEqual(shorten("abc", 3), "abc")
 
     def test_get_quarter_months(self):
         self.assertEqual(get_quarter_months("1"), "(January - March)")
@@ -35,3 +31,8 @@ class UtilityTestCase(TestCase):
     @freeze_time("2017-01-01")
     def test_get_next_quarter(self):
         self.assertEqual(get_next_quarter(), datetime(2017, 4, 1, 0, 0))
+
+    def test_shorten(self):
+        self.assertEqual(shorten("abc", 2), "ab ...")
+        self.assertEqual(shorten("abc", 4), "abc")
+        self.assertEqual(shorten("abc", 3), "abc")
