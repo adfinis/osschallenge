@@ -13,7 +13,7 @@
                 {% if title %}
                     <h1>{{ title }}</h1>
                 {% endif %}
-                {% if user.is_authenticated and not username == None %}
+                {% if user.is_authenticated and username %}
                     <a class="link" href="/tasks">{% trans "Show all tasks" %}</a>
                 {% endif %}
                 {% if username == None %}
