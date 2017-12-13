@@ -120,12 +120,13 @@ def MyTaskIndexView(request, username):
     template_name = 'osschallenge/mytasksindex.html'
     current_user_id = request.user.id
     user_task_objects = Task.objects.filter(assignee_id=current_user_id)
-    try:
+    search = request.GET.get('search') if request.GET else None
+    if search:
         matches = user_task_objects.filter(
             Q(title__icontains=request.GET.get('search')) |
             Q(project__title__icontains=request.GET.get('search'))
         ).distinct().order_by('id')
-    except ValueError:
+    else:
         matches = user_task_objects.order_by('id')
     if request.GET.get('page'):
         current_page = request.GET.get('page')

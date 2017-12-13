@@ -33,10 +33,10 @@
             </div>
             {% endfor %}
         </div>
+        {% paging last_page current_page tasks %}
         {% else %}
         <p>{% trans "No tasks available." %}</p>
         {% endif %}
-    {% paging last_page current_page tasks %}
     </div>
 </div>
 {% endblock content %}
