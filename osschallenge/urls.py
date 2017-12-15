@@ -37,17 +37,21 @@ urlpatterns = [
         views.NewTaskView,
         name='newtask'),
 
-    url(r'^tasks/$',
-        views.TaskIndexView,
-        name='taskindex'),
-
     url(r'^tasks/(?P<pk>[0-9]+)/$',
         views.TaskView,
         name='task'),
 
+    url(r'^tasks/$',
+        views.TaskIndexView,
+        name='taskindex'),
+
     url(r'^my_tasks/(?P<username>[0-9A-Za-z_\-\.\+\@]+)/$',
-        views.MyTaskIndexView,
+        views.TaskIndexView,
         name='mytask'),
+
+    url(r'^tasks/admin/$',
+        views.TaskIndexView,
+        name='admin'),
 
     url(r'^tasks/(?P<pk>[0-9]+)/edit/$',
         views.EditTaskView,
@@ -60,10 +64,6 @@ urlpatterns = [
     url(r'^profile/(?P<username>[0-9A-Za-z_\-\.\+\@]+)/$',
         views.ProfileView,
         name='profile'),
-
-    url(r'^task_administration_index/$',
-        views.TaskAdministrationIndexView,
-        name='taskadministrationindex'),
 
     url(r'^ranking/$',
         views.RankingView,

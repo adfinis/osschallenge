@@ -1,24 +1,28 @@
 {% extends 'osschallenge/index.html' %}
 {% load i18n %}
+{% load pagination %}
 
 {% block content %}
 <div class="content">
-    {% if project_list %}
-        <ul class="index">
-        {% for project in project_list %}
-        <a href="/projects/{{ project.id }}">
-            <li>
-                <p>{{ project.title }}</p>
-                <p>{{ project.lead_text }}</p>
-            </li>
-        </a>
-        {% endfor %}
-        </ul>
-    {% else %}
-    <div class="no-projects">
-        <p >{% trans "No projects available." %}</p>
+    <div id="project-index">
+        {% if projects %}
+            <ul class="index">
+            {% for project in projects %}
+            <a href="/projects/{{ project.id }}">
+                <li>
+                    <p>{{ project.title }}</p>
+                    <p>{{ project.lead_text }}</p>
+                </li>
+            </a>
+            {% endfor %}
+            </ul>
+            {% paging last_page current_page projects %}
+        {% else %}
+        <div class="no-projects">
+            <p >{% trans "No projects available." %}</p>
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
     {% if user.profile.role.id == mentor_id %}
         <a href="new_project/">
             <button id="new-project" class="btn btn-primary">{% trans "New Project" %}</button>

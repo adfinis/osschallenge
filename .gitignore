@@ -6,3 +6,4 @@ osschallenge/pictures/*
 .coverage
 geckodriver.log
 .directory
+.cache/

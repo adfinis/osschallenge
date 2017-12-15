@@ -1,5 +1,3 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium import webdriver
 from django.test import Client
 from osschallenge.models import (
     User,
@@ -15,18 +13,16 @@ from osschallenge.tests.pages.new_project import NewProjectPage
 from osschallenge.tests.pages.new_task import NewTaskPage
 from osschallenge.tests.pages.profil import ProfilePage
 from osschallenge.tests.pages.task import TaskPage
+from osschallenge.tests.pages.ranking import RankingPage
+from osschallenge.tests.pages.project import ProjectPage
+from osschallenge.tests.selenium_test_options import SeleniumTests
 
 
-class MydriverTests(StaticLiveServerTestCase):
+class LoggedInAsContributor(SeleniumTests):
 
     @classmethod
     def setUpClass(self):
-        super(MydriverTests, self).setUpClass()
-        options = webdriver.ChromeOptions()
-        options.add_argument('headless')
-        options.add_argument('window-size=1200x600')
-        self.driver = webdriver.Chrome(chrome_options=options)
-        self.driver.implicitly_wait(10)
+        super(LoggedInAsContributor, self).setUpClass()
 
     @classmethod
     def setUp(self):
@@ -39,6 +35,8 @@ class MydriverTests(StaticLiveServerTestCase):
         self.new_task_page = NewTaskPage(self.driver, self.live_server_url)
         self.profile_page = ProfilePage(self.driver, self.live_server_url)
         self.task_page = TaskPage(self.driver, self.live_server_url)
+        self.ranking_page = RankingPage(self.driver, self.live_server_url)
+        self.project_page = ProjectPage(self.driver, self.live_server_url)
 
         self.user1 = User.objects.create(
             id=1,
@@ -111,12 +109,12 @@ class MydriverTests(StaticLiveServerTestCase):
             lead_text="Bug Fixing",
             description="Bug Fixing",
             project=self.project1,
-            assignee=None,
+            assignee=self.user1,
             task_done=False,
             task_checked=False,
             picture="test.png",
             approved_by=None,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.task2 = Task.objects.create(
@@ -178,7 +176,7 @@ class MydriverTests(StaticLiveServerTestCase):
     @classmethod
     def tearDownClass(self):
         self.driver.quit()
-        super(MydriverTests, self).tearDownClass()
+        super(LoggedInAsContributor, self).tearDownClass()
 
     def test_write_a_comment(self):
         self.task_page.open(1)
@@ -198,9 +196,32 @@ class MydriverTests(StaticLiveServerTestCase):
         user = User.objects.get(username=self.user1.username)
         self.assertEqual(user.first_name, "TestFoobar")
 
+
     def test_view_rankup(self):
         self.profile1.rank = self.rank1
         self.profile1.save()
         self.profile_page.open("Test")
         self.profile1.refresh_from_db()
         self.assertEqual(self.profile1.rank_id, 2)
+
+    def test_ranking_page_not_an_integer(self):
+        self.ranking_page.open('/ranking/?page=a')
+        active_page = self.ranking_page.find_active_page()
+        self.assertRaises(ValueError)
+        self.assertEquals(int(active_page.text), 1)
+
+    def test_task_page_exists_on_all_tasks(self):
+        self.task_page.open_page_one_all_tasks('?page=1')
+        active_page = self.task_page.find_active_page()
+        self.assertEquals(int(active_page.text), 1)
+
+    def test_task_page_exists_on_my_tasks(self):
+        self.task_page.open_page_one_my_tasks('Test', '?page=1')
+        active_page = self.task_page.find_active_page()
+        self.assertEquals(int(active_page.text), 1)
+
+    def test_project_page_exists(self):
+        self.project_page.open_page_one_projects('?page=1')
+        active_page = self.project_page.find_active_page()
+        self.assertEquals(int(active_page.text), 1)
+

@@ -1,22 +1,16 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium import webdriver
 from django.test import Client
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.rankup import RankUpPage
 from osschallenge.tests.pages.profil import ProfilePage
 from osschallenge.models import User, Profile, Role, Rank
+from osschallenge.tests.selenium_test_options import SeleniumTests
 
 
-class MydriverTests(StaticLiveServerTestCase):
+class NotLoggedInTest(SeleniumTests):
 
     @classmethod
     def setUpClass(self):
-        super(MydriverTests, self).setUpClass()
-        options = webdriver.ChromeOptions()
-        options.add_argument('headless')
-        options.add_argument('window-size=1200x600')
-        self.driver = webdriver.Chrome(chrome_options=options)
-        self.driver.implicitly_wait(10)
+        super(NotLoggedInTest, self).setUpClass()
 
     @classmethod
     def setUp(self):
@@ -63,7 +57,7 @@ class MydriverTests(StaticLiveServerTestCase):
     @classmethod
     def tearDownClass(self):
         self.driver.quit()
-        super(MydriverTests, self).tearDownClass()
+        super(NotLoggedInTest, self).tearDownClass()
 
     def test_register_successful(self):
         self.register_page.open()
