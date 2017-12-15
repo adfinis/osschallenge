@@ -36,10 +36,6 @@ div.content {
     padding: 10px 12px 0 12px;
 }
 
-div.content a {
-    height: 100%;
-}
-
 /* Index Lists */
 ul.index {
     display: flex;
@@ -450,6 +446,10 @@ label[for="id_picture"] {
 
 }
 
+#project-index {
+    width: 100%;
+}
+
 .content-ranking {
     display: flex;
     justify-content: center;
@@ -778,4 +778,9 @@ div#facebook {
     background-size: 24px;
     height: 24px;
     width: 24px;
+}
+
+/* Pagination */
+.pagination {
+    width: 100px;
 }

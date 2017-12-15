@@ -104,7 +104,7 @@ class ViewTestCase(TestCase):
             task_checked=False,
             picture="test.png",
             approved_by=None,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.task2 = Task.objects.create(
@@ -112,12 +112,12 @@ class ViewTestCase(TestCase):
             lead_text="Edit Code",
             description="Edit Code",
             project=self.project,
-            assignee=self.user1,
+            assignee=self.user4,
             task_done=False,
             task_checked=True,
             picture="test.png",
             approved_by=self.user1,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.task3 = Task.objects.create(
@@ -130,7 +130,7 @@ class ViewTestCase(TestCase):
             task_checked=False,
             picture="test.png",
             approved_by=None,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.task4 = Task.objects.create(
@@ -143,22 +143,22 @@ class ViewTestCase(TestCase):
             task_checked=False,
             picture="test.png",
             approved_by=None,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
-        self.role = Role.objects.create(
+        self.role1 = Role.objects.create(
             id=1,
             name="Contributor"
         )
 
-        self.role = Role.objects.create(
+        self.role2 = Role.objects.create(
             id=2,
             name="Mentor"
         )
 
         self.profile1 = Profile.objects.create(
             user=self.user1,
-            role=self.role,
+            role=self.role2,
             links="Test",
             contact="Test",
             key="Test1",
@@ -167,7 +167,7 @@ class ViewTestCase(TestCase):
 
         self.profile2 = Profile.objects.create(
             user=self.user2,
-            role=self.role,
+            role=self.role2,
             links="Test",
             contact="Test",
             key="Test2",
@@ -176,7 +176,7 @@ class ViewTestCase(TestCase):
 
         self.profile3 = Profile.objects.create(
             user=self.user3,
-            role=self.role,
+            role=self.role1,
             links="Test",
             contact="Test",
             key=False,
@@ -185,7 +185,7 @@ class ViewTestCase(TestCase):
 
         self.profile4 = Profile.objects.create(
             user=self.user4,
-            role=self.role,
+            role=self.role1,
             links="Test",
             contact="Test",
             key=123,
@@ -293,13 +293,13 @@ class ViewTestCase(TestCase):
         url = reverse('mytask', args=[self.user1.username])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'osschallenge/mytasksindex.html')
+        self.assertTemplateUsed(response, 'osschallenge/taskindex.html')
 
     def test_search_match_my_task_index_view(self):
-        url = reverse('mytask', args=[self.user1.username])
-        response = self.client.get(url, {'search': 'edit'})
+        url = reverse('mytask', args=[self.user4.username])
+        response = self.client.get(url, {'search': 'code'})
         self.assertEqual(
-            len(response.context['match_list']),
+            len(response.context['tasks']),
             1
         )
 
@@ -307,7 +307,7 @@ class ViewTestCase(TestCase):
         url = reverse('mytask', args=[self.user1.username])
         response = self.client.get(url, {'search': 'test'})
         self.assertEqual(
-            len(response.context['match_list']),
+            len(response.context['tasks']),
             0
         )
 
@@ -321,7 +321,7 @@ class ViewTestCase(TestCase):
         url = reverse('taskindex')
         response = self.client.get(url, {'search': 'edit'})
         self.assertEqual(
-            len(response.context['match_list']),
+            len(response.context['tasks']),
             1
         )
 
@@ -329,7 +329,7 @@ class ViewTestCase(TestCase):
         url = reverse('taskindex')
         response = self.client.get(url, {'search': 'test'})
         self.assertEqual(
-            len(response.context['match_list']),
+            len(response.context['tasks']),
             0
         )
 
@@ -375,7 +375,7 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.context['task'].assignee_id,
-            self.user1.id
+            self.user4.id
         )
         post_response = self.client.post(url, {'Release': ''})
         self.assertEqual(post_response.status_code, 200)
@@ -502,8 +502,8 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['task'].task_checked, True)
         self.assertEqual(
-            response.context['task'].approval_date.strftime("%Y-%m-%d %H:%M:%S.%f+00"),
-            "2017-10-18 12:34:51.168157+00"
+            response.context['task'].approval_date.strftime("%Y-%m-%d"),
+            "2017-10-18"
         )
         post_response = self.client.post(url, {'Reopen': ''})
         self.assertEqual(post_response.status_code, 200)
@@ -631,28 +631,28 @@ class ViewTestCase(TestCase):
             status_code=302
         )
 
-    def test_task_administration_index_view(self):
-        url = reverse('taskadministrationindex')
+    def test_task_admin_view(self):
+        url = reverse('admin')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response,
-            'osschallenge/task_administration_index.html'
+            'osschallenge/taskindex.html'
         )
 
-    def test_search_match_administration_index_view(self):
-        url = reverse('taskadministrationindex')
-        response = self.client.get(url, {'search': 'edit'})
+    def test_search_match_admin_view(self):
+        url = reverse('admin')
+        response = self.client.get(url, {'search': 'code abc'})
         self.assertEqual(
-            len(response.context['match_list']),
+            len(response.context['tasks']),
             1
         )
 
-    def test_search_no_match_administration_index_view(self):
-        url = reverse('taskadministrationindex')
+    def test_search_no_match_admin_view(self):
+        url = reverse('admin')
         response = self.client.get(url, {'search': 'test'})
         self.assertEqual(
-            len(response.context['match_list']),
+            len(response.context['tasks']),
             0
         )
 

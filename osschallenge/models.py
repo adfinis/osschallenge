@@ -70,7 +70,7 @@ class Task(models.Model):
     task_checked = models.BooleanField(null=False, default=False)
     picture = ThumbnailerImageField(upload_to='', null=True)
     approved_by = models.ForeignKey(User, null=True)
-    approval_date = models.DateTimeField(null=True)
+    approval_date = models.DateField(null=True)
 
     def __str__(self):
         return self.title
