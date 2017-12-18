@@ -42,7 +42,6 @@ class Migration(migrations.Migration):
                 ('contact', models.CharField(max_length=50)),
                 ('key', models.CharField(max_length=10, unique=True)),
                 ('picture', easy_thumbnails.fields.ThumbnailerImageField(null=True, upload_to=b'profile-pictures')),
-                ('rank', models.ForeignKey(default=2, on_delete=django.db.models.deletion.CASCADE, to='osschallenge.Rank')),
             ],
         ),
         migrations.CreateModel(

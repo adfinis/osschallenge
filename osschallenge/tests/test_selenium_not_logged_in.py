@@ -114,7 +114,3 @@ class NotLoggedInTest(SeleniumTests):
     def test_redirect_rankup(self):
         self.rankup_page.open()
         self.driver.find_element_by_id('id_username')
-
-    def test_no_redirect_profile(self):
-        self.profile_page.open("Test")
-        self.driver.find_element_by_id('facebook')
