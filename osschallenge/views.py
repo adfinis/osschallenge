@@ -115,11 +115,8 @@ def EditProjectView(request, pk):
 def TaskIndexView(request, username=None):
     template_name = 'osschallenge/taskindex.html'
     title = ""
-    try:
-        if rankup_check(request.user.id) is True:
-            return redirect('/rankup/')
-    except ObjectDoesNotExist:
-        pass
+    if rankup_check(request.user) is True:
+        return redirect('/rankup/')
     search = request.GET.get('search') if request.GET else None
     if username is not None:
         title = _("My Tasks")
@@ -140,7 +137,7 @@ def TaskIndexView(request, username=None):
     else:
         title = _("All Tasks")
         matches = Task.objects.all().order_by('id')
-        
+
     if search:
         matches = matches.filter(
             Q(title__icontains=request.GET.get('search')) |
@@ -151,7 +148,7 @@ def TaskIndexView(request, username=None):
         current_page = request.GET.get('page')
     else:
         current_page = 1
-        
+
     tasks, last_page, current_page = paging(current_page, matches, 5)
     return render(request, template_name, {
         'tasks': tasks,
@@ -289,11 +286,8 @@ def NewTaskView(request, pk):
 
 
 def ProfileView(request, username):
-    try:
-        if rankup_check(request.user.id) is True:
-            return redirect('/rankup/')
-    except ObjectDoesNotExist:
-        pass
+    if rankup_check(request.user) is True:
+        return redirect('/rankup/')
     try:
         user = User.objects.get(username=username)
         profile = Profile.objects.get(user_id=user.id)
@@ -555,8 +549,8 @@ def RankupView(request):
     })
 
 
-def rankup_check(user_id):
-    profile = Profile.objects.get(user_id=user_id)
+def rankup_check(user):
+    profile = user.profile
     actual_points = profile.get_points()
     profile_points = Rank.objects.get(id=profile.rank_id).required_points
 
