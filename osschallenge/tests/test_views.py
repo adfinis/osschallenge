@@ -355,7 +355,7 @@ class ViewTestCase(TestCase):
         response = self.client.get(url, {'search': 'code'})
         self.assertEqual(
             len(response.context['tasks']),
-            1
+            2
         )
 
     def test_search_no_match_my_task_index_view(self):
@@ -812,12 +812,12 @@ class ViewTestCase(TestCase):
         )
 
     def test_redirect_mytasks_to_rankup_view(self):
-        url_my_tasks = reverse('mytask', args=[self.user1])
+        url_my_tasks = reverse('mytask', args=[self.user1.username])
         response_my_tasks = self.client.get(url_my_tasks)
         self.assertEqual(response_my_tasks.status_code, 200)
         self.assertTemplateUsed(
             response_my_tasks,
-            'osschallenge/mytasksindex.html'
+            'osschallenge/taskindex.html'
         )
         self.assertEqual(self.profile1.rank.id, 3)
 
