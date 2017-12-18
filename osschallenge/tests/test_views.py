@@ -163,7 +163,7 @@ class ViewTestCase(TestCase):
             task_checked=True,
             picture="test.png",
             approved_by=self.user1,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.task6 = Task.objects.create(
@@ -176,7 +176,7 @@ class ViewTestCase(TestCase):
             task_checked=True,
             picture="test.png",
             approved_by=self.user1,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.role1 = Role.objects.create(

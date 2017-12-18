@@ -128,7 +128,7 @@ class LoggedInAsContributor(SeleniumTests):
             task_checked=True,
             picture="test.png",
             approved_by=self.user1,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.task3 = Task.objects.create(
@@ -142,7 +142,7 @@ class LoggedInAsContributor(SeleniumTests):
             task_checked=True,
             picture="test.png",
             approved_by=self.user1,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.task4 = Task.objects.create(
@@ -156,7 +156,7 @@ class LoggedInAsContributor(SeleniumTests):
             task_checked=True,
             picture="test.png",
             approved_by=self.user1,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.client.login(username="Test", password='12345qwert')
@@ -196,7 +196,6 @@ class LoggedInAsContributor(SeleniumTests):
         user = User.objects.get(username=self.user1.username)
         self.assertEqual(user.first_name, "TestFoobar")
 
-
     def test_view_rankup(self):
         self.profile1.rank = self.rank1
         self.profile1.save()
@@ -224,4 +223,3 @@ class LoggedInAsContributor(SeleniumTests):
         self.project_page.open_page_one_projects('?page=1')
         active_page = self.project_page.find_active_page()
         self.assertEquals(int(active_page.text), 1)
-
