@@ -115,7 +115,7 @@ def EditProjectView(request, pk):
 def TaskIndexView(request, username=None):
     template_name = 'osschallenge/taskindex.html'
     title = ""
-    if rankup_check(request.user) is True:
+    if request.user.id is not None and rankup_check(request.user) is True:
         return redirect('/rankup/')
     search = request.GET.get('search') if request.GET else None
     if username is not None:
