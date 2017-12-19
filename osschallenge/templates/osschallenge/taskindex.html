@@ -16,7 +16,7 @@
                 {% if user.is_authenticated and username %}
                     <a class="link" href="/tasks">{% trans "Show all tasks" %}</a>
                 {% endif %}
-                {% if username == None %}
+                {% if user.is_authenticated and  username == None %}
                     <a class="link" href="/my_tasks/{{ request.user.username }}">{% trans "Show my tasks" %}</a>
                 {% endif %}
                 {% if user.profile.role_id == mentor_id %}

@@ -1,6 +1,8 @@
 from django.test import Client
 from osschallenge.tests.pages.register import RegisterPage
-from osschallenge.models import User, Profile, Role
+from osschallenge.tests.pages.rankup import RankUpPage
+from osschallenge.tests.pages.profil import ProfilePage
+from osschallenge.models import User, Profile, Role, Rank
 from osschallenge.tests.selenium_test_options import SeleniumTests
 
 
@@ -14,10 +16,18 @@ class NotLoggedInTest(SeleniumTests):
     def setUp(self):
         self.client = Client()
         self.register_page = RegisterPage(self.driver, self.live_server_url)
+        self.rankup_page = RankUpPage(self.driver, self.live_server_url)
+        self.profile_page = ProfilePage(self.driver, self.live_server_url)
 
         self.role1 = Role.objects.create(
             id=1,
             name="Contributor"
+        )
+
+        self.rank1 = Rank.objects.create(
+            id=7,
+            name="Yoda",
+            required_points=115
         )
 
         self.user1 = User.objects.create(
@@ -37,6 +47,7 @@ class NotLoggedInTest(SeleniumTests):
         self.profile1 = Profile.objects.create(
             user=self.user1,
             role=self.role1,
+            rank=self.rank1,
             links="Test",
             contact="Test",
             key="Test1",
@@ -99,3 +110,13 @@ class NotLoggedInTest(SeleniumTests):
             "qwert12345"
         )
         self.assertRaises(AssertionError)
+
+    def test_rankup_not_logged_in(self):
+        self.rankup_page.open()
+        element = self.rankup_page.search_element("form-control")
+        self.assertTrue(element)
+
+    def test_show_profile(self):
+        self.profile_page.open("Test")
+        element = self.profile_page.search_element('facebook')
+        self.assertTrue(element)

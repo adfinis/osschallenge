@@ -85,6 +85,10 @@ urlpatterns = [
         views.RegistrationSendMailView.as_view(),
         name='registrationsendmail'),
 
+    url(r'^rankup/$',
+        views.RankupView,
+        name='rankup'),
+
     url(r'^password_change/$', auth_views.password_change,
         name='password_change'),
 
@@ -109,6 +113,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
     url('^markdown/', include('django_markdown.urls')),
+
 ]
 
 if settings.DEBUG:  # pragma: no cover

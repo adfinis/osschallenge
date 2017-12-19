@@ -18,6 +18,7 @@ from django.utils import timezone
 from django.db.models import Count, Case, When
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 CONTRIBUTOR_ID = 1
@@ -98,6 +99,7 @@ def EditProjectView(request, pk):
             return redirect('project', pk=project.pk)
 
     else:
+
         form = ProjectForm(instance=project)
 
     return render(
@@ -113,6 +115,8 @@ def EditProjectView(request, pk):
 def TaskIndexView(request, username=None):
     template_name = 'osschallenge/taskindex.html'
     title = ""
+    if request.user.id is not None and rankup_check(request.user) is True:
+        return redirect('/rankup/')
     search = request.GET.get('search') if request.GET else None
     if username is not None:
         title = _("My Tasks")
@@ -284,22 +288,19 @@ def NewTaskView(request, pk):
 def ProfileView(request, username):
     try:
         user = User.objects.get(username=username)
-    except User.DoesNotExist:
+        profile = Profile.objects.get(user_id=user.id)
+    except (Profile.DoesNotExist, User.DoesNotExist):
         return render(request, 'osschallenge/no_profile_available.html')
+
+    if request.user.id is not None and rankup_check(request.user) is True:
+        return redirect('/rankup/')
+
     template_name = 'osschallenge/profile.html'
-    approved_tasks = Task.objects.filter(
-        Q(task_checked=True) &
-        Q(assignee_id=user.id)
-    ).count()
-    total_points = approved_tasks * 5
+    total_points = profile.get_points()
     matches = Rank.objects.filter(
         required_points__lte=total_points
     ).order_by('-required_points')
     rank = matches.first()
-    try:
-        profile = Profile.objects.get(user_id=user.id)
-    except Profile.DoesNotExist:
-        return render(request, 'osschallenge/no_profile_available.html')
     finished_tasks = Task.objects.filter(task_done=True)
     finished_task_list = []
     for obj in finished_tasks:
@@ -515,7 +516,8 @@ class RegistrationDoneView(generic.TemplateView):
         if matches.exists():
             profile = matches.first()
             if profile.user.is_active:
-                request.template_name = 'osschallenge/user_is_already_active.html'
+                request.template_name = (
+                    'osschallenge/user_is_already_active.html')
             else:
                 profile.user.is_active = True
                 profile.user.save()
@@ -525,3 +527,36 @@ class RegistrationDoneView(generic.TemplateView):
 
 class RegistrationSendMailView(generic.TemplateView):
     template_name = 'osschallenge/registration_send_mail.html'
+
+
+def RankupView(request):
+    template_name = 'osschallenge/rankup.html'
+    try:
+        user = User.objects.get(username = request.user.username)
+        profile = Profile.objects.get(user_id=user.id)
+        needed_points = Rank.objects.get(id=profile.rank_id).required_points
+        actual_points = profile.get_points()
+    except (ObjectDoesNotExist, IndexError):
+        return redirect('/login', permanent=True)
+
+    if actual_points >= needed_points:
+        profile.rank = Rank.objects.filter(
+            required_points__gt=profile.rank.required_points
+        ).order_by('required_points')[0]
+        profile.save()
+
+    return render(request, template_name, {
+        'user': user.username,
+        'total_points': actual_points,
+    })
+
+
+def rankup_check(user):
+    profile = user.profile
+    actual_points = profile.get_points()
+    profile_points = Rank.objects.get(id=profile.rank_id).required_points
+
+    if profile_points <= actual_points:
+        return True
+
+    return False

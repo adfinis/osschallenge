@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from easy_thumbnails.fields import ThumbnailerImageField
 from django_markdown.models import MarkdownField
+from django.db.models import Q
 
 
 class Role(models.Model):
@@ -34,9 +35,17 @@ class Profile(models.Model):
     contact = models.CharField(max_length=50)
     key = models.CharField(max_length=10, unique=True)
     picture = ThumbnailerImageField(upload_to='profile-pictures', null=True)
+    rank = models.ForeignKey(Rank, default=2)
 
     def __str__(self):
         return self.user.username
+
+    def get_points(self):
+        approved_tasks = Task.objects.filter(
+            Q(task_checked=True) &
+            Q(assignee_id=self.user.id)
+        ).count()
+        return approved_tasks * 5
 
 
 class Project(models.Model):

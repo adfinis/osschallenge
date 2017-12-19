@@ -1,5 +1,5 @@
 from django.test import Client
-from osschallenge.models import User, Profile, Role, Project, Task
+from osschallenge.models import User, Profile, Role, Project, Task, Rank
 from osschallenge.tests.pages.login import LoginPage
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.new_project import NewProjectPage
@@ -45,9 +45,15 @@ class LoggedInAsMentorTest(SeleniumTests):
             name="Mentor"
         )
 
+        self.rank1 = Rank.objects.create(
+            id=1,
+            name="Youngling"
+        )
+
         self.profile1 = Profile.objects.create(
             user=self.user1,
             role=self.role1,
+            rank=self.rank1,
             links="Test",
             contact="Test",
             key="Test1",
