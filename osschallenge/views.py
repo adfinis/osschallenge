@@ -286,13 +286,15 @@ def NewTaskView(request, pk):
 
 
 def ProfileView(request, username):
-    if rankup_check(request.user) is True:
-        return redirect('/rankup/')
     try:
         user = User.objects.get(username=username)
         profile = Profile.objects.get(user_id=user.id)
     except (Profile.DoesNotExist, User.DoesNotExist):
         return render(request, 'osschallenge/no_profile_available.html')
+
+    if request.user.id is not None and rankup_check(request.user) is True:
+        return redirect('/rankup/')
+
     template_name = 'osschallenge/profile.html'
     total_points = profile.get_points()
     matches = Rank.objects.filter(
