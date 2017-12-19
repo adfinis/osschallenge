@@ -15,6 +15,7 @@ from osschallenge.tests.pages.profil import ProfilePage
 from osschallenge.tests.pages.task import TaskPage
 from osschallenge.tests.pages.ranking import RankingPage
 from osschallenge.tests.pages.project import ProjectPage
+from osschallenge.tests.pages.rankup import RankUpPage
 from osschallenge.tests.selenium_test_options import SeleniumTests
 
 
@@ -37,6 +38,7 @@ class LoggedInAsContributor(SeleniumTests):
         self.task_page = TaskPage(self.driver, self.live_server_url)
         self.ranking_page = RankingPage(self.driver, self.live_server_url)
         self.project_page = ProjectPage(self.driver, self.live_server_url)
+        self.rankup_page = RankUpPage(self.driver, self.live_server_url)
 
         self.user1 = User.objects.create(
             id=1,
@@ -223,3 +225,13 @@ class LoggedInAsContributor(SeleniumTests):
         self.project_page.open_page_one_projects('?page=1')
         active_page = self.project_page.find_active_page()
         self.assertEquals(int(active_page.text), 1)
+
+    def test_redirect_rankup(self):
+        self.rankup_page.open()
+        element = self.rankup_page.search_element('rankup-message')
+        self.assertTrue(element)
+
+    def test_no_redirect_profile(self):
+        self.profile_page.open("Test")
+        element = self.profile_page.search_element('facebook')
+        self.assertTrue(element)
