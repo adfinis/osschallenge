@@ -18,6 +18,10 @@
     .btn.btn-primary.add-project {
         width: 150px;
     }
+    /* Project Index */
+    #new-project {
+        width: 100px;
+    }
 
     /* New Task */
     .btn.btn-primary.add-task {
@@ -221,6 +225,7 @@
        flex-direction: column;
    }
 }
+
 
 @media (max-width: 767px) {
     .nav-top-list-item {
