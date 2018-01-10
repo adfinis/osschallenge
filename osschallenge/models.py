@@ -1,10 +1,9 @@
-import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
 from easy_thumbnails.fields import ThumbnailerImageField
 from django_markdown.models import MarkdownField
+from django.db.models import Q
 
 
 class Role(models.Model):
@@ -36,9 +35,17 @@ class Profile(models.Model):
     contact = models.CharField(max_length=50)
     key = models.CharField(max_length=10, unique=True)
     picture = ThumbnailerImageField(upload_to='profile-pictures', null=True)
+    rank = models.ForeignKey(Rank, default=2)
 
     def __str__(self):
         return self.user.username
+
+    def get_points(self):
+        approved_tasks = Task.objects.filter(
+            Q(task_checked=True) &
+            Q(assignee_id=self.user.id)
+        ).count()
+        return approved_tasks * 5
 
 
 class Project(models.Model):
@@ -53,6 +60,7 @@ class Project(models.Model):
                               verbose_name=_('Owner'),)
     mentors = models.ManyToManyField(User, related_name="project_mentors",
                                      verbose_name=_('Mentors'),)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
@@ -71,7 +79,7 @@ class Task(models.Model):
     task_checked = models.BooleanField(null=False, default=False)
     picture = ThumbnailerImageField(upload_to='', null=True)
     approved_by = models.ForeignKey(User, null=True)
-    approval_date = models.DateTimeField(null=True)
+    approval_date = models.DateField(null=True)
 
     def __str__(self):
         return self.title
