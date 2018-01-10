@@ -47,11 +47,6 @@ class MydriverTests(StaticLiveServerTestCase):
         self.user1.set_password("12345qwert")
         self.user1.save()
 
-        Group.objects.create(
-            id = 1,
-            name = "Contributor"
-        )
-
         self.group = Group.objects.create(
             id = 2,
             name = "Mentor"

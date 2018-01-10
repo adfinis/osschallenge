@@ -246,6 +246,7 @@ def TaskView(request, pk):
             if form.is_valid():
                 comment.author = user
                 comment.task = task
+                comment.author_id = user.id
                 comment = form.save()
 
         elif 'Delete-comment' in request.POST:
