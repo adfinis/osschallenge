@@ -26,9 +26,9 @@ class NotLoggedInTest(SeleniumTests):
         )
 
         self.rank1 = Rank.objects.create(
-            id=7,
-            name="Yoda",
-            required_points=115
+            id=2,
+            name="Padawan",
+            required_points=15
         )
 
         self.user1 = User.objects.create(
@@ -48,7 +48,6 @@ class NotLoggedInTest(SeleniumTests):
 
         self.profile1 = Profile.objects.create(
             user=self.user1,
-            role=self.role1,
             links="Test",
             contact="Test",
             key="Test1",
