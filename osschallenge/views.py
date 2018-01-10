@@ -528,7 +528,6 @@ class RegistrationDoneView(generic.TemplateView):
 class RegistrationSendMailView(generic.TemplateView):
     template_name = 'osschallenge/registration_send_mail.html'
 
-
 def RankupView(request):
     template_name = 'osschallenge/rankup.html'
     try:
