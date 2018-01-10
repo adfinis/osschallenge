@@ -3,18 +3,24 @@
 {% load thumbnail %}
 {% load static %}
 {% load tasks %}
+{% load pagination %}
 
 {% block content %}
 <div class="content">
     <div class="taskindex">
         <div class="taskindex-top-items">
             <div class="my-tasks">
-                <h1>{% trans "All Tasks" %}</h1>
-                {% if user.is_authenticated %}
+                {% if title %}
+                    <h1>{{ title }}</h1>
+                {% endif %}
+                {% if user.is_authenticated and username %}
+                    <a class="link" href="/tasks">{% trans "Show all tasks" %}</a>
+                {% endif %}
+                {% if user.is_authenticated and  username == None %}
                     <a class="link" href="/my_tasks/{{ request.user.username }}">{% trans "Show my tasks" %}</a>
                 {% endif %}
                 {% if group_id == mentor_id %}
-                    <a class="link" href="/task_administration_index/">{% trans "Show tasks to review" %}</a>
+                    <a class="link" href="/tasks/admin/">{% trans "Show tasks to review" %}</a>
                 {% endif %}
             </div>
             <div class="search-function">
@@ -24,24 +30,15 @@
                 </form>
             </div>
         </div>
-        {% if no_tasks %}
-        <div class="no-tasks">{{ no_tasks }}</div>
-        {% elif match_list %}
+        {% if tasks %}
         <div class="grid grid--2of12 task-grid">
-            {% for match in match_list %}
-            <div class="grid-cell">
-                {% task_card match %}
-            </div>
-            {% endfor %}
-        </div>
-        {% elif task_list %}
-        <div class="grid grid--2of12 task-grid">
-            {% for task in task_list %}
+            {% for task in tasks %}
             <div class="grid-cell">
                 {% task_card task %}
             </div>
             {% endfor %}
         </div>
+        {% paging last_page current_page tasks %}
         {% else %}
         <p>{% trans "No tasks available." %}</p>
         {% endif %}

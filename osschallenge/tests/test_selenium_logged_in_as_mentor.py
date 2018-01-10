@@ -1,24 +1,18 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium import webdriver
 from django.test import Client
-from osschallenge.models import User, Profile, Project, Task
 from django.contrib.auth.models import Group
+from osschallenge.models import User, Profile, Project, Task, Rank
 from osschallenge.tests.pages.login import LoginPage
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.new_project import NewProjectPage
 from osschallenge.tests.pages.new_task import NewTaskPage
+from osschallenge.tests.selenium_test_options import SeleniumTests
 
 
-class MydriverTests(StaticLiveServerTestCase):
+class LoggedInAsMentorTest(SeleniumTests):
 
     @classmethod
     def setUpClass(self):
-        super(MydriverTests, self).setUpClass()
-        options = webdriver.ChromeOptions()
-        options.add_argument('headless')
-        options.add_argument('window-size=1200x600')
-        self.driver = webdriver.Chrome(chrome_options=options)
-        self.driver.implicitly_wait(10)
+        super(LoggedInAsMentorTest, self).setUpClass()
 
     @classmethod
     def setUp(self):
@@ -54,8 +48,14 @@ class MydriverTests(StaticLiveServerTestCase):
 
         self.group.user_set.add(self.user1)
 
+        self.rank1 = Rank.objects.create(
+            id=1,
+            name="Youngling"
+        )
+
         self.profile1 = Profile.objects.create(
             user=self.user1,
+            rank=self.rank1,
             links="Test",
             contact="Test",
             key="Test1",
@@ -87,7 +87,7 @@ class MydriverTests(StaticLiveServerTestCase):
             task_checked=False,
             picture="test.png",
             approved_by=None,
-            approval_date="2017-10-18 12:34:51.168157+00"
+            approval_date="2017-10-18"
         )
 
         self.client.login(username="Test", password='12345qwert')
@@ -107,7 +107,7 @@ class MydriverTests(StaticLiveServerTestCase):
     @classmethod
     def tearDownClass(self):
         self.driver.quit()
-        super(MydriverTests, self).tearDownClass()
+        super(LoggedInAsMentorTest, self).tearDownClass()
 
     def test_create_a_new_project(self):
         self.new_project_page.open()

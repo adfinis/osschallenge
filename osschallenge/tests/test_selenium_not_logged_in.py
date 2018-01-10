@@ -1,25 +1,35 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium import webdriver
 from django.test import Client
 from osschallenge.tests.pages.register import RegisterPage
-from osschallenge.models import User, Profile
+from osschallenge.tests.pages.rankup import RankUpPage
+from osschallenge.tests.pages.profil import ProfilePage
+from osschallenge.models import User, Profile, Rank
+from osschallenge.tests.selenium_test_options import SeleniumTests
+from django.contrib.auth.models import Group
 
 
-class MydriverTests(StaticLiveServerTestCase):
+class NotLoggedInTest(SeleniumTests):
 
     @classmethod
     def setUpClass(self):
-        super(MydriverTests, self).setUpClass()
-        options = webdriver.ChromeOptions()
-        options.add_argument('headless')
-        options.add_argument('window-size=1200x600')
-        self.driver = webdriver.Chrome(chrome_options=options)
-        self.driver.implicitly_wait(10)
+        super(NotLoggedInTest, self).setUpClass()
 
     @classmethod
     def setUp(self):
         self.client = Client()
         self.register_page = RegisterPage(self.driver, self.live_server_url)
+        self.rankup_page = RankUpPage(self.driver, self.live_server_url)
+        self.profile_page = ProfilePage(self.driver, self.live_server_url)
+
+        self.group1 = Group.objects.create(
+            id=1,
+            name="Contributor"
+        )
+
+        self.rank1 = Rank.objects.create(
+            id=7,
+            name="Yoda",
+            required_points=115
+        )
 
         self.user1 = User.objects.create(
             last_login="2017-10-18 11:55:45.681893+00",
@@ -34,9 +44,11 @@ class MydriverTests(StaticLiveServerTestCase):
         )
         self.user1.set_password("12345qwert")
         self.user1.save()
+        self.group1.user_set.add(self.user1)
 
         self.profile1 = Profile.objects.create(
             user=self.user1,
+            role=self.role1,
             links="Test",
             contact="Test",
             key="Test1",
@@ -46,7 +58,7 @@ class MydriverTests(StaticLiveServerTestCase):
     @classmethod
     def tearDownClass(self):
         self.driver.quit()
-        super(MydriverTests, self).tearDownClass()
+        super(NotLoggedInTest, self).tearDownClass()
 
     def test_register_successful(self):
         self.register_page.open()
@@ -99,3 +111,13 @@ class MydriverTests(StaticLiveServerTestCase):
             "qwert12345"
         )
         self.assertRaises(AssertionError)
+
+    def test_rankup_not_logged_in(self):
+        self.rankup_page.open()
+        element = self.rankup_page.search_element("form-control")
+        self.assertTrue(element)
+
+    def test_show_profile(self):
+        self.profile_page.open("Test")
+        element = self.profile_page.search_element('facebook')
+        self.assertTrue(element)

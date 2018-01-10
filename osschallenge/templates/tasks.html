@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load thumbnail %}
 {% load static %}
+{% load shorten %}
 
 <div class="card">
     <a href="/tasks/{{ task.id }}">
@@ -37,13 +38,13 @@
         </div>
         <div class="card-block">
             <div class="project-title">
-                <h4 class="card-title">{{ task.project.title }}</h4>
+                <h4 class="card-title">{{ task.project.title|shorten:60 }}</h4>
             </div>
             <div class="task-title">
-                <h6 class="card-subtitle text-muted">{{ task.title }}</h6>
+                <h6 class="card-subtitle text-muted">{{ task.title|shorten:60 }}</h6>
             </div>
             <div class="task-description">
-                </br><p class="card-text task-text">{{ task.description }}</p>
+                </br><p class="card-text task-text">{{ task.description|shorten:130 }}</p>
             </div>
         </div>
     </a>

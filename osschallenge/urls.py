@@ -37,17 +37,21 @@ urlpatterns = [
         views.NewTaskView,
         name='newtask'),
 
-    url(r'^tasks/$',
-        views.TaskIndexView,
-        name='taskindex'),
-
     url(r'^tasks/(?P<pk>[0-9]+)/$',
         views.TaskView,
         name='task'),
 
+    url(r'^tasks/$',
+        views.TaskIndexView,
+        name='taskindex'),
+
     url(r'^my_tasks/(?P<username>[0-9A-Za-z_\-\.\+\@]+)/$',
-        views.MyTaskIndexView,
+        views.TaskIndexView,
         name='mytask'),
+
+    url(r'^tasks/admin/$',
+        views.TaskIndexView,
+        name='admin'),
 
     url(r'^tasks/(?P<pk>[0-9]+)/edit/$',
         views.EditTaskView,
@@ -60,10 +64,6 @@ urlpatterns = [
     url(r'^profile/(?P<username>[0-9A-Za-z_\-\.\+\@]+)/$',
         views.ProfileView,
         name='profile'),
-
-    url(r'^task_administration_index/$',
-        views.TaskAdministrationIndexView,
-        name='taskadministrationindex'),
 
     url(r'^ranking/$',
         views.RankingView,
@@ -84,6 +84,10 @@ urlpatterns = [
     url(r'^registration_send_mail/$',
         views.RegistrationSendMailView.as_view(),
         name='registrationsendmail'),
+
+    url(r'^rankup/$',
+        views.RankupView,
+        name='rankup'),
 
     url(r'^password_change/$', auth_views.password_change,
         name='password_change'),
@@ -109,6 +113,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
 
     url('^markdown/', include('django_markdown.urls')),
+
 ]
 
 if settings.DEBUG:  # pragma: no cover

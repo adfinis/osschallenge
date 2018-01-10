@@ -28,3 +28,7 @@ class ProfilePage(object):
         first_name_input = self.driver.find_element_by_name("first_name")
         first_name_input.send_keys(first_name)
         self.driver.find_element_by_id("save").click()
+
+    def search_element(self, id):
+        self.driver.find_element_by_id(id)
+        return self
