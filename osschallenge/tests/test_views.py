@@ -291,6 +291,21 @@ class ViewTestCase(TestCase):
         )
 
     def test_project_index_view(self):
+        self.group2.user_set.remove(self.user1)
+        url = reverse('projectindex')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'osschallenge/projectindex.html')
+
+    def test_project_index_view_mentor(self):
+        url = reverse('projectindex')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'osschallenge/projectindex.html')
+
+    def test_project_index_view_contributor(self):
+        self.group2.user_set.remove(self.user1)
+        self.group1.user_set.add(self.user1)
         url = reverse('projectindex')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
