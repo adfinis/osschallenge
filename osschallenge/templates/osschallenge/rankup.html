@@ -1,0 +1,28 @@
+{% extends 'osschallenge/index.html' %}
+{% load i18n %}
+{% load static %}
+{% load tasks %}
+
+{% block content %}
+<div class="content">
+    <div class="rankup-message">
+        <h1 class="rankup-header">{% trans "Congratulations" %} {{ user }}!</h1>
+        {% if total_points >= 15 and total_points < 30 %}
+        <h2 class="rankupmessage">{% trans "You have reached the rank of Padawan!" %}</h2>
+        {% elif total_points >= 30 and total_points < 45 %}
+        <h2 class="rankupmessage">{% trans "You have reached the rank of Jedi Knight!" %}</h2>
+        {% elif total_points >= 45 and total_points < 60 %}
+        <h2 class="rankupmessage">{% trans "You have reached the rank of Jedi Master!" %}</h2>
+        {% elif total_points >= 60 and total_points < 85 %}
+        <h2 class="rankupmessage">{% trans "You have reached the rank of Jedi Grand Master!" %}</h2>
+        {% elif total_points >= 85 and total_points < 110 %}
+        <h2 class="rankupmessage">{% trans "You have reached the rank of Jedi Council Member!" %}</h2>
+        {% elif total_points >= 110 %}
+        <h2 class="rankupmessage">{% trans "You have rached the rank of Yoda!" %}</h2>
+        {% else %}
+        <h2 class="rankupmessage">{% trans "You should not be here." %}</h2>
+        {% endif %}
+    </div>
+    <div class="pony"></div>
+</div>
+{% endblock content %}
