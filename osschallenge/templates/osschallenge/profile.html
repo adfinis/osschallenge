@@ -9,7 +9,7 @@
 <meta property="og:image" content="{% if profile.picture.avatar.url %} {{ profile.picture.avatar.url }} {% else %} {% static "osschallenge/profile-example.png" %} {% endif %}" />
 <meta property="og:url" content="www.osschallenge.ch/profile/{{ user.username }}/" />
 <meta property="og:description" content="{{ user.username }}" />
-<meta property="og:description" content="{% if group_id == contributor_id %} {{total_points}} {% else %} 0 {% endif %} {% trans "Points reached." %}" />
+<meta property="og:description" content="{% if contributor == True %} {{total_points}} {% else %} 0 {% endif %} {% trans "Points reached." %}" />
 {% endblock meta %}
 
 {% block content %}
@@ -26,7 +26,7 @@
             <h4 class="card-title">{{ profile.user.username }}</h4>
             <table class="profil-infos">
                 <tbody>
-                    {% if group_id == contributor_id %}
+                    {% if contributor == True %}
                     <tr>
                         <th>{% trans "Rank" %}</th>
                         <td>{{ rank }}</td>
@@ -36,7 +36,7 @@
                         <td>{{ rank }}</td>
                     </tr>
                     {% endif %}
-                    {% if user.id == profile.user.id or group_id == mentor_id %}
+                    {% if user.id == profile.user.id or mentor_id == True %}
                     <tr>
                         <th>{% trans "First name" %}</th>
                         <td>{{ profile.user.first_name }}</td>
@@ -50,13 +50,13 @@
                         <td>{{ profile.user.email }}</td>
                     </tr>
                     {% endif %}
-                    {% if groups_id == mentor_id %}
+                    {% if mentor == True %}
                     <tr>
                         <th>{% trans "Role" %}</th>
                         <td>{% trans "Mentor" %}</td>
                     </tr>
                     {% endif %}
-                    {% if group_id == contributor_id %}
+                    {% if contributor == True %}
                     <tr>
                         <th>{% trans "Points reached" %}</th>
                         <td>{{ total_points }}</td>
@@ -100,7 +100,7 @@
     </div>
     <div class="grid-cell grid-cell--8of12">
         <div class="detail-right-profile">
-            {% if group_id == contributor_id %}
+            {% if contributor == True %}
             <div class="taskindex">
                 {% if finished_task_list %}
                 <h2>{% trans "Finished tasks" %}</h2>
