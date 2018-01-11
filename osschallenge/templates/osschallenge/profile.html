@@ -53,7 +53,7 @@
                     {% if groups_id == mentor_id %}
                     <tr>
                         <th>{% trans "Role" %}</th>
-                        <td>{% trans profile.role.name %}</td>
+                        <td>{% trans "Mentor" %}</td>
                     </tr>
                     {% endif %}
                     {% if group_id == contributor_id %}
@@ -66,7 +66,7 @@
                         <th>Links</th>
                         <td><a href="http://{{ profile.links }}" class="card-link">{{ profile.links }}</a></td>
                     </tr>
-                    {% if user.id == profile.user.id %}
+                    {% if request.user.id == profile.user.id %}
                     <tr>
                         <th>{% trans "Contact" %}</th>
                         <td>{{profile.contact }}</td>

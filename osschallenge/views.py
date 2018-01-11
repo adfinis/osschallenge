@@ -42,12 +42,12 @@ class NewProjectView(CreateView):
 def ProjectIndexView(request):
     project_list = Project.objects.filter(active=True).order_by('id')
     template_name = 'osschallenge/projectindex.html'
-    mentor_id = Group.objects.get(name="Mentor").id
-    group_id = '0'
     try:
+        mentor_id = Group.objects.get(name="Mentor").id
         group_id = request.user.groups.get().id
     except Group.DoesNotExist:
-        pass
+        group_id = 0
+        mentor_id = 2
     if request.GET.get('page'):
         current_page = request.GET.get('page')
     else:
@@ -116,12 +116,12 @@ def EditProjectView(request, pk):
 def TaskIndexView(request, username=None):
     template_name = 'osschallenge/taskindex.html'
     title = ""
-    mentor_id = Group.objects.get(name="Mentor").id
-    group_id = '0'
     try:
+        mentor_id = Group.objects.get(name="Mentor").id
         group_id = request.user.groups.get().id
     except Group.DoesNotExist:
-        pass
+        group_id = 0
+        mentor_id = 2
     if request.user.id is not None and rankup_check(request.user) is True:
         return redirect('/rankup/')
     search = request.GET.get('search') if request.GET else None
@@ -170,13 +170,14 @@ def TaskIndexView(request, username=None):
 
 def TaskView(request, pk):
     task = Task.objects.get(pk=pk)
-    mentor_id = Group.objects.get(name="Mentor").id
-    group_id = '0'
     try:
+        mentor_id = Group.objects.get(name="Mentor").id
+        contributor_id = Group.objects.get(name="Contributor").id
         group_id = request.user.groups.get().id
     except Group.DoesNotExist:
-        pass
-    contributor_id = Group.objects.get(name="Contributor").id
+        group_id = 0
+        contributor_id = 1
+        mentor_id = 2
     template_name = 'osschallenge/task.html'
     notification = ""
     render_params = {}
@@ -308,13 +309,15 @@ def ProfileView(request, username):
         profile = Profile.objects.get(user_id=user.id)
     except (Profile.DoesNotExist, User.DoesNotExist):
         return render(request, 'osschallenge/no_profile_available.html')
-    mentor_id = Group.objects.get(name="Mentor").id
-    group_id = '0'
+
     try:
         group_id = request.user.groups.get().id
+        mentor_id = Group.objects.get(name="Mentor").id
+        contributor_id = Group.objects.get(name="Contributor").id
     except Group.DoesNotExist:
-        pass
-    contributor_id = Group.objects.get(name="Contributor").id
+        group_id = 0
+        contributor_id = 1
+        mentor_id = 2
 
     if request.user.id is not None and rankup_check(request.user) is True:
         return redirect('/rankup/')
@@ -412,7 +415,10 @@ def RankingView(request):
 
     quarter = bisect.bisect(quarters, month)
     quarter_month = get_quarter_months(str(quarter))
-    contributor_id = Group.objects.get(name="Contributor").id
+    try:
+        contributor_id = Group.objects.get(name="Contributor").id
+    except Group.DoesNotExist:
+        contributor_id = 1
     contributors = User.objects.filter(groups__id=contributor_id)
     # for every finished task add 5 points
     contributors_with_points = contributors.annotate(
