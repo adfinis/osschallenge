@@ -2,14 +2,7 @@ from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
 from . import factories
-from osschallenge.models import (
-    Project,
-    User,
-    Task,
-    Profile,
-    Role,
-    Comment,
-    Rank,)
+from osschallenge.models import (Role, Rank)
 
 
 class ViewTestCase(TestCase):
@@ -17,10 +10,10 @@ class ViewTestCase(TestCase):
         self.client = Client()
 
         self.user1 = factories.UserFactory(username="Test")
-        self.user2 = factories.UserFactory(username="Foo")
-        self.user3 = factories.UserFactory(username="Bar")
+        self.user2 = factories.UserFactory(username="Foo", is_active=False)
+        self.user3 = factories.UserFactory(username="Bar", is_active=False)
         self.user4 = factories.UserFactory(username="example")
-        self.user5 = factories.UserFactory(username="Fooo")
+        self.user5 = factories.UserFactory(username="Fooo", is_active=False)
 
         self.user1.set_password("klajsdfkj")
         self.user1.save()
@@ -37,24 +30,27 @@ class ViewTestCase(TestCase):
         self.task1 = factories.TaskFactory(project=self.project, assignee=None)
 
         self.task2 = factories.TaskFactory(
-            title="edit", project=self.project,
-            assignee=self.user1, task_checked=True, approved_by=self.user1)
+            title="Edit Code", project=self.project,
+            assignee=self.user4, task_checked=True, approved_by=self.user1
+        )
 
         self.task3 = factories.TaskFactory(
-            project=self.project, assignee=self.user4)
+            title="Code", project=self.project, assignee=self.user4
+        )
 
         self.task4 = factories.TaskFactory(
-            project=self.project, assignee=self.user1, task_done=True)
+            title="Code abc", project=self.project,
+            assignee=self.user1, task_done=True
+        )
 
         self.task5 = factories.TaskFactory(
-            project=self.project, assignee=self.user1, task_done=True)
+            project=self.project, assignee=self.user1, task_done=True
+        )
 
         self.task6 = factories.TaskFactory(
-            project=self.project, assignee=self.user1, task_done=True)
-
-        self.role1 = factories.RoleFactory()
-
-        self.role2 = factories.RoleFactory()
+            title="Make Code", project=self.project,
+            assignee=self.user1, task_done=True
+        )
 
         self.rank3 = Rank.objects.create(
             id=1,
@@ -74,56 +70,28 @@ class ViewTestCase(TestCase):
             required_points=30
         )
 
-        self.profile1 = Profile.objects.create(
-            user=self.user1,
-            rank=self.rank1,
-            role=self.role2,
-            links="Test",
-            contact="Test",
-            key="Test1",
-            picture="Test.png"
+        self.role1 = Role.objects.create(id=1, name="Contributor")
+        self.role2 = Role.objects.create(id=2, name="Mentor")
+
+        self.profile1 = factories.ProfileFactory(
+            user=self.user1, role=self.role2, rank=self.rank1
         )
 
-        self.profile2 = Profile.objects.create(
-            user=self.user2,
-            rank=self.rank1,
-            role=self.role2,
-            links="Test",
-            contact="Test",
-            key="Test2",
-            picture="Test.png"
+        self.profile2 = factories.ProfileFactory(
+            user=self.user2, role=self.role2, rank=self.rank1
         )
 
-        self.profile3 = Profile.objects.create(
-            user=self.user3,
-            rank=self.rank1,
-            role=self.role1,
-            links="Test",
-            contact="Test",
-            key=False,
-            picture="Test.png"
+        self.profile3 = factories.ProfileFactory(
+            user=self.user3, role=self.role1, rank=self.rank1, key=False
         )
 
-        self.profile4 = Profile.objects.create(
-            user=self.user4,
-            rank=self.rank1,
-            role=self.role1,
-            links="Test",
-            contact="Test",
-            key=123,
-            picture="Test.png"
+        self.profile4 = factories.ProfileFactory(
+            user=self.user4, role=self.role1, rank=self.rank1, key=123
         )
 
-        self.comment1 = Comment.objects.create(
-            task=self.task1,
-            comment="Test1",
-            author=self.user1,
-            created_at="2017-10-18 12:34:51.168157+00"
+        self.comment = factories.CommentFactory(
+            author=self.user1, task=self.task1
         )
-
-        self.role = Role.objects.create(name="Contirb")
-
-        self.profile1 = factories.ProfileFactory(user=self.user1, role=self.role)
 
     def test_index_view(self):
         url = reverse('index')
@@ -353,9 +321,7 @@ class ViewTestCase(TestCase):
 
     def test_comment(self):
         # if Comment in request.POST
-        task = factories.TaskFactory()
-        factories.CommentFactory(task=task)
-        url = reverse('task', args=[task.pk])
+        url = reverse('task', args=[self.task4.pk])
         response = self.client.get(url)
         self.assertEqual(
             len(response.context['comment_list']),
@@ -376,9 +342,7 @@ class ViewTestCase(TestCase):
 
     def test_comment_is_empty(self):
         # if Comment in request.POST but comment is empty
-        task = factories.TaskFactory()
-        factories.CommentFactory(task=task)
-        url = reverse('task', args=[task.pk])
+        url = reverse('task', args=[self.task4.pk])
         response = self.client.get(url)
         self.assertEqual(
             len(response.context['comment_list']),
@@ -395,7 +359,6 @@ class ViewTestCase(TestCase):
 
     def test_delete_comment(self):
         # if Delete-comment in request.POST
-        comment = factories.CommentFactory(author=self.user1, task=self.task1)
         url = reverse('task', args=[self.task1.pk])
         response = self.client.get(url)
         self.assertEqual(
@@ -404,10 +367,10 @@ class ViewTestCase(TestCase):
         )
         delete_response = self.client.post(
             url,
-            {'Delete-comment': comment.id}
+            {'Delete-comment': self.comment.id}
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(comment.author_id, self.user1.id)
+        self.assertEqual(self.comment.author_id, self.user1.id)
         self.assertEqual(
             len(delete_response.context['comment_list']),
             0
@@ -497,7 +460,7 @@ class ViewTestCase(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('task', args=[67]),
+            reverse('task', args=[70]),
             status_code=302
         )
 
@@ -525,9 +488,7 @@ class ViewTestCase(TestCase):
         )
 
     def test_profile_does_not_exist_anymore(self):
-        user = factories.UserFactory(is_active=False)
-        factories.ProfileFactory(user=user)
-        url = reverse('profile', args=[user.username])
+        url = reverse('profile', args=[self.user2.username])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
@@ -631,11 +592,9 @@ class ViewTestCase(TestCase):
         )
 
     def test_registration_done_view(self):
-        user = factories.UserFactory(is_active=False)
-        profile = factories.ProfileFactory(user=user, role=self.role)
         url_with_inactive_user = reverse(
             'registrationdone',
-            args=[profile.key]
+            args=[self.profile2.key]
         )
         response_with_inactive_user = self.client.get(url_with_inactive_user)
         self.assertEqual(response_with_inactive_user.status_code, 200)

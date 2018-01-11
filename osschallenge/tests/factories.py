@@ -14,14 +14,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     email = factory.Faker('ascii_safe_email')
     is_staff = False
     is_active = True
-    date_joined = "2017-11-24 09:54:02.784094+00"
-
-
-class RoleFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = models.Role
-
-    name = factory.Faker('word')
+    date_joined = "2017-10-13 08:17:36.901715+00"
 
 
 class ProfileFactory(factory.django.DjangoModelFactory):
@@ -29,6 +22,7 @@ class ProfileFactory(factory.django.DjangoModelFactory):
         model = models.Profile
 
     user = factory.SubFactory(UserFactory)
+    rank = "Replace"
     role = "Replace"
     key = factory.Faker(
         'password', length=10, special_chars=False,
@@ -75,7 +69,7 @@ class TaskFactory(factory.django.DjangoModelFactory):
     task_checked = False
     picture = "oss-challenge.jpg"
     approved_by = factory.SubFactory(UserFactory)
-    approval_date = "2017-10-18 12:34:51.168157+00"
+    approval_date = "2017-10-18"
 
 
 class CommentFactory(factory.django.DjangoModelFactory):
@@ -86,3 +80,11 @@ class CommentFactory(factory.django.DjangoModelFactory):
     comment = "Test1"
     author = factory.SubFactory(UserFactory)
     created_at = "2017-11-24 09:54:02.784094+00"
+
+
+class RankFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Rank
+
+    name = factory.Faker('user_name')
+    required_points = "30"
