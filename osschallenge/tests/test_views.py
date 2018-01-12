@@ -1,12 +1,12 @@
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
+from django.contrib.auth.models import Group
 from osschallenge.models import (
     Project,
     User,
     Task,
     Profile,
-    Role,
     Comment,
     Rank,)
 
@@ -85,6 +85,21 @@ class ViewTestCase(TestCase):
             username="Test",
             password="klajsdfkj"
         )
+
+        self.group1 = Group.objects.create(
+            id = 1,
+            name = "Contributor"
+        )
+
+        self.group2 = Group.objects.create(
+            id = 2,
+            name = "Mentor"
+        )
+
+        self.group2.user_set.add(self.user1)
+        self.group2.user_set.add(self.user2)
+        self.group1.user_set.add(self.user3)
+        self.group1.user_set.add(self.user4)
 
         self.project = Project.objects.create(
             title_de="OpenStreetMap",
@@ -179,16 +194,6 @@ class ViewTestCase(TestCase):
             approval_date="2017-10-18"
         )
 
-        self.role1 = Role.objects.create(
-            id=1,
-            name="Contributor"
-        )
-
-        self.role2 = Role.objects.create(
-            id=2,
-            name="Mentor"
-        )
-
         self.rank3 = Rank.objects.create(
             id=1,
             name="Youngling",
@@ -210,7 +215,6 @@ class ViewTestCase(TestCase):
         self.profile1 = Profile.objects.create(
             user=self.user1,
             rank=self.rank1,
-            role=self.role2,
             links="Test",
             contact="Test",
             key="Test1",
@@ -220,7 +224,6 @@ class ViewTestCase(TestCase):
         self.profile2 = Profile.objects.create(
             user=self.user2,
             rank=self.rank1,
-            role=self.role2,
             links="Test",
             contact="Test",
             key="Test2",
@@ -230,7 +233,6 @@ class ViewTestCase(TestCase):
         self.profile3 = Profile.objects.create(
             user=self.user3,
             rank=self.rank1,
-            role=self.role1,
             links="Test",
             contact="Test",
             key=False,
@@ -240,7 +242,6 @@ class ViewTestCase(TestCase):
         self.profile4 = Profile.objects.create(
             user=self.user4,
             rank=self.rank1,
-            role=self.role1,
             links="Test",
             contact="Test",
             key=123,
@@ -290,6 +291,21 @@ class ViewTestCase(TestCase):
         )
 
     def test_project_index_view(self):
+        self.group2.user_set.remove(self.user1)
+        url = reverse('projectindex')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'osschallenge/projectindex.html')
+
+    def test_project_index_view_mentor(self):
+        url = reverse('projectindex')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'osschallenge/projectindex.html')
+
+    def test_project_index_view_contributor(self):
+        self.group2.user_set.remove(self.user1)
+        self.group1.user_set.add(self.user1)
         url = reverse('projectindex')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)

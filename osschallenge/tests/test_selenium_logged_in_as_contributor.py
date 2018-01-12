@@ -1,8 +1,8 @@
 from django.test import Client
+from django.contrib.auth.models import Group
 from osschallenge.models import (
     User,
     Profile,
-    Role,
     Project,
     Task,
     Comment,
@@ -58,10 +58,12 @@ class LoggedInAsContributor(SeleniumTests):
         self.login_page.open()
         self.login_page.login("Test", "12345qwert")
 
-        self.role1 = Role.objects.create(
-            id=1,
-            name="Contributor"
+        self.group = Group.objects.create(
+            id = 1,
+            name = "Contributor"
         )
+
+        self.group.user_set.add(self.user1)
 
         self.rank1 = Rank.objects.create(
             id=1,
@@ -83,7 +85,6 @@ class LoggedInAsContributor(SeleniumTests):
 
         self.profile1 = Profile.objects.create(
             user=self.user1,
-            role=self.role1,
             rank=self.rank3,
             links="Test",
             contact="Test",

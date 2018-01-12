@@ -3,21 +3,21 @@
         "fields": {
             "name": "Contributor"
         },
-        "model": "osschallenge.role",
+        "model": "auth.group",
         "pk": 1
     },
     {
         "fields": {
             "name": "Mentor"
         },
-        "model": "osschallenge.role",
+        "model": "auth.group",
         "pk": 2
     },
     {
         "fields": {
             "name": "Admin"
         },
-        "model": "osschallenge.role",
+        "model": "auth.group",
         "pk": 3
     }
 ]
