@@ -393,11 +393,7 @@ def RankingView(request):
 
     quarter = bisect.bisect(quarters, month)
     quarter_month = get_quarter_months(str(quarter))
-    try:
-        contributor_id = Group.objects.get(name="Contributor").id
-    except Group.DoesNotExist:
-        contributor_id = 1
-    contributors = User.objects.filter(groups__id=contributor_id)
+    contributors = User.objects.filter(groups__name='Contributor')
     # for every finished task add 5 points
     contributors_with_points = contributors.annotate(
         task_count=Count(
