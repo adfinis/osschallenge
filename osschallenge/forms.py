@@ -106,7 +106,7 @@ class ProjectForm(ModelForm):
     mentors = forms.ModelMultipleChoiceField(
         label=_('Choose  mentors'),
         required=True,
-        queryset=User.objects.filter(groups__id=2),
+        queryset=User.objects.filter(groups__name='Mentor'),
     )
 
     class Meta:

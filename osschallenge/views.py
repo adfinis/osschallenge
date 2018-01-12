@@ -39,33 +39,10 @@ class NewProjectView(CreateView):
     success_url = '/projects/'
 
 
-def mentor_check(group_id):
-    try:
-        mentor_id = Group.objects.get(name="Mentor").id
-    except Group.DoesNotExist:
-        return False
-    if mentor_id == group_id:
-        return True
-    return False
-
-
-def contributor_check(group_id):
-    try:
-        contributor_id = Group.objects.get(name="Contributor").id
-    except Group.DoesNotExist:
-        return False
-    if contributor_id == group_id:
-        return True
-    return False
-
-
 def ProjectIndexView(request):
     project_list = Project.objects.filter(active=True).order_by('id')
     template_name = 'osschallenge/projectindex.html'
-    try:
-        mentor = mentor_check(request.user.groups.get().id)
-    except Group.DoesNotExist:
-        mentor = False
+    mentor = request.user.groups.filter(name='Mentor').first()
     if request.GET.get('page'):
         current_page = request.GET.get('page')
     else:
@@ -133,10 +110,7 @@ def EditProjectView(request, pk):
 def TaskIndexView(request, username=None):
     template_name = 'osschallenge/taskindex.html'
     title = ""
-    try:
-        mentor = mentor_check(request.user.groups.get().id)
-    except Group.DoesNotExist:
-        mentor = False
+    mentor = request.user.groups.filter(name='Mentor').first()
     if request.user.id is not None and rankup_check(request.user) is True:
         return redirect('/rankup/')
     search = request.GET.get('search') if request.GET else None
@@ -186,10 +160,10 @@ def TaskView(request, pk):
     task = Task.objects.get(pk=pk)
     try:
         mentor_id = Group.objects.get(name="Mentor").id
-        contributor = contributor_check(request.user.groups.get().id)
+        contributor_id = Group.objects.get(name="Contributor").id
     except Group.DoesNotExist:
         mentor_id = 0
-        contributor = False
+        contributor_id = 0
     template_name = 'osschallenge/task.html'
     notification = ""
     render_params = {}
@@ -198,7 +172,7 @@ def TaskView(request, pk):
         project = Project.objects.get(pk=task.project_id)
         render_params['user'] = User.objects.get(pk=request.user.id)
         render_params['mentor_id'] = mentor_id
-        render_params['contributor'] = contributor
+        render_params['contributor_id'] = contributor_id
         render_params['mentors'] = project.mentors.all()
         render_params['is_mentor_of_this_task'] = project.mentors.filter(
             id=user.id
@@ -321,12 +295,8 @@ def ProfileView(request, username):
     except (Profile.DoesNotExist, User.DoesNotExist):
         return render(request, 'osschallenge/no_profile_available.html')
 
-    try:
-        mentor = mentor_check(request.user.groups.get().id)
-        contributor = contributor_check(request.user.groups.get().id)
-    except Group.DoesNotExist:
-        mentor = False
-        contributor = False
+    mentor = request.user.groups.filter(name='Mentor').first()
+    contributor = request.user.groups.filter(name='Contributor').first()
 
     if request.user.id is not None and rankup_check(request.user) is True:
         return redirect('/rankup/')
