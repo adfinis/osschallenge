@@ -29,7 +29,7 @@ class ProfileFactory(factory.django.DjangoModelFactory):
         digits=True, upper_case=True, lower_case=True)
     links = factory.Faker('domain_name')
     contact = factory.Faker('ascii_safe_email')
-    picture = "example.jpg"
+    picture = "profile-example.jpg"
 
 
 class ProjectFactory(factory.django.DjangoModelFactory):
@@ -45,7 +45,9 @@ class ProjectFactory(factory.django.DjangoModelFactory):
     owner = factory.SubFactory(UserFactory)
     active = True
 
-    # ProjectFactory.create(mentors=(mentor1, mentor2))
+    """
+    ProjectFactory.create(mentors=(mentor1, mentor2))
+    """
     @factory.post_generation
     def mentors(self, create, extracted,  **kwargs):
         if not create:
@@ -67,7 +69,7 @@ class TaskFactory(factory.django.DjangoModelFactory):
     assignee = factory.SubFactory(UserFactory)
     task_done = False
     task_checked = False
-    picture = "oss-challenge.jpg"
+    picture = "example.jpg"
     approved_by = factory.SubFactory(UserFactory)
     approval_date = "2017-10-18"
 

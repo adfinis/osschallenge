@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
 from . import factories
-from osschallenge.models import (Role, Rank)
+from osschallenge.models import Role, Rank
 
 
 class ViewTestCase(TestCase):
@@ -30,8 +30,11 @@ class ViewTestCase(TestCase):
         self.task1 = factories.TaskFactory(project=self.project, assignee=None)
 
         self.task2 = factories.TaskFactory(
-            title="Edit Code", project=self.project,
-            assignee=self.user4, task_checked=True, approved_by=self.user1
+            title="Edit Code",
+            project=self.project,
+            assignee=self.user4,
+            task_checked=True,
+            approved_by=self.user1
         )
 
         self.task3 = factories.TaskFactory(
@@ -39,17 +42,21 @@ class ViewTestCase(TestCase):
         )
 
         self.task4 = factories.TaskFactory(
-            title="Code abc", project=self.project,
-            assignee=self.user1, task_done=True
+            title="Code abc",
+            project=self.project,
+            assignee=self.user1,
+            task_done=True
         )
 
         self.task5 = factories.TaskFactory(
-            project=self.project, assignee=self.user1, task_done=True
+            project=self.project, assignee=self.user1, task_checked=True
         )
 
         self.task6 = factories.TaskFactory(
-            title="Make Code", project=self.project,
-            assignee=self.user1, task_done=True
+            title="Make Code",
+            project=self.project,
+            assignee=self.user1,
+            task_checked=True
         )
 
         self.rank3 = Rank.objects.create(
