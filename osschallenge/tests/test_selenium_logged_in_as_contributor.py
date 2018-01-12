@@ -2,6 +2,7 @@ from django.test import Client
 from osschallenge.models import (
     User,
     Role,
+    Task,
     Comment,
     Rank)
 from osschallenge.tests.pages.login import LoginPage
@@ -79,9 +80,18 @@ class LoggedInAsContributor(SeleniumTests):
 
         self.project1 = factories.ProjectFactory(owner=self.user1)
 
-        self.task1 = factories.TaskFactory(
+        self.task1 = Task.objects.create(
+            id=1,
+            title="Bug Fixing",
+            lead_text="Bug Fixing",
+            description="Bug Fixing",
             project=self.project1,
             assignee=self.user1,
+            task_done=False,
+            task_checked=False,
+            picture="test.png",
+            approved_by=None,
+            approval_date="2017-10-18"
         )
 
         self.task2 = factories.TaskFactory(

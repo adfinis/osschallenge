@@ -2,8 +2,9 @@ from django.test import Client
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.rankup import RankUpPage
 from osschallenge.tests.pages.profil import ProfilePage
-from osschallenge.models import User, Profile, Role, Rank
+from osschallenge.models import User, Role, Rank
 from osschallenge.tests.selenium_test_options import SeleniumTests
+from . import factories
 
 
 class NotLoggedInTest(SeleniumTests):
@@ -30,28 +31,14 @@ class NotLoggedInTest(SeleniumTests):
             required_points=115
         )
 
-        self.user1 = User.objects.create(
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="Test",
-            first_name="Test",
-            last_name="Test",
-            email="example@example.ch",
-            is_staff=False,
-            is_active=True,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
+        self.user1 = factories.UserFactory(username="Test")
         self.user1.set_password("12345qwert")
         self.user1.save()
 
-        self.profile1 = Profile.objects.create(
+        self.profile1 = factories.ProfileFactory(
             user=self.user1,
             role=self.role1,
             rank=self.rank1,
-            links="Test",
-            contact="Test",
-            key="Test1",
-            picture="Test.png"
         )
 
     @classmethod

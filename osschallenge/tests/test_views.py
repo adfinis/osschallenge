@@ -467,7 +467,7 @@ class ViewTestCase(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('task', args=[70]),
+            reverse('task', args=[1]),
             status_code=302
         )
 

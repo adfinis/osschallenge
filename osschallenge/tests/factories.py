@@ -25,8 +25,13 @@ class ProfileFactory(factory.django.DjangoModelFactory):
     rank = "Replace"
     role = "Replace"
     key = factory.Faker(
-        'password', length=10, special_chars=False,
-        digits=True, upper_case=True, lower_case=True)
+        'password',
+        length=10,
+        special_chars=False,
+        digits=True,
+        upper_case=True,
+        lower_case=True
+    )
     links = factory.Faker('domain_name')
     contact = factory.Faker('ascii_safe_email')
     picture = "profile-example.jpg"
@@ -36,6 +41,7 @@ class ProjectFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Project
 
+    id = factory.Sequence(lambda n: int("1%s" % n))
     title = factory.Sequence(lambda n: "Project %s" % n)
     lead_text = factory.Faker('text', max_nb_chars=100)
     description = factory.Faker('sentences', nb=10)
@@ -62,11 +68,12 @@ class TaskFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Task
 
+    id = factory.Sequence(lambda n: int("1%s" % n))
     title = factory.Sequence(lambda n: "Task %s" % n)
     lead_text = factory.Faker('text', max_nb_chars=100)
     description = factory.Faker('sentences', nb=10)
     project = factory.SubFactory(ProjectFactory)
-    assignee = factory.SubFactory(UserFactory)
+    assignee = None
     task_done = False
     task_checked = False
     picture = "example.jpg"
