@@ -31,7 +31,10 @@ class NotLoggedInTest(SeleniumTests):
             required_points=115
         )
 
-        self.user1 = factories.UserFactory(username="Test")
+        self.user1 = factories.UserFactory(
+            username="Test",
+            email="example@example.ch"
+        )
         self.user1.set_password("12345qwert")
         self.user1.save()
 

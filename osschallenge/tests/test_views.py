@@ -385,8 +385,7 @@ class ViewTestCase(TestCase):
 
     def test_approve(self):
         # if Approve in request.POST
-        task = factories.TaskFactory(task_checked=True, approved_by=self.user1)
-        url = reverse('task', args=[task.pk])
+        url = reverse('task', args=[self.task3.pk])
         response = self.client.post(url, {'Approve': ''})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['task'].task_checked, True)

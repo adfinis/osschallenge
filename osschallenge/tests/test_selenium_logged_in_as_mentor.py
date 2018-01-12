@@ -49,7 +49,7 @@ class LoggedInAsMentorTest(SeleniumTests):
 
         self.project1 = factories.ProjectFactory(
             id=1,
-            owner=self.user1
+            owner=self.user1,
         )
 
         self.task1 = Task.objects.create(

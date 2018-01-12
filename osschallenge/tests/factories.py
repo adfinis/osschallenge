@@ -51,18 +51,6 @@ class ProjectFactory(factory.django.DjangoModelFactory):
     owner = factory.SubFactory(UserFactory)
     active = True
 
-    """
-    ProjectFactory.create(mentors=(mentor1, mentor2))
-    """
-    @factory.post_generation
-    def mentors(self, create, extracted,  **kwargs):
-        if not create:
-            return
-
-        if extracted:
-            for mentor in extracted:
-                self.mentors.add(mentor)
-
 
 class TaskFactory(factory.django.DjangoModelFactory):
     class Meta:
