@@ -6,7 +6,7 @@ from django.views import generic
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView
 from .models import Task, Project, Profile, Comment, Rank
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from .forms import TaskForm, ProjectForm, ProfileForm, UserForm, CommentForm
 from django.views.generic import FormView
 from .forms import RegistrationForm
@@ -21,16 +21,11 @@ from dateutil.relativedelta import relativedelta
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-CONTRIBUTOR_ID = 1
-MENTOR_ID = 2
-
 
 def IndexView(request):
     template_name = 'osschallenge/index.html'
 
-    return render(request, template_name, {
-        'mentor_id': MENTOR_ID
-    })
+    return render(request, template_name)
 
 
 class NewProjectView(CreateView):
@@ -47,13 +42,14 @@ class NewProjectView(CreateView):
 def ProjectIndexView(request):
     project_list = Project.objects.filter(active=True).order_by('id')
     template_name = 'osschallenge/projectindex.html'
+    mentor = request.user.groups.filter(name='Mentor').first()
     if request.GET.get('page'):
         current_page = request.GET.get('page')
     else:
         current_page = 1
     projects, last_page, current_page = paging(current_page, project_list, 4)
     return render(request, template_name, {
-        'mentor_id': MENTOR_ID,
+        'mentor': mentor,
         'projects': projects,
         'current_page': current_page,
         'last_page': last_page,
@@ -74,7 +70,6 @@ def ProjectView(request, pk):
 
     return render(request, template_name, {
         'project': project,
-        'mentor_id': MENTOR_ID,
         'mentors' : mentors,
         'owner' : owner,
         'current_user_id': current_user_id,
@@ -115,6 +110,7 @@ def EditProjectView(request, pk):
 def TaskIndexView(request, username=None):
     template_name = 'osschallenge/taskindex.html'
     title = ""
+    mentor = request.user.groups.filter(name='Mentor').first()
     if request.user.id is not None and rankup_check(request.user) is True:
         return redirect('/rankup/')
     search = request.GET.get('search') if request.GET else None
@@ -154,7 +150,7 @@ def TaskIndexView(request, username=None):
         'tasks': tasks,
         'last_page': last_page,
         'current_page': current_page,
-        'mentor_id': MENTOR_ID,
+        'mentor': mentor,
         'username': username,
         'title': title
     })
@@ -162,6 +158,12 @@ def TaskIndexView(request, username=None):
 
 def TaskView(request, pk):
     task = Task.objects.get(pk=pk)
+    try:
+        mentor_id = Group.objects.get(name="Mentor").id
+        contributor_id = Group.objects.get(name="Contributor").id
+    except Group.DoesNotExist:
+        mentor_id = 0
+        contributor_id = 0
     template_name = 'osschallenge/task.html'
     notification = ""
     render_params = {}
@@ -169,8 +171,8 @@ def TaskView(request, pk):
         user = request.user
         project = Project.objects.get(pk=task.project_id)
         render_params['user'] = User.objects.get(pk=request.user.id)
-        render_params['mentor_id'] = MENTOR_ID
-        render_params['contributor_id'] = CONTRIBUTOR_ID
+        render_params['mentor_id'] = mentor_id
+        render_params['contributor_id'] = contributor_id
         render_params['mentors'] = project.mentors.all()
         render_params['is_mentor_of_this_task'] = project.mentors.filter(
             id=user.id
@@ -201,6 +203,7 @@ def TaskView(request, pk):
             if form.is_valid():
                 comment.author = user
                 comment.task = task
+                comment.author_id = user.id
                 comment = form.save()
 
         elif 'Delete-comment' in request.POST:
@@ -292,6 +295,9 @@ def ProfileView(request, username):
     except (Profile.DoesNotExist, User.DoesNotExist):
         return render(request, 'osschallenge/no_profile_available.html')
 
+    mentor = request.user.groups.filter(name='Mentor').first()
+    contributor = request.user.groups.filter(name='Contributor').first()
+
     if request.user.id is not None and rankup_check(request.user) is True:
         return redirect('/rankup/')
 
@@ -309,8 +315,8 @@ def ProfileView(request, username):
         return render(request, 'osschallenge/profile_does_not_exist.html')
 
     return render(request, template_name, {
-        'contributor_id': CONTRIBUTOR_ID,
-        'mentor_id': MENTOR_ID,
+        'contributor': contributor,
+        'mentor': mentor,
         'finished_task_list': finished_task_list,
         'profile': profile,
         'user': user,
@@ -387,7 +393,7 @@ def RankingView(request):
 
     quarter = bisect.bisect(quarters, month)
     quarter_month = get_quarter_months(str(quarter))
-    contributors = User.objects.filter(profile__role_id=CONTRIBUTOR_ID)
+    contributors = User.objects.filter(groups__name='Contributor')
     # for every finished task add 5 points
     contributors_with_points = contributors.annotate(
         task_count=Count(
@@ -423,9 +429,7 @@ def RankingView(request):
 
     template_name = 'osschallenge/ranking.html'
     return render(request, template_name, {
-        'contributor_id': CONTRIBUTOR_ID,
         'ranking_list': ranking_list,
-        'mentor_id': MENTOR_ID,
         'quarter': quarter,
         'quarter_month': quarter_month,
         'users': users,
@@ -460,9 +464,7 @@ def get_quarter_months(string_of_current_quarter):
 
 def AboutView(request):
     template_name = 'osschallenge/about.html'
-    return render(request, template_name, {
-        'mentor_id': MENTOR_ID,
-    })
+    return render(request, template_name)
 
 
 class RegistrationView(FormView):
@@ -480,15 +482,19 @@ class RegistrationView(FormView):
         user.is_active = False
         user.save()
 
+        u = User.objects.get(email=form.data['email'])
+        group = Group.objects.get(pk=1)
+        group.user_set.add(u)
+
         if user is not None:
-            self.generate_profile(user)
+            self.generate_profile(user, group)
 
         return super(RegistrationView, self).form_valid(form)
 
     def generate_key(self):
         return base64.b32encode(os.urandom(7))[:10].lower()
 
-    def generate_profile(self, user):
+    def generate_profile(self, user, group):
         profile = Profile(key=self.generate_key(), user=user)
         profile.save()
         send_mail(

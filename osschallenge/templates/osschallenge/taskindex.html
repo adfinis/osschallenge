@@ -19,7 +19,7 @@
                 {% if user.is_authenticated and  username == None %}
                     <a class="link" href="/my_tasks/{{ request.user.username }}">{% trans "Show my tasks" %}</a>
                 {% endif %}
-                {% if user.profile.role_id == mentor_id %}
+                {% if mentor != None %}
                     <a class="link" href="/tasks/admin/">{% trans "Show tasks to review" %}</a>
                 {% endif %}
             </div>

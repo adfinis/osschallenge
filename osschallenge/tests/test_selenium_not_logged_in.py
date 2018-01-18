@@ -2,8 +2,9 @@ from django.test import Client
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.rankup import RankUpPage
 from osschallenge.tests.pages.profil import ProfilePage
-from osschallenge.models import User, Profile, Role, Rank
+from osschallenge.models import User, Profile, Rank
 from osschallenge.tests.selenium_test_options import SeleniumTests
+from django.contrib.auth.models import Group
 
 
 class NotLoggedInTest(SeleniumTests):
@@ -19,15 +20,15 @@ class NotLoggedInTest(SeleniumTests):
         self.rankup_page = RankUpPage(self.driver, self.live_server_url)
         self.profile_page = ProfilePage(self.driver, self.live_server_url)
 
-        self.role1 = Role.objects.create(
+        self.group1 = Group.objects.create(
             id=1,
             name="Contributor"
         )
 
         self.rank1 = Rank.objects.create(
-            id=7,
-            name="Yoda",
-            required_points=115
+            id=2,
+            name="Padawan",
+            required_points=15
         )
 
         self.user1 = User.objects.create(
@@ -43,11 +44,10 @@ class NotLoggedInTest(SeleniumTests):
         )
         self.user1.set_password("12345qwert")
         self.user1.save()
+        self.group1.user_set.add(self.user1)
 
         self.profile1 = Profile.objects.create(
             user=self.user1,
-            role=self.role1,
-            rank=self.rank1,
             links="Test",
             contact="Test",
             key="Test1",
