@@ -5,6 +5,7 @@ from .forms import LoginForm
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.conf.urls import handler404, handler500
 
 
 urlpatterns = [
@@ -115,6 +116,9 @@ urlpatterns = [
     url('^markdown/', include('django_markdown.urls')),
 
 ]
+
+handler404 = views.error_404
+handler500 = views.error_500
 
 if settings.DEBUG:  # pragma: no cover
     urlpatterns += static(settings.STATIC_URL,

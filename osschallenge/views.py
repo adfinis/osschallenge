@@ -560,3 +560,13 @@ def rankup_check(user):
         return True
 
     return False
+
+
+def error_404(request):
+        data = {}
+        return render(request, 'osschallenge/404.html', data)
+
+
+def error_500(request):
+        data = {}
+        return render(request, 'osschallenge/500.html', data)

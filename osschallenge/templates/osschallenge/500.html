@@ -1,0 +1,10 @@
+{% extends 'osschallenge/index.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+Error 500
+<p>{% trans "There was an server error while processing your request." %}</p>
+<p>{% trans "Please try again later." %}</p>
+<a href="osschallenge.ch/">{% trans "Back Home" %}</a>
+{% endblock content %}

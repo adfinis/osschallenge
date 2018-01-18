@@ -1,0 +1,10 @@
+{% extends 'osschallenge/index.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+Error 404
+<p>{% trans "This site does not seem to exist." %}</p>
+<p>{% trans "Please check if you have the right URL." %}</p>
+<a href="osschallenge.ch/">{% trans "Back Home" %}</a>
+{% endblock content %}
