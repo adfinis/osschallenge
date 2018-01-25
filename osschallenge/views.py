@@ -534,7 +534,6 @@ class RegistrationDoneView(generic.TemplateView):
 class RegistrationSendMailView(generic.TemplateView):
     template_name = 'osschallenge/registration_send_mail.html'
 
-
 def RankupView(request):
     template_name = 'osschallenge/rankup.html'
     try:
@@ -564,7 +563,7 @@ def rankup_check(user):
 
     if profile_points <= actual_points:
         return True
-
+      
     return False
 
 
@@ -574,3 +573,4 @@ def error_404(request):
 
 def error_500(request):
         return render(request, 'osschallenge/500.html', status=500)
+  

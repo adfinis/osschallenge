@@ -249,15 +249,14 @@
     .profil-infos th {
         font-size: 11px;
     }
+
 }
 
 @media (max-width: 310px) {
     div.form-group-login input{
         width: 80%;
     }
-}
 
-@media (max-width: 310px) {
     .page-content form {
         margin-left: 17%;
     }
@@ -295,5 +294,29 @@
 @media (max-width: 380px) {
     table.table.table--striped.table--hover.table--bordered thead tr th {
         font-size: 11px;
+    }
+}
+
+@media (max-width: 1200px) {
+    form.edit div textarea {
+        width: 750px;
+    }
+}
+
+@media (max-width: 770px) {
+    form.edit div textarea {
+        width: 300px;
+    }
+}
+
+@media (max-width: 315px) {
+    form.edit div {
+    display: flex;
+    flex-direction: column;
+    }
+
+    form.edit div textarea,
+    form.edit div input {
+        width: 80%;
     }
 }

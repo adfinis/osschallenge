@@ -211,6 +211,8 @@ form.edit div textarea {
 
 form.edit {
     margin: 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 nav.nav-top {
@@ -698,6 +700,7 @@ th {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .delete-comment {
@@ -781,6 +784,7 @@ table.table.table--striped.table--hover.table--bordered tbody tr td a{
 
     100% {
         display: none;
+
         -webkit-transform: translate(150%);
     }
 }
@@ -788,6 +792,7 @@ table.table.table--striped.table--hover.table--bordered tbody tr td a{
 @keyframes walk {
     0% {
         display: none;
+
         transform: translate(-410%)
     }
 
