@@ -599,11 +599,11 @@ msgstr "Bitte überprüfe ob du die richtige URL hast."
 
 #: osschallenge/template/osschallenge/500.html
 msgid "There was an server error while processing your request."
-msgstr "Es ist ein Server Fehler aufgetreten während der Verarbeitung deiner Anfrage."
+msgstr "Während der Verarbeitung deiner Anfrage ist ein serverseitiger Fehler aufgetreten."
 
 #: osschallenge/template/osschallenge/500.html
 msgid "Please try again later."
-msgstr "Bitte Versuche später nochmal."
+msgstr "Bitte versuche es später nochmal."
 
 #: osschallenge/template/osschallenge/500.html
 #: osschallenge/template/osschallenge/404.html
