@@ -38,7 +38,7 @@
             <p>{% trans task.lead_text %}</p>
             <p><strong>{% trans "Description" %}</strong><br>{% trans task.description %}</p>
             <div>
-                {% if user.profile.role_id == contributor_id and task.assignee_id == NULL and user.is_authenticated %}
+                {% if contributor_id == True and task.assignee_id == NULL and user.is_authenticated %}
                     <form action="" method="POST" class="edit">
                         {% csrf_token %}
                         <button class="btn btn-primary" name="Claim">{% trans "Claim" %}</button>
@@ -84,7 +84,7 @@
                     {% if comment.task_id == task.id %}
                     <div class="card--inverse card--primary comment">
                         <div class="comment-title card-header">
-                            {% if comment.author.profile.role_id == mentor_id %}
+                            {% if comment.author_id == mentor_id %}
                             <a class="link" href="/profile/{{ comment.author.username }}/">
                                 <b>{{ comment.author.first_name }} {{comment.author.last_name}}</b>
                                 <i class="fa fa-star" aria-hidden="true"><span class="hidden-span">{% trans "This user is mentor" %}</span></i>

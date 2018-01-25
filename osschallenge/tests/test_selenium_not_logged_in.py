@@ -5,6 +5,7 @@ from osschallenge.tests.pages.profil import ProfilePage
 from osschallenge.models import User, Role, Rank
 from osschallenge.tests.selenium_test_options import SeleniumTests
 from . import factories
+from django.contrib.auth.models import Group
 
 
 class NotLoggedInTest(SeleniumTests):
@@ -20,15 +21,15 @@ class NotLoggedInTest(SeleniumTests):
         self.rankup_page = RankUpPage(self.driver, self.live_server_url)
         self.profile_page = ProfilePage(self.driver, self.live_server_url)
 
-        self.role1 = Role.objects.create(
+        self.group1 = Group.objects.create(
             id=1,
             name="Contributor"
         )
 
         self.rank1 = Rank.objects.create(
-            id=7,
-            name="Yoda",
-            required_points=115
+            id=2,
+            name="Padawan",
+            required_points=15
         )
 
         self.user1 = factories.UserFactory(
@@ -37,6 +38,7 @@ class NotLoggedInTest(SeleniumTests):
         )
         self.user1.set_password("12345qwert")
         self.user1.save()
+        self.group1.user_set.add(self.user1)
 
         self.profile1 = factories.ProfileFactory(
             user=self.user1,

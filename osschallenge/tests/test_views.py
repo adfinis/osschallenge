@@ -3,6 +3,8 @@ from django.test import Client
 from django.urls import reverse
 from . import factories
 from osschallenge.models import Role, Rank
+from django.contrib.auth.models import Group
+
 
 
 class ViewTestCase(TestCase):
@@ -22,8 +24,23 @@ class ViewTestCase(TestCase):
             username="Test",
             password="klajsdfkj"
         )
-
+        
         self.project = factories.ProjectFactory(owner=self.user1)
+
+        self.group1 = Group.objects.create(
+            id = 1,
+            name = "Contributor"
+        )
+
+        self.group2 = Group.objects.create(
+            id = 2,
+            name = "Mentor"
+        )
+
+        self.group2.user_set.add(self.user1)
+        self.group2.user_set.add(self.user2)
+        self.group1.user_set.add(self.user3)
+        self.group1.user_set.add(self.user4)
 
         self.project.mentors.add(self.user1)
 
@@ -94,6 +111,7 @@ class ViewTestCase(TestCase):
 
         self.profile4 = factories.ProfileFactory(
             user=self.user4, role=self.role1, rank=self.rank1, key=123
+
         )
 
         self.comment = factories.CommentFactory(
@@ -136,6 +154,21 @@ class ViewTestCase(TestCase):
         )
 
     def test_project_index_view(self):
+        self.group2.user_set.remove(self.user1)
+        url = reverse('projectindex')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'osschallenge/projectindex.html')
+
+    def test_project_index_view_mentor(self):
+        url = reverse('projectindex')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'osschallenge/projectindex.html')
+
+    def test_project_index_view_contributor(self):
+        self.group2.user_set.remove(self.user1)
+        self.group1.user_set.add(self.user1)
         url = reverse('projectindex')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)

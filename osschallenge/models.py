@@ -6,13 +6,6 @@ from django_markdown.models import MarkdownField
 from django.db.models import Q
 
 
-class Role(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
 class Rank(models.Model):
     name = models.CharField(max_length=50)
     required_points = models.IntegerField(default=0)
@@ -21,16 +14,8 @@ class Rank(models.Model):
         return self.name
 
 
-class Groups(models.Model):
-    group = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.group
-
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.ForeignKey(Role, default=1)
     links = models.CharField(max_length=50)
     contact = models.CharField(max_length=50)
     key = models.CharField(max_length=10, unique=True)

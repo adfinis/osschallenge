@@ -6,6 +6,7 @@ from osschallenge.tests.pages.new_project import NewProjectPage
 from osschallenge.tests.pages.new_task import NewTaskPage
 from osschallenge.tests.selenium_test_options import SeleniumTests
 from . import factories
+from django.contrib.auth.models import Group
 
 
 class LoggedInAsMentorTest(SeleniumTests):
@@ -31,10 +32,12 @@ class LoggedInAsMentorTest(SeleniumTests):
         self.user1.set_password("12345qwert")
         self.user1.save()
 
-        self.role1 = Role.objects.create(
-            id=2,
-            name="Mentor"
+        self.group = Group.objects.create(
+            id = 2,
+            name = "Mentor"
         )
+
+        self.group.user_set.add(self.user1)
 
         self.rank1 = Rank.objects.create(
             id=1,
@@ -43,7 +46,6 @@ class LoggedInAsMentorTest(SeleniumTests):
 
         self.profile1 = factories.ProfileFactory(
             user=self.user1,
-            role=self.role1,
             rank=self.rank1,
         )
 
