@@ -1,90 +1,30 @@
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
+from . import factories
+from osschallenge.models import Rank
 from django.contrib.auth.models import Group
-from osschallenge.models import (
-    Project,
-    User,
-    Task,
-    Profile,
-    Comment,
-    Rank,)
 
 
 class ViewTestCase(TestCase):
     def setUp(self):
         self.client = Client()
 
-        self.user1 = User.objects.create(
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="Test",
-            first_name="Test",
-            last_name="Test",
-            email="example@example.ch",
-            is_staff=False,
-            is_active=True,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
+        self.user1 = factories.UserFactory(username="Test")
+        self.user2 = factories.UserFactory(username="Foo", is_active=False)
+        self.user3 = factories.UserFactory(username="Bar", is_active=False)
+        self.user4 = factories.UserFactory(username="example")
+        self.user5 = factories.UserFactory(username="Fooo", is_active=False)
+
         self.user1.set_password("klajsdfkj")
         self.user1.save()
-
-        self.user2 = User.objects.create(
-            password="klajsdfkj",
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="Foo",
-            first_name="Test",
-            last_name="Test",
-            email="example@example.ch",
-            is_staff=False,
-            is_active=False,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
-
-        self.user3 = User.objects.create(
-            password="klajsdfkj",
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="Bar",
-            first_name="Test",
-            last_name="Test",
-            email="example@example.ch",
-            is_staff=False,
-            is_active=False,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
-
-        self.user4 = User.objects.create(
-            password="klsffajsdfkj",
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="example",
-            first_name="Test",
-            last_name="Test",
-            email="example2@example.ch",
-            is_staff=False,
-            is_active=True,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
-
-        self.user5 = User.objects.create(
-            password="klssajsdfkj",
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="Fooo",
-            first_name="Test",
-            last_name="Test",
-            email="example@example123.ch",
-            is_staff=False,
-            is_active=False,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
 
         self.client.login(
             username="Test",
             password="klajsdfkj"
         )
+
+        self.project = factories.ProjectFactory(owner=self.user1)
 
         self.group1 = Group.objects.create(
             id = 1,
@@ -101,97 +41,38 @@ class ViewTestCase(TestCase):
         self.group1.user_set.add(self.user3)
         self.group1.user_set.add(self.user4)
 
-        self.project = Project.objects.create(
-            title_de="OpenStreetMap",
-            title_en_us="OpenStreetMap",
-            lead_text_de="Blablablab",
-            lead_text_en_us="Blablablab",
-            description_de="Blablablab",
-            description_en_us="Blablablab",
-            licence="MIT",
-            website="www.google.ch",
-            github="www.github.com",
-            owner=self.user1
-        )
-
         self.project.mentors.add(self.user1)
 
-        self.task1 = Task.objects.create(
-            title="Bug Fixing",
-            lead_text="Bug Fixing",
-            description="Bug Fixing",
-            project=self.project,
-            assignee=None,
-            task_done=False,
-            task_checked=False,
-            picture="test.png",
-            approved_by=None,
-            approval_date="2017-10-18"
-        )
+        self.task1 = factories.TaskFactory(project=self.project, assignee=None)
 
-        self.task2 = Task.objects.create(
+        self.task2 = factories.TaskFactory(
             title="Edit Code",
-            lead_text="Edit Code",
-            description="Edit Code",
             project=self.project,
             assignee=self.user4,
-            task_done=False,
             task_checked=True,
-            picture="test.png",
-            approved_by=self.user1,
-            approval_date="2017-10-18"
+            approved_by=self.user1
         )
 
-        self.task3 = Task.objects.create(
-            title="Code",
-            lead_text="Code",
-            description="Code",
-            project=self.project,
-            assignee=self.user4,
-            task_done=False,
-            task_checked=False,
-            picture="test.png",
-            approved_by=None,
-            approval_date="2017-10-18"
+        self.task3 = factories.TaskFactory(
+            title="Code", project=self.project, assignee=self.user4
         )
 
-        self.task4 = Task.objects.create(
+        self.task4 = factories.TaskFactory(
             title="Code abc",
-            lead_text="Code abc",
-            description="Code avc",
             project=self.project,
             assignee=self.user1,
-            task_done=True,
-            task_checked=False,
-            picture="test.png",
-            approved_by=None,
-            approval_date="2017-10-18"
+            task_done=True
         )
 
-        self.task5 = Task.objects.create(
-            title="Do Some",
-            lead_text="Do some",
-            description="Do some",
-            project=self.project,
-            assignee=self.user1,
-            task_done=True,
-            task_checked=True,
-            picture="test.png",
-            approved_by=self.user1,
-            approval_date="2017-10-18"
+        self.task5 = factories.TaskFactory(
+            project=self.project, assignee=self.user1, task_checked=True
         )
 
-        self.task6 = Task.objects.create(
+        self.task6 = factories.TaskFactory(
             title="Make Code",
-            lead_text="Make Code",
-            description="Make Code",
             project=self.project,
             assignee=self.user1,
-            task_done=True,
-            task_checked=True,
-            picture="test.png",
-            approved_by=self.user1,
-            approval_date="2017-10-18"
+            task_checked=True
         )
 
         self.rank3 = Rank.objects.create(
@@ -212,47 +93,25 @@ class ViewTestCase(TestCase):
             required_points=30
         )
 
-        self.profile1 = Profile.objects.create(
-            user=self.user1,
-            rank=self.rank1,
-            links="Test",
-            contact="Test",
-            key="Test1",
-            picture="Test.png"
+        self.profile1 = factories.ProfileFactory(
+            user=self.user1, rank=self.rank1
         )
 
-        self.profile2 = Profile.objects.create(
-            user=self.user2,
-            rank=self.rank1,
-            links="Test",
-            contact="Test",
-            key="Test2",
-            picture="Test.png"
+        self.profile2 = factories.ProfileFactory(
+            user=self.user2, rank=self.rank1
         )
 
-        self.profile3 = Profile.objects.create(
-            user=self.user3,
-            rank=self.rank1,
-            links="Test",
-            contact="Test",
-            key=False,
-            picture="Test.png"
+        self.profile3 = factories.ProfileFactory(
+            user=self.user3, rank=self.rank1, key=False
         )
 
-        self.profile4 = Profile.objects.create(
-            user=self.user4,
-            rank=self.rank1,
-            links="Test",
-            contact="Test",
-            key=123,
-            picture="Test.png"
+        self.profile4 = factories.ProfileFactory(
+            user=self.user4, rank=self.rank1, key=123
+
         )
 
-        self.comment1 = Comment.objects.create(
-            task=self.task1,
-            comment="Test1",
-            author=self.user1,
-            created_at="2017-10-18 12:34:51.168157+00"
+        self.comment = factories.CommentFactory(
+            author=self.user1, task=self.task1
         )
 
     def test_index_view(self):
@@ -281,7 +140,7 @@ class ViewTestCase(TestCase):
                 'licence': 'MIT',
                 'github': 'www.example.ch',
                 'website': 'www.example.ch',
-                'mentors': self.user2.id
+                'mentors': self.user1.id
             }
         )
         self.assertRedirects(
@@ -428,15 +287,16 @@ class ViewTestCase(TestCase):
 
     def test_already_claimed(self):
         # if Claim in request.POST and task is already claimed
-        url = reverse('task', args=[self.task3.pk])
+        user = factories.UserFactory()
+        task = factories.TaskFactory(project=self.project, assignee=user)
+        url = reverse('task', args=[task.pk])
         response = self.client.post(
             url,
             {'Claim': ''}
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.context['task'].assignee_id,
-            self.user4.id
+            response.context['task'].assignee_id, user.id
         )
 
     def test_release(self):
@@ -484,7 +344,8 @@ class ViewTestCase(TestCase):
 
     def test_already_done(self):
         # if Task done in request.POST and task is already done
-        url = reverse('task', args=[self.task4.pk])
+        task = factories.TaskFactory(task_done=True)
+        url = reverse('task', args=[task.pk])
         response = self.client.post(
             url,
             {'Task done': ''}
@@ -542,10 +403,10 @@ class ViewTestCase(TestCase):
         )
         delete_response = self.client.post(
             url,
-            {'Delete-comment': self.comment1.id}
+            {'Delete-comment': self.comment.id}
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(self.comment1.author_id, self.user1.id)
+        self.assertEqual(self.comment.author_id, self.user1.id)
         self.assertEqual(
             len(delete_response.context['comment_list']),
             0
@@ -634,7 +495,7 @@ class ViewTestCase(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('task', args=[67]),
+            reverse('task', args=[1]),
             status_code=302
         )
 
@@ -653,7 +514,8 @@ class ViewTestCase(TestCase):
         )
 
     def test_no_profile(self):
-        url = reverse('profile', args=[self.user5.username])
+        account = factories.UserFactory(is_active = False)
+        url = reverse('profile', args=[account.username])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(

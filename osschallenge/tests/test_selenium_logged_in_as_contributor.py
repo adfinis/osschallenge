@@ -2,8 +2,6 @@ from django.test import Client
 from django.contrib.auth.models import Group
 from osschallenge.models import (
     User,
-    Profile,
-    Project,
     Task,
     Comment,
     Rank)
@@ -17,6 +15,7 @@ from osschallenge.tests.pages.ranking import RankingPage
 from osschallenge.tests.pages.project import ProjectPage
 from osschallenge.tests.pages.rankup import RankUpPage
 from osschallenge.tests.selenium_test_options import SeleniumTests
+from . import factories
 
 
 class LoggedInAsContributor(SeleniumTests):
@@ -40,18 +39,8 @@ class LoggedInAsContributor(SeleniumTests):
         self.project_page = ProjectPage(self.driver, self.live_server_url)
         self.rankup_page = RankUpPage(self.driver, self.live_server_url)
 
-        self.user1 = User.objects.create(
-            id=1,
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="Test",
-            first_name="Test",
-            last_name="Test",
-            email="example@example.ch",
-            is_staff=False,
-            is_active=True,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
+        self.user1 = factories.UserFactory(username="Test", first_name="Test")
+
         self.user1.set_password("12345qwert")
         self.user1.save()
 
@@ -83,28 +72,11 @@ class LoggedInAsContributor(SeleniumTests):
             required_points=115
         )
 
-        self.profile1 = Profile.objects.create(
-            user=self.user1,
-            rank=self.rank3,
-            links="Test",
-            contact="Test",
-            key="Test1",
-            picture="Test.png"
+        self.profile1 = factories.ProfileFactory(
+            user=self.user1, rank=self.rank3
         )
 
-        self.project1 = Project.objects.create(
-            id=1,
-            title_de="OpenStreetMap",
-            title_en_us="OpenStreetMap",
-            lead_text_de="Blablablab",
-            lead_text_en_us="Blablablab",
-            description_de="Blablablab",
-            description_en_us="Blablablab",
-            licence="MIT",
-            website="www.google.ch",
-            github="www.github.com",
-            owner=self.user1
-        )
+        self.project1 = factories.ProjectFactory(owner=self.user1)
 
         self.task1 = Task.objects.create(
             id=1,
@@ -120,46 +92,22 @@ class LoggedInAsContributor(SeleniumTests):
             approval_date="2017-10-18"
         )
 
-        self.task2 = Task.objects.create(
-            id=2,
-            title="Aug Fixing",
-            lead_text="Aug Fixing",
-            description="Aug Fixing",
+        self.task2 = factories.TaskFactory(
             project=self.project1,
             assignee=self.user1,
-            task_done=True,
             task_checked=True,
-            picture="test.png",
-            approved_by=self.user1,
-            approval_date="2017-10-18"
         )
 
-        self.task3 = Task.objects.create(
-            id=3,
-            title="Hug Fixing",
-            lead_text="Hug Fixing",
-            description="Hug Fixing",
+        self.task3 = factories.TaskFactory(
             project=self.project1,
             assignee=self.user1,
-            task_done=True,
             task_checked=True,
-            picture="test.png",
-            approved_by=self.user1,
-            approval_date="2017-10-18"
         )
 
-        self.task4 = Task.objects.create(
-            id=4,
-            title="Mug Fixing",
-            lead_text="Mug Fixing",
-            description="Mug Fixing",
+        self.task4 = factories.TaskFactory(
             project=self.project1,
             assignee=self.user1,
-            task_done=True,
             task_checked=True,
-            picture="test.png",
-            approved_by=self.user1,
-            approval_date="2017-10-18"
         )
 
         self.client.login(username="Test", password='12345qwert')

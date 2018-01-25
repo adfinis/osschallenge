@@ -11,6 +11,7 @@ services:
 
 install:
     - pip install -r requirements.txt
+    - pip install -r dev_requirements.txt
     - wget -N http://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip -P ~/
     - unzip ~/chromedriver_linux64.zip -d ~/
     - rm ~/chromedriver_linux64.zip

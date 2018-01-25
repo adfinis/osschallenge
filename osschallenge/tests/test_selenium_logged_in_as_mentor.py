@@ -1,11 +1,12 @@
 from django.test import Client
-from django.contrib.auth.models import Group
-from osschallenge.models import User, Profile, Project, Task, Rank
+from osschallenge.models import Project, Task, Rank
 from osschallenge.tests.pages.login import LoginPage
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.new_project import NewProjectPage
 from osschallenge.tests.pages.new_task import NewTaskPage
 from osschallenge.tests.selenium_test_options import SeleniumTests
+from . import factories
+from django.contrib.auth.models import Group
 
 
 class LoggedInAsMentorTest(SeleniumTests):
@@ -27,17 +28,7 @@ class LoggedInAsMentorTest(SeleniumTests):
         self.login_page.open()
         self.login_page.login("Test", "12345qwert")
 
-        self.user1 = User.objects.create(
-            last_login="2017-10-18 11:55:45.681893+00",
-            is_superuser=False,
-            username="Test",
-            first_name="Test",
-            last_name="Test",
-            email="example@example.ch",
-            is_staff=False,
-            is_active=True,
-            date_joined="2017-10-13 08:17:36.901715+00"
-        )
+        self.user1 = factories.UserFactory(username="Test")
         self.user1.set_password("12345qwert")
         self.user1.save()
 
@@ -53,41 +44,19 @@ class LoggedInAsMentorTest(SeleniumTests):
             name="Youngling"
         )
 
-        self.profile1 = Profile.objects.create(
+        self.profile1 = factories.ProfileFactory(
             user=self.user1,
             rank=self.rank1,
-            links="Test",
-            contact="Test",
-            key="Test1",
-            picture="Test.png"
         )
 
-        self.project1 = Project.objects.create(
+        self.project1 = factories.ProjectFactory(
             id=1,
-            title_de="OpenStreetMap",
-            title_en_us="OpenStreetMap",
-            lead_text_de="Blablablab",
-            lead_text_en_us="Blablablab",
-            description_de="Blablablab",
-            description_en_us="Blablablab",
-            licence="MIT",
-            website="www.google.ch",
-            github="www.github.com",
-            owner=self.user1
+            owner=self.user1,
         )
 
         self.task1 = Task.objects.create(
             id=1,
-            title="Bug Fixing",
-            lead_text="Bug Fixing",
-            description="Bug Fixing",
-            project=self.project1,
-            assignee=None,
-            task_done=False,
-            task_checked=False,
-            picture="test.png",
-            approved_by=None,
-            approval_date="2017-10-18"
+            project=self.project1
         )
 
         self.client.login(username="Test", password='12345qwert')

@@ -6,7 +6,7 @@ class TaskPage(object):
 
     def open(self, task_id):
         self.driver.get(
-            "{}/tasks/{}/".format(self.live_server_url, task_id)
+            "{}/tasks/{}".format(self.live_server_url, task_id)
         )
         return self
 
