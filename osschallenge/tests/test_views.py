@@ -2,9 +2,8 @@ from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
 from . import factories
-from osschallenge.models import Role, Rank
+from osschallenge.models import Rank
 from django.contrib.auth.models import Group
-
 
 
 class ViewTestCase(TestCase):
@@ -24,7 +23,7 @@ class ViewTestCase(TestCase):
             username="Test",
             password="klajsdfkj"
         )
-        
+
         self.project = factories.ProjectFactory(owner=self.user1)
 
         self.group1 = Group.objects.create(
@@ -94,23 +93,20 @@ class ViewTestCase(TestCase):
             required_points=30
         )
 
-        self.role1 = Role.objects.create(id=1, name="Contributor")
-        self.role2 = Role.objects.create(id=2, name="Mentor")
-
         self.profile1 = factories.ProfileFactory(
-            user=self.user1, role=self.role2, rank=self.rank1
+            user=self.user1, rank=self.rank1
         )
 
         self.profile2 = factories.ProfileFactory(
-            user=self.user2, role=self.role2, rank=self.rank1
+            user=self.user2, rank=self.rank1
         )
 
         self.profile3 = factories.ProfileFactory(
-            user=self.user3, role=self.role1, rank=self.rank1, key=False
+            user=self.user3, rank=self.rank1, key=False
         )
 
         self.profile4 = factories.ProfileFactory(
-            user=self.user4, role=self.role1, rank=self.rank1, key=123
+            user=self.user4, rank=self.rank1, key=123
 
         )
 

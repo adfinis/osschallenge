@@ -2,7 +2,7 @@ from django.test import Client
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.rankup import RankUpPage
 from osschallenge.tests.pages.profil import ProfilePage
-from osschallenge.models import User, Role, Rank
+from osschallenge.models import User, Rank
 from osschallenge.tests.selenium_test_options import SeleniumTests
 from . import factories
 from django.contrib.auth.models import Group

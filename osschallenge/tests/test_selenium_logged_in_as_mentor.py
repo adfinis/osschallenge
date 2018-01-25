@@ -1,5 +1,5 @@
 from django.test import Client
-from osschallenge.models import Role, Project, Task, Rank
+from osschallenge.models import Project, Task, Rank
 from osschallenge.tests.pages.login import LoginPage
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.new_project import NewProjectPage

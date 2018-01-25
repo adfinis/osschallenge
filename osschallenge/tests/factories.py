@@ -23,7 +23,6 @@ class ProfileFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory(UserFactory)
     rank = "Replace"
-    role = "Replace"
     key = factory.Faker(
         'password',
         length=10,

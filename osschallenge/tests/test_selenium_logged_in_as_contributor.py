@@ -2,7 +2,6 @@ from django.test import Client
 from django.contrib.auth.models import Group
 from osschallenge.models import (
     User,
-    Role,
     Task,
     Comment,
     Rank)
@@ -52,10 +51,6 @@ class LoggedInAsContributor(SeleniumTests):
             id = 1,
             name = "Contributor"
         )
-        Role.objects.create(
-            id=2,
-            name="Mentor"
-        )
 
         self.group.user_set.add(self.user1)
 
@@ -78,7 +73,7 @@ class LoggedInAsContributor(SeleniumTests):
         )
 
         self.profile1 = factories.ProfileFactory(
-            user=self.user1, role=self.role1, rank=self.rank3
+            user=self.user1, rank=self.rank3
         )
 
         self.project1 = factories.ProjectFactory(owner=self.user1)
