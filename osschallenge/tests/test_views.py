@@ -728,3 +728,8 @@ class ViewTestCase(TestCase):
             reverse('rankup'),
             status_code=302
         )
+
+    def test_error_404_page(self):
+        response = self.client.get('thereisnopagehere')
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, 'osschallenge/404.html')

@@ -869,3 +869,10 @@ div#facebook {
 .pagination {
     width: 100px;
 }
+
+/* Error Pages */
+.error-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
