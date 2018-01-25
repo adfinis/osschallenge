@@ -42,7 +42,6 @@ class NotLoggedInTest(SeleniumTests):
 
         self.profile1 = factories.ProfileFactory(
             user=self.user1,
-            role=self.role1,
             rank=self.rank1,
         )
 
