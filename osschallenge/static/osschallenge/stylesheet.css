@@ -159,7 +159,6 @@ div.detail form input {
 .btn.btn-primary {
     width: 200px;
     margin: 10px 0 0 0;
-    height: 0;
 }
 
 .btn.btn-primary.delete-button {
