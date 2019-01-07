@@ -7,5 +7,5 @@ easy-thumbnails==2.5
 django-markdown-app==0.9.5
 sorl-thumbnail==12.5.0
 python-dateutil==2.7.5
-freezegun
+freezegun==0.3.11
 selenium
