@@ -6,6 +6,6 @@ django-modeltranslation==0.12.2
 easy-thumbnails==2.5
 django-markdown-app==0.9.5
 sorl-thumbnail==12.5.0
-python-dateutil
+python-dateutil==2.7.5
 freezegun
 selenium
