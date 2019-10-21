@@ -1,6 +1,6 @@
 Django==1.11.6
 coverage==4.4.2
-psycopg2==2.7.3
+psycopg2==2.8.4
 django-widget-tweaks==1.4.1
 django-modeltranslation==0.12.1
 easy-thumbnails==2.4.1
