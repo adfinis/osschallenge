@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   postgres:
     image: postgres:9.6
@@ -8,6 +8,7 @@ services:
       - POSTGRES_DB=oss_challenge
       - POSTGRES_USER=osschallenge
       - POSTGRES_PASSWORD=osschallenge
+
   phppgadmin:
     image: zhajor/docker-phppgadmin
     depends_on:
@@ -20,8 +21,10 @@ services:
       - DB_HOST=postgres
       - DB_PORT=5432
 
-  mailcatcher:
-    image: schickling/mailcatcher
+  osschallenge:
+    build:
+      context: .
+    depends_on:
+      - postgres
     ports:
-        - "1080:1080"
-        - "1025:1025"
+      - "8000:8000"
