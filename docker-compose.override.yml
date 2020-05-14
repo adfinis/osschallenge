@@ -21,3 +21,10 @@ services:
     ports:
       - "1080:1080"
       - "1025:1025"
+
+  chrome:
+    image: selenium/standalone-chrome:85.0
+    ports:
+      - "4444:4444"
+    volumes:
+      - /dev/shm:/dev/shm
