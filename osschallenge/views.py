@@ -145,7 +145,7 @@ def TaskIndexView(request, username=None):
     else:
         current_page = 1
 
-    tasks, last_page, current_page = paging(current_page, matches, 5)
+    tasks, last_page, current_page = paging(current_page, matches, 4)
     return render(request, template_name, {
         'tasks': tasks,
         'last_page': last_page,

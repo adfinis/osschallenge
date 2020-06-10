@@ -20,23 +20,30 @@
                     <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                     {% trans "done" %}
                     {% if task.assignee_id %}
-                        {% trans "by" %} <a class="link" href="/profile/{{ task.assignee }}/">{{ task.assignee }}</a>
+                        {% trans "by" %} <a class="link-blue" href="/profile/{{ task.assignee }}/">{{ task.assignee }}</a>
                     {% endif %}
                 {% elif task.assignee_id != NULL %}
                     <i class="fa fa-spinner" aria-hidden="true"></i>
-                    {% trans "claimed by" %} <a class="link" href="/profile/{{ task.assignee }}/">{{ task.assignee }}</a>
+                    {% trans "claimed by" %} <a class="link-blue" href="/profile/{{ task.assignee }}/">{{ task.assignee }}</a>
                 {% endif %}
                 {% if task.task_checked == False %}
                     {% for user in mentors %}
-                        <br>{% trans "supervised by" %} <a class="link" href="/profile/{{ user.username }}/">{{ user }}</a>
+                        <br>{% trans "supervised by" %} <a class="link-blue" href="/profile/{{ user.username }}/">{{ user }}</a>
                     {% endfor %}
                 {% elif task.task_checked %}
                     <br><i class="fa fa-check-circle" aria-hidden="true"></i>
-                    {% trans "approved by" %} <a class="link" href="/profile/{{ task.approved_by.username }}/">{{ task.approved_by.username }}</a>
+                    {% trans "approved by" %} <a class="link-blue" href="/profile/{{ task.approved_by.username }}/">{{ task.approved_by.username }}</a>
                 {% endif %}
             </p>
             <p>{% trans task.lead_text %}</p>
             <p><strong>{% trans "Description" %}</strong><br>{% trans task.description %}</p>
+            <div class="icons">
+                <p>
+                    <a href="http://{{ task.website }}" target="blank">
+                        <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
+                    </a>
+                </p>
+            </div>
             <div>
                 {% if contributor_id == True and task.assignee_id == NULL and user.is_authenticated %}
                     <form action="" method="POST" class="edit">
@@ -85,12 +92,12 @@
                     <div class="card--inverse card--primary comment">
                         <div class="comment-title card-header">
                             {% if comment.author_id == mentor_id %}
-                            <a class="link" href="/profile/{{ comment.author.username }}/">
+                            <a class="link-blue" href="/profile/{{ comment.author.username }}/">
                                 <b>{{ comment.author.first_name }} {{comment.author.last_name}}</b>
                                 <i class="fa fa-star" aria-hidden="true"><span class="hidden-span">{% trans "This user is mentor" %}</span></i>
                             </a>
                             {% else %}
-                            <a class="link" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.username }}</b></a>
+                            <a class="link-blue" href="/profile/{{ comment.author.username }}/"><b>{{ comment.author.username }}</b></a>
                             {% endif %}
                         </div>
                         <div class="card-block-comment">

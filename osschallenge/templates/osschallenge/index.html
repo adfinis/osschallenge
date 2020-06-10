@@ -22,7 +22,7 @@
         <div id="wrap">
             <nav class="nav-top">
                 <header class="nav-top-header">
-                    <a href="/about">
+                    <a href="/">
                         <div class="nav-top-header-logo"><img src="{% static "osschallenge/oss-challenge.svg" %}"/></div>
                     </a>
                     <button class="nav-toggle nav-top-toggle">
@@ -30,7 +30,7 @@
                     </button>
                     {% if request.user.is_authenticated %}
                         <div class="logged-in-user">
-                            <a href="/profile/{{ request.user.username }}">{% trans "Logged in as" %} {{ request.user.username }}</a>
+                            <a class="link" href="/profile/{{ request.user.username }}">{% trans "Logged in as" %} {{ request.user.username }}</a>
                         </div>
                     {% endif %}
                 </header>
@@ -95,24 +95,26 @@
                 <input id="language-input" name="language" type="hidden" value="" />
             </form>
         </div>
-    <p>{% trans "Designed and built by " %}<a target="_blank" href="https://www.adfinis-sygroup.ch/">Adfinis Sygroup AG</a>{% trans ". Code on " %}<a target="_blank" href="https://github.com/adfinis-sygroup/osschallenge">Github</a>{% trans ". Code license " %}<a target="_blank" href="https://www.gnu.org/licenses/quick-guide-gplv3.html">GPLv3</a>{% trans "." %}</p>
+    <p>{% trans "Designed and built by " %}<a target="_blank" href="https://www.adfinis.com/">Adfinis AG</a>{% trans ". Code on " %}<a target="_blank" href="https://github.com/adfinis-sygroup/osschallenge">Github</a>{% trans ". Code license " %}<a target="_blank" href="https://www.gnu.org/licenses/quick-guide-gplv3.html">GPLv3</a>{% trans "." %}</p>
     </footer>
     <footer class="footer2">
         <div class="footer-content">
+            <ol class="breadcrumb-mobile">
             {% get_available_languages as LANGUAGES %}
             {% get_language_info_list for LANGUAGES as languages %}
             {% for language in languages %}
-            <a id="{{ language.code }}" class="link language-selection" href="#">{{ language.name_local }}</a><br>
+            <li><a id="{{ language.code }}" class="link language-selection" href="#">{{ language.name_local }}</a><br></li>
             {% endfor %}
+            </ol>
             <form id="language-form" action="{% url 'set_language' %}" method="post">{% csrf_token %}
                 <input id="language-input" name="language" type="hidden" value="" />
             </form>
         </div>
         <div class="footer-links">
             <p>{% trans "Designed and built by" %}<br>
-            <a target="_blank" href="https://www.adfinis-sygroup.ch/">Adfinis Sygroup AG.</a></p>
-            <p>{% trans "Code on " %}<a target="_blank" href="https://github.com/adfinis-sygroup/osschallenge">Github.</a></p>
-            <p>{% trans "Code license " %}<a target="_blank" href="https://www.gnu.org/licenses/quick-guide-gplv3.html">GPLv3.</a></p>
+            <a target="_blank" href="https://www.adfinis.com/">Adfinis AG</a></p>
+            <p>{% trans "Code on " %}<a target="_blank" href="https://github.com/adfinis-sygroup/osschallenge" class="link">Github.</a></p>
+            <p>{% trans "Code license " %}<a target="_blank" href="https://www.gnu.org/licenses/quick-guide-gplv3.html" class="link">GPLv3.</a></p>
         </div>
     </footer>
 </html>
