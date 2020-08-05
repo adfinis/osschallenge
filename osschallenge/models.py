@@ -65,6 +65,7 @@ class Task(models.Model):
     picture = ThumbnailerImageField(upload_to='', null=True)
     approved_by = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     approval_date = models.DateField(null=True)
+    website = models.CharField(null=True, max_length=50, verbose_name=_('Website'))
 
     def __str__(self):
         return self.title
