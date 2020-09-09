@@ -20,7 +20,7 @@ class Profile(models.Model):
     contact = models.CharField(max_length=50)
     key = models.CharField(max_length=10, unique=True)
     picture = ThumbnailerImageField(upload_to='profile-pictures', null=True)
-    rank = models.ForeignKey(Rank, default=2)
+    rank = models.ForeignKey(Rank, default=2, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
@@ -42,9 +42,9 @@ class Project(models.Model):
     website = models.CharField(max_length=50, verbose_name=_('Website'),)
     github = models.CharField(max_length=50)
     owner = models.ForeignKey(User, related_name="project_owner",
-                              verbose_name=_('Owner'),)
+                              verbose_name=_('Owner'), on_delete=models.CASCADE)
     mentors = models.ManyToManyField(User, related_name="project_mentors",
-                                     verbose_name=_('Mentors'),)
+                                     verbose_name=_('Mentors'))
     active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -56,14 +56,14 @@ class Task(models.Model):
     lead_text = models.CharField(max_length=300, verbose_name=_('Lead text'),)
     description = models.CharField(max_length=5000,
                                    verbose_name=_('Description'),)
-    project = models.ForeignKey(Project, related_name="tasks")
+    project = models.ForeignKey(Project, related_name="tasks", on_delete=models.CASCADE)
     assignee = models.ForeignKey(User, null=True,
                                  related_name="assignee_tasks",
-                                 verbose_name=_('Assignee'),)
+                                 verbose_name=_('Assignee'), on_delete=models.CASCADE)
     task_done = models.BooleanField(null=False, default=False)
     task_checked = models.BooleanField(null=False, default=False)
     picture = ThumbnailerImageField(upload_to='', null=True)
-    approved_by = models.ForeignKey(User, null=True)
+    approved_by = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     approval_date = models.DateField(null=True)
 
     def __str__(self):
@@ -71,9 +71,9 @@ class Task(models.Model):
 
 
 class Comment(models.Model):
-    task = models.ForeignKey(Task)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
     comment = MarkdownField(max_length=150)
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

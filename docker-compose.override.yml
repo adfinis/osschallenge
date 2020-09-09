@@ -1,0 +1,30 @@
+version: "3"
+services:
+  osschallenge:
+    build:
+      context: .
+      args:
+        REQUIREMENTS: dev_requirements.txt
+    depends_on:
+      - "postgres"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app
+    command: >
+        /bin/sh -c "wait-for-it.sh postgres:5432 -- ./manage.py migrate
+        && ./manage.py loaddata osschallenge/fixture/*.json
+        && ./manage.py runserver 0.0.0.0:8000"
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+
+  chrome:
+    image: selenium/standalone-chrome:85.0
+    ports:
+      - "4444:4444"
+    volumes:
+      - /dev/shm:/dev/shm

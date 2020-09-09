@@ -1,0 +1,32 @@
+name: Run Checks
+
+on:
+  push:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build docker-compose
+      run: |
+        docker-compose build
+        docker-compose up -d
+    - name: Check container status
+      run: docker-compose ps
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build docker-compose
+        run: |
+          docker-compose build
+          docker-compose up -d
+      - name: Check container status
+        run: docker-compose ps
+      - name: Run tests
+        run: docker-compose run osschallenge coverage run manage.py test osschallenge/tests

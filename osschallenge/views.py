@@ -492,7 +492,7 @@ class RegistrationView(FormView):
         return super(RegistrationView, self).form_valid(form)
 
     def generate_key(self):
-        return base64.b32encode(os.urandom(7))[:10].lower()
+        return base64.b32encode(os.urandom(7))[:10].lower().decode("utf-8")
 
     def generate_profile(self, user, group):
         profile = Profile(key=self.generate_key(), user=user)
@@ -567,7 +567,7 @@ def rankup_check(user):
     return False
 
 
-def error_404(request):
+def error_404(request, exception):
         return render(request, 'osschallenge/404.html', status=404)
 
 
