@@ -1,4 +1,4 @@
-Django==2.2.12
+Django==2.2.13
 coverage==5.1
 psycopg2==2.8.5
 django-widget-tweaks==1.4.8
