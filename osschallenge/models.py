@@ -1,9 +1,12 @@
+import base64
+import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from easy_thumbnails.fields import ThumbnailerImageField
 from django_markdown.models import MarkdownField
 from django.db.models import Q
+from django.db.models.signals import post_save
 
 
 class Rank(models.Model):
@@ -78,3 +81,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.id
+
+def create_profile(sender, **kwargs):
+    if kwargs["created"]:
+        key = base64.b32encode(os.urandom(7))[:10].lower().decode("utf-8")
+        profile = Profile(key=key, user=kwargs["instance"])
+        profile.save()
+
+post_save.connect(create_profile, sender=User)
