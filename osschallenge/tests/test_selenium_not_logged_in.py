@@ -107,7 +107,7 @@ class NotLoggedInTest(SeleniumTests):
         element = self.rankup_page.search_element("form-control")
         self.assertTrue(element)
 
-    def test_show_profile(self):
+    def test_redirection_from_profile(self):
         self.profile_page.open("Test")
-        element = self.profile_page.search_element('facebook')
+        element = self.profile_page.search_element('login')
         self.assertTrue(element)

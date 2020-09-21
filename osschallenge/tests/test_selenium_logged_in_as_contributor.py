@@ -6,7 +6,6 @@ from osschallenge.models import (
     Comment,
     Rank)
 from osschallenge.tests.pages.login import LoginPage
-from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.new_project import NewProjectPage
 from osschallenge.tests.pages.new_task import NewTaskPage
 from osschallenge.tests.pages.profil import ProfilePage
@@ -28,7 +27,6 @@ class LoggedInAsContributor(SeleniumTests):
     def setUp(self):
         self.client = Client()
         self.login_page = LoginPage(self.driver, self.live_server_url)
-        self.register_page = RegisterPage(self.driver, self.live_server_url)
         self.new_project_page = NewProjectPage(
             self.driver, self.live_server_url
         )

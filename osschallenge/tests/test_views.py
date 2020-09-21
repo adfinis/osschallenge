@@ -468,11 +468,7 @@ class ViewTestCase(TestCase):
             url,
             {'title_de': 'example'}
         )
-        self.assertRedirects(
-            response,
-            reverse('task', args=[self.task1.pk]),
-            status_code=302
-        )
+        self.assertEqual(response.status_code, 200)
 
     def test_new_task_view(self):
         url = reverse('newtask', args=[self.project.pk])
@@ -493,11 +489,7 @@ class ViewTestCase(TestCase):
                 'description_en_us': 'testbla'
             }
         )
-        self.assertRedirects(
-            response,
-            reverse('task', args=[1]),
-            status_code=302
-        )
+        self.assertEqual(response.status_code, 200)
 
     def test_profile_view(self):
         url = reverse('profile', args=[self.user1.username])

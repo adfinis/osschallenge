@@ -6,7 +6,7 @@ RUN wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for
     && chmod +x /usr/local/bin/wait-for-it.sh
 
 # Install Chromedriver
-RUN wget -N http://chromedriver.storage.googleapis.com/85.0.4183.87/chromedriver_linux64.zip -P ~/ \
+RUN wget -N http://chromedriver.storage.googleapis.com/87.0.4280.20/chromedriver_linux64.zip -P ~/ \
     && unzip ~/chromedriver_linux64.zip -d ~/ \
     && rm ~/chromedriver_linux64.zip \
     && mv -f ~/chromedriver /usr/local/share/ \
