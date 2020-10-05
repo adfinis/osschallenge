@@ -7,3 +7,4 @@ osschallenge/pictures/*
 geckodriver.log
 .directory
 .cache/
+.env
