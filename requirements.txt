@@ -3,7 +3,7 @@ coverage==5.3
 psycopg2==2.8.5
 django-environ==0.4.5
 django-widget-tweaks==1.4.8
-django-modeltranslation==0.14.4
+django-modeltranslation==0.15.2
 easy-thumbnails==2.7
 django-markdown-app==0.9.6
 sorl-thumbnail
