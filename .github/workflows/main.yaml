@@ -29,4 +29,4 @@ jobs:
       - name: Check container status
         run: docker-compose ps
       - name: Run tests
-        run: docker-compose run osschallenge coverage run manage.py test osschallenge/tests
+        run: docker-compose run -e COVERAGE_FILE="/tmp/.coverage" osschallenge coverage run manage.py test osschallenge/tests

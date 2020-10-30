@@ -178,7 +178,7 @@ EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", default="")
 EMAIL_HOST = env.str("EMAIL_HOST", default="mailcatcher")
 EMAIL_PORT = env.int("EMAIL_PORT", default=1025)
 EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=False)
-DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", default="mosschallenge@osschallenge.com")
+DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", default="osschallenge@osschallenge.com")
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, "osschallenge/static")
