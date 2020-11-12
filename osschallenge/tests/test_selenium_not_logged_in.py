@@ -2,7 +2,7 @@ from django.test import Client
 from osschallenge.tests.pages.register import RegisterPage
 from osschallenge.tests.pages.rankup import RankUpPage
 from osschallenge.tests.pages.profil import ProfilePage
-from osschallenge.models import User, Rank
+from osschallenge.models import User, Rank, Profile
 from osschallenge.tests.selenium_test_options import SeleniumTests
 from . import factories
 from django.contrib.auth.models import Group
@@ -40,10 +40,7 @@ class NotLoggedInTest(SeleniumTests):
         self.user1.save()
         self.group1.user_set.add(self.user1)
 
-        self.profile1 = factories.ProfileFactory(
-            user=self.user1,
-            rank=self.rank1,
-        )
+        self.profile1 = Profile.objects.get(user=self.user1)
 
     @classmethod
     def tearDownClass(self):
