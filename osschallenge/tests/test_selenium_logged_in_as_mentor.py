@@ -53,7 +53,6 @@ class LoggedInAsMentorTest(SeleniumTests):
         self.login_page.login("Test", "12345qwert")
 
         self.group = Group.objects.create(
-            id = 2,
             name = "Mentor"
         )
 
@@ -62,12 +61,10 @@ class LoggedInAsMentorTest(SeleniumTests):
         self.profile1 = Profile.objects.get(user=self.user1)
 
         self.project1 = factories.ProjectFactory(
-            id=1,
             owner=self.user1,
         )
 
         self.task1 = Task.objects.create(
-            id=1,
             project=self.project1
         )
 
@@ -130,7 +127,7 @@ class LoggedInAsMentorTest(SeleniumTests):
         self.assertEqual(project.website, new_project.website)
 
     def test_create_a_new_task(self):
-        self.new_task_page.open(1)
+        self.new_task_page.open(self.project1.pk)
         new_task = Task(
             title_de="Mein neuer Task",
             title_en_us="My new task",
@@ -138,6 +135,7 @@ class LoggedInAsMentorTest(SeleniumTests):
             lead_text_en_us="Short introduction to the task",
             description_de="Beschreibung zum Task",
             description_en_us="Description for the task",
+            website="www.example.com"
         )
         self.new_task_page.create_new_task(
             new_task.title_de,
@@ -145,7 +143,8 @@ class LoggedInAsMentorTest(SeleniumTests):
             new_task.lead_text_de,
             new_task.lead_text_en_us,
             new_task.description_de,
-            new_task.description_en_us
+            new_task.description_en_us,
+            new_task.website
         )
         task = Task.objects.get(title_de=new_task.title_de)
         self.assertEqual(task.title_de, new_task.title_de)
@@ -158,3 +157,4 @@ class LoggedInAsMentorTest(SeleniumTests):
         self.assertEqual(
             task.description_en_us, new_task.description_en_us
         )
+        self.assertEqual(task.website, new_task.website)

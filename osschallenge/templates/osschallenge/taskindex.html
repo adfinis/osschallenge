@@ -14,13 +14,13 @@
                     <h1>{{ title }}</h1>
                 {% endif %}
                 {% if user.is_authenticated and username %}
-                    <a class="link" href="/tasks">{% trans "Show all tasks" %}</a>
+                    <a class="link-blue" href="/tasks">{% trans "Show all tasks" %}</a>
                 {% endif %}
                 {% if user.is_authenticated and  username == None %}
-                    <a class="link" href="/my_tasks/{{ request.user.username }}">{% trans "Show my tasks" %}</a>
+                    <a class="link-blue" href="/my_tasks/{{ request.user.username }}">{% trans "Show my tasks" %}</a>
                 {% endif %}
                 {% if mentor != None %}
-                    <a class="link" href="/tasks/admin/">{% trans "Show tasks to review" %}</a>
+                    <a class="link-blue" href="/tasks/admin/">{% trans "Show tasks to review" %}</a>
                 {% endif %}
             </div>
             <div class="search-function">

@@ -20,6 +20,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 
 
 def IndexView(request):
@@ -78,6 +79,7 @@ def ProjectView(request, pk):
     })
 
 
+@login_required(login_url="/login/")
 def EditProjectView(request, pk):
     project = Project.objects.get(pk=pk)
 
@@ -145,7 +147,7 @@ def TaskIndexView(request, username=None):
     else:
         current_page = 1
 
-    tasks, last_page, current_page = paging(current_page, matches, 5)
+    tasks, last_page, current_page = paging(current_page, matches, 4)
     return render(request, template_name, {
         'tasks': tasks,
         'last_page': last_page,
@@ -234,6 +236,7 @@ def TaskView(request, pk):
     return render(request, template_name, render_params)
 
 
+@login_required(login_url="/login/")
 def EditTaskView(request, pk):
     task = Task.objects.get(pk=pk)
     user = request.user
@@ -265,6 +268,7 @@ def EditTaskView(request, pk):
     )
 
 
+@login_required(login_url="/login/")
 def NewTaskView(request, pk):
     task = Task()
     if request.method == 'POST':
@@ -288,6 +292,7 @@ def NewTaskView(request, pk):
     )
 
 
+@login_required(login_url="/login/")
 def ProfileView(request, username):
     try:
         user = User.objects.get(username=username)
@@ -325,6 +330,7 @@ def ProfileView(request, username):
     })
 
 
+@login_required(login_url="/login/")
 def EditProfileView(request):
     user = request.user
     profile = Profile.objects.get(user_id=user.id)
@@ -387,6 +393,7 @@ def get_next_quarter():
     return get_quarter_start() + relativedelta(months=3)
 
 
+@login_required(login_url="/login/")
 def RankingView(request):
     quarters = range(1, 12, 3)
     month = int(time.strftime("%m"))

@@ -3905,7 +3905,7 @@ code {
   display: -ms-flexbox;
   display: flex;
   border: 0;
-  padding: 0 8px;
+  padding: 0 24px 0 8px;
   margin: 0;
   font-size: 2rem;
   width: 54px;
@@ -3913,7 +3913,7 @@ code {
       -ms-flex: 0 0 54px;
           flex: 0 0 54px;
   cursor: pointer;
-  background-color: rgb(246, 246, 246);
+  background-color: transparent;
 }
 
 .nav-toggle:focus {
@@ -3926,16 +3926,16 @@ code {
   display: -ms-flexbox;
   display: flex;
   height: 6px;
-  width: 36px;
+  width: 42px;
+  margin-top: 24px;
   border-radius: 3px;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
-  background: black;
+  background: white;
 }
 
 .nav-toggle-icon {
-  position: relative;
-}
+  position: relative; }
 
 .nav-toggle-icon::after, .nav-toggle-icon::before {
   content: '';
@@ -3945,12 +3945,12 @@ code {
           transform-origin: 3px center;
 }
 
-.nav-toggle-icon::before {
-  top: 10px;
+.nav-toggle-icon::before{
+  top: 8px;
 }
 
 .nav-toggle-icon::after {
-  top: -10px;
+  top: -8px;
 }
 
 .nav-side--expand .nav-toggle-icon::before, .nav-side--expand .nav-toggle-icon::after {

@@ -11,19 +11,30 @@
             {% if error_message %}<p><strong>{% trans  error_message %}</strong></p>{% endif %}
 
             <p>{{ project.lead_text }}</p>
-            <p><strong>{% trans "Description" %}</strong> {{ project.description }}</p>
-            <p><strong>{% trans "Licence" %}</strong> {{ project.licence }}</p>
-            <p><strong>{% trans "Owner" %}</strong>
-            <a class="link" href="/profile/{{ project.owner.username }}/">
-                {{ owner }}</p>
-            </a>
             <p>
-            <strong>{% trans "Mentor" %}</strong>
-            {% for user in mentors %}
-            <a class="link" href="/profile/{{ user.username }}/">
-                {{ user }}
-            </a>
-            {% endfor %}
+                <strong>{% trans "Description" %}</strong>
+                <br>
+                {{ project.description }}
+            </p>
+            <p>
+                <strong>{% trans "Licence" %}</strong>
+                <br>
+                {{ project.licence }}
+            </p>
+            <p>
+                <strong>{% trans "Owner" %}</strong>
+                <br>
+                <a class="link-blue" href="/profile/{{ project.owner.username }}/">
+                    {{ owner }}</p>
+                </a>
+            <p>
+                <strong>{% trans "Mentor" %}</strong>
+                <br>
+                {% for user in mentors %}
+                <a class="link-blue" href="/profile/{{ user.username }}/">
+                    {{ user }}
+                </a>
+                {% endfor %}
             </p>
             <div class="icons">
                 <p>

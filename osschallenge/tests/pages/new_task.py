@@ -18,6 +18,7 @@ class NewTaskPage(object):
             lead_text_en_us,
             description_de,
             description_en_us,
+            website,
     ):
         title_de_input = self.driver.find_element_by_name("title_de")
         title_de_input.send_keys(title_de)
@@ -37,4 +38,6 @@ class NewTaskPage(object):
             "description_en_us"
         )
         description_en_us_input.send_keys(description_en_us)
+        website_input = self.driver.find_element_by_name("website")
+        website_input.send_keys(website)
         self.driver.find_element_by_id("add-task").click()

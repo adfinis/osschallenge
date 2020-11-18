@@ -75,6 +75,7 @@ class TaskForm(ModelForm):
             'lead_text_en_us',
             'description_de',
             'description_en_us',
+            'website',
             'picture'
         ]
         widgets = {

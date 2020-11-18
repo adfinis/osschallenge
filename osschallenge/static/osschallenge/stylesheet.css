@@ -2,6 +2,7 @@ html, body {
     margin: 0;
     height: 100%;
     font-family: Open Sans, sans-serif;
+    background-color: #fff;
 }
 
 /*Wrapper*/
@@ -33,7 +34,7 @@ div.loginform input {
 div.content {
     display: flex;
     max-width: 1416px;
-    margin: 0 auto 40px auto;
+    margin: 30px auto 40px auto;
     padding: 10px 12px 0 12px;
 }
 
@@ -217,15 +218,18 @@ form.edit {
 
 nav.nav-top {
     display: flex;
-    align-items: center;
+    align-items: space-between;
     height: 80px;
     align-self: top;
     margin-bottom: 10px;
+    background-color: #2e4b98;
 }
 
 .nav-top-header-logo {
-    height: auto;
+    height: 80px;
     width: 150px;
+    background: transparent;
+    margin-top: 5px;
 }
 
 .nav-top-header-logo.img {
@@ -242,6 +246,8 @@ nav.nav-top {
 
 a.link {
     height: 80px;
+    color: white;
+    font-weight: 500;
 }
 
 div.my-tasks a.link {
@@ -351,8 +357,8 @@ img.img-responsive {
 
 /* Card */
 .card {
-    width: 220px;
-    height: 580px;
+    width: 320px;
+    height: 620px;
     margin: 0 0 30px 0;
 }
 
@@ -441,6 +447,7 @@ label[for="id_picture"] {
 .alert.alert-success {
     width: 30%;
     padding: 0.5rem 1rem;
+    margin-top: 10px;
 }
 
 .profile {
@@ -620,7 +627,8 @@ th {
 .footer {
     display: flex;
     flex-direction: row;
-    color: #000000;
+    color: #f8f7f7;
+    background-color: #2e4b98;
     width: 100%;
     align-items: baseline;
     border-top: 1px solid black;
@@ -633,7 +641,8 @@ th {
 }
 
 .footer a {
-    color: #3D79D4;
+    color: #fff;
+    font-weight: bold;
 }
 
 .footer-content ol {
@@ -643,16 +652,27 @@ th {
 }
 
 .footer-content ol li a {
-    color: black;
+    color: #f8f7f7;
 }
 
 .footer2 {
     display: none;
     flex-direction: row;
-    color: #000000;
+    color: #f8f7f7;
+    background-color: #2e4b98;
     width: 100%;
     border-top: 1px solid black;
     justify-content: space-between;
+}
+
+.footer2 a {
+    color: #fff;
+    font-weight: bold;
+}
+
+.footer-links {
+    color: #fff;
+    margin-top: 20px;
 }
 
 .hidden-span{
@@ -875,4 +895,10 @@ div#facebook {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.link-blue {
+    font-weight: 500;
+    color: #425ba1;
+    margin-bottom: 5px;
 }
