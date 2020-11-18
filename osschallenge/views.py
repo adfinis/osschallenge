@@ -494,15 +494,12 @@ class RegistrationView(FormView):
         group.user_set.add(u)
 
         if user is not None:
-            self.generate_profile(user, group)
+            self.send_activation_mail(user)
 
         return super(RegistrationView, self).form_valid(form)
 
-    def generate_key(self):
-        return base64.b32encode(os.urandom(7))[:10].lower().decode("utf-8")
-
-    def generate_profile(self, user, group):
-        profile = Profile(key=self.generate_key(), user=user)
+    def send_activation_mail(self, user):
+        profile = Profile.objects.get(user_id=user.id)
         profile.save()
         send_mail(
             _('OSS-Challenge account confirmation'),

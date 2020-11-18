@@ -1,6 +1,7 @@
-Django==2.2.12
-coverage==5.1
+Django==2.2.13
+coverage==5.3
 psycopg2==2.8.5
+django-environ==0.4.5
 django-widget-tweaks==1.4.8
 django-modeltranslation==0.14.4
 easy-thumbnails==2.7
@@ -9,3 +10,4 @@ sorl-thumbnail
 python-dateutil
 freezegun
 selenium
+uwsgi==2.0.19.1

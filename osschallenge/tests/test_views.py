@@ -4,6 +4,7 @@ from django.urls import reverse
 from . import factories
 from osschallenge.models import Rank
 from django.contrib.auth.models import Group
+from osschallenge.models import Profile
 
 
 class ViewTestCase(TestCase):
@@ -93,22 +94,21 @@ class ViewTestCase(TestCase):
             required_points=30
         )
 
-        self.profile1 = factories.ProfileFactory(
-            user=self.user1, rank=self.rank1
-        )
+        self.profile1 = Profile.objects.get(user=self.user1)
+        self.profile1.rank = self.rank1
+        self.profile1.save()
 
-        self.profile2 = factories.ProfileFactory(
-            user=self.user2, rank=self.rank1
-        )
+        self.profile2 = Profile.objects.get(user=self.user2)
+        self.profile2.rank = self.rank2
+        self.profile2.save()
 
-        self.profile3 = factories.ProfileFactory(
-            user=self.user3, rank=self.rank1, key=False
-        )
+        self.profile3 = Profile.objects.get(user=self.user3)
+        self.profile3.rank = self.rank3
+        self.profile3.save()
 
-        self.profile4 = factories.ProfileFactory(
-            user=self.user4, rank=self.rank1, key=123
-
-        )
+        self.profile4 = Profile.objects.get(user=self.user4)
+        self.profile4.rank = self.rank3
+        self.profile4.save()
 
         self.comment = factories.CommentFactory(
             author=self.user1, task=self.task1
@@ -511,7 +511,7 @@ class ViewTestCase(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
-            response, 'osschallenge/no_profile_available.html'
+            response, 'osschallenge/profile_does_not_exist.html'
         )
 
     def test_profile_does_not_exist_anymore(self):
@@ -689,7 +689,7 @@ class ViewTestCase(TestCase):
             response_my_tasks,
             'osschallenge/taskindex.html'
         )
-        self.assertEqual(self.profile1.rank.id, 3)
+        self.assertEqual(self.profile1.rank_id, 3)
 
         self.profile1.rank = self.rank3
         self.profile1.save()

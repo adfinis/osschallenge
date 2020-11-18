@@ -12,6 +12,17 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+import environ
+
+
+env = environ.Env()
+ROOT_DIR = environ.Path(__file__) - 3
+
+
+ENV_FILE = env.str("ENV_FILE", default=ROOT_DIR(".env"))
+if os.path.exists(ENV_FILE):
+    environ.Env.read_env(ENV_FILE)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,10 +31,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^0)(ucw7sr6qb2q%%13)f1&f_qmom#do*soro00@!00agrnwta'
+SECRET_KEY = env.str("SECRET_KEY", default="default")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=True)
 
 ALLOWED_HOSTS = []
 
@@ -98,11 +109,11 @@ WSGI_APPLICATION = 'osschallenge.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'oss_challenge',
-        'USER': 'osschallenge',
-        'PASSWORD': 'osschallenge',
-        'HOST': 'postgres',
-        'PORT': '5432',
+        "NAME": env.str("DATABASE_NAME", default="oss_challenge"),
+        "USER": env.str("DATABASE_USER", default="osschallenge"),
+        "PASSWORD": env.str("DATABASE_PASSWORD", default="osschallenge"),
+        "HOST": env.str("DATABASE_HOST", default="postgres"),
+        "PORT": env.str("DATABASE_PORT", default="5432"),
     }
 }
 
@@ -162,12 +173,13 @@ LOGIN_REDIRECT_URL = '/tasks/'
 # Mailserver login settings
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_HOST = 'mailcatcher'
-EMAIL_PORT = 1025
-EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'OSS-Challenge <osschallenge@osschallenge.com>'
+EMAIL_HOST_USER = env.str("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", default="")
+EMAIL_HOST = env.str("EMAIL_HOST", default="mailcatcher")
+EMAIL_PORT = env.int("EMAIL_PORT", default=1025)
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=False)
+DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", default="osschallenge@osschallenge.com")
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, "osschallenge/static")
 
