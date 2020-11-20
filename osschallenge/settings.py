@@ -36,7 +36,7 @@ SECRET_KEY = env.str("SECRET_KEY", default="default")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 
 
 # Application definition
@@ -152,7 +152,7 @@ LOCALE_PATHS = (
 
 TIME_ZONE = 'Europe/Zurich'
 
-SITE_URL = 'http://localhost:8000'
+SITE_URL = env.str("SITE_URL", default="http://localhost:8000")
 
 USE_I18N = True
 
