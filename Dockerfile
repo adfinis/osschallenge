@@ -41,4 +41,4 @@ USER osschallenge
 
 EXPOSE 8000
 
-CMD /bin/sh -c "wait-for-it.sh -t $WAIT_FOR_IT_TIMER $DATABASE_HOST:$DATABASE_PORT -- manage.py migrate && manage.py loaddata osschallenge/fixture/*.json && uwsgi --ini /app/uwsgi.ini"
+CMD /bin/sh -c "wait-for-it.sh -t $WAIT_FOR_IT_TIMER $DATABASE_HOST:$DATABASE_PORT -- ./manage.py migrate && ./manage.py loaddata osschallenge/fixture/*.json && uwsgi --ini ./uwsgi.ini"
