@@ -16,7 +16,7 @@ import environ
 
 
 env = environ.Env()
-ROOT_DIR = environ.Path(__file__) - 3
+ROOT_DIR = environ.Path(__file__) - 2
 
 
 ENV_FILE = env.str("ENV_FILE", default=ROOT_DIR(".env"))
