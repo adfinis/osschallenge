@@ -512,7 +512,7 @@ class RegistrationView(FormView):
             Sincerely,
             The OSS-Challenge Team
             """).format(settings.SITE_URL, profile.key),
-            'osschallenge@osschallenge.com',
+            settings.DEFAULT_FROM_EMAIL,
             [user.email],
             fail_silently=False,
         )
