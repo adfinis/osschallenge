@@ -37,6 +37,8 @@ RUN pip install -r $REQUIREMENTS --disable-pip-version-check
 
 ADD . /app
 
+RUN ./manage.py collectstatic
+
 USER osschallenge
 
 EXPOSE 8000
