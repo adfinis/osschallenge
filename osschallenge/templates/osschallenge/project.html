@@ -24,14 +24,14 @@
             <p>
                 <strong>{% trans "Owner" %}</strong>
                 <br>
-                <a class="link-blue" href="/profile/{{ project.owner.username }}/">
+                <a class="link-blue" href="/profile/{{ project.owner.id }}/">
                     {{ owner }}</p>
                 </a>
             <p>
                 <strong>{% trans "Mentor" %}</strong>
                 <br>
                 {% for user in mentors %}
-                <a class="link-blue" href="/profile/{{ user.username }}/">
+                <a class="link-blue" href="/profile/{{ user.id }}/">
                     {{ user }}
                 </a>
                 {% endfor %}

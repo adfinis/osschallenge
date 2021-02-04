@@ -105,6 +105,6 @@ class NotLoggedInTest(SeleniumTests):
         self.assertTrue(element)
 
     def test_redirection_from_profile(self):
-        self.profile_page.open("Test")
+        self.profile_page.open(self.user1.id)
         element = self.profile_page.search_element('login')
         self.assertTrue(element)

@@ -137,17 +137,17 @@ class LoggedInAsContributor(SeleniumTests):
         self.assertEqual(comment.comment, "Hallo test")
 
     def test_set_profile_inactive(self):
-        # for unkown reason profile_page.open("Test") first redirects to rankup page
-        self.profile_page.open("Test")
-        self.profile_page.open("Test")
+        # for unkown reason profile_page.open() first redirects to rankup page
+        self.profile_page.open(self.user1.id)
+        self.profile_page.open(self.user1.id)
         self.profile_page.set_profile_inactive()
         user = User.objects.get(username=self.user1.username)
         self.assertFalse(user.is_active)
 
     def test_edit_first_name_in_profile(self):
-        # for unkown reason profile_page.open("Test") first redirects to rankup page
-        self.profile_page.open("Test")
-        self.profile_page.open("Test")
+        # for unkown reason profile_page.open() first redirects to rankup page
+        self.profile_page.open(self.user1.id)
+        self.profile_page.open(self.user1.id)
         self.profile_page.edit_first_name_in_profile("Foobar")
         user = User.objects.get(username=self.user1.username)
         self.assertEqual(user.first_name, "TestFoobar")
@@ -155,7 +155,7 @@ class LoggedInAsContributor(SeleniumTests):
     def test_view_rankup(self):
         self.profile1.rank = self.rank1
         self.profile1.save()
-        self.profile_page.open("Test")
+        self.profile_page.open(self.user1.id)
         self.assertEqual(self.profile1.rank_id, 1)
 
     def test_ranking_page_not_an_integer(self):
@@ -165,16 +165,16 @@ class LoggedInAsContributor(SeleniumTests):
         self.assertEquals(int(active_page.text), 1)
 
     def test_task_page_exists_on_all_tasks(self):
-        # for unkown reason task_page.open_page_one_all_tasks("Test") first redirects to rankup page
+        # for unkown reason task_page.open_page_one_all_tasks() first redirects to rankup page
         self.task_page.open_page_one_all_tasks('?page=1')
         self.task_page.open_page_one_all_tasks('?page=1')
         active_page = self.task_page.find_active_page()
         self.assertEquals(int(active_page.text), 1)
 
     def test_task_page_exists_on_my_tasks(self):
-        # for unkown reason task_page.open_page_one_my_tasks("Test") first redirects to rankup page
-        self.task_page.open_page_one_my_tasks('Test', '?page=1')
-        self.task_page.open_page_one_my_tasks('Test', '?page=1')
+        # for unkown reason task_page.open_page_one_my_tasks() first redirects to rankup page
+        self.task_page.open_page_one_my_tasks(self.user1.id, '?page=1')
+        self.task_page.open_page_one_my_tasks(self.user1.id, '?page=1')
         active_page = self.task_page.find_active_page()
         self.assertEquals(int(active_page.text), 1)
 
@@ -189,8 +189,8 @@ class LoggedInAsContributor(SeleniumTests):
         self.assertTrue(element)
 
     def test_no_redirect_profile(self):
-        # for unkown reason profile_page.open("Test") first redirects to rankup page
-        self.profile_page.open("Test")
-        self.profile_page.open("Test")
+        # for unkown reason profile_page.open() first redirects to rankup page
+        self.profile_page.open(self.user1.id)
+        self.profile_page.open(self.user1.id)
         element = self.profile_page.search_element('facebook')
         self.assertTrue(element)
