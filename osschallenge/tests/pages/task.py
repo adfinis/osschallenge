@@ -21,9 +21,9 @@ class TaskPage(object):
         )
         return self
 
-    def open_page_one_my_tasks(self, username, page):
+    def open_page_one_my_tasks(self, user_id, page):
         self.driver.get(
-            "{}/my_tasks/{}/{}".format(self.live_server_url, username, page)
+            "{}/my_tasks/{}/{}".format(self.live_server_url, user_id, page)
         )
         return self
 

@@ -109,14 +109,14 @@ def EditProjectView(request, pk):
     )
 
 
-def TaskIndexView(request, username=None):
+def TaskIndexView(request, user_id=None):
     template_name = 'osschallenge/taskindex.html'
     title = ""
     mentor = request.user.groups.filter(name='Mentor').first()
     if request.user.id is not None and rankup_check(request.user) is True:
         return redirect('/rankup/')
     search = request.GET.get('search') if request.GET else None
-    if username is not None:
+    if user_id is not None:
         title = _("My Tasks")
         current_user_id = request.user.id
         user_task_objects = Task.objects.filter(
@@ -153,7 +153,7 @@ def TaskIndexView(request, username=None):
         'last_page': last_page,
         'current_page': current_page,
         'mentor': mentor,
-        'username': username,
+        'user_id': user_id,
         'title': title
     })
 
@@ -293,9 +293,9 @@ def NewTaskView(request, pk):
 
 
 @login_required(login_url="/login/")
-def ProfileView(request, username):
+def ProfileView(request, user_id):
     try:
-        user = User.objects.get(username=username)
+        user = User.objects.get(id=user_id)
         profile = Profile.objects.get(user_id=user.id)
     except (Profile.DoesNotExist, User.DoesNotExist):
         return render(request, 'osschallenge/no_profile_available.html')
@@ -352,7 +352,7 @@ def EditProfileView(request):
         if form_profile.is_valid() and form_user.is_valid():
             profile = form_profile.save()
             user = form_user.save()
-            return redirect('profile', user.username)
+            return redirect('profile', user.id)
 
     else:
         form_profile = ProfileForm(instance=profile)

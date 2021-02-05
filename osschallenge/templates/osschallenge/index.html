@@ -30,7 +30,7 @@
                     </button>
                     {% if request.user.is_authenticated %}
                         <div class="logged-in-user">
-                            <a class="link" href="/profile/{{ request.user.username }}">{% trans "Logged in as" %} {{ request.user.username }}</a>
+                            <a class="link" href="/profile/{{ request.user.id }}">{% trans "Logged in as" %} {{ request.user.username }}</a>
                         </div>
                     {% endif %}
                 </header>
@@ -41,7 +41,7 @@
                             <a class="link" href="/projects">{% trans "Projects" %}</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a class="link" href="/my_tasks/{{ request.user.username }}">{% trans "Tasks" %}</a>
+                            <a class="link" href="/my_tasks/{{ request.user.id }}">{% trans "Tasks" %}</a>
                         </li>
                         <li class="nav-top-list-item">
                             <a class="link" href="/ranking">{% trans "Ranking" %}</a>
@@ -50,7 +50,7 @@
                             <a class="link" href="/about">{% trans "About" %}</a>
                         </li>
                         <li class="nav-top-list-item">
-                            <a class="link" href="/profile/{{ request.user.username }}">{% trans "Profile" %}</a>
+                            <a class="link" href="/profile/{{ request.user.id }}">{% trans "Profile" %}</a>
                         </li>
                         <li class="nav-top-list-item">
                             <a id="logout" class="link" href="/logout">Logout</a>

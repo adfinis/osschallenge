@@ -220,13 +220,13 @@ class ViewTestCase(TestCase):
         )
 
     def test_my_task_index_view(self):
-        url = reverse('mytask', args=[self.user1.username])
+        url = reverse('mytask', args=[self.user1.id])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'osschallenge/taskindex.html')
 
     def test_search_match_my_task_index_view(self):
-        url = reverse('mytask', args=[self.user4.username])
+        url = reverse('mytask', args=[self.user4.id])
         response = self.client.get(url, {'search': 'code'})
         self.assertEqual(
             len(response.context['tasks']),
@@ -234,7 +234,7 @@ class ViewTestCase(TestCase):
         )
 
     def test_search_no_match_my_task_index_view(self):
-        url = reverse('mytask', args=[self.user1.username])
+        url = reverse('mytask', args=[self.user1.id])
         response = self.client.get(url, {'search': 'test'})
         self.assertEqual(
             len(response.context['tasks']),
@@ -492,13 +492,13 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_profile_view(self):
-        url = reverse('profile', args=[self.user1.username])
+        url = reverse('profile', args=[self.user1.id])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'osschallenge/profile.html')
 
     def test_no_user(self):
-        url = reverse('profile', args=['testuser123'])
+        url = reverse('profile', args=['123'])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
@@ -507,7 +507,7 @@ class ViewTestCase(TestCase):
 
     def test_no_profile(self):
         account = factories.UserFactory(is_active = False)
-        url = reverse('profile', args=[account.username])
+        url = reverse('profile', args=[account.id])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
@@ -515,7 +515,7 @@ class ViewTestCase(TestCase):
         )
 
     def test_profile_does_not_exist_anymore(self):
-        url = reverse('profile', args=[self.user2.username])
+        url = reverse('profile', args=[self.user2.id])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
@@ -552,7 +552,7 @@ class ViewTestCase(TestCase):
         )
         self.assertRedirects(
             response,
-            reverse('profile', args=[self.user1.username]),
+            reverse('profile', args=[self.user1.id]),
             status_code=302
         )
 
@@ -682,7 +682,7 @@ class ViewTestCase(TestCase):
         )
 
     def test_redirect_mytasks_to_rankup_view(self):
-        url_my_tasks = reverse('mytask', args=[self.user1.username])
+        url_my_tasks = reverse('mytask', args=[self.user1.id])
         response_my_tasks = self.client.get(url_my_tasks)
         self.assertEqual(response_my_tasks.status_code, 200)
         self.assertTemplateUsed(
@@ -702,7 +702,7 @@ class ViewTestCase(TestCase):
         )
 
     def test_redirect_profile_to_rankup_view(self):
-        url_profile = reverse('profile', args=[self.user1])
+        url_profile = reverse('profile', args=[self.user1.id])
         response_profile = self.client.get(url_profile)
         self.assertEqual(response_profile.status_code, 200)
         self.assertTemplateUsed(

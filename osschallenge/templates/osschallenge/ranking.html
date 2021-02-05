@@ -30,7 +30,7 @@
                 {% for user in users %}
                 {% if user.is_active %}
                 <tr>
-                    <td><a href="/profile/{{ user.username }}">{{ user.username }}</td>
+                    <td><a href="/profile/{{ user.id }}">{{ user.username }}</td>
                     <td>{{ user.task_count|get_rank }}</td>
                     <td>{{ user.task_count }}</td>
                     <td>{{ user.quarter_count }}</td>

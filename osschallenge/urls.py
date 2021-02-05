@@ -47,7 +47,7 @@ urlpatterns = [
         views.TaskIndexView,
         name='taskindex'),
 
-    re_path(r'^my_tasks/(?P<username>[0-9A-Za-z_\-\.\+\@]+)/$',
+    re_path(r'^my_tasks/(?P<user_id>[0-9]+)/$',
         views.TaskIndexView,
         name='mytask'),
 
@@ -63,7 +63,7 @@ urlpatterns = [
         views.EditProfileView,
         name='editprofile'),
 
-    re_path(r'^profile/(?P<username>[0-9A-Za-z_\-\.\+\@]+)/$',
+    re_path(r'^profile/(?P<user_id>[0-9]+)/$',
         views.ProfileView,
         name='profile'),
 

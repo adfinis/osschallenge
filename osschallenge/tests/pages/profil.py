@@ -7,9 +7,9 @@ class ProfilePage(object):
         self.driver = selenium_driver
         self.live_server_url = live_server_url
 
-    def open(self, username):
+    def open(self, user_id):
         self.driver.get(
-            "{}/profile/{}/".format(self.live_server_url, username)
+            "{}/profile/{}/".format(self.live_server_url, user_id)
         )
         return self
 

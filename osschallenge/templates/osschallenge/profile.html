@@ -7,7 +7,7 @@
 <meta property="og:title" content="OSS-Challenge" />
 <meta property="og:type" content="profile:username" />
 <meta property="og:image" content="{% if profile.picture.avatar.url %} {{ profile.picture.avatar.url }} {% else %} {% static "osschallenge/profile-example.png" %} {% endif %}" />
-<meta property="og:url" content="www.osschallenge.ch/profile/{{ user.username }}/" />
+<meta property="og:url" content="www.osschallenge.ch/profile/{{ user.id }}/" />
 <meta property="og:description" content="{{ user.username }}" />
 <meta property="og:description" content="{% if contributor != None %} {{total_points}} {% else %} 0 {% endif %} {% trans "Points reached." %}" />
 {% endblock meta %}
@@ -91,7 +91,7 @@
                     </a>
                 </div>
                 <div class="social-button" id="twitter">
-                    <a class="share-button" href="https://twitter.com/intent/tweet?hashtags=osschallenge&text={% blocktrans %}I%20reached%20{{total_points}}%20Points!{% endblocktrans %}&url=https://www.osschallenge.ch/profile/{{profile.user.username}}" target="_blank" title="{% trans "Tweet" %}" aria-label="{% trans "Tweet" %}">
+                    <a class="share-button" href="https://twitter.com/intent/tweet?hashtags=osschallenge&text={% blocktrans %}I%20reached%20{{total_points}}%20Points!{% endblocktrans %}&url=https://www.osschallenge.ch/profile/{{profile.user.id}}" target="_blank" title="{% trans "Tweet" %}" aria-label="{% trans "Tweet" %}">
                         <div class="social-icon" id="twitter-icon"></div>
                         <span>{% trans "Tweet" %}</span>
                     </a>
