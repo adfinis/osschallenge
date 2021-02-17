@@ -392,6 +392,10 @@ img.img-responsive {
     width: 100%;
 }
 
+.picture-format {
+    font-size: 12px;
+}
+
 .task-detail-picture {
     display: flex;
     justify-content: center;
