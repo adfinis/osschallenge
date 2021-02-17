@@ -37,6 +37,11 @@ RUN pip install -r $REQUIREMENTS --disable-pip-version-check
 
 ADD . /app
 
+RUN mkdir -p /static /data/pictures \
+    && chown -R osschallenge:root /data \
+    && chown -R root:root /static \
+    && chmod -R a+rX /static
+
 RUN ./manage.py collectstatic
 
 USER osschallenge
