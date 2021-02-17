@@ -79,6 +79,38 @@
                 </section>
             </nav>
             {% block content %}
+            <div class="frontpage">
+                <p class="text-frontpage">
+                    {% trans "With the OSS Challenge, you will come into contact with real IT challenges; by solving exciting tasks, you will get to know tools and approaches that will prepare you even better for the digital future." %}
+                </p>
+                <p class="text-frontpage-quote">
+                    "{% trans "Only those who master tomorrow's challenges today will master the OSS Challenge." %}"
+                </p>
+                <p class="text-frontpage">
+                    {% trans "OSS stands for 'Open Source Software'; in other words, programs and solutions that are improved by the community and help to ensure that the world's knowledge is accessible everywhere and that everyone can benefit from the advantages of digitalization to the same extent." %}
+                </p>
+                <p class="text-frontpage">
+                    {% trans "Ready to make the world a better place, learn IT tricks, exchange ideas with programmers and learn what it takes to really get going as a digital native? Then let's get started and tackle your first challenges!" %}
+                </p>
+                <a class="link-blue-frontpage" href="/register">
+                    >> {% trans "Register and accept your first challenge" %} <<
+                </a>
+                <a class="link-blue-frontpage" href="/faq">
+                    >> {% trans "Learn more" %} <<
+                </a>
+
+                <div class="frontpage-signal">
+                    <div class="text-frontpage-signal">
+                        <p class="text-frontpage-signal">
+                            {% trans "You can also join our public Signal Group to ask questions and get informed:" %}
+                        </p>
+                        <a class="link-blue-frontpage" href="https://signal.group/#CjQKIDhtYJABIPN5lJBs3AArZERY032UlOR54KsasH1yXYOZEhAmOwlEj5u3Ms0xz4vBGAuy">
+                            >> {% trans "Signal Group" %} <<
+                        </a>
+                    </div>
+                    <img class="qr-code" src="{% static "osschallenge/signal_qr_code.jpg" %}">
+                </div>
+            </div>
             {% endblock content %}
         </div>
     </body>
