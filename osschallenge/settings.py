@@ -181,7 +181,7 @@ EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=False)
 DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", default="osschallenge@oss-challenge.ch")
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, "osschallenge/staticfiles")
+STATIC_ROOT = "/static"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "osschallenge/pictures")
+MEDIA_ROOT = "/data/pictures"
 MEDIA_URL = '/media/'

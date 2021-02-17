@@ -28,3 +28,9 @@ services:
       - postgres
     ports:
       - "8000:8000"
+    volumes:
+      - ./:/app
+      - data:/data
+
+volumes:
+  data:
