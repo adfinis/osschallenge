@@ -71,9 +71,9 @@ urlpatterns = [
         views.RankingView,
         name='ranking'),
 
-    re_path(r'^about/$',
-        views.AboutView,
-        name='about'),
+    re_path(r'^faq/$',
+        views.FaqView,
+        name='faq'),
 
     re_path(r'^register/$',
         views.RegistrationView.as_view(),

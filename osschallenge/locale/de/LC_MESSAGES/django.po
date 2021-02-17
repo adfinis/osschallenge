@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OSS CHALLENGE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-13 10:59+0200\n"
+"POT-Creation-Date: 2021-02-17 15:19+0100\n"
 "PO-Revision-Date: 2017-03-16 15:42+0100\n"
 "Last-Translator: Jonas Lehmann <jonas.lehmann@adfinis-sygroup.ch>\n"
 "Language-Team: German <jonas.lehmann@adfinis-sygroup.ch>\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: osschallenge/forms.py:15 osschallenge/templates/osschallenge/ranking.html:12
+#: osschallenge/forms.py:15 osschallenge/templates/osschallenge/ranking.html:15
 #: osschallenge/templates/registration/login.html:10
 #: osschallenge/templates/registration/login.html:11
 msgid "Username"
 msgstr "Benutzername"
 
-#: osschallenge/forms.py:16 osschallenge/templates/osschallenge/profile.html:32
+#: osschallenge/forms.py:16 osschallenge/templates/osschallenge/profile.html:41
 msgid "First name"
 msgstr "Vorname"
 
-#: osschallenge/forms.py:17 osschallenge/templates/osschallenge/profile.html:36
+#: osschallenge/forms.py:17 osschallenge/templates/osschallenge/profile.html:45
 msgid "Last name"
 msgstr "Nachname"
 
@@ -52,55 +52,72 @@ msgstr "Benutzername wird bereits verwendet."
 msgid "New mentor"
 msgstr "Neuer Mentor"
 
-#: osschallenge/forms.py:64 osschallenge/forms.py:148
+#: osschallenge/forms.py:66 osschallenge/forms.py:154
 msgid "Change picture"
 msgstr "Bild ändern"
 
-#: osschallenge/forms.py:104
+#: osschallenge/forms.py:108
 msgid "Choose  mentors"
 msgstr "Mentoren wählen"
 
-#: osschallenge/models.py:55 osschallenge/models.py:72
+#: osschallenge/models.py:40 osschallenge/models.py:58
 msgid "Title"
 msgstr "Titel"
 
-#: osschallenge/models.py:56 osschallenge/models.py:73
+#: osschallenge/models.py:41 osschallenge/models.py:59
 msgid "Lead text"
 msgstr "Vorspann"
 
-#: osschallenge/models.py:58 osschallenge/models.py:75
-#: osschallenge/templates/osschallenge/project.html:14
+#: osschallenge/models.py:43 osschallenge/models.py:61
+#: osschallenge/templates/osschallenge/project.html:15
 #: osschallenge/templates/osschallenge/task.html:39
 msgid "Description"
 msgstr "Beschreibung"
 
-#: osschallenge/models.py:59
-#: osschallenge/templates/osschallenge/project.html:15
+#: osschallenge/models.py:44
+#: osschallenge/templates/osschallenge/project.html:20
 msgid "Licence"
 msgstr "Lizenz"
 
-#: osschallenge/models.py:60
+#: osschallenge/models.py:45 osschallenge/models.py:71
 msgid "Website"
 msgstr "Webseite"
 
-#: osschallenge/models.py:63
-#: osschallenge/templates/osschallenge/project.html:16
+#: osschallenge/models.py:48
+#: osschallenge/templates/osschallenge/project.html:25
 msgid "Owner"
 msgstr "Besitzer"
 
-#: osschallenge/models.py:65
+#: osschallenge/models.py:50
 msgid "Mentors"
 msgstr "Mentoren"
 
-#: osschallenge/models.py:79
+#: osschallenge/models.py:65
 msgid "Assignee"
 msgstr "Beauftragter"
 
-#: osschallenge/templates/osschallenge/about.html:7
-#: osschallenge/templates/osschallenge/index.html:44
-#: osschallenge/templates/osschallenge/index.html:63
-msgid "About"
-msgstr "Über"
+#: osschallenge/templates/osschallenge/404.html:8
+msgid "This site does not seem to exist."
+msgstr "Diese Seite scheint nicht zu existieren."
+
+#: osschallenge/templates/osschallenge/404.html:9
+msgid "Please check if you have the right URL."
+msgstr "Bitte überprüfe ob du die richtige URL hast."
+
+#: osschallenge/templates/osschallenge/404.html:10
+#: osschallenge/templates/osschallenge/500.html:10
+msgid "Back Home"
+msgstr "Zurück zur Startseite"
+
+#: osschallenge/templates/osschallenge/500.html:8
+msgid "There was an server error while processing your request."
+msgstr ""
+"Während der Verarbeitung deiner Anfrage ist ein serverseitiger Fehler "
+"aufgetreten."
+
+#: osschallenge/templates/osschallenge/500.html:9
+msgid "Please try again later."
+msgstr "Bitte versuche es später nochmal."
 
 #: osschallenge/templates/osschallenge/editprofile.html:23
 #: osschallenge/templates/osschallenge/editproject.html:19
@@ -114,9 +131,9 @@ msgstr "Profil löschen"
 
 #: osschallenge/templates/osschallenge/editproject.html:9
 #: osschallenge/templates/osschallenge/edittask.html:9
-#: osschallenge/templates/osschallenge/profile.html:79
-#: osschallenge/templates/osschallenge/project.html:42
-#: osschallenge/templates/osschallenge/task.html:61
+#: osschallenge/templates/osschallenge/profile.html:83
+#: osschallenge/templates/osschallenge/project.html:53
+#: osschallenge/templates/osschallenge/task.html:68
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -128,83 +145,165 @@ msgstr "Lösche dieses Projekt"
 msgid "Delete this Task"
 msgstr "Task löschen"
 
-#: osschallenge/templates/osschallenge/index.html:27
+#: osschallenge/templates/osschallenge/faq.html:7
+msgid "FAQ - Frequently Asked Questions"
+msgstr "FAQ - Häufig gestellte Fragen"
+
+#: osschallenge/templates/osschallenge/faq.html:9
+msgid "Q: What does FAQ stand for?"
+msgstr "F: Für was steht FAQ?"
+
+#: osschallenge/templates/osschallenge/faq.html:12
+#, fuzzy
+#| msgid ""
+#| "A: FAQ is a commonly used abbreviation and stands for 'Frequently Asked "
+#| "Questions'."
+msgid ""
+"A: FAQ is a commonly used abbreviation and stands for Frequently Asked "
+"Questions."
+msgstr ""
+"A: FAQ ist eine häufig genutzte Abkürzung und steht für Frequently Asked Questions"
+
+#: osschallenge/templates/osschallenge/faq.html:15
+msgid "Q: Who is the OSS Challenge aimed at?"
+msgstr "F: An wen richtet sich die OSS Challenge?"
+
+#: osschallenge/templates/osschallenge/faq.html:18
+msgid ""
+"A: The OSS Challenge is aimed at students, whole school classes, learners "
+"and generally everyone who wants to take the first step into the Open Source "
+"world and learn more about modern IT tools."
+msgstr ""
+"A: Die OSS Challenge richtet sich an Schülerinnern und Schüler, ganze "
+"Schulklassen, Lernende und generell alle, welche den ersten Schritt in die "
+"Open Source Welt machen und dabei mehr über moderne IT-Werkzeuge erfahren "
+"wollen."
+
+#: osschallenge/templates/osschallenge/faq.html:21
+#, fuzzy
+#| msgid "Q: What is the goal of the platform?"
+msgid "Q: What is Free Software? "
+msgstr "F: Was ist das Ziel der Plattform?"
+
+#: osschallenge/templates/osschallenge/faq.html:24
+msgid ""
+"A: Free Software (also called Libre Software and Open Source) is the concept "
+"of developing programs collaboratively - the products are not simply owned "
+"by one company, changes and improvements always benefit everyone. Well-known "
+"examples of free software are the Internet browser Firefox, the LibreOffice "
+"suite or the Signal Messenger."
+msgstr ""
+"A: Freie Software (auch Free Software, Libre Software und Open Source "
+"genannt) ist das Konzept, Programme gemeinschaftlich zu entwickeln - die "
+"Erzeugnisse gehören nicht einfach einer Firma, Änderungen und Verbesserungen "
+"kommen immer allen zu Gute. Bekannte Beispiele freier Software sind der "
+"Internet Browser Firefox, die LibreOffice Suite oder der Signal Messenger. "
+
+#: osschallenge/templates/osschallenge/faq.html:27
+msgid "Q: What is the goal of the platform?"
+msgstr "F: Was ist das Ziel der Plattform?"
+
+#: osschallenge/templates/osschallenge/faq.html:30
+msgid ""
+"A: It is about making access to tools and procedures of information "
+"technology available to a broader public and to show users that computers "
+"and the Internet offer far greater benefits when the tools and technologies "
+"behind them are better understood. Users are taught how to navigate big "
+"data, how to work effectively collaboratively, how to automate things, and "
+"what tools and processes are available to process data."
+msgstr ""
+"A: Es geht darum, den Zugang zu Werkzeugen und Vorgehensweisen der "
+"Informationstechnologie einer breiteren Öffentlichkeit zugänglich zu machen "
+"und den Nutzer*innen aufzuzeigen, dass Computer und Internet einen weit "
+"höheren Nutzen bieten, wenn man die Werkzeuge und Technologien dahinter "
+"besser versteht. Den Nutzer*innen wird vermittelt, wie man sich in grossen "
+"atenmangen zurecht findet, wie effektives kollaboratives Arbeiten "
+"funktioniert, wie Dinge automatisiert werden können und was es für Werkzeuge "
+"und Verfahren gibt, um Daten zu verarbeiten."
+
+#: osschallenge/templates/osschallenge/faq.html:33
+msgid "Q: What kind of projects are represented on the platform?"
+msgstr "F: Was für Projekte sind auf der Plattform vertreten?"
+
+#: osschallenge/templates/osschallenge/faq.html:36
+msgid ""
+"A: The platform is basically available to all projects that understand free "
+"software or free data as the core of their creation."
+msgstr ""
+"A: Die Plattform steht grundsätzlich allen Projekten zur Verfügung, welche "
+"freie Software oder freie Daten als Kern ihres Schaffens verstehen. "
+
+#: osschallenge/templates/osschallenge/index.html:33
 msgid "Logged in as"
 msgstr "Eingeloggt als"
 
-#: osschallenge/templates/osschallenge/index.html:35
-#: osschallenge/templates/osschallenge/index.html:54
+#: osschallenge/templates/osschallenge/index.html:41
+#: osschallenge/templates/osschallenge/index.html:60
 msgid "Projects"
 msgstr "Projekte"
 
-#: osschallenge/templates/osschallenge/index.html:38
-#: osschallenge/templates/osschallenge/index.html:57
+#: osschallenge/templates/osschallenge/index.html:44
+#: osschallenge/templates/osschallenge/index.html:63
 msgid "Tasks"
 msgstr "Aufgaben"
 
-#: osschallenge/templates/osschallenge/index.html:41
-#: osschallenge/templates/osschallenge/index.html:60
+#: osschallenge/templates/osschallenge/index.html:47
+#: osschallenge/templates/osschallenge/index.html:66
 msgid "Ranking"
 msgstr "Rangliste"
 
-#: osschallenge/templates/osschallenge/index.html:47
+#: osschallenge/templates/osschallenge/index.html:50
+#: osschallenge/templates/osschallenge/index.html:69
+msgid "FAQ"
+msgstr "FAQ"
+
+#: osschallenge/templates/osschallenge/index.html:53
 msgid "Profile"
 msgstr "Profil"
 
-#: osschallenge/templates/osschallenge/index.html:69
+#: osschallenge/templates/osschallenge/index.html:75
 #: osschallenge/templates/registration/register.html:11
 msgid "Register"
 msgstr "Registrieren"
 
-#: osschallenge/templates/osschallenge/index.html:93
-msgid "Developed by"
-msgstr "Entwickelt von"
+#: osschallenge/templates/osschallenge/index.html:98
+msgid "Designed and built by "
+msgstr ""
 
-#: osschallenge/templates/osschallenge/index.html:96
-msgid "Code on Github"
+#: osschallenge/templates/osschallenge/index.html:98
+#, fuzzy
+#| msgid "Code on Github"
+msgid ". Code on "
 msgstr "Code auf Github"
 
-#: osschallenge/templates/osschallenge/index.html:99
-msgid "Code license"
+#: osschallenge/templates/osschallenge/index.html:98
+#, fuzzy
+#| msgid "Code license"
+msgid ". Code license "
 msgstr "Code Lizenz"
 
-#: osschallenge/templates/osschallenge/mytasksindex.html:12
-msgid "My Tasks"
-msgstr "Meine Aufgaben"
+#: osschallenge/templates/osschallenge/index.html:98
+msgid "."
+msgstr ""
 
-#: osschallenge/templates/osschallenge/mytasksindex.html:13
-#: osschallenge/templates/osschallenge/task_administration_index.html:13
-msgid "Show all tasks"
-msgstr "Alle Aufgaben anzeigen"
+#: osschallenge/templates/osschallenge/index.html:114
+msgid "Designed and built by"
+msgstr ""
 
-#: osschallenge/templates/osschallenge/mytasksindex.html:15
-#: osschallenge/templates/osschallenge/taskindex.html:17
-msgid "Show tasks to review"
-msgstr "Aufgaben zum Prüfen anzeigen"
+#: osschallenge/templates/osschallenge/index.html:116
+#, fuzzy
+#| msgid "Code on Github"
+msgid "Code on "
+msgstr "Code auf Github"
 
-#: osschallenge/templates/osschallenge/mytasksindex.html:20
-#: osschallenge/templates/osschallenge/task_administration_index.html:18
-#: osschallenge/templates/osschallenge/taskindex.html:22
-msgid "search all tasks"
-msgstr "suche in allen Aufgaben"
-
-#: osschallenge/templates/osschallenge/mytasksindex.html:21
-#: osschallenge/templates/osschallenge/task_administration_index.html:19
-#: osschallenge/templates/osschallenge/taskindex.html:23
-msgid "Search"
-msgstr "Suchen"
-
-#: osschallenge/templates/osschallenge/mytasksindex.html:42
-#: osschallenge/templates/osschallenge/profile.html:95
-#: osschallenge/templates/osschallenge/project.html:66
-#: osschallenge/templates/osschallenge/task_administration_index.html:42
-#: osschallenge/templates/osschallenge/taskindex.html:46
-msgid "No tasks available."
-msgstr "Keine Aufgaben vorhanden."
+#: osschallenge/templates/osschallenge/index.html:117
+#, fuzzy
+#| msgid "Code license"
+msgid "Code license "
+msgstr "Code Lizenz"
 
 #: osschallenge/templates/osschallenge/newproject.html:9
-#: osschallenge/templates/osschallenge/projectindex.html:20
-#: osschallenge/templates/osschallenge/projectindex.html:29
+#: osschallenge/templates/osschallenge/projectindex.html:28
 msgid "New Project"
 msgstr "Neues Projekt"
 
@@ -213,7 +312,7 @@ msgid "Add Project"
 msgstr "Projekt hinzufügen"
 
 #: osschallenge/templates/osschallenge/newtask.html:9
-#: osschallenge/templates/osschallenge/project.html:52
+#: osschallenge/templates/osschallenge/project.html:63
 msgid "New Task"
 msgstr "Neue Aufgabe"
 
@@ -225,35 +324,67 @@ msgstr "Aufgabe hinzufügen"
 msgid "No profile available"
 msgstr "Kein Profil vorhanden."
 
-#: osschallenge/templates/osschallenge/profile.html:22
-#: osschallenge/templates/osschallenge/ranking.html:13
+#: osschallenge/templates/osschallenge/profile.html:12
+#, fuzzy
+#| msgid "Points reached"
+msgid "Points reached."
+msgstr "Erreichte Punkte"
+
+#: osschallenge/templates/osschallenge/profile.html:31
+#: osschallenge/templates/osschallenge/ranking.html:16
 msgid "Rank"
 msgstr "Rang"
 
-#: osschallenge/templates/osschallenge/profile.html:26
+#: osschallenge/templates/osschallenge/profile.html:35
 msgid "Rank for this quarter"
 msgstr "Rang für dieses Quartal"
 
-#: osschallenge/templates/osschallenge/profile.html:46
+#: osschallenge/templates/osschallenge/profile.html:55
 msgid "Role"
 msgstr "Rolle"
 
-#: osschallenge/templates/osschallenge/profile.html:12
+#: osschallenge/templates/osschallenge/profile.html:56
+#: osschallenge/templates/osschallenge/project.html:31
+msgid "Mentor"
+msgstr "Mentor"
+
 #: osschallenge/templates/osschallenge/profile.html:61
 msgid "Points reached"
 msgstr "Erreichte Punkte"
 
-#: osschallenge/templates/osschallenge/profile.html:62
+#: osschallenge/templates/osschallenge/profile.html:71
 msgid "Contact"
 msgstr "Kontakt"
 
-#: osschallenge/templates/osschallenge/profile.html:82
+#: osschallenge/templates/osschallenge/profile.html:79
 msgid "Reset Password"
 msgstr "Passwort zurücksetzen"
 
-#: osschallenge/templates/osschallenge/profile.html:84
+#: osschallenge/templates/osschallenge/profile.html:88
+#: osschallenge/templates/osschallenge/profile.html:90
+msgid "Share"
+msgstr "Teilen"
+
+#: osschallenge/templates/osschallenge/profile.html:94
+#, fuzzy, python-format
+#| msgid "I%20reached%20{{total_points}}%20Points!"
+msgid "I%%20reached%%20%(total_points)s%%20Points!"
+msgstr "Ich%20habe%20{{total_points}}%20Punkte%20erreicht!"
+
+#: osschallenge/templates/osschallenge/profile.html:94
+#: osschallenge/templates/osschallenge/profile.html:96
+msgid "Tweet"
+msgstr "Tweeten"
+
+#: osschallenge/templates/osschallenge/profile.html:107
 msgid "Finished tasks"
 msgstr "Erledigte Aufgaben"
+
+#: osschallenge/templates/osschallenge/profile.html:118
+#: osschallenge/templates/osschallenge/project.html:77
+#: osschallenge/templates/osschallenge/taskindex.html:43
+msgid "No tasks available."
+msgstr "Keine Aufgaben vorhanden."
 
 #: osschallenge/templates/osschallenge/profile_does_not_exist.html:7
 msgid "This profile does not exist anymore"
@@ -263,53 +394,60 @@ msgstr "Dieses Profil existiert nicht mehr"
 msgid "Go to all tasks"
 msgstr "Gehe zu allen Tasks"
 
-#: osschallenge/templates/osschallenge/project.html:21
-msgid "Mentor"
-msgstr "Mentor"
-
-#: osschallenge/templates/osschallenge/projectindex.html:25
+#: osschallenge/templates/osschallenge/projectindex.html:22
 msgid "No projects available."
 msgstr "Keine Projekte vorhanden."
 
-#: osschallenge/templates/osschallenge/ranking.html:7
+#: osschallenge/templates/osschallenge/ranking.html:9
 msgid "No users available"
 msgstr "Keine Benutzer vorhanden."
 
-#: osschallenge/templates/osschallenge/ranking.html:14
-msgid "Points"
-msgstr "Punkte"
-
-#: osschallenge/templates/osschallenge/ranking.html:16
-msgid "Rank for the first quarter"
-msgstr "Rang für das erste Quartal"
-
 #: osschallenge/templates/osschallenge/ranking.html:17
-msgid "Points for the first quarter"
-msgstr "Punkte für das erste Quartal"
+msgid "Total points"
+msgstr ""
 
 #: osschallenge/templates/osschallenge/ranking.html:19
-msgid "Rank for the second quarter"
-msgstr "Rang für das zweite Quartal"
-
-#: osschallenge/templates/osschallenge/ranking.html:20
-msgid "Points for the second quarter"
-msgstr "Punkte für das zweite Quartal"
-
-#: osschallenge/templates/osschallenge/ranking.html:22
-msgid "Rank for the third quarter"
-msgstr "Rang für das dritte Quartal"
-
+#: osschallenge/templates/osschallenge/ranking.html:21
 #: osschallenge/templates/osschallenge/ranking.html:23
-msgid "Points for the third quarter"
-msgstr "Punkte für das dritte Quartal"
-
 #: osschallenge/templates/osschallenge/ranking.html:25
-msgid "Rank for the fourth quarter"
-msgstr "Rang für das vierte Quartal"
-
-#: osschallenge/templates/osschallenge/ranking.html:26
-msgid "Points for the fourth quarter"
+#, fuzzy
+#| msgid "Points for the fourth quarter"
+msgid "Points for the current quarter"
 msgstr "Punkte für das vierte Quartal"
+
+#: osschallenge/templates/osschallenge/rankup.html:8
+#, fuzzy
+#| msgid "Congratuilations"
+msgid "Congratulations"
+msgstr "Glückwunsch"
+
+#: osschallenge/templates/osschallenge/rankup.html:10
+msgid "You have reached the rank of Padawan!"
+msgstr "Du hast den Rang Padawan erreicht!"
+
+#: osschallenge/templates/osschallenge/rankup.html:12
+msgid "You have reached the rank of Jedi Knight!"
+msgstr "Du hast den Rang Jedi Ritter erreicht!"
+
+#: osschallenge/templates/osschallenge/rankup.html:14
+msgid "You have reached the rank of Jedi Master!"
+msgstr "Du hast den Rang Jedi Meister erreicht!"
+
+#: osschallenge/templates/osschallenge/rankup.html:16
+msgid "You have reached the rank of Jedi Grand Master!"
+msgstr "Du hast den Rang Jedi Gross Meister erreicht!"
+
+#: osschallenge/templates/osschallenge/rankup.html:18
+msgid "You have reached the rank of Jedi Council Member!"
+msgstr "Du hast den Rang Jedi Kanzler erreicht!"
+
+#: osschallenge/templates/osschallenge/rankup.html:20
+msgid "You have rached the rank of Yoda!"
+msgstr "Du hast den Rang Yoda erreicht!"
+
+#: osschallenge/templates/osschallenge/rankup.html:22
+msgid "You should not be here."
+msgstr "Du solltest nicht hier sein."
 
 #: osschallenge/templates/osschallenge/registration_done.html:7
 msgid "The registration was successful. You may go ahead and login now."
@@ -328,7 +466,7 @@ msgstr ""
 "solltest ihn in Kürze erhalten."
 
 #: osschallenge/templates/osschallenge/task.html:21
-#: osschallenge/templates/tasks.html:17
+#: osschallenge/templates/tasks.html:18
 msgid "done"
 msgstr "erledigt"
 
@@ -348,58 +486,65 @@ msgstr "beaufsichtigt von"
 msgid "approved by"
 msgstr "bestätigt von"
 
-#: osschallenge/templates/osschallenge/task.html:44
+#: osschallenge/templates/osschallenge/task.html:51
 msgid "Claim"
 msgstr "Beanspruchen"
 
-#: osschallenge/templates/osschallenge/task.html:49
+#: osschallenge/templates/osschallenge/task.html:56
 msgid "Release"
 msgstr "Freigeben"
 
-#: osschallenge/templates/osschallenge/task.html:55
+#: osschallenge/templates/osschallenge/task.html:62
 msgid "Task done"
 msgstr "Aufgabe erledigt"
 
-#: osschallenge/templates/osschallenge/task.html:66
+#: osschallenge/templates/osschallenge/task.html:73
 msgid "Approve"
 msgstr "Bestätigen"
 
-#: osschallenge/templates/osschallenge/task.html:72
+#: osschallenge/templates/osschallenge/task.html:79
 msgid "Reopen"
 msgstr "Wiedereröffnen"
 
-#: osschallenge/templates/osschallenge/task.html:90
+#: osschallenge/templates/osschallenge/task.html:97
 msgid "This user is mentor"
 msgstr "Dieser Benutzer ist Mentor"
 
-#: osschallenge/templates/osschallenge/task.html:106
+#: osschallenge/templates/osschallenge/task.html:113
 msgid "Delete this comment"
 msgstr "Kommentar löschen"
 
-#: osschallenge/templates/osschallenge/task.html:116
+#: osschallenge/templates/osschallenge/task.html:123
 msgid "Add a comment"
 msgstr "Füge einen Kommentar hinzu"
 
-#: osschallenge/templates/osschallenge/task.html:118
+#: osschallenge/templates/osschallenge/task.html:125
 msgid "Enter text here..."
 msgstr "Einen Text eingeben..."
 
-#: osschallenge/templates/osschallenge/task.html:122
+#: osschallenge/templates/osschallenge/task.html:129
 msgid "Comment"
 msgstr "Kommentar"
 
-#: osschallenge/templates/osschallenge/task_administration_index.html:12
-msgid "Tasks to review"
-msgstr "Aufgaben zum Prüfen"
+#: osschallenge/templates/osschallenge/taskindex.html:17
+msgid "Show all tasks"
+msgstr "Alle Aufgaben anzeigen"
 
-#: osschallenge/templates/osschallenge/task_administration_index.html:14
-#: osschallenge/templates/osschallenge/taskindex.html:14
+#: osschallenge/templates/osschallenge/taskindex.html:20
 msgid "Show my tasks"
 msgstr "Meine Aufgaben anzeigen"
 
-#: osschallenge/templates/osschallenge/taskindex.html:12
-msgid "All Tasks"
-msgstr "Alle Aufgaben"
+#: osschallenge/templates/osschallenge/taskindex.html:23
+msgid "Show tasks to review"
+msgstr "Aufgaben zum Prüfen anzeigen"
+
+#: osschallenge/templates/osschallenge/taskindex.html:28
+msgid "search all tasks"
+msgstr "suche in allen Aufgaben"
+
+#: osschallenge/templates/osschallenge/taskindex.html:29
+msgid "Search"
+msgstr "Suchen"
 
 #: osschallenge/templates/osschallenge/user_is_already_active.html:7
 msgid "This user is already active."
@@ -501,27 +646,55 @@ msgstr "Zurück zum Login"
 msgid "OSS-Challenge password reset"
 msgstr "OSS-Challenge Passwortrücksetzung"
 
-#: osschallenge/templates/tasks.html:12
+#: osschallenge/templates/tasks.html:13
 msgid "approved"
 msgstr "bestätigt"
 
-#: osschallenge/templates/tasks.html:22
+#: osschallenge/templates/tasks.html:23
 msgid "claimed"
 msgstr "beansprucht"
 
-#: osschallenge/templates/tasks.html:27
+#: osschallenge/templates/tasks.html:28
 msgid "available"
 msgstr "verfügbar"
 
-#: osschallenge/views.py:214
+#: osschallenge/views.py:120
+msgid "My Tasks"
+msgstr "Meine Aufgaben"
+
+#: osschallenge/views.py:127
+msgid "Tasks to review"
+msgstr "Aufgaben zum Prüfen"
+
+#: osschallenge/views.py:136
+msgid "All Tasks"
+msgstr "Alle Aufgaben"
+
+#: osschallenge/views.py:203
 msgid "Your comment has been posted"
 msgstr "Dein Kommentar wurde hinzugefügt"
 
-#: osschallenge/views.py:457
+#: osschallenge/views.py:465
+msgid "(January - March)"
+msgstr ""
+
+#: osschallenge/views.py:466
+msgid "(April - June)"
+msgstr ""
+
+#: osschallenge/views.py:467
+msgid "(July - September)"
+msgstr ""
+
+#: osschallenge/views.py:468
+msgid "(October - December)"
+msgstr ""
+
+#: osschallenge/views.py:505
 msgid "OSS-Challenge account confirmation"
 msgstr "OSS-Challenge Account Bestätigung"
 
-#: osschallenge/views.py:458
+#: osschallenge/views.py:506
 msgid ""
 "\n"
 "            Hello,\n"
@@ -544,68 +717,35 @@ msgstr ""
 "            Das OSS-Challenge Team\n"
 "            "
 
-#: osschallenge/templates/osschallenge/profile.html:87
-#: osschallenge/templates/osschallenge/profile.html:88
-msgid "Share"
-msgstr "Teilen"
+#~ msgid "Q: Who is the "
+#~ msgstr "F: An wen richtet sich die OSS Challenge?"
 
-#: osschallenge/templates/osschallenge/profile.html:95
-msgid "Tweet"
-msgstr "Tweeten"
+#~ msgid "About"
+#~ msgstr "Über"
 
-#: osschallenge/templates/osschallenge/profile.html:93
-msgid "I%20reached%20{{total_points}}%20Points!"
-msgstr "Ich%20habe%20{{total_points}}%20Punkte%20erreicht!"
+#~ msgid "Developed by"
+#~ msgstr "Entwickelt von"
 
-#: osschallenge/template/osschallenge/rankup.html:
-msgid "Congratuilations"
-msgstr "Glückwunsch"
+#~ msgid "Points"
+#~ msgstr "Punkte"
 
-#: osschallenge/template/osschallenge/rankup.html:
-msgid "You have reached the rank of Padawan!"
-msgstr "Du hast den Rang Padawan erreicht!"
+#~ msgid "Rank for the first quarter"
+#~ msgstr "Rang für das erste Quartal"
 
-#: osschallenge/template/osschallenge/rankup.html:
-msgid "You have reached the rank of Jedi Knight!"
-msgstr "Du hast den Rang Jedi Ritter erreicht!"
+#~ msgid "Points for the first quarter"
+#~ msgstr "Punkte für das erste Quartal"
 
-#: osschallenge/template/osschallenge/rankup.html:
-msgid "You have reached the rank of Jedi Master!"
-msgstr "Du hast den Rang Jedi Meister erreicht!"
+#~ msgid "Rank for the second quarter"
+#~ msgstr "Rang für das zweite Quartal"
 
-#: osschallenge/template/osschallenge/rankup.html:
-msgid "You have reached the rank of Jedi Grand Master!"
-msgstr "Du hast den Rang Jedi Gross Meister erreicht!"
+#~ msgid "Points for the second quarter"
+#~ msgstr "Punkte für das zweite Quartal"
 
-#: osschallenge/template/osschallenge/rankup.html:
-msgid "You have reached the rank of Jedi Council Member!"
-msgstr "Du hast den Rang Jedi Kanzler erreicht!"
+#~ msgid "Rank for the third quarter"
+#~ msgstr "Rang für das dritte Quartal"
 
-#: osschallenge/template/osschallenge/rankup.html:
-msgid "You have rached the rank of Yoda!"
-msgstr "Du hast den Rang Yoda erreicht!"
+#~ msgid "Points for the third quarter"
+#~ msgstr "Punkte für das dritte Quartal"
 
-#: osschallenge/template/osschallenge/rankup.html:
-msgid "You should not be here."
-msgstr "Du solltest nicht hier sein."
-
-#: osschallenge/template/osschallenge/404.html
-msgid "This site does not seem to exist."
-msgstr "Diese Seite scheint nicht zu existieren."
-
-#: osschallenge/template/osschallenge/404.html
-msgid "Please check if you have the right URL."
-msgstr "Bitte überprüfe ob du die richtige URL hast."
-
-#: osschallenge/template/osschallenge/500.html
-msgid "There was an server error while processing your request."
-msgstr "Während der Verarbeitung deiner Anfrage ist ein serverseitiger Fehler aufgetreten."
-
-#: osschallenge/template/osschallenge/500.html
-msgid "Please try again later."
-msgstr "Bitte versuche es später nochmal."
-
-#: osschallenge/template/osschallenge/500.html
-#: osschallenge/template/osschallenge/404.html
-msgid "Back Home"
-msgstr "Zurück zur Startseite"
+#~ msgid "Rank for the fourth quarter"
+#~ msgstr "Rang für das vierte Quartal"

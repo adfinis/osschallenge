@@ -587,11 +587,11 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'osschallenge/ranking.html')
 
-    def test_about_view(self):
-        url = reverse('about')
+    def test_faq_view(self):
+        url = reverse('faq')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'osschallenge/about.html')
+        self.assertTemplateUsed(response, 'osschallenge/faq.html')
 
     def test_registration_view(self):
         url = reverse('register')

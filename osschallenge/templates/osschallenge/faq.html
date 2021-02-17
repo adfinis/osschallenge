@@ -1,0 +1,40 @@
+{% extends 'osschallenge/index.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="content">
+    <div class="detail">
+        <h1 class="faq">{% trans "FAQ - Frequently Asked Questions" %}</h1>
+        <p class="faq-question">
+            {% trans "Q: What does FAQ stand for?" %}
+        </p>
+        <p class="faq-answer">
+            {% trans "A: FAQ is a commonly used abbreviation and stands for Frequently Asked Questions." %}
+        </p>
+        <p class="faq-question">
+            {% trans "Q: Who is the OSS Challenge aimed at?" %}
+        </p>
+        <p class="faq-answer">
+            {% trans "A: The OSS Challenge is aimed at students, whole school classes, learners and generally everyone who wants to take the first step into the Open Source world and learn more about modern IT tools." %}
+        </p>
+        <p class="faq-question">
+            {% trans "Q: What is Free Software? " %}
+        </p>
+        <p class="faq-answer">
+            {% trans "A: Free Software (also called Libre Software and Open Source) is the concept of developing programs collaboratively - the products are not simply owned by one company, changes and improvements always benefit everyone. Well-known examples of free software are the Internet browser Firefox, the LibreOffice suite or the Signal Messenger." %}
+        </p>
+        <p class="faq-question">
+            {% trans "Q: What is the goal of the platform?" %}
+        </p>
+        <p class="faq-answer">
+            {% trans "A: It is about making access to tools and procedures of information technology available to a broader public and to show users that computers and the Internet offer far greater benefits when the tools and technologies behind them are better understood. Users are taught how to navigate big data, how to work effectively collaboratively, how to automate things, and what tools and processes are available to process data." %}
+        </p>
+        <p class="faq-question">
+            {% trans "Q: What kind of projects are represented on the platform?" %}
+        </p>
+        <p class="faq-answer">
+            {% trans "A: The platform is basically available to all projects that understand free software or free data as the core of their creation." %}
+        </p>
+    </div>
+</div>
+{% endblock content %}

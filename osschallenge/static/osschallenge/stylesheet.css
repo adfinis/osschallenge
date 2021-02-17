@@ -345,12 +345,19 @@ img.img-responsive {
     font-size: 12px;
 }
 
-.about {
+.faq {
     display: flex;
     justify-content: center;
 }
 
-.about-text {
+.faq-question {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    font-weight: bold;
+}
+
+.faq-answer {
     display: flex;
     justify-content: center;
 }
