@@ -469,8 +469,8 @@ def get_quarter_months(string_of_current_quarter):
     }[string_of_current_quarter]
 
 
-def AboutView(request):
-    template_name = 'osschallenge/about.html'
+def FaqView(request):
+    template_name = 'osschallenge/faq.html'
     return render(request, template_name)
 
 
