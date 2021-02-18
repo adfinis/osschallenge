@@ -37,10 +37,10 @@ class Profile(models.Model):
 
 
 class Project(models.Model):
-    title = models.CharField(max_length=50, verbose_name=_('Title'),)
-    lead_text = models.CharField(max_length=300, verbose_name=_('Lead text'),)
+    title = models.CharField(max_length=100, verbose_name=_('Title (max. 100 characters)'),)
+    lead_text = models.CharField(max_length=600, verbose_name=_('Lead text (max. 600 characters)'),)
     description = models.CharField(max_length=5000,
-                                   verbose_name=_('Description'),)
+                                   verbose_name=_('Description (max. 5000 characters)'),)
     licence = models.CharField(max_length=50, verbose_name=_('Licence'),)
     website = models.CharField(max_length=50, verbose_name=_('Website'),)
     github = models.CharField(max_length=50)
@@ -55,10 +55,10 @@ class Project(models.Model):
 
 
 class Task(models.Model):
-    title = models.CharField(max_length=50, verbose_name=_('Title'),)
-    lead_text = models.CharField(max_length=300, verbose_name=_('Lead text'),)
+    title = models.CharField(max_length=100, verbose_name=_('Title (max. 100 characters)'),)
+    lead_text = models.CharField(max_length=600, verbose_name=_('Lead text (max. 600 characters)'),)
     description = models.CharField(max_length=5000,
-                                   verbose_name=_('Description'),)
+                                   verbose_name=_('Description (max. 5000 characters)'),)
     project = models.ForeignKey(Project, related_name="tasks", on_delete=models.CASCADE)
     assignee = models.ForeignKey(User, null=True,
                                  related_name="assignee_tasks",
@@ -76,7 +76,7 @@ class Task(models.Model):
 
 class Comment(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    comment = MarkdownField(max_length=150)
+    comment = MarkdownField(max_length=300)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 

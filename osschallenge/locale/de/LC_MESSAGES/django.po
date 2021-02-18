@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OSS CHALLENGE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-17 15:19+0100\n"
+"POT-Creation-Date: 2021-02-18 08:41+0100\n"
 "PO-Revision-Date: 2017-03-16 15:42+0100\n"
 "Last-Translator: Jonas Lehmann <jonas.lehmann@adfinis-sygroup.ch>\n"
 "Language-Team: German <jonas.lehmann@adfinis-sygroup.ch>\n"
@@ -61,18 +61,16 @@ msgid "Choose  mentors"
 msgstr "Mentoren wählen"
 
 #: osschallenge/models.py:40 osschallenge/models.py:58
-msgid "Title"
-msgstr "Titel"
+msgid "Title (max. 100 characters)"
+msgstr "Titel (max. 100 Zeichen)"
 
 #: osschallenge/models.py:41 osschallenge/models.py:59
-msgid "Lead text"
-msgstr "Vorspann"
+msgid "Lead text (max. 600 characters)"
+msgstr "Vorspann (max. 600 Zeichen)"
 
 #: osschallenge/models.py:43 osschallenge/models.py:61
-#: osschallenge/templates/osschallenge/project.html:15
-#: osschallenge/templates/osschallenge/task.html:39
-msgid "Description"
-msgstr "Beschreibung"
+msgid "Description (max. 5000 characters)"
+msgstr "Beschreibung (max. 5000 Zeichen)"
 
 #: osschallenge/models.py:44
 #: osschallenge/templates/osschallenge/project.html:20
@@ -162,7 +160,8 @@ msgid ""
 "A: FAQ is a commonly used abbreviation and stands for Frequently Asked "
 "Questions."
 msgstr ""
-"A: FAQ ist eine häufig genutzte Abkürzung und steht für Frequently Asked Questions"
+"A: FAQ ist eine häufig genutzte Abkürzung und steht für Frequently Asked "
+"Questions"
 
 #: osschallenge/templates/osschallenge/faq.html:15
 msgid "Q: Who is the OSS Challenge aimed at?"
@@ -316,7 +315,7 @@ msgstr "Projekt hinzufügen"
 msgid "New Task"
 msgstr "Neue Aufgabe"
 
-#: osschallenge/templates/osschallenge/newtask.html:19
+#: osschallenge/templates/osschallenge/newtask.html:20
 msgid "Add Task"
 msgstr "Aufgabe hinzufügen"
 
@@ -393,6 +392,11 @@ msgstr "Dieses Profil existiert nicht mehr"
 #: osschallenge/templates/osschallenge/profile_does_not_exist.html:8
 msgid "Go to all tasks"
 msgstr "Gehe zu allen Tasks"
+
+#: osschallenge/templates/osschallenge/project.html:15
+#: osschallenge/templates/osschallenge/task.html:39
+msgid "Description"
+msgstr "Beschreibung"
 
 #: osschallenge/templates/osschallenge/projectindex.html:22
 msgid "No projects available."
@@ -717,35 +721,8 @@ msgstr ""
 "            Das OSS-Challenge Team\n"
 "            "
 
-#~ msgid "Q: Who is the "
-#~ msgstr "F: An wen richtet sich die OSS Challenge?"
+#~ msgid "Title"
+#~ msgstr "Titel"
 
-#~ msgid "About"
-#~ msgstr "Über"
-
-#~ msgid "Developed by"
-#~ msgstr "Entwickelt von"
-
-#~ msgid "Points"
-#~ msgstr "Punkte"
-
-#~ msgid "Rank for the first quarter"
-#~ msgstr "Rang für das erste Quartal"
-
-#~ msgid "Points for the first quarter"
-#~ msgstr "Punkte für das erste Quartal"
-
-#~ msgid "Rank for the second quarter"
-#~ msgstr "Rang für das zweite Quartal"
-
-#~ msgid "Points for the second quarter"
-#~ msgstr "Punkte für das zweite Quartal"
-
-#~ msgid "Rank for the third quarter"
-#~ msgstr "Rang für das dritte Quartal"
-
-#~ msgid "Points for the third quarter"
-#~ msgstr "Punkte für das dritte Quartal"
-
-#~ msgid "Rank for the fourth quarter"
-#~ msgstr "Rang für das vierte Quartal"
+#~ msgid "Lead text"
+#~ msgstr "Vorspann"
