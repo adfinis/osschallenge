@@ -913,3 +913,52 @@ div#facebook {
     color: #425ba1;
     margin-bottom: 5px;
 }
+
+.text-frontpage {
+    margin-top: 30px;
+    width: 50%;
+    line-height: 1.8;
+    font-size: larger;
+}
+
+.text-frontpage-quote {
+    display: flex;
+    justify-content: center;
+    font-style: italic;
+    width: 50%;
+    margin-top: 40px;
+    font-size: larger;
+}
+
+.frontpage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.frontpage-signal {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.text-frontpage-signal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.8;
+    font-size: larger;
+    width: 60%;
+}
+
+.qr-code {
+    width: 330px;
+}
+
+.link-blue-frontpage {
+    font-weight: 500;
+    color: #425ba1;
+    margin-top: 30px;
+    font-size: larger;
+}

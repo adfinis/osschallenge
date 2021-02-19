@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OSS CHALLENGE\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-18 08:41+0100\n"
+"POT-Creation-Date: 2021-02-18 13:19+0100\n"
 "PO-Revision-Date: 2017-03-16 15:42+0100\n"
 "Last-Translator: Jonas Lehmann <jonas.lehmann@adfinis-sygroup.ch>\n"
 "Language-Team: German <jonas.lehmann@adfinis-sygroup.ch>\n"
@@ -265,37 +265,89 @@ msgstr "Profil"
 msgid "Register"
 msgstr "Registrieren"
 
-#: osschallenge/templates/osschallenge/index.html:98
+#: osschallenge/templates/osschallenge/index.html:84
+msgid ""
+"With the OSS Challenge, you will come into contact with real IT challenges; "
+"by solving exciting tasks, you will get to know tools and approaches that "
+"will prepare you even better for the digital future."
+msgstr ""
+"Mit der OSS Challenge kommst du in Kontakt mit echten IT-Herausforderungen; "
+"lerne durch das lösen spannender Aufgaben Werkzeuge und Herangehensweisen "
+"kennen, welche dich noch besser auf die digitale Zukunft vorbereiten."
+
+#: osschallenge/templates/osschallenge/index.html:87
+msgid ""
+"Only those who master tomorrow's challenges today will master the OSS "
+"Challenge."
+msgstr ""
+"Nur wer die Herausforderungen von morgen schon heute meistert, wird die OSS "
+"Challenge meistern."
+
+#: osschallenge/templates/osschallenge/index.html:90
+msgid "OSS stands for \\"
+msgstr ""
+
+#: osschallenge/templates/osschallenge/index.html:93
+msgid ""
+"Ready to make the world a better place, learn IT tricks, exchange ideas with "
+"programmers and learn what it takes to really get going as a digital native? "
+"Then let's get started and tackle your first challenges!"
+msgstr ""
+"Bereit die Welt zu verbessern, IT-Tricks kennen zu lernen, dich mit "
+"Programmierer*innen auszutauschen und das zu lernen, was es braucht, um als "
+"Digital Native so richtig in Fahrt zu kommen? Dann lass uns beginnen und die "
+"ersten Challenges anpacken!"
+
+#: osschallenge/templates/osschallenge/index.html:96
+msgid "Register and accept your first challenge"
+msgstr "Registrieren und erste Challenge akzeptieren"
+
+#: osschallenge/templates/osschallenge/index.html:99
+msgid "Learn more"
+msgstr "Mehr erfahren"
+
+#: osschallenge/templates/osschallenge/index.html:105
+msgid ""
+"You can also join our public Signal Group to ask questions and get informed:"
+msgstr ""
+"Du kannst auch unserer öffentlichen Signal Gruppe beitreten, um Fragen zu "
+"stellen und dich zu informieren:"
+
+#: osschallenge/templates/osschallenge/index.html:108
+msgid "Signal Group"
+msgstr "Signal Gruppe"
+
+#: osschallenge/templates/osschallenge/index.html:130
 msgid "Designed and built by "
 msgstr ""
 
-#: osschallenge/templates/osschallenge/index.html:98
+#: osschallenge/templates/osschallenge/index.html:130
 #, fuzzy
 #| msgid "Code on Github"
 msgid ". Code on "
 msgstr "Code auf Github"
 
-#: osschallenge/templates/osschallenge/index.html:98
+#: osschallenge/templates/osschallenge/index.html:130
 #, fuzzy
 #| msgid "Code license"
 msgid ". Code license "
 msgstr "Code Lizenz"
 
-#: osschallenge/templates/osschallenge/index.html:98
+#: osschallenge/templates/osschallenge/index.html:130
 msgid "."
 msgstr ""
 
-#: osschallenge/templates/osschallenge/index.html:114
+#: osschallenge/templates/osschallenge/index.html:146
 msgid "Designed and built by"
 msgstr ""
 
-#: osschallenge/templates/osschallenge/index.html:116
+#: osschallenge/templates/osschallenge/index.html:148
 #, fuzzy
 #| msgid "Code on Github"
 msgid "Code on "
 msgstr "Code auf Github"
 
-#: osschallenge/templates/osschallenge/index.html:117
+#: osschallenge/templates/osschallenge/index.html:149
 #, fuzzy
 #| msgid "Code license"
 msgid "Code license "
@@ -720,6 +772,16 @@ msgstr ""
 "            Freundliche Grüsse,\n"
 "            Das OSS-Challenge Team\n"
 "            "
+
+#~ msgid ""
+#~ "OSS stands for \"Open Source Software\"; in other words, programs and "
+#~ "solutions that are improved by the community and help to ensure that the "
+#~ "world"
+#~ msgstr ""
+#~ "OSS steht dabei für \"Open Source Software\"; also Programme und "
+#~ "Lösungen, die durch die Gemeinschaft verbessert werden und dazu "
+#~ "beitragen, dass das Wissen dieser Welt überall zugänglich ist und alle im "
+#~ "gleichen Mass von den Vorzügen der Digitalisierung profitieren können."
 
 #~ msgid "Title"
 #~ msgstr "Titel"
