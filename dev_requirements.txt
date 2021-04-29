@@ -1,5 +1,5 @@
 -r requirements.txt
 ipdb==0.13.4
 factory-boy==3.1.0
-black==19.10b0
+black==21.4b2
 flake8==3.7.9
